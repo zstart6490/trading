@@ -67,7 +67,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      textStyle: TextStyle(color: Colors.black),
+                      textStyle: TextStyle(color: Colors.red),
                       side: BorderSide(
                         color: Colors.deepPurple,
                         width: 3,
