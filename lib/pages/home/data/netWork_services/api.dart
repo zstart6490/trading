@@ -25,7 +25,7 @@ class Api extends GetConnect {
 
   @override
   void onInit() {
-    httpClient.timeout = AppConstants.TIME_OUT;
+    httpClient.timeout = AppConstants.timeOut;
     httpClient.addRequestModifier<void>((request) async {
       request.headers.remove('user-agent');
      // request.headers["OS-Version"] = "OS and version";
