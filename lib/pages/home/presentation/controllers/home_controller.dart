@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
+import 'package:trading_mobile/pages/home/domain/entity/cases_model.dart';
 
 import '../../domain/adapters/repository_adapter.dart';
-import '../../domain/entity/cases_model.dart';
 
-class HomeController extends StateController<CasesModel> {
+class HomeController extends GetxController with StateMixin<CasesModel>{
   HomeController({required this.homeRepository});
 
   final IHomeRepository homeRepository;
@@ -11,12 +11,7 @@ class HomeController extends StateController<CasesModel> {
   @override
   void onInit() {
     super.onInit();
-    //Loading, Success, Error handle with 1 line of code
-    futurize(() => homeRepository.getCases);
-  }
 
-  Country getCountryById(String id) {
-    final index = int.tryParse(id);
-    return index != null ? state.countries[index] : state.countries.first;
+    //Loading, Success, Error handle with 1 line of code
   }
 }
