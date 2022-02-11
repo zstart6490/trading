@@ -1,4 +1,4 @@
-import 'package:trading_project/data/services/data_state.dart';
+import 'package:trading_project/cores/resources/data_state.dart';
 
 import '../entities/model.dart';
 

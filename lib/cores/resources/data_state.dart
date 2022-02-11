@@ -1,4 +1,4 @@
-import 'package:trading_project/data/services/result.dart';
+import 'package:trading_project/cores/networking/result.dart';
 
 abstract class DataState<T> {
   final T? data;

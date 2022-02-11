@@ -1,5 +1,5 @@
 import 'package:trading_project/data/entities/model.dart';
-import 'package:trading_project/data/services/result.dart';
+import 'package:trading_project/cores/networking/result.dart';
 
 class HttpResponseCustom<T>{
   late T _data;

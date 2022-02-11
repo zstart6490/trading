@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:trading_project/data/services/data_state.dart';
+import 'package:trading_project/cores/resources/data_state.dart';
 import 'package:trading_project/domain/use_cases/user_case.dart';
 
 class HomeController extends GetxController {
