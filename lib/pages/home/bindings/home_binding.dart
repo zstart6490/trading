@@ -1,15 +1,17 @@
 import 'package:get/get.dart';
-import '../data/home_api_provider.dart';
+import 'package:trading_project/data/repos/repos_impl.dart';
+import 'package:trading_project/data/services/api_services.dart';
+import 'package:trading_project/domain/repos/repos.dart';
+import 'package:trading_project/domain/use_cases/user_case.dart';
+import 'package:trading_project/pages/home/controllers/home_controller.dart';
 
-import '../data/home_repository.dart';
-import '../domain/adapters/repository_adapter.dart';
-import '../presentation/controllers/home_controller.dart';
 
 class HomeBinding extends Bindings {
+
   @override
   void dependencies() {
-    Get.lazyPut<IHomeProvider>(() => HomeProvider());
-    Get.lazyPut<IHomeRepository>(() => HomeRepository(provider: Get.find()));
-    Get.lazyPut(() => HomeController(homeRepository: Get.find()));
+    Get.lazyPut<ModelRepo>(() => ModelRepoImpl(ApiServices()));
+    Get.lazyPut<ModelUseCase>(() => ModelUseCase(Get.find()));
+    Get.lazyPut(() => HomeController());
   }
 }

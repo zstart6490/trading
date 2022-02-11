@@ -1,6 +1,3 @@
-
-
-
 class Model {
   final String gstId;
   final DateTime startTime;
