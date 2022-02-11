@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:trading_project/data/services/data_state.dart';
 import 'package:trading_project/domain/use_cases/user_case.dart';
 
 class HomeController extends GetxController {
@@ -9,6 +10,13 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     count.value = 1;
-    modelUseCase.getLastSolarActivities();
+    var dataState = modelUseCase.getLastSolarActivities();
+    if (dataState is DataSuccess &&
+        (dataState as DataSuccess).data.isNotEmpty) {
+      final articles = (dataState as DataSuccess).data;
+    }
+    if (dataState is DataFailed) {
+      final articles = (dataState as DataFailed).error;
+    }
   }
 }
