@@ -44,6 +44,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "dio",
+      "rootUri": "file:///Users/hoangvu/Documents/flutter_sdk/.pub-cache/hosted/pub.dartlang.org/dio-4.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///Users/hoangvu/Documents/flutter_sdk/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0",
       "packageUri": "lib/",
@@ -62,6 +68,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_mobx",
+      "rootUri": "file:///Users/hoangvu/Documents/flutter_sdk/.pub-cache/hosted/pub.dartlang.org/flutter_mobx-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/hoangvu/Documents/flutter_sdk/packages/flutter_test",
       "packageUri": "lib/",
@@ -70,6 +82,18 @@
     {
       "name": "get",
       "rootUri": "file:///Users/hoangvu/Documents/flutter_sdk/.pub-cache/hosted/pub.dartlang.org/get-4.6.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///Users/hoangvu/Documents/flutter_sdk/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///Users/hoangvu/Documents/flutter_sdk/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -100,6 +124,12 @@
     {
       "name": "meta",
       "rootUri": "file:///Users/hoangvu/Documents/flutter_sdk/.pub-cache/hosted/pub.dartlang.org/meta-1.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "mobx",
+      "rootUri": "file:///Users/hoangvu/Documents/flutter_sdk/.pub-cache/hosted/pub.dartlang.org/mobx-2.0.6+1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -164,13 +194,13 @@
       "languageVersion": "2.14"
     },
     {
-      "name": "trading_mobile",
+      "name": "trading_project",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-02-10T11:02:07.107124Z",
+  "generated": "2022-02-11T08:30:30.969457Z",
   "generator": "pub",
   "generatorVersion": "2.16.0"
 }
