@@ -8,8 +8,6 @@ import 'package:trading_project/configs/constants.dart';
 import 'result.dart';
 
 
-
-
 enum Method { GET, POST, DELETE }
 
 class Api extends GetConnect {

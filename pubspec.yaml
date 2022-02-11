@@ -33,7 +33,6 @@ dependencies:
   json_annotation:
   get:
 
-  dio: any
   intl: any
   mobx: any
   flutter_mobx: any
