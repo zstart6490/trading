@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 import 'package:trading_project/cores/resources/data_state.dart';
+import 'package:trading_project/cores/states/base_controller.dart';
 import 'package:trading_project/domain/use_cases/user_case.dart';
 
-class HomeController extends GetxController {
+class HomeController extends BaseController {
   RxInt count = 0.obs;
   ModelUseCase modelUseCase = Get.find();
 

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:trading_project/data/repos/repos_impl.dart';
-import 'package:trading_project/cores/api_services.dart';
 import 'package:trading_project/data/services/order_service.dart';
 import 'package:trading_project/domain/repos/repos.dart';
 import 'package:trading_project/domain/use_cases/user_case.dart';
