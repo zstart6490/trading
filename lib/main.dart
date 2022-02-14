@@ -6,14 +6,16 @@ import 'routes/app_pages.dart';
 import 'shared/logger/logger_utils.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const TradingApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class TradingApp extends StatelessWidget {
+
+  const TradingApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       enableLog: true,
