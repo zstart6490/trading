@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:trading_project/configs/constants.dart';
+import '../../configs/service_api_config.dart';
 import 'result.dart';
 
 

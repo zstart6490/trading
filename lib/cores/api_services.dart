@@ -5,13 +5,14 @@ import 'package:trading_project/data/entities/model.dart';
 
 import 'package:trading_project/cores/networking/api.dart';
 
+import '../configs/service_api_config.dart';
 import 'networking/http_response.dart';
 
 class ApiServices {
   String get backendUrl => "";
 
   ApiServices(String fullToken) {
-    api = Api(backendUrl: backendUrl, fullToken: fullToken);
+    api = Api(backendUrl: Environment().backendUrl, fullToken: fullToken);
   }
   late Api api;
 

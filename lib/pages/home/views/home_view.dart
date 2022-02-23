@@ -20,6 +20,7 @@ class HomeView extends GetView<HomeController> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text("total_recovered".tr),
           Image.asset('assets/images/png/bg_banner.png'),
           Image.asset('assets/images/png/bg_banner.png'),
           Image.asset('assets/images/png/bg_banner.png'),
