@@ -1,4 +1,3 @@
-import 'package:flutter_packet_demo/flutter_packet_demo.dart';
 import 'package:get/get.dart';
 import 'package:trading_project/cores/resources/data_state.dart';
 import 'package:trading_project/cores/states/base_controller.dart';
@@ -20,10 +19,5 @@ class HomeController extends BaseController {
     if (dataState is DataFailed) {
       final articles = (dataState as DataFailed).error;
     }
-
-    Calculator().addOne(8);
-
-
-
   }
 }
