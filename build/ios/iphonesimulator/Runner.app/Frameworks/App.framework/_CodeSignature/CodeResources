@@ -10,7 +10,7 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		Vp8XD0TCqMtgr9xx3Mqw/lzFATA=
+		DOTwvwX/OhoTnwT570qm62J9p9M=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -20,9 +20,17 @@
 		<data>
 		F+lbI3KNW4y+pbTFGJgSiGAkSkc=
 		</data>
+		<key>flutter_assets/assets/images/png/.DS_Store</key>
+		<data>
+		3y++sUAKzaCQmjLBz2v0kvESHgc=
+		</data>
 		<key>flutter_assets/assets/images/png/bg_banner.png</key>
 		<data>
 		LZNJmIvDRlFQgqN30RnFQETSrxI=
+		</data>
+		<key>flutter_assets/assets/images/png/bg_home_header.png</key>
+		<data>
+		opkLIEluQou6ehjirMheIoM8PrM=
 		</data>
 		<key>flutter_assets/assets/images/png/bg_home_header@2x.png</key>
 		<data>
@@ -63,11 +71,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Vp8XD0TCqMtgr9xx3Mqw/lzFATA=
+			DOTwvwX/OhoTnwT570qm62J9p9M=
 			</data>
 			<key>hash2</key>
 			<data>
-			2XlBEKQlKy40WMB1p2po0PRfoej5J/yZmkx/3AFAPaM=
+			pGbmoqNiHBgHDwvBE1EuWwA61VzYUv+Nbuf7roHBWPM=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -101,6 +109,17 @@
 			<key>hash2</key>
 			<data>
 			qzYEkvt2d32QFmgWzc3B3CNbsI60UFutYTmZwSVB3YM=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/png/bg_home_header.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			opkLIEluQou6ehjirMheIoM8PrM=
+			</data>
+			<key>hash2</key>
+			<data>
+			AH/i7XT1c/48rc4VGtY+tweULTMgH9b6DRfS53+aNns=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/png/bg_home_header@2x.png</key>
