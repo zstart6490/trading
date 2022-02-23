@@ -7,7 +7,7 @@ class HttpResponseCustom<T>{
 
   T get data => _data;
 
-  HttpResponseCustom(List<ModelDTO> list, Result response);
+  HttpResponseCustom(T list, Result response);
 
   Result get response => _response;
 }
