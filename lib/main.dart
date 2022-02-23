@@ -1,10 +1,13 @@
 import 'dart:developer';
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_project/configs/constants.dart';
 import 'package:trading_project/pages/base/base_binding.dart';
 import 'package:trading_project/theme/app_theme.dart';
+import 'package:trading_project/configs/constants.dart';
+import 'configs/service_api_config.dart';
 
 import 'configs/service_api_config.dart';
 import 'lang/translation_service.dart';
@@ -19,8 +22,8 @@ Future<void> mainCommon(EnvironmentConfiguration serverConfig) async {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
+
   const MyApp({Key? key}) : super(key: key);
 
   @override
