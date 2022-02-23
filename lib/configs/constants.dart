@@ -6,6 +6,11 @@ class AppConstants {
   static const Duration TIME_OUT = Duration(hours: 0, minutes: 0, seconds: 15);
 }
 
+enum EnvironmentConfiguration {
+  develop,
+  staging,
+  product,
+}
 
 const NOTI_RELOAD_NOTIFICATION = "NOTI_RELOAD_NOTIFICATION";
 const NOTI_RELOAD_HOMESAVING = "NOTI_RELOAD_HOMESAVING";
