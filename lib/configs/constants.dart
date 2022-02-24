@@ -10,6 +10,7 @@ class AppConstants {
 const NOTI_RELOAD_NOTIFICATION = "NOTI_RELOAD_NOTIFICATION";
 const NOTI_RELOAD_HOMESAVING = "NOTI_RELOAD_HOMESAVING";
 const NOTI_RELOAD_SAVINGDEPOSIT = "NOTI_RELOAD_SAVINGDEPOSIT";
+const PROGRESSING_DIALOG = 'ProgressingDialog';
 
 const DUR_500 = Duration(milliseconds: 500);
 const DUR_250 = Duration(milliseconds: 250);

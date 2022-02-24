@@ -35,8 +35,11 @@ dependencies:
   get: ^4.6.1
   intl: ^0.17.0
   json_serializable: ^6.1.4
-
-
+  cached_network_image: ^3.2.0
+  auto_size_text: ^3.0.0
+  flutter_svg: ^0.23.0+1
+  get_storage: ^2.0.3
+  pin_code_fields: ^7.3.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -50,7 +53,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^1.0.4
   build_runner: ^2.1.7
 
 # For information on the generic Dart part of this file, see the
@@ -98,3 +101,26 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: iCielHelveticaNowText
+      fonts:
+        - asset: assets/fonts/iCielHelveticaNowText/iCielHelveticaNowText-Thin.otf
+          weight: 100
+        - asset: assets/fonts/iCielHelveticaNowText/iCielHelveticaNowText-Extralight.otf
+          weight: 200
+        - asset: assets/fonts/iCielHelveticaNowText/iCielHelveticaNowText-Light.otf
+          weight: 300
+        - asset: assets/fonts/iCielHelveticaNowText/iCielHelveticaNowText-Regular.otf
+          weight: 400
+        - asset: assets/fonts/iCielHelveticaNowText/iCielHelveticaNowText-Medium.otf
+          weight: 500
+        - asset: assets/fonts/iCielHelveticaNowText/iCielHelveticaNowText-Bold.otf
+          weight: 700
+        - asset: assets/fonts/iCielHelveticaNowText/iCielHelveticaNowText-Extrabold.otf
+          weight: 800
+        - asset: assets/fonts/iCielHelveticaNowText/iCielHelveticaNowText-Black.otf
+          weight: 900
+    - family: iCielBCCubano
+      fonts:
+        - asset: assets/fonts/iCielBCCubano/iCielBCCubano-Normal.otf
+          weight: 400

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_project/pages/base/base_binding.dart';
+import 'package:trading_project/theme/app_theme.dart';
 
 import 'lang/translation_service.dart';
 import 'routes/app_pages.dart';
@@ -15,13 +17,17 @@ class TradingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final appTheme = AppTheme();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       enableLog: true,
+      theme: appTheme.lightTheme,
+      darkTheme: appTheme.darkTheme,
+      themeMode: ThemeMode.light,
       logWriterCallback: Logger.write,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      initialBinding: BaseBinding(),
       locale: TranslationService.locale,
       fallbackLocale: TranslationService.fallbackLocale,
       translations: TranslationService(),

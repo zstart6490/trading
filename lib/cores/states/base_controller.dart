@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_project/cores/states/base_common_widget.dart';
 
 abstract class BaseController extends GetxController
     with _ScaffoldInterface, BaseCommonWidgets {
@@ -67,42 +68,7 @@ abstract class BaseController extends GetxController
 
 }
 
-class BaseCommonWidgets implements _CommonWidgetsInterface {
-  @override
-  void hideDialog() {
-    if (Get.isDialogOpen ?? false) Get.back();
-  }
 
-  @override
-  void showProgressingDialog() {
-
-  }
-
-  @override
-  void showDialogPickImage() {
-
-  }
-
-  @override
-  void showSnackBar(String message) {
-
-  }
-
-  @override
-  void bottomSheet(Widget bottomSheet) {
-    Get.bottomSheet(bottomSheet,
-        useRootNavigator: true, isScrollControlled: true);
-  }
-
-  @override
-  void showAlertDialog( Widget dialog, {
-    bool dismissable = true,
-    Function? onCompleted,
-  }) {
-    Get.dialog(dialog, barrierDismissible: dismissable)
-        .whenComplete(() => onCompleted?.call());
-  }
-}
 
 
 abstract class _CommonWidgetsInterface {
