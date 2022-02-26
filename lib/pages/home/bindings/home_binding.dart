@@ -5,6 +5,8 @@ import 'package:trading_project/domain/repos/repos.dart';
 import 'package:trading_project/domain/use_cases/user_case.dart';
 import 'package:trading_project/pages/home/controllers/home_controller.dart';
 
+import '../../homePage/controller/home_page_controller.dart';
+
 
 class HomeBinding extends Bindings {
 
@@ -12,6 +14,6 @@ class HomeBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<ModelRepo>(() => ModelRepoImpl(OrderServiceImpl("token")));
     Get.lazyPut<ModelUseCase>(() => ModelUseCase(Get.find()));
-    Get.lazyPut(() => HomeController());
+    Get.lazyPut(() => HomePageController());
   }
 }
