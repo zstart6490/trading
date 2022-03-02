@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../cores/networking/result.dart';
+part of 'result.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

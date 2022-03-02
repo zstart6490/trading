@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_project/cores/states/base_controller.dart';
+import 'package:trading_project/routes/app_pages.dart';
 import 'package:trading_project/utils/enums.dart';
 
 class InputSmartOTPController extends BaseController {
@@ -28,9 +29,10 @@ class InputSmartOTPController extends BaseController {
 
   Future<void> onChanged(String pin) async {
     if (pin.length == 4) {
-      showProgressingDialog();
+      Get.toNamed(Routes.SMART_OPT_GENERATE);
+      //showProgressingDialog();
       // final result = await _smartOTPRepository.generateOTP(pin);
-      hideDialog();
+      //hideDialog();
     //   if (result.success) {
     //     isError.value = false;
     //     errorText.value = "";

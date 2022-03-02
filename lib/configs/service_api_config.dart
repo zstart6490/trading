@@ -13,9 +13,9 @@ class DevConfig implements BaseConfig {
   @override
   EnvironmentConfiguration get environment => EnvironmentConfiguration.develop;
   @override
-  String get host => "dev-api.trading.vn";
+  String get host => "104.199.179.48:8501";
   @override
-  String get protocol => "https://";
+  String get protocol => "http://";
   @override
   String get appName => "Trading-Dev";
   @override
@@ -27,9 +27,9 @@ class StagingConfig implements BaseConfig {
   @override
   EnvironmentConfiguration get environment => EnvironmentConfiguration.staging;
   @override
-  String get host => "stg-api.trading.vn";
+  String get host => "104.199.179.48:8501";
   @override
-  String get protocol => "https://";
+  String get protocol => "http://";
   @override
   String get appName => "Trading-Stg";
   @override
@@ -41,9 +41,9 @@ class ProdConfig implements BaseConfig {
   @override
   EnvironmentConfiguration get environment => EnvironmentConfiguration.product;
   @override
-  String get host => "api.trading.vn";
+  String get host => "104.199.179.48:8501";
   @override
-  String get protocol => "https://";
+  String get protocol => "http://";
   @override
   String get appName => "Trading";
   @override
@@ -76,6 +76,6 @@ class Environment {
   }
 
 
-  String get backendUrl => '$config.protocol$config.host/';
+  String get backendUrl => '${config.protocol}${config.host}/';
   bool get isProduct => config.environment == EnvironmentConfiguration.product;
 }
