@@ -6,11 +6,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_project/cores/states/base_common_widget.dart';
+import 'package:trading_project/pages/main_provider.dart';
 
 abstract class BaseController extends GetxController
     with _ScaffoldInterface, BaseCommonWidgets {
 
-  // MainProvider get mainProvider => GetInstance().find<MainProvider>();
+  MainTradingProvider get mainProvider => Get.find<MainTradingProvider>();
+
   //
   // PetRepository get petRepository => PetRepository();
 
@@ -61,7 +63,7 @@ abstract class BaseController extends GetxController
 
 
   void backToHome({int selectTab = 0}) {
-    // Get.until((route) => Get.currentRoute == Routes.home);
+    // Get.until((route) => Get.currentRoute == Routes.main);
     // Get.find<MainTabController>().selTab(selectTab);
   }
 

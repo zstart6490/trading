@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 const Map<String, String> vi_VN = {
+  'intro_product':'Giới thiệu sản phẩm',
   'verify_account':'Xác Thực Tài Khoản',
   'title_intro_1':'Giới thiệu sản phẩm',
   'title_intro_2':'Chính sách cho khách hàng mới',

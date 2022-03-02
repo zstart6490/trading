@@ -5,9 +5,8 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:trading_project/configs/constants.dart';
-import '../../configs/service_api_config.dart';
-import 'result.dart';
 
+import 'result.dart';
 
 enum Method { GET, POST, DELETE }
 
@@ -26,13 +25,12 @@ class Api extends GetConnect {
   void onInit() {
     httpClient.timeout = AppConstants.TIME_OUT;
     httpClient.addRequestModifier<void>((request) async {
-      request.headers.remove('user-agent');
-     // request.headers["OS-Version"] = "OS and version";
-      //request.headers["Device-Name"] = "Device Model";
-      //request.headers["App-ID"] = "1.0.0.111";
-      //request.headers["App-Version"] = "1.0.0.111";
-      //request.headers["Trading-Version"] = "1.0.0.222";
-      request.headers['Device-Id'] = "device-id";
+      // request.headers.remove('user-agent');
+      request.headers["Parent-App"] = "App version";
+      request.headers["Lang"] = "App version";
+      request.headers["App-Ver"] = "App version";
+      request.headers["Trading-Ver"] = "Trading-Ver";
+      request.headers["Device-ID"] = "deviceId";
       request.headers['Authorization'] = authorization;
       if (kDebugMode) {
         log(request.headers.toString(), name: baseUrl);
@@ -203,8 +201,6 @@ class Api extends GetConnect {
       log("$method: $fullUrl Params: $params", name: "API");
       log("$status => $exception", name: "API");
     }
-
-
   }
 
   _requestOk(Method method, String endpoint, dynamic params, dynamic response) {
@@ -220,24 +216,19 @@ class Api extends GetConnect {
         log(response.toString(), name: "API");
       }
     }
-
   }
 
   Result handlerResult(Result result, {String? endPoint}) {
     if (!result.success) {
-      if (result.error != null) {
-
-      }
+      if (result.error != null) {}
     }
     return result;
   }
-
 
   Future<Result> onTimeOut(
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-
     return Result();
   }
 
@@ -245,9 +236,6 @@ class Api extends GetConnect {
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-
     return Result();
   }
-
-
 }

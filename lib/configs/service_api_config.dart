@@ -13,9 +13,9 @@ class DevConfig implements BaseConfig {
   @override
   EnvironmentConfiguration get environment => EnvironmentConfiguration.develop;
   @override
-  String get host => "dev-api.trading.vn";
+  String get host => "104.199.179.48:8501";
   @override
-  String get protocol => "https://";
+  String get protocol => "http://";
   @override
   String get appName => "Trading-Dev";
   @override
@@ -60,7 +60,7 @@ class Environment {
 
   BaseConfig config =  DevConfig();
 
-  initConfig(EnvironmentConfiguration environment) {
+  void initConfig(EnvironmentConfiguration environment) {
     config = _getConfig(environment);
   }
 
@@ -76,6 +76,6 @@ class Environment {
   }
 
 
-  String get backendUrl => '$config.protocol$config.host/';
+  String get backendUrl => '${config.protocol}${config.host}';
   bool get isProduct => config.environment == EnvironmentConfiguration.product;
 }

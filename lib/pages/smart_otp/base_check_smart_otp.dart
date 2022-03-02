@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:trading_project/cores/states/base_common_widget.dart';
-import 'package:trading_project/pages/base/main_provider.dart';
+import 'package:trading_project/pages/main_provider.dart';
 import 'package:trading_project/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_project/utils/enums.dart';
 
 mixin BaseCheckSmartOTP on BaseCommonWidgets {
-  MainProvider get mainProvider => GetInstance().find<MainProvider>();
+  MainTradingProvider get mainProvider => GetInstance().find<MainTradingProvider>();
 
   Future<void> checkSmartOTPState(SmartOTPType type) async {
     showProgressingDialog();

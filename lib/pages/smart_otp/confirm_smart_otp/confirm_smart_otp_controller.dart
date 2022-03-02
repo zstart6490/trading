@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:trading_project/configs/constants.dart';
 import 'package:trading_project/cores/states/base_controller.dart';
 import 'package:trading_project/routes/app_pages.dart';
+import 'package:trading_project/routes/app_routes.dart';
 import 'package:trading_project/utils/enums.dart';
 
 class ConfirmSmartOtpController extends BaseController {
@@ -40,7 +41,7 @@ class ConfirmSmartOtpController extends BaseController {
 
   void onChanged(String pin) {
     if (pin.length == 4) {
-      Get.toNamed(Routes.SMART_OPT_GENERATE);
+      Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
     }
   }
 }

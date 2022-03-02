@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_project/cores/states/base_controller.dart';
 import 'package:trading_project/routes/app_pages.dart';
+import 'package:trading_project/routes/app_routes.dart';
 
 class CreateSmartOTPController extends BaseController {
   late TextEditingController textEditingController;
@@ -30,7 +31,7 @@ class CreateSmartOTPController extends BaseController {
 
   Future<void> onChange(String pin) async {
     if (pin.length == 4) {
-      Get.toNamed(Routes.SMART_OPT_CONFIRM);
+      Get.toNamed(AppRoutes.SMART_OPT_CONFIRM);
     }
   }
 }

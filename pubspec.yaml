@@ -1,6 +1,6 @@
 name: trading_project
 description: A new Flutter project.
-homepage: https://git.mobgame.mobi/trading-mobile/trading-mobile/-/blob/hoang_dev/lib/pages/home/views/home_view.dart
+homepage: https://git.mobgame.mobi/trading-mobile/trading-mobile/-/blob/hoang_dev/lib/pages/main/views/home_view.dart
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -31,18 +31,24 @@ dependencies:
   flutter:
     sdk: flutter
 
-  json_annotation: ^4.4.0
   get: ^4.6.1
   intl: ^0.17.0
-  json_serializable: ^6.1.4
   cached_network_image: ^3.2.0
+  json_annotation: ^4.4.0
+
   auto_size_text: ^3.0.0
   flutter_svg: ^0.23.0+1
   get_storage: ^2.0.3
   pin_code_fields: ^7.3.0
+  pdfx: ^2.0.1+1
+  share: ^2.0.4
+  flutter_html: ^2.2.1
+  path_provider: ^2.0.9
+  package_info: ^2.0.2
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  internet_file: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:
@@ -53,8 +59,9 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.4
   build_runner: ^2.1.7
+  json_serializable: ^6.1.4
+  lint: ^1.7.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

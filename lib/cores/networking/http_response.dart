@@ -1,13 +1,12 @@
-import 'package:trading_project/data/entities/model.dart';
 import 'package:trading_project/cores/networking/result.dart';
 
-class HttpResponseCustom<T>{
-  late T _data;
-  late Result _response;
+class HttpResponseCustom<T> {
+  final T _data;
+  final Result _response;
 
   T get data => _data;
 
-  HttpResponseCustom(T list, Result response);
+  HttpResponseCustom(this._data, this._response);
 
   Result get response => _response;
 }

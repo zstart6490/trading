@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:trading_project/cores/networking/result.dart';
 import 'package:trading_project/pages/smart_otp/otp_expired_controller.dart';
 import 'package:trading_project/routes/app_pages.dart';
+import 'package:trading_project/routes/app_routes.dart';
 import 'package:trading_project/utils/enums.dart';
 
 class VerifySMSOTPController extends OtpExpiredController {
@@ -66,7 +67,7 @@ class VerifySMSOTPController extends OtpExpiredController {
   Future<void> onSuccess() async {
     // showProgressingDialog();
     //handle
-    Get.toNamed(Routes.SMART_OPT_CREATE);
+    Get.toNamed(AppRoutes.SMART_OPT_CREATE);
     hideDialog();
   }
 
