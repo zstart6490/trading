@@ -15,7 +15,7 @@ abstract class KycResultCallback {
   void onResultKyc(KycStatus kycStatus);
 }
 
-enum KycStatus { kycSuccess,kycWait, kycFail }
+enum KycStatus { verified,pending, none }
 
 void resultKyc(KycStatus kycStatus) {
   Get.find<VerifyPolicyController>().onResultKyc(kycStatus);

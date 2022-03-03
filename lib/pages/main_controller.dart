@@ -30,7 +30,7 @@ class MainController extends BaseController {
     final respData = await _boardingUseCase.getDataLoginUser(
       token: tokenTest,
       fbDeviceId: "",
-      kyc: mainProvider.userIsRegisteredKyc == KycStatus.kycSuccess ? "y" : "n",
+      kyc: mainProvider.userIsRegisteredKyc == KycStatus.verified ? "y" : "n",
     );
     if (respData.data != null) {
       dataLogin = respData.data;
