@@ -7,7 +7,7 @@ import 'package:trading_module/utils/enums.dart';
 mixin BaseCheckSmartOTP on BaseCommonWidgets {
   MainTradingProvider get mainProvider => GetInstance().find<MainTradingProvider>();
 
-  Future<void> checkSmartOTPState(SmartOTPType type) async {
+  Future<void> checkSmartOTPState() async {
     showProgressingDialog();
     // var isEnable = mainProvider.enableSmartOtp.value;
     // if (!isEnable) {

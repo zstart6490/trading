@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/kyc/kyc_callback.dart';
-import 'package:trading_module/pages/main_controller.dart';
 import 'package:trading_module/pages/smart_otp/base_check_smart_otp.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
@@ -9,9 +8,12 @@ import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 class VerifyPolicyController extends BaseController
     with BaseCheckSmartOTP, KycResultCallback {
   void acceptTerm() {
-    if (mainProvider.userIsRegisteredKyc == KycStatus.kycFail) {
+    if (mainProvider.userIsRegisteredKyc == KycStatus.none) {
       showPopupRequiredKYC();
-    } else {}
+    } else if (!mainProvider.userIsRegisteredOTP){
+      // show otp dialog
+      checkSmartOTPState();
+    }
   }
 
   void showPopupRequiredKYC() {
@@ -25,14 +27,15 @@ class VerifyPolicyController extends BaseController
               isDefaultAction: true,
               onPressed: () => {
                     //call to KYC tikop
+                    hideDialog(),
                     kycAction?.onOpenKyc(),
-                    hideDialog()
                   }),
         ]));
   }
 
   @override
   void onActive() {
+    hideDialog();
     Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
   }
 
@@ -56,17 +59,15 @@ class VerifyPolicyController extends BaseController
   }
 
   @override
-  void onSkip() {
-    // TODO: implement onSkip
-  }
+  void onSkip() {}
 
   @override
   void onResultKyc(KycStatus kycStatus) {
-    if (kycStatus == KycStatus.kycSuccess) {
+    if (kycStatus == KycStatus.verified) {
       print("kyc success");
       mainProvider.userIsRegisteredKyc = kycStatus;
     }
-    if (kycStatus == KycStatus.kycFail) {
+    if (kycStatus == KycStatus.none) {
       print("kyc kycFail");
     }
   }
