@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:internet_file/internet_file.dart';
-import 'package:pdfx/pdfx.dart';
-import 'package:trading_module/pages/on_boarding/intro/intro_controller.dart';
-import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_binding.dart';
 import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_controller.dart';
-import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
-import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/theme/app_color.dart';
-import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class VerifyPolicyView extends GetView<VerifyPolicyController> {
@@ -52,7 +45,7 @@ class VerifyPolicyView extends GetView<VerifyPolicyController> {
                       ),
                       InkWell(
                         onTap: () {
-                        controller.openPdf(0);
+                        controller.openPdf('verify_policy_line_1'.tr,0);
                         },
                         child: Text(
                           'verify_policy_line_1'.tr,
@@ -71,7 +64,7 @@ class VerifyPolicyView extends GetView<VerifyPolicyController> {
                       ),
                       InkWell(
                         onTap: () {
-                          controller.openPdf(1);
+                          controller.openPdf('verify_policy_line_2'.tr,1);
                         },
                         child: Text(
                           'verify_policy_line_2'.tr,
@@ -90,7 +83,7 @@ class VerifyPolicyView extends GetView<VerifyPolicyController> {
                       ),
                       InkWell(
                         onTap: () {
-                          controller.openPdf(2);
+                          controller.openPdf('verify_policy_line_3'.tr,2);
                         },
                         child: Text(
                           'verify_policy_line_3'.tr,
@@ -122,7 +115,9 @@ class VerifyPolicyView extends GetView<VerifyPolicyController> {
                     height: 16,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.back();
+                    },
                     child: Text(
                       "later".tr,
                       style: const TextStyle(

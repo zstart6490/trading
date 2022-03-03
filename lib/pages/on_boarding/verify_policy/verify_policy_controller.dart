@@ -1,10 +1,7 @@
 import 'package:get/get.dart';
-import 'package:internet_file/internet_file.dart';
-import 'package:pdfx/pdfx.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/pages/main_controller.dart';
 import 'package:trading_module/pages/smart_otp/base_check_smart_otp.dart';
-import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
@@ -14,6 +11,9 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP {
   @override
   void onInit() {
     super.onInit();
+    // Get.lazyPut(() => KycCallbackImpl());
+    // var kycImpl = Get.find<KycCallbackImpl>();
+
   }
 
   void acceptTerm() {
@@ -33,6 +33,7 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP {
               isDefaultAction: true,
               onPressed: () => {
                     //call to KYC tikop
+
                   }),
         ]));
   }
@@ -42,19 +43,24 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP {
     Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
   }
 
-  void openPdf(int pos) {
+  void openPdf(String name,int pos) {
     if (pos == 0) {
-      Get.toNamed(AppRoutes.PDF_VIEW,
-          arguments:
-              "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf");
+      Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
+        name,
+        "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+      ]);
     } else if (pos == 1) {
       Get.toNamed(AppRoutes.PDF_VIEW,
-          arguments:
-              "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf");
+          arguments: [
+            name,
+            "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+          ]);
     } else {
       Get.toNamed(AppRoutes.PDF_VIEW,
-          arguments:
-              "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf");
+          arguments: [
+            name,
+            "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+          ]);
     }
   }
 

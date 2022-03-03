@@ -4,9 +4,10 @@ import 'package:trading_module/cores/states/base_controller.dart';
 
 class PdfReaderController extends BaseController{
   late PdfControllerPinch pdfController;
+  final String title;
   final String linkPdf;
 
-  PdfReaderController(this.linkPdf);
+  PdfReaderController(this.title,this.linkPdf);
 
   @override
   void onInit() async {

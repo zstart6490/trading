@@ -10,7 +10,7 @@ class PdfReadePager extends GetView<PdfReaderController> {
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<PdfReaderController>(
         backgroundColor: Colors.white,
-        title: "policy_title".tr,
+        title: controller.title,
         body: PdfViewPinch(
           controller: controller.pdfController,
         ));
