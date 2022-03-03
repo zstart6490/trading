@@ -10,10 +10,27 @@ abstract class OtpRepo {
   });
 
   Future<DataState<OtpGenerateModel>> generateOTP({
-    required String pin
+    required String pin,
+    required String token,
+    required String otpMethod,
   });
 
   Future<DataState<OtpGenerateModel>> checkPin({
-    required String pin
+    required String pin,
+    required String token,
+  });
+
+  Future<DataState<OtpGenerateModel>> confirmOTP({
+    required String otp,
+    required String otpMethod,
+    required String token,
+  });
+
+  Future<DataState<OtpGenerateModel>> registerTrading({
+    required String email,
+    required String kyc,
+    required String phone,
+    required String phoneCountryCode,
+    required String token,
   });
 }

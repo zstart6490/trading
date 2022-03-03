@@ -23,8 +23,8 @@ class OtpRepoImpl extends OtpRepo {
   }
 
   @override
-  Future<DataState<OtpGenerateModel>> generateOTP({required String pin}) async {
-    final result = await _services.generateOTP(pin);
+  Future<DataState<OtpGenerateModel>> generateOTP({required String pin, required String token, required String otpMethod}) async {
+    final result = await _services.generateOTP(pin, token, otpMethod);
     if (result.response.success) {
       var model = result.data.toModel();
       return DataSuccess(model);
@@ -34,8 +34,28 @@ class OtpRepoImpl extends OtpRepo {
 
 
   @override
-  Future<DataState<OtpGenerateModel>> checkPin({required String pin}) async {
-    final result = await _services.checkPin(pin);
+  Future<DataState<OtpGenerateModel>> checkPin({required String pin, required String token}) async {
+    final result = await _services.checkPin(pin, token);
+    if (result.response.success) {
+      var model = result.data.toModel();
+      return DataSuccess(model);
+    }
+    return DataFailed(result.response.error);
+  }
+
+  @override
+  Future<DataState<OtpGenerateModel>> confirmOTP({required String otp, required String otpMethod, required String token}) async{
+    final result = await _services.confirmOTP(otp, otpMethod, token);
+    if (result.response.success) {
+      var model = result.data.toModel();
+      return DataSuccess(model);
+    }
+    return DataFailed(result.response.error);
+  }
+
+  @override
+  Future<DataState<OtpGenerateModel>> registerTrading({required String email, required String kyc, required String phone, required String phoneCountryCode, required String token}) async{
+    final result = await _services.registerTrading(email, kyc, phone, phoneCountryCode, token);
     if (result.response.success) {
       var model = result.data.toModel();
       return DataSuccess(model);

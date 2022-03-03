@@ -12,6 +12,11 @@ enum EnvironmentConfiguration {
   product,
 }
 
+enum OTPMethod{
+  sms,
+  smart
+}
+
 const NOTI_RELOAD_NOTIFICATION = "NOTI_RELOAD_NOTIFICATION";
 const NOTI_RELOAD_HOMESAVING = "NOTI_RELOAD_HOMESAVING";
 const NOTI_RELOAD_SAVINGDEPOSIT = "NOTI_RELOAD_SAVINGDEPOSIT";
