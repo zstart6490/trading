@@ -202,6 +202,6 @@ extension BuildContextExtension on BuildContext {
 
 extension ImageExtension on String {
   Image pngImage({double? mWidth,double? mHeight}) {
-    return Image.asset("assets/images/png/$this.png",width: mWidth,height: mHeight,);
+    return Image.asset("assets/images/png/$this.png",width: mWidth,height: mHeight,package: 'trading_module',);
   }
 }
