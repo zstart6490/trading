@@ -38,7 +38,7 @@ void openTradingModule(
     {required BuildContext context,
     String tokenParent = tokenTest,
     required bool kyc,
-    required bool otp}) {
+    required bool otp,}) {
   //setup getx
   Get.addPages(AppPages.tradingRoutes);
   Get.locale = TranslationService.locale;
@@ -51,12 +51,12 @@ void openTradingModule(
   Environment().initConfig(EnvironmentConfiguration.develop);
   Get.lazyPut(() => MainTradingProvider());
   final OnBoardingRepos repos = Get.put<OnBoardingReposImpl>(
-      OnBoardingReposImpl(OnBoardingServiceImpl()));
+      OnBoardingReposImpl(OnBoardingServiceImpl()),);
   Get.lazyPut(() => UserOnBoardingUseCase(repos));
   Get.lazyPut(() => MainController(
       tokenTest: tokenParent,
-      userIsRegisteredKyc: false,
-      userIsRegisteredOTP: false));
+      userIsRegisteredKyc: kyc,
+      userIsRegisteredOTP: otp,),);
   Get.toNamed(AppRoutes.MAIN);
   Get.find<MainController>().getDataLogin();
 }
@@ -69,12 +69,12 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     Get.lazyPut(() => MainTradingProvider());
     final OnBoardingRepos repos = Get.put<OnBoardingReposImpl>(
-        OnBoardingReposImpl(OnBoardingServiceImpl()));
+        OnBoardingReposImpl(OnBoardingServiceImpl()),);
     Get.lazyPut(() => UserOnBoardingUseCase(repos));
     Get.lazyPut(() => MainController(
         tokenTest: tokenTest,
         userIsRegisteredKyc: false,
-        userIsRegisteredOTP: false));
+        userIsRegisteredOTP: false,),);
     Get.find<MainController>();
     super.initState();
   }
