@@ -17,10 +17,13 @@ import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_bin
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_view.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
+import 'package:trading_module/pages/contract/views/contract_scene.dart';
+import '../pages/contract/bindings/contract_binding.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppPages {
   static const INITIAL = AppRoutes.MAIN;
+  //static const INITIAL = Routes.CONTRACT;
 
   static final tradingRoutes = [
     GetPage(
@@ -68,5 +71,10 @@ class AppPages {
       page: () => PdfReadePager(),
       binding: PdfReaderBinding(),
     ),
+    GetPage(
+        name: AppRoutes.CONTRACT,
+        page: () => ContractPage(),
+        binding: ContractBinding(),
+       ),
   ];
 }
