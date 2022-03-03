@@ -23,6 +23,8 @@ class VerifySMSOTPController extends OtpExpiredController {
   void onInit() {
     textController = TextEditingController();
     super.onInit();
+
+    final result = _otpUseCase.generateOTP("1234");
   }
 
   @override
