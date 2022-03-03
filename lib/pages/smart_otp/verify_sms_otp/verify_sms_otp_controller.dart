@@ -2,24 +2,29 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_module/cores/networking/result.dart';
-import 'package:trading_module/pages/smart_otp/otp_expired_controller.dart';
-import 'package:trading_module/routes/app_pages.dart';
-import 'package:trading_module/routes/app_routes.dart';
-import 'package:trading_module/utils/enums.dart';
+import 'package:trading_project/cores/networking/result.dart';
+import 'package:trading_project/domain/use_cases/otp_use_case.dart';
+import 'package:trading_project/pages/smart_otp/otp_expired_controller.dart';
+import 'package:trading_project/routes/app_pages.dart';
+import 'package:trading_project/utils/enums.dart';
 
 class VerifySMSOTPController extends OtpExpiredController {
   final formKey = GlobalKey<FormState>();
   late TextEditingController textController;
+
   RxString otp = RxString("");
   Rx<Errors> errors = Errors.nullValue().obs;
   RxString desc = "Mã xác nhận OTP của bạn được gửi tới số điện thoại: ".obs;
-  RxString descSecond = "".obs;
+  RxString descSecond = "(+84)973591728".obs;
+
+  final OtpUseCase _otpUseCase = Get.find();
 
   @override
   void onInit() {
     textController = TextEditingController();
     super.onInit();
+
+    final result = _otpUseCase.generateOTP("1234");
   }
 
   @override
@@ -54,6 +59,12 @@ class VerifySMSOTPController extends OtpExpiredController {
   Future<void> verifyOTP(String otp) async {
     showProgressingDialog();
     //call api verify otp
+    final result = _otpUseCase.enableSmartOTP(otp);
+    if (result is Errors){
+
+    }else{
+
+    }
     hideDialog();
     //check result
     // if (result.success == true) {
@@ -67,7 +78,7 @@ class VerifySMSOTPController extends OtpExpiredController {
   Future<void> onSuccess() async {
     // showProgressingDialog();
     //handle
-    Get.toNamed(AppRoutes.SMART_OPT_CREATE);
+    Get.toNamed(Routes.SMART_OPT_INPUT);
     hideDialog();
   }
 

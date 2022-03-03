@@ -61,6 +61,7 @@ const SIZED_BOX_W40 = SizedBox(width: 40);
 const SIZED_BOX_W45 = SizedBox(width: 45);
 
 /// SizedBox Height
+const SIZED_BOX_H02 = SizedBox(height: 2);
 const SIZED_BOX_H04 = SizedBox(height: 4);
 const SIZED_BOX_H06 = SizedBox(height: 6);
 const SIZED_BOX_H08 = SizedBox(height: 8);
@@ -83,6 +84,16 @@ const PAD_ALL06 = EdgeInsets.all(4.0);
 const PAD_BOTTOM_16 = EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0);
 const PAD_ONLY_T20 = EdgeInsets.only(top: 20);
 const PAD_ONLY_R20 = EdgeInsets.only(right: 20);
+
+/// MARGIN
+const MAR_ZERO = EdgeInsets.zero;
+const MAR_ALL12 = EdgeInsets.all(12.0);
+const MAR_ALL16 = EdgeInsets.all(16.0);
+const MAR_ALL06 = EdgeInsets.all(4.0);
+const MAR_BOTTOM_16 = EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0);
+const MAR_SIDE_16 = EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0);
+const MAR_ONLY_T20 = EdgeInsets.only(top: 20);
+const MAR_ONLY_R20 = EdgeInsets.only(right: 20);
 
 ///horizontal
 const PAD_SYM_H4 = EdgeInsets.symmetric(horizontal: 4);
