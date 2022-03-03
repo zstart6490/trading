@@ -31,12 +31,8 @@ class IntroProductView extends GetView<IntroController> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Text(
-                                  //   data?.obIntroMsg??"",
-                                  //   style: const TextStyle(fontSize: 14),
-                                  // ),
                                   Html(
-                                    data: data?.obIntroMsg,
+                                    data: data?.obIntroMsg.replaceAll("\n", "</br>"),
                                     style: {
                                       "body": Style(
                                           fontSize: FontSize.medium,

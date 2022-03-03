@@ -1,3 +1,4 @@
+
 # Miscellaneous
 *.class
 *.log
@@ -8,6 +9,8 @@
 .buildlog/
 .history
 .svn/
+*.lock
+*.properties
 
 # IntelliJ related
 *.iml
@@ -21,9 +24,68 @@
 #.vscode/
 
 # Flutter/Dart/Pub related
-# Libraries should not include pubspec.lock, per https://dart.dev/guides/libraries/private-files#pubspeclock.
-/pubspec.lock
 **/doc/api/
+**/ios/Flutter/.last_build_id
 .dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-pluginss
 .packages
-build/
+.pub-cache/
+.pub/
+/build/
+android/app/release
+android/app/debug
+android/app/profile
+
+
+lib/utils/environment.dart
+
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+**/android/app/dev
+**/android/app/stg
+**/android/app/release
+**/android/app/prod
+android/local.properties
+.android/local.properties
+
+*.jks
+# IOS Xcode related
+**/ios/**/Pods/
+**/ios/**/Pods/build/Pods.build
+**/ios/build/Pods.build
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/profile.lock
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.h
+**/ios/Runner/GeneratedPluginRegistrant.m
