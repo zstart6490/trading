@@ -31,5 +31,16 @@ class OtpRepoImpl extends OtpRepo {
     }
     return DataFailed(result.response.error);
   }
+
+
+  @override
+  Future<DataState<OtpGenerateModel>> checkPin({required String pin}) async {
+    final result = await _services.generateOTP(pin);
+    if (result.response.success) {
+      var model = result.data.toModel();
+      return DataSuccess(model);
+    }
+    return DataFailed(result.response.error);
+  }
 }
 

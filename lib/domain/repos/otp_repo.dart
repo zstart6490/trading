@@ -12,4 +12,8 @@ abstract class OtpRepo {
   Future<DataState<OtpGenerateModel>> generateOTP({
     required String pin
   });
+
+  Future<DataState<OtpGenerateModel>> checkPin({
+    required String pin
+  });
 }
