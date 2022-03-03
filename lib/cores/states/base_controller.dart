@@ -13,9 +13,6 @@ abstract class BaseController extends GetxController
 
   MainTradingProvider get mainProvider => Get.find<MainTradingProvider>();
 
-  //
-  // PetRepository get petRepository => PetRepository();
-
 
 
   bool isLogged (){
