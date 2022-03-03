@@ -35,7 +35,7 @@ class OtpRepoImpl extends OtpRepo {
 
   @override
   Future<DataState<OtpGenerateModel>> checkPin({required String pin}) async {
-    final result = await _services.generateOTP(pin);
+    final result = await _services.checkPin(pin);
     if (result.response.success) {
       var model = result.data.toModel();
       return DataSuccess(model);

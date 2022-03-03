@@ -16,4 +16,9 @@ class OtpUseCase {
     final otp = await _otpRepo.generateOTP(pin: pin);
     return otp;
   }
+
+  Future<DataState<OtpGenerateModel>> checkPin(String pin) async{
+    final otp = await _otpRepo.checkPin(pin: pin);
+    return otp;
+  }
 }

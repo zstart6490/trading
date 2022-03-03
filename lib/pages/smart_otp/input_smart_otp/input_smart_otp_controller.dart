@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_project/cores/states/base_controller.dart';
+import 'package:trading_project/domain/use_cases/otp_use_case.dart';
 import 'package:trading_project/routes/app_pages.dart';
 import 'package:trading_project/utils/enums.dart';
 
@@ -14,6 +15,7 @@ class InputSmartOTPController extends BaseController {
 
   InputSmartOTPController(this.type);
 
+  final OtpUseCase _otpUseCase = Get.find();
   @override
   void hideKeyboard() {
     //Không cho ẩn bàn phím
@@ -29,7 +31,8 @@ class InputSmartOTPController extends BaseController {
 
   Future<void> onChanged(String pin) async {
     if (pin.length == 4) {
-      Get.toNamed(Routes.SMART_OPT_GENERATE);
+      final result = _otpUseCase.checkPin("1234");
+      //Get.toNamed(Routes.SMART_OPT_GENERATE);
       //showProgressingDialog();
       // final result = await _smartOTPRepository.generateOTP(pin);
       //hideDialog();
