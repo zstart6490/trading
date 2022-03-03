@@ -1,10 +1,15 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:trading_module/domain/entities/user_data.dart';
+import 'package:trading_module/kyc/kyc_callback.dart';
 
 class MainTradingProvider {
   GetStorage get box => GetStorage();
-  RxBool enableSmartOtp = false.obs;
+   KycStatus userIsRegisteredKyc;
+   bool userIsRegisteredOTP;
+
+
+  MainTradingProvider({required this.userIsRegisteredKyc, required this.userIsRegisteredOTP});
 
   String deviceId = "";
   String deviceName = "";
