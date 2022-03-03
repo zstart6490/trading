@@ -2,16 +2,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:trading_module/pages/contract/controllers/contract_controller.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:trading_module/pages/contract/contract_controller.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-class ContractPage extends StatefulWidget {
-  @override
-  _ContractPageState createState() => _ContractPageState();
-}
+class ContractPage extends GetView<ContractController> {
+  const ContractPage({Key? key}) : super(key: key);
 
-class _ContractPageState extends State<ContractPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,20 +43,20 @@ class _ContractPageState extends State<ContractPage> {
               child: Align(
                 alignment: Alignment.center,
                 child: TextButton(
-                  child:Container(
-                    padding: new EdgeInsets.fromLTRB(80, 5, 80, 5),
-                    child: Text(
-                      "Xác nhận",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'iCielHelveticaNowText',
-                        color: Colors.white,
+                    child: Container(
+                      padding: new EdgeInsets.fromLTRB(80, 5, 80, 5),
+                      child: Text(
+                        "Xác nhận",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'iCielHelveticaNowText',
+                          color: Colors.white,
+                        ),
+                      ),
+                      decoration: new BoxDecoration(
+                        borderRadius: new BorderRadius.circular(8.0),
                       ),
                     ),
-                    decoration: new BoxDecoration(
-                      borderRadius: new BorderRadius.circular(8.0),
-                    ),
-                  ),
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.green)),
@@ -103,10 +99,10 @@ class _ContractPageState extends State<ContractPage> {
                                   textAlign: TextAlign.center,
                                 ),
                                 SizedBox(height: 16),
-                                
                                 TextButton(
                                   child: Container(
-                                    padding: new EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                    padding:
+                                        new EdgeInsets.fromLTRB(10, 5, 10, 5),
                                     child: Text(
                                       "Tôi đã hiểu",
                                       style: TextStyle(
@@ -128,7 +124,8 @@ class _ContractPageState extends State<ContractPage> {
                         ),
                         //),
                       );
-                    }),
+                    }
+                    ),
               ),
             ),
           ),
