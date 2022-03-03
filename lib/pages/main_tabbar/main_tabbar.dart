@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_project/pages/main_tabbar/main_tabbar_controller.dart';
-import 'package:trading_project/utils/extensions.dart';
+import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';
+import 'package:trading_module/utils/extensions.dart';
 
 import '../../shared_widgets/FABBottomAppBar.dart';
 import '../../shared_widgets/KeepAliveWrapper.dart';

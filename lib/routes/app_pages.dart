@@ -7,10 +7,6 @@ import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_bin
 import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_view.dart';
 import 'package:trading_module/pages/pdf_reader/pdf_binddings.dart';
 import 'package:trading_module/pages/pdf_reader/pdf_reader_page.dart';
-import 'package:trading_module/pages/smart_otp/confirm_smart_otp/confirm_smart_otp_binding.dart';
-import 'package:trading_module/pages/smart_otp/confirm_smart_otp/confirm_smart_otp_scene.dart';
-import 'package:trading_module/pages/smart_otp/create_smart_otp/create_smart_otp_binding.dart';
-import 'package:trading_module/pages/smart_otp/create_smart_otp/create_smart_otp_scene.dart';
 import 'package:trading_module/pages/smart_otp/generate_otp/generate_otp_binding.dart';
 import 'package:trading_module/pages/smart_otp/generate_otp/generate_otp_scene.dart';
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_binding.dart';
@@ -43,16 +39,16 @@ class AppPages {
       page: () => const VerifySMSOTPView(),
       binding: VerifySMSOTPBinding(),
     ),
-    GetPage(
-      name: AppRoutes.SMART_OPT_CREATE,
-      page: () => const CreateSmartOTPScene(),
-      binding: CreateSmartOTPConfirmBinding(),
-    ),
-    GetPage(
-      name: AppRoutes.SMART_OPT_CONFIRM,
-      page: () => const ConfirmSmartOTPScene(),
-      binding: ConfirmSmartOTPBinding(),
-    ),
+    // GetPage(
+    //   name: AppRoutes.SMART_OPT_CREATE,
+    //   page: () => const CreateSmartOTPScene(),
+    //   binding: CreateSmartOTPConfirmBinding(),
+    // ),
+    // GetPage(
+    //   name: AppRoutes.SMART_OPT_CONFIRM,
+    //   page: () => const ConfirmSmartOTPScene(),
+    //   binding: ConfirmSmartOTPBinding(),
+    // ),
     GetPage(
       name: AppRoutes.SMART_OPT_GENERATE,
       page: () => const GenerateOtpScene(),

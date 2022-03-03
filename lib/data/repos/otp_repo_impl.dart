@@ -1,10 +1,10 @@
-import 'package:trading_project/data/entities/OTPData.dart';
-import 'package:trading_project/cores/resources/data_state.dart';
-import 'package:trading_project/data/entities/otp_generate_model_dto.dart';
-import 'package:trading_project/data/services/otp_services.dart';
-import 'package:trading_project/domain/entities/OtpModel.dart';
-import 'package:trading_project/domain/entities/otp_generate_model.dart';
-import 'package:trading_project/domain/repos/otp_repo.dart';
+import 'package:trading_module/data/entities/OTPData.dart';
+import 'package:trading_module/cores/resources/data_state.dart';
+import 'package:trading_module/data/entities/otp_generate_model_dto.dart';
+import 'package:trading_module/data/services/otp_services.dart';
+import 'package:trading_module/domain/entities/OtpModel.dart';
+import 'package:trading_module/domain/entities/otp_generate_model.dart';
+import 'package:trading_module/domain/repos/otp_repo.dart';
 
 class OtpRepoImpl extends OtpRepo {
   final OtpService _services;

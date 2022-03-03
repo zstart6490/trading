@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/state_manager.dart';
-import 'package:trading_project/configs/constants.dart';
-import 'package:trading_project/utils/extensions.dart';
+import 'package:trading_module/configs/constants.dart';
+import 'package:trading_module/utils/extensions.dart';
 
 
 class FABBottomAppBarItem {

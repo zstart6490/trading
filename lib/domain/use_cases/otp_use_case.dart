@@ -1,5 +1,5 @@
-import 'package:trading_project/domain/entities/OtpModel.dart';
-import 'package:trading_project/domain/entities/otp_generate_model.dart';
+import 'package:trading_module/domain/entities/OtpModel.dart';
+import 'package:trading_module/domain/entities/otp_generate_model.dart';
 import '../../cores/resources/data_state.dart';
 import '../repos/otp_repo.dart';
 

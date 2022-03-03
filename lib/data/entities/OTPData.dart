@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:trading_project/domain/entities/OtpModel.dart';
+import 'package:trading_module/domain/entities/OtpModel.dart';
 
 part 'OTPData.g.dart';
 

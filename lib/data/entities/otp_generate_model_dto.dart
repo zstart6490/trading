@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:trading_project/domain/entities/otp_generate_model.dart';
+import 'package:trading_module/domain/entities/otp_generate_model.dart';
 
 part 'otp_generate_model_dto.g.dart';
 

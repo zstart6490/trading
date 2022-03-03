@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_project/pages/homePage/controller/home_page_controller.dart';
-import 'package:trading_project/pages/homePage/views/header_view.dart';
-import 'package:trading_project/utils/extensions.dart';
+import 'package:trading_module/configs/constants.dart';
+import 'package:trading_module/domain/entities/model.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
+import 'package:trading_module/pages/homePage/views/header_view.dart';
+import 'package:trading_module/utils/extensions.dart';
 
-import '../../../configs/constants.dart';
-import '../../../domain/entities/model.dart';
 
 class HeaderHomeView<T extends HomePageController> extends StatelessWidget {
   const HeaderHomeView({Key? key, required this.controller}) : super(key: key);

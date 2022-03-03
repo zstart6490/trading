@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_project/configs/constants.dart';
-import 'package:trading_project/utils/extensions.dart';
-import '../../home/controllers/home_controller.dart';
+import 'package:trading_module/configs/constants.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
+import 'package:trading_module/utils/extensions.dart';
 
 
 
-class HeaderView extends GetView<HomeController> {
+class HeaderView extends GetView<HomePageController> {
   const HeaderView({
     Key? key,
   }) : super(key: key);

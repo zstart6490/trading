@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_project/cores/networking/result.dart';
-import 'package:trading_project/domain/use_cases/otp_use_case.dart';
-import 'package:trading_project/pages/smart_otp/otp_expired_controller.dart';
-import 'package:trading_project/routes/app_pages.dart';
-import 'package:trading_project/utils/enums.dart';
+import 'package:trading_module/cores/networking/result.dart';
+import 'package:trading_module/domain/use_cases/otp_use_case.dart';
+import 'package:trading_module/pages/smart_otp/otp_expired_controller.dart';
+import 'package:trading_module/routes/app_pages.dart';
+import 'package:trading_module/utils/enums.dart';
 
 class VerifySMSOTPController extends OtpExpiredController {
   final formKey = GlobalKey<FormState>();
@@ -78,7 +78,7 @@ class VerifySMSOTPController extends OtpExpiredController {
   Future<void> onSuccess() async {
     // showProgressingDialog();
     //handle
-    Get.toNamed(Routes.SMART_OPT_INPUT);
+    // Get.toNamed(Routes.SMART_OPT_INPUT);
     hideDialog();
   }
 
