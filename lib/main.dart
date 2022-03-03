@@ -49,16 +49,17 @@ void openTradingModule(
   Get.changeThemeMode(ThemeMode.light);
   //init
   Environment().initConfig(EnvironmentConfiguration.develop);
-  Get.lazyPut(() => MainTradingProvider());
+  Get.create(() => MainTradingProvider(),permanent: true);
   final OnBoardingRepos repos = Get.put<OnBoardingReposImpl>(
       OnBoardingReposImpl(OnBoardingServiceImpl()),);
-  Get.lazyPut(() => UserOnBoardingUseCase(repos));
-  Get.lazyPut(() => MainController(
+  Get.create(() => UserOnBoardingUseCase(repos),permanent: true);
+  Get.create(() => MainController(
       tokenTest: tokenParent,
       userIsRegisteredKyc: kyc,
-      userIsRegisteredOTP: otp,),);
-  Get.toNamed(AppRoutes.MAIN);
+      userIsRegisteredOTP: otp,),permanent: true);
+
   Get.find<MainController>().getDataLogin();
+  Get.toNamed(AppRoutes.MAIN);
 }
 
 class _MyAppState extends State<MyApp> {
