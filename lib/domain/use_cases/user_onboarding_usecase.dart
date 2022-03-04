@@ -15,4 +15,15 @@ class UserOnBoardingUseCase {
     // xử lý thêm nếu muốn
     return result;
   }
+
+  Future<DataState<DataLogin>> registerTrading(String email, String kyc,
+      String phone, String phoneCountryCode, String token) async {
+    final otp = await _onBoardingRepos.registerTrading(
+        email: email,
+        kyc: kyc,
+        phone: phone,
+        phoneCountryCode: phoneCountryCode,
+        token: token);
+    return otp;
+  }
 }

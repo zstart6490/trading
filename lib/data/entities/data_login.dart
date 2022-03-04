@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:trading_module/data/entities/user_data.dart';
+import 'package:trading_module/data/entities/user_data_dto.dart';
 import 'package:trading_module/domain/entities/data_login.dart';
 
 part 'data_login.g.dart';
@@ -9,7 +9,7 @@ class DataLoginDTO {
   final String? nextScreen;
   final String? token;
   @JsonKey(name: "user")
-  final UserDataDTO? userData;
+  final UserDataDto? userData;
   @JsonKey(name: "configMap")
   final ConfigMapDTO? configMap;
   @JsonKey(name: "msgMap")

@@ -1,5 +1,5 @@
-import 'package:trading_module/data/entities/OTPData.dart';
 import 'package:trading_module/cores/resources/data_state.dart';
+import 'package:trading_module/data/entities/OTPData.dart';
 import 'package:trading_module/data/entities/otp_generate_model_dto.dart';
 import 'package:trading_module/data/services/otp_services.dart';
 import 'package:trading_module/domain/entities/OtpModel.dart';
@@ -16,7 +16,7 @@ class OtpRepoImpl extends OtpRepo {
       {required String? smsOTP}) async {
     final result = await _services.enableSmartOTP(smsOTP);
     if (result.response.success) {
-      var model = (OtpData.fromResult(result.data)).toModel();
+      var model = result.data.toModel();
       return DataSuccess(model);
     }
     return DataFailed(result.response.error);

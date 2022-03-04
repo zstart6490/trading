@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/data/entities/kyc_status.dart';
+import 'package:trading_module/data/entities/otp_status.dart';
 import 'package:trading_module/domain/entities/data_login.dart';
-import 'package:trading_module/kyc/kyc_callback.dart';
-import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
 class IntroController extends BaseController with StateMixin<MsgMap> {
   final KycStatus userIsRegisteredKyc;
-  final bool userIsRegisteredOTP;
+  final OtpStatus userIsRegisteredOTP;
   final DataLogin? dataLogin;
 
   IntroController(

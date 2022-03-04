@@ -1,15 +1,16 @@
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:trading_module/data/entities/data_input_app.dart';
 import 'package:trading_module/domain/entities/user_data.dart';
-import 'package:trading_module/kyc/kyc_callback.dart';
 
 class MainTradingProvider {
   GetStorage get box => GetStorage();
-   KycStatus userIsRegisteredKyc;
-   bool userIsRegisteredOTP;
 
+  DataInputApp dataInputApp;
+  Function()? callToEKYC;
+  Function()? callToActiveOTP;
+  Function()? callToForgetPin;
 
-  MainTradingProvider({required this.userIsRegisteredKyc, required this.userIsRegisteredOTP});
+  MainTradingProvider(this.dataInputApp, this.callToEKYC, this.callToActiveOTP, this.callToForgetPin);
 
   String deviceId = "";
   String deviceName = "";
@@ -24,6 +25,7 @@ class MainTradingProvider {
 
   _setAccessToken(AccessToken? accessToken) {
     _accessToken = accessToken;
+    // callBackEky?.call();
   }
 
   void clearAccessToken() {

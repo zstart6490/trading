@@ -1,21 +1,18 @@
 import 'package:get/get.dart';
-import 'package:trading_module/cores/resources/data_state.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/data/entities/kyc_status.dart';
 import 'package:trading_module/domain/entities/data_login.dart';
-import 'package:trading_module/domain/use_cases/user_case.dart';
 import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
-import 'package:trading_module/kyc/kyc_callback.dart';
-import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
 class MainController extends BaseController {
   DataLogin? dataLogin;
 
-  MainController({required this.tokenTest});
+
 
   final UserOnBoardingUseCase _boardingUseCase =
       Get.find<UserOnBoardingUseCase>();
-  final String tokenTest;
+
 
   @override
   void onInit() {
@@ -28,9 +25,9 @@ class MainController extends BaseController {
   /// return current status of on-boarding 3. if by-pass on-boarding screen, return HOME screen
   Future getDataLogin() async {
     final respData = await _boardingUseCase.getDataLoginUser(
-      token: tokenTest,
+      token: mainProvider.dataInputApp.token,
       fbDeviceId: "",
-      kyc: mainProvider.userIsRegisteredKyc == KycStatus.verified ? "y" : "n",
+      kyc: mainProvider.dataInputApp.userIsRegisteredKyc == KycStatus.verified ? "y" : "n",
     );
     if (respData.data != null) {
       dataLogin = respData.data;
@@ -43,8 +40,8 @@ class MainController extends BaseController {
         Get.offAndToNamed(AppRoutes.BOARDING_INTRO, arguments: [
           {
             'data_login': dataLogin,
-            'user_kyc': mainProvider.userIsRegisteredKyc,
-            'user_otp': mainProvider.userIsRegisteredOTP,
+            'user_kyc': mainProvider.dataInputApp.userIsRegisteredKyc,
+            'user_otp': mainProvider.dataInputApp.userIsRegisteredOTP,
           }
         ]);
       }

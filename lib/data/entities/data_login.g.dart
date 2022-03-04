@@ -11,7 +11,7 @@ DataLoginDTO _$DataLoginDTOFromJson(Map<String, dynamic> json) => DataLoginDTO(
       json['token'] as String?,
       json['user'] == null
           ? null
-          : UserDataDTO.fromJson(json['user'] as Map<String, dynamic>),
+          : UserDataDto.fromJson(json['user'] as Map<String, dynamic>),
       json['configMap'] == null
           ? null
           : ConfigMapDTO.fromJson(json['configMap'] as Map<String, dynamic>),
