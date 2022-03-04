@@ -3,19 +3,29 @@ import 'package:trading_module/domain/entities/otp_generate_model.dart';
 
 part 'otp_generate_model_dto.g.dart';
 
+
 @JsonSerializable()
 class OtpGenerateModelDTO {
+  @JsonKey(name: "state")
+  final String? state;
+  @JsonKey(name: "otpMethod")
+  final String? otpMethod;
+  @JsonKey(name: "otp")
+  final String? otp;
+  @JsonKey(name: "lockCount")
+  final int? lockCount;
+  @JsonKey(name: "lockDate")
+  final String? lockDate;
+  @JsonKey(name: "timeOut")
+  final int? timeOut;
 
-  OtpGenerateModelDTO({
-    required this.token,
-    required this.expiredSecond,
-  });
+  @JsonKey(name: "userLocked")
+  final String? userLocked;
+  @JsonKey(name: "warningMsg")
+  final String? warningMsg;
 
-  @JsonKey(name: "expired_at")
-  final String? token;
-  @JsonKey(name: "expired_second")
-  final int? expiredSecond;
-
+  OtpGenerateModelDTO(this.state, this.otpMethod, this.otp, this.lockCount, this.lockDate,
+      this.timeOut, this.userLocked, this.warningMsg);
 
   static OtpGenerateModelDTO fromResult(dynamic data) =>
       OtpGenerateModelDTO.fromJson(data as Map<String, dynamic>);
@@ -24,31 +34,9 @@ class OtpGenerateModelDTO {
   Map<String, dynamic> toJson() => _$OtpGenerateModelDTOToJson(this);
 }
 
-@JsonSerializable()
-class DataRequestOtp {
-  DataRequestOtp({
-    required this.times,
-    required this.timeStamp,
-    required this.message,
-  });
-
-  final int times;
-  @JsonKey(name: "time_stamp")
-  final String timeStamp;
-  @JsonKey(name: "message")
-  final String message;
-
-  static DataRequestOtp fromResult(dynamic data) =>
-      DataRequestOtp.fromJson(data as Map<String, dynamic>);
-
-  factory DataRequestOtp.fromJson(Map<String, dynamic> json) =>
-      _$DataRequestOtpFromJson(json);
-  Map<String, dynamic> toJson() => _$DataRequestOtpToJson(this);
-}
-
 
 extension OtpGenerateModelMapper on OtpGenerateModelDTO {
   OtpGenerateModel toModel() {
-    return OtpGenerateModel(token: token!, time: token!);
+    return OtpGenerateModel(otpMethod: otpMethod, otp: otp, warningMsg: warningMsg, userLocked: userLocked, lockCount: lockCount, timeOut: timeOut);
   }
 }

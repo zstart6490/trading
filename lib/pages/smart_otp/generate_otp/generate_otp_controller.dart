@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 
 class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
@@ -10,7 +12,8 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   RxBool canNext = true.obs;
   bool shouldReload = true;
   late DateTime startDate;
-  // final SmartOTPRepository _smartOTPRepository = SmartOTPRepository();
+
+  final OtpUseCase _otpUseCase = Get.find();
 
   late RxString otp="12345".obs;
 
@@ -32,6 +35,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   @override
   void onReady() {
     startTimer(60);
+    _otpUseCase.generateOTP("1234", "token", OTPMethod.smart.toString());
     super.onReady();
   }
 
@@ -77,7 +81,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   }
 
   Future<void> onConfirm() async {
-
+    _otpUseCase.confirmOTP("123456", OTPMethod.smart.toString(), "token");
   }
 
   void checkPassedTime() {
