@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 import 'package:trading_module/pages/smart_otp/otp_expired_controller.dart';
-import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/utils/enums.dart';
 
 class VerifySMSOTPController extends OtpExpiredController {

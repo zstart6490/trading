@@ -1,9 +1,9 @@
 class OtpGenerateModel {
-  final String gstId;
-  final DateTime startTime;
+  final String token;
+  final String time;
 
   OtpGenerateModel({
-    required this.gstId,
-    required this.startTime,
+    required this.token,
+    required this.time,
   });
 }

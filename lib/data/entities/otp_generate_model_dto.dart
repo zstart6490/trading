@@ -5,18 +5,17 @@ part 'otp_generate_model_dto.g.dart';
 
 @JsonSerializable()
 class OtpGenerateModelDTO {
+
   OtpGenerateModelDTO({
-    required this.expiredAt,
+    required this.token,
     required this.expiredSecond,
-    required this.dataRequestOtp,
   });
 
   @JsonKey(name: "expired_at")
-  final DateTime expiredAt;
+  final String? token;
   @JsonKey(name: "expired_second")
-  final int expiredSecond;
-  @JsonKey(name: "data_request_otp")
-  final DataRequestOtp dataRequestOtp;
+  final int? expiredSecond;
+
 
   static OtpGenerateModelDTO fromResult(dynamic data) =>
       OtpGenerateModelDTO.fromJson(data as Map<String, dynamic>);
@@ -50,6 +49,6 @@ class DataRequestOtp {
 
 extension OtpGenerateModelMapper on OtpGenerateModelDTO {
   OtpGenerateModel toModel() {
-    return OtpGenerateModel(gstId: expiredAt.microsecond.toString(), startTime: expiredAt);
+    return OtpGenerateModel(token: token!, time: token!);
   }
 }

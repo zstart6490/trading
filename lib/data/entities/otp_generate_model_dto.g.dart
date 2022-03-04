@@ -8,18 +8,15 @@ part of 'otp_generate_model_dto.dart';
 
 OtpGenerateModelDTO _$OtpGenerateModelDTOFromJson(Map<String, dynamic> json) =>
     OtpGenerateModelDTO(
-      expiredAt: DateTime.parse(json['expired_at'] as String),
-      expiredSecond: json['expired_second'] as int,
-      dataRequestOtp: DataRequestOtp.fromJson(
-          json['data_request_otp'] as Map<String, dynamic>),
+      token: json['expired_at'] as String?,
+      expiredSecond: json['expired_second'] as int?,
     );
 
 Map<String, dynamic> _$OtpGenerateModelDTOToJson(
         OtpGenerateModelDTO instance) =>
     <String, dynamic>{
-      'expired_at': instance.expiredAt.toIso8601String(),
+      'expired_at': instance.token,
       'expired_second': instance.expiredSecond,
-      'data_request_otp': instance.dataRequestOtp,
     };
 
 DataRequestOtp _$DataRequestOtpFromJson(Map<String, dynamic> json) =>
