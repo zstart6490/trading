@@ -3,6 +3,8 @@ import 'package:trading_module/data/entities/data_input_app.dart';
 import 'package:trading_module/domain/entities/user_data.dart';
 
 class MainTradingProvider {
+  UserData? userData;
+
   GetStorage get box => GetStorage();
 
   DataInputApp dataInputApp;

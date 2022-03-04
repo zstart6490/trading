@@ -34,14 +34,14 @@ Map<String, dynamic> _$DataLoginDTOToJson(DataLoginDTO instance) =>
     };
 
 MsgMapDTO _$MsgMapDTOFromJson(Map<String, dynamic> json) => MsgMapDTO(
-      json['OB_INTRO_MSG'] as String,
-      json['OB_KYC_REQUEST_MSG'] as String,
-      json['OB_TERM_MSG'] as String,
-      json['OB_TERM_USAGE_MSG'] as String,
-      json['OB_TERM_ACCOUNT_MSG'] as String,
-      json['OB_TERM_STOCK_MSG'] as String,
-      json['OB_KYC_INCOMPLETE_MSG'] as String,
-      json['OB_OTP_REQUEST_MSG'] as String,
+      json['OB_INTRO_MSG'] as String?,
+      json['OB_KYC_REQUEST_MSG'] as String?,
+      json['OB_TERM_MSG'] as String?,
+      json['OB_TERM_USAGE_MSG'] as String?,
+      json['OB_TERM_ACCOUNT_MSG'] as String?,
+      json['OB_TERM_STOCK_MSG'] as String?,
+      json['OB_KYC_INCOMPLETE_MSG'] as String?,
+      json['OB_OTP_REQUEST_MSG'] as String?,
     );
 
 Map<String, dynamic> _$MsgMapDTOToJson(MsgMapDTO instance) => <String, dynamic>{
@@ -56,9 +56,9 @@ Map<String, dynamic> _$MsgMapDTOToJson(MsgMapDTO instance) => <String, dynamic>{
     };
 
 ConfigMapDTO _$ConfigMapDTOFromJson(Map<String, dynamic> json) => ConfigMapDTO(
-      json['OB_TERM_STOCK_LINK'] as String,
-      json['OB_TERM_ACCOUNT_LINK'] as String,
-      json['OB_TERM_USAGE_LINK'] as String,
+      json['OB_TERM_STOCK_LINK'] as String?,
+      json['OB_TERM_ACCOUNT_LINK'] as String?,
+      json['OB_TERM_USAGE_LINK'] as String?,
     );
 
 Map<String, dynamic> _$ConfigMapDTOToJson(ConfigMapDTO instance) =>
