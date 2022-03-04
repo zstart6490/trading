@@ -20,8 +20,10 @@ class OtpData {
 
   static OtpData fromResult(dynamic data) =>
       OtpData.fromJson(data as Map<String, dynamic>);
+
   factory OtpData.fromJson(Map<String, dynamic> json) =>
       _$OtpDataFromJson(json);
+
   Map<String, dynamic> toJson() => _$OtpDataToJson(this);
 }
 

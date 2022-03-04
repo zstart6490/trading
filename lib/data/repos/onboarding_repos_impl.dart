@@ -21,4 +21,14 @@ class OnBoardingReposImpl extends OnBoardingRepos {
     }
     return DataFailed(result.response.error);
   }
+
+  @override
+  Future<DataState<DataLogin>> registerTrading({required String email, required String kyc, required String phone, required String phoneCountryCode, required String token}) async{
+    final result = await _services.registerTrading(email, kyc, phone, phoneCountryCode, token);
+    if (result.response.success) {
+      var model = result.data.toModel();
+      return DataSuccess(model);
+    }
+    return DataFailed(result.response.error);
+  }
 }

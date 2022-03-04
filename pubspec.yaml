@@ -13,7 +13,6 @@ dependencies:
 
   get: ^4.6.1
   intl: ^0.17.0
-  json_serializable: ^6.1.4
   syncfusion_flutter_pdfviewer: ^19.4.54-beta
 
   cached_network_image: ^3.2.0
@@ -52,7 +51,6 @@ flutter:
     - assets/images/png/
     - assets/fonts/iCielHelveticaNowText/
     - assets/fonts/Nunito/
-    - assets/pdf/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
