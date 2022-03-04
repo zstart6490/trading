@@ -6,13 +6,8 @@ import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
 class MainController extends BaseController {
-  DataLogin? dataLogin;
-
-
-
   final UserOnBoardingUseCase _boardingUseCase =
       Get.find<UserOnBoardingUseCase>();
-
 
   @override
   void onInit() {
@@ -24,26 +19,25 @@ class MainController extends BaseController {
   /// if register and not by-pass on-boarding yet,
   /// return current status of on-boarding 3. if by-pass on-boarding screen, return HOME screen
   Future getDataLogin() async {
+    final dataInput =mainProvider.dataInputApp;
     final respData = await _boardingUseCase.getDataLoginUser(
-      token: mainProvider.dataInputApp.token,
-      fbDeviceId: "",
-      kyc: mainProvider.dataInputApp.userIsRegisteredKyc == KycStatus.verified ? "y" : "n",
+      token:dataInput.token,
+      fbDeviceId: dataInput.fbDeviceId??"",
+      kyc: dataInput.userIsRegisteredKyc == KycStatus.verified
+          ? "y"
+          : "n",
     );
     if (respData.data != null) {
-      dataLogin = respData.data;
-      if (dataLogin?.userData != null) {
-        // user đã đăng ký trading
-        var userData = dataLogin?.userData;
-      } else {
-        //not register trading
-        //open to on-boarding
+      final DataLogin? dataLogin = respData.data;
+      if (respData.data?.nextScreen == "REGISTER") {
         Get.offAndToNamed(AppRoutes.BOARDING_INTRO, arguments: [
           {
             'data_login': dataLogin,
-            'user_kyc': mainProvider.dataInputApp.userIsRegisteredKyc,
-            'user_otp': mainProvider.dataInputApp.userIsRegisteredOTP,
           }
         ]);
+      } else {
+        //To Home
+        // var userData = dataLogin?.userData;
       }
     }
   }

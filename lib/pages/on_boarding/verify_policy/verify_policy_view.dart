@@ -108,7 +108,7 @@ class VerifyPolicyView extends GetView<VerifyPolicyController> {
                   CustomButton.defaultStyle(
                     title: "verify_policy".tr,
                     onPressed: () {
-                      controller.acceptTerm();
+                      controller.acceptTermAndVerify();
                     },
                   ),
                   const SizedBox(

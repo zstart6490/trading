@@ -11,6 +11,7 @@ import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/lang/translation_service.dart';
 import 'package:trading_module/pages/main_controller.dart';
 import 'package:trading_module/pages/main_provider.dart';
+import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_controller.dart';
 import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/theme/app_theme.dart';
@@ -22,16 +23,19 @@ enum CallbackType {
 }
 
 class DataCallback {
-  KycStatus kycStatus;
-  OtpStatus otpStatus;
-  DataCallback(this.kycStatus, this.otpStatus);
+  KycStatus? kycStatus;
+  OtpStatus? otpStatus;
+
+  DataCallback({this.kycStatus, this.otpStatus});
 }
 
 void callbackToApp(CallbackType callbackType, DataCallback dataCallback) {
   switch (callbackType) {
     case CallbackType.resultEKYC:
-      // TODO: Handle this case.
-
+      //result
+      final VerifyPolicyController verifyPolicyController =
+          Get.find<VerifyPolicyController>();
+      verifyPolicyController.setStatusEKYCAndVerifyNext(dataCallback.kycStatus);
       break;
     case CallbackType.resultActiveSmartOTP:
       // TODO: Handle this case.
