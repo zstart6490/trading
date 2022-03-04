@@ -1,4 +1,4 @@
-
+//part of 'app_pages.dart';
 
 abstract class AppRoutes {
   static const MAIN = '/main';
@@ -10,6 +10,6 @@ abstract class AppRoutes {
   static const SMART_OPT_GENERATE = '/smart_otp_generate';
   static const SMART_OPT_INPUT = '/smart_otp_input';
   static const PDF_VIEW = '/pdf_view';
-
+  static const CONTRACT = '/contract';
 
 }
