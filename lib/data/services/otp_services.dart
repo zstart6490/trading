@@ -1,8 +1,7 @@
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/api_services.dart';
-import 'package:trading_module/cores/networking/http_response.dart';
+import 'package:trading_module/cores/networking/decoder.dart';
 import 'package:trading_module/cores/networking/result.dart';
-import 'package:trading_module/data/entities/OTPData.dart';
 import 'package:trading_module/data/entities/otp_generate_model_dto.dart';
 
 abstract class OtpService extends ApiServices {
@@ -10,7 +9,7 @@ abstract class OtpService extends ApiServices {
 
   Future<Result> enableSmartOTP(String? smsOTP);
 
-  Future<Result> generateOTP(String pin, String token, String otpMethod);
+  Future<BaseDecoder<OtpGenerateModelDTO>> generateOTP(String pin, String token, String otpMethod);
 
   Future<Result> checkPin(String pin, String token);
 
@@ -35,16 +34,17 @@ class OtpServiceImpl extends OtpService {
   }
 
   @override
-  Future<Result> generateOTP(
+  Future<BaseDecoder<OtpGenerateModelDTO>> generateOTP(
       String pin, String token, String otpMethod) async {
-    return await api.postData(
+    return  BaseDecoder(await api.postData(
         endPoint: "/v1/on-boarding/get-otp",
         params: {
           "pin": pin,
           "token": token,
           "otpMethod": otpMethod
         },
-        timeOut: AppConstants.TIME_OUT);
+        timeOut: AppConstants.TIME_OUT),
+        decoder: OtpGenerateModelDTO.fromJson);
   }
 
   @override

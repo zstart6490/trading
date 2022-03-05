@@ -30,8 +30,8 @@ class OtpRepoImpl extends OtpRepo {
   @override
   Future<DataState<OtpGenerateModel>> generateOTP({required String pin, required String token, required String otpMethod}) async {
     final result = await _services.generateOTP(pin, token, otpMethod);
-    if (result.success && result.data != null) {
-      final model = OtpGenerateModelDTO.fromJson(result.data as Map<String, dynamic>).toModel();
+    if (result.success) {
+      final model = result.modelDTO.toModel();
       return DataSuccess(model);
     }
     return DataFailed(result.error);

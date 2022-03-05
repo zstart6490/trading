@@ -29,8 +29,10 @@ class OtpGenerateModelDTO {
 
   static OtpGenerateModelDTO fromResult(dynamic data) =>
       OtpGenerateModelDTO.fromJson(data as Map<String, dynamic>);
-  factory OtpGenerateModelDTO.fromJson(Map<String, dynamic> json) =>
-      _$OtpGenerateModelDTOFromJson(json);
+
+  factory OtpGenerateModelDTO.fromJson(dynamic json) =>
+      _$OtpGenerateModelDTOFromJson(json as Map<String,dynamic>);
+
   Map<String, dynamic> toJson() => _$OtpGenerateModelDTOToJson(this);
 }
 
