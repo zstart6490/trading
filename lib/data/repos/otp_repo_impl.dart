@@ -24,7 +24,7 @@ class OtpRepoImpl extends OtpRepo {
       final model = OtpData.fromJson(result.data as Map<String, dynamic>).toModel();
       return DataSuccess(model);
     }
-    return DataFailed(result.error);
+    return DataFailed(result.code,result.msg);
   }
 
   @override
@@ -34,7 +34,7 @@ class OtpRepoImpl extends OtpRepo {
       final model = result.modelDTO.toModel();
       return DataSuccess(model);
     }
-    return DataFailed(result.error);
+    return DataFailed(result.code,result.msg);
   }
 
 
@@ -45,7 +45,7 @@ class OtpRepoImpl extends OtpRepo {
       final model = PinConfirmModelDTO.fromJson(result.data as Map<String, dynamic>).toModel();
       return DataSuccess(model);
     }
-    return DataFailed(result.error);
+    return DataFailed(result.code,result.msg);
   }
 
   @override
@@ -55,7 +55,7 @@ class OtpRepoImpl extends OtpRepo {
       final model = OtpConfirmModelDTO.fromJson(result.data as Map<String, dynamic>).toModel();
       return DataSuccess(model);
     }
-    return DataFailed(result.error);
+    return DataFailed(result.code,result.msg);
   }
 
   // @override

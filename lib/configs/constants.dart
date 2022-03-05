@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class AppConstants {
@@ -12,10 +13,31 @@ enum EnvironmentConfiguration {
   product,
 }
 
-enum OTPMethod{
-  sms,
-  smart
-}
+enum OTPMethod { sms, smart }
+
+/**
+ * common error code
+ */
+const int SUCCESS = 200;
+const int FAILURE = 999;
+const int UNAUTHORIZED = 401;
+const int BAD_REQUEST = 400;
+
+/**
+ * invalid request data when validate
+ */
+const int INVALID_REQUEST = 100;
+
+/**
+ * user error code
+ */
+const int USER_LOCKED = 101;
+const int USER_ALREADY_REGISTER = 102;
+const int USER_NOT_FOUND = 103;
+const int USER_INVALID_OTP = 104;
+const int USER_BLOCKED_ON_OTP = 105;
+const int USER_INVALID_PIN = 106;
+const int USER_GEN_CONTRACT_FAILED = 107;
 
 const NOTI_RELOAD_NOTIFICATION = "NOTI_RELOAD_NOTIFICATION";
 const NOTI_RELOAD_HOMESAVING = "NOTI_RELOAD_HOMESAVING";

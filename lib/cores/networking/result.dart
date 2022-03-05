@@ -1,31 +1,31 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
+
 part 'result.g.dart';
 
 @JsonSerializable()
 class Result {
   Result({
-    this.success = false,
-    this.error,
-    this.message,
+    required this.success,
+    required this.code,
+    required this.msg,
     this.data,
   });
 
   final bool success;
-  final Errors? error;
+  final int code;
   final dynamic data;
-  final String? message;
-  bool get hasError => error != null;
+  final String msg;
+  bool get hasError => !success;
 
   factory Result.fromJson(String json) =>
       _$ResultFromJson(jsonDecode(json) as Map<String, dynamic>);
-  Map<String, dynamic> toJson() => _$ResultToJson(this);
+
 
   factory Result.unknowError() =>
-      Result(error: const Errors(-1, "Có lỗi xảy ra! Hãy thử lại"));
+      Result(code: -1,success: false,msg: "Có lỗi xảy ra! Hãy thử lại");
 }
-
 @JsonSerializable()
 class Errors {
   final int code;
@@ -37,6 +37,6 @@ class Errors {
   factory Errors.nullValue() => const Errors(-1, "Success");
   factory Errors.serverError() => const Errors(500, "Server Error");
 
-  factory Errors.fromJson(Map<String, dynamic> json) => _$ErrorsFromJson(json);
-  Map<String, dynamic> toJson() => _$ErrorsToJson(this);
+  // factory Errors.fromJson(Map<String, dynamic> json) => _$ErrorsFromJson(json);
+  // Map<String, dynamic> toJson() => _$ErrorsToJson(this);
 }

@@ -19,7 +19,7 @@ class OnBoardingReposImpl extends OnBoardingRepos {
       // final data = result.data.toModel();
       return DataSuccess(result.modelDTO.toModel());
     }
-    return DataFailed(result.error);
+    return DataFailed(result.code,result.msg);
   }
 
   @override
@@ -35,6 +35,6 @@ class OnBoardingReposImpl extends OnBoardingRepos {
       var model = result.modelDTO.toModel();
       return DataSuccess(model);
     }
-    return DataFailed(result.error);
+    return DataFailed(result.code,result.msg);
   }
 }
