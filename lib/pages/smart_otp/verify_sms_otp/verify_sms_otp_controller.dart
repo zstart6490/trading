@@ -27,7 +27,7 @@ class VerifySMSOTPController extends OtpExpiredController {
     textController = TextEditingController();
     super.onInit();
 
-    final result = _otpUseCase.generateOTP("1234",token, OTPMethod.sms.toString());
+    final result = _otpUseCase.generateOTP("1234",token, OTPMethod.sms.name);
   }
 
   @override
@@ -62,9 +62,9 @@ class VerifySMSOTPController extends OtpExpiredController {
   Future<void> verifyOTP(String otp) async {
     showProgressingDialog();
     //call api verify otp
-    final result = await _otpUseCase.generateOTP(otp, token, OTPMethod.sms.toString());
+    final result = await _otpUseCase.generateOTP(otp, token, OTPMethod.sms.name);
     if (result is Errors){
-      errors.value = (result as Errors);
+      errors.value = result as Errors;
     }else{
       endTimer();
       onSuccess();
