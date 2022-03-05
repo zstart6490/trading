@@ -20,8 +20,8 @@ class DataLoginDTO {
   DataLoginDTO(this.nextScreen, this.token, this.userData, this.configMap,
       this.msgMap, this.themeMap);
 
-  factory DataLoginDTO.fromJson(Map<String, dynamic> json) =>
-      _$DataLoginDTOFromJson(json);
+  factory DataLoginDTO.fromJson(dynamic json) =>
+      _$DataLoginDTOFromJson(json as Map<String,dynamic>);
 
   Map<String, dynamic> toJson() => _$DataLoginDTOToJson(this);
 }

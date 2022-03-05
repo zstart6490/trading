@@ -220,7 +220,9 @@ class Api extends GetConnect {
 
   Result handlerResult(Result result, {String? endPoint}) {
     if (!result.success) {
-      if (result.error != null) {}
+      if (result.error != null) {
+
+      }
     }
     return result;
   }
