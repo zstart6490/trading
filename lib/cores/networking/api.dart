@@ -103,7 +103,10 @@ class Api extends GetConnect {
         res = await httpClient.post(endPoint).timeout(timeOut);
       } else {
         res = await httpClient.post(endPoint, body: params).timeout(timeOut);
+        print("body:");
+        print(res.body);
       }
+
       if (res.isOk) {
         _requestOk(Method.POST, endPoint, params, res.bodyString);
       } else {

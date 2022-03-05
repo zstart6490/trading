@@ -39,6 +39,8 @@ class VerifySMSOTPController extends OtpExpiredController {
   void reSendOTP() {
     //if (!(Get.isDialogOpen ?? true)) showProgressingDialog();
     //request sms
+
+    final result = _otpUseCase.generateOTP("1234",token, OTPMethod.sms.name);
   }
 
   @override
@@ -99,4 +101,6 @@ class VerifySMSOTPController extends OtpExpiredController {
   Future<void> generateOTP(SmartOTPType type) async {
     //showProgressingDialog();
   }
+
+
 }
