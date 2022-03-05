@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-import 'package:get/get_connect/connect.dart';
+import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 
 import 'result.dart';
@@ -203,6 +203,7 @@ class Api extends GetConnect {
       final fullUrl = baseUrl + endPoint;
       log("$method: $fullUrl Params: $params", name: "API");
       log("$status => $exception", name: "API");
+      log("Response => ${bodyString}", name: "API");
     }
   }
 
@@ -223,8 +224,15 @@ class Api extends GetConnect {
 
   Result handlerResult(Result result, {String? endPoint}) {
     if (!result.success) {
-      if (result.error != null) {
-
+      if (result.code == 100) {
+        //token khong hop le
+        print(result.msg);
+        Get.back();
+        return result;
+      } else if (result.code == 401) {
+        //UNAUTHORIZED
+        print(result.msg);
+        return result;
       }
     }
     return result;
@@ -234,13 +242,13 @@ class Api extends GetConnect {
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-    return Result();
+    return Result(msg: "onTimeOut=$endPoint", success: false, code: -1);
   }
 
   Future<Result> onServerError(
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-    return Result();
+    return Result(msg: "onServerError=$endPoint", success: false, code: -1);
   }
 }

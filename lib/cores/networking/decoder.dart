@@ -16,9 +16,11 @@ class BaseDecoder<T> {
 
   bool get hasError => result.hasError;
 
-  String? get message => result.msg;
+  String? get msg => result.msg;
 
-  Errors? get error => result.error;
+  int get code => result.code;
+
+  Errors get error => Errors(result.code,result.msg);
 
   T get modelDTO => decoded();
 
