@@ -29,50 +29,56 @@ class DataCallback {
   DataCallback({this.kycStatus, this.otpStatus});
 }
 
-void callbackToApp(CallbackType callbackType, DataCallback dataCallback) {
-  switch (callbackType) {
-    case CallbackType.resultEKYC:
-      //result
-      final VerifyPolicyController verifyPolicyController =
-          Get.find<VerifyPolicyController>();
-      verifyPolicyController.setStatusEKYCAndVerifyNext(dataCallback.kycStatus);
-      break;
-    case CallbackType.resultActiveSmartOTP:
-      // TODO: Handle this case.
-      break;
-    case CallbackType.resultForgetSmartOTP:
-      // TODO: Handle this case.
-      break;
+class TradingModule {
+  static void openTradingModule({
+    required BuildContext context,
+    required DataInputApp dataInput,
+    Function()? callToEKYC,
+    Function()? callToActiveSmartOtpPin,
+    Function()? callToForgetPin,
+  }) {
+    //setup getx
+    Get.addPages(AppPages.tradingRoutes);
+    Get.locale = TranslationService.locale;
+    Get.fallbackLocale = TranslationService.fallbackLocale;
+    Get.addTranslations(TranslationService().keys);
+    final appTheme = AppTheme();
+    Get.changeTheme(appTheme.lightTheme);
+    Get.changeThemeMode(ThemeMode.light);
+    //init
+    Environment().initConfig(EnvironmentConfiguration.develop);
+
+    Get.create(
+        () => MainTradingProvider(
+            dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin),
+        permanent: true);
+
+    Get.lazyPut(() =>
+        UserOnBoardingUseCase(OnBoardingReposImpl(OnBoardingServiceImpl())));
+    Get.create(() => MainController(), permanent: true);
+
+    Get.find<MainController>().getDataLogin();
+    Get.toNamed(AppRoutes.MAIN);
   }
-}
 
-void openTradingModule({
-  required BuildContext context,
-  required DataInputApp dataInput,
-  Function()? callToEKYC,
-  Function()? callToActiveSmartOtpPin,
-  Function()? callToForgetPin,
-}) {
-  //setup getx
-  Get.addPages(AppPages.tradingRoutes);
-  Get.locale = TranslationService.locale;
-  Get.fallbackLocale = TranslationService.fallbackLocale;
-  Get.addTranslations(TranslationService().keys);
-  final appTheme = AppTheme();
-  Get.changeTheme(appTheme.lightTheme);
-  Get.changeThemeMode(ThemeMode.light);
-  //init
-  Environment().initConfig(EnvironmentConfiguration.develop);
+  static void callbackToApp(
+      CallbackType callbackType, DataCallback dataCallback) {
+    switch (callbackType) {
+      case CallbackType.resultEKYC:
+        //result
+        final VerifyPolicyController verifyPolicyController =
+            Get.find<VerifyPolicyController>();
+        verifyPolicyController
+            .setStatusEKYCAndVerifyNext(dataCallback.kycStatus);
+        break;
+      case CallbackType.resultActiveSmartOTP:
+        // TODO: Handle this case.
+        break;
+      case CallbackType.resultForgetSmartOTP:
+        // TODO: Handle this case.
+        break;
+    }
+  }
 
-  Get.create(
-      () => MainTradingProvider(
-          dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin),
-      permanent: true);
-
-  Get.lazyPut(() =>
-      UserOnBoardingUseCase(OnBoardingReposImpl(OnBoardingServiceImpl())));
-  Get.create(() => MainController(), permanent: true);
-
-  Get.find<MainController>().getDataLogin();
-  Get.toNamed(AppRoutes.MAIN);
+  void onInit() {}
 }

@@ -13,6 +13,7 @@ class VerifyPolicyController extends BaseController {
       Get.find<UserOnBoardingUseCase>();
 
   Future acceptTermAndVerify() async {
+    showProgressingDialog();
     final dataInput = mainProvider.dataInputApp;
     if (dataInput.userIsRegisteredKyc == KycStatus.verified) {
       final resp = await _boardingUseCase.registerTrading(
@@ -21,14 +22,16 @@ class VerifyPolicyController extends BaseController {
           dataInput.phone ?? "",
           dataInput.phoneCountryCode ?? "",
           dataInput.token);
+      hideDialog();
+
       if (resp.data != null) {
         //SUCCESS
         mainProvider.accessToken =
             AccessToken(token: resp.data?.token ?? "", type: "");
         mainProvider.userData = resp.data?.userData;
-        if(dataInput.userIsRegisteredOTP ==OtpStatus.disable){
+        if (dataInput.userIsRegisteredOTP == OtpStatus.disable) {
           _showPopupActiveSmartOTP();
-        }else{
+        } else {
           //kich hoat ngay
         }
       }
@@ -49,16 +52,14 @@ class VerifyPolicyController extends BaseController {
           AlertAction(
               text: "skip".tr,
               onPressed: () {
-
                 hideDialog();
               }),
           AlertAction(
               text: "alert_active_now_smart_otp".tr,
               isDefaultAction: true,
               onPressed: () => {
-                //active smart OTP
-
-              }),
+                    //active smart OTP
+                  }),
         ]));
   }
 
@@ -76,12 +77,11 @@ class VerifyPolicyController extends BaseController {
                     hideDialog(),
                     mainProvider.callToEKYC?.call(),
                     //test
-                    callbackToApp(CallbackType.resultEKYC,
+                    TradingModule.callbackToApp(CallbackType.resultEKYC,
                         DataCallback(kycStatus: KycStatus.verified))
                   }),
         ]));
   }
-
 
   void openPdf(String name, int pos) {
     Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
@@ -102,7 +102,6 @@ class VerifyPolicyController extends BaseController {
     //   ]);
     // }
   }
-
 
   void showDialogKycPending() {
     showAlertDialog(CustomAlertDialog(
