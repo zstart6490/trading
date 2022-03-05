@@ -1,17 +1,19 @@
 
 
+import 'package:trading_module/cores/networking/result.dart';
+
 abstract class DataState<T> {
   final T? data;
-  final int? code;
-  final String? msg;
+  final Errors? error;
 
-  DataState({this.data, this.code, this.msg});
+  const DataState({this.data,this.error});
+
 }
 
 class DataSuccess<T> extends DataState<T> {
-  DataSuccess(T? data) : super(data: data);
+  const DataSuccess(T data) : super(data: data);
 }
 
 class DataFailed<T> extends DataState<T> {
-   DataFailed(int? code, String? msg) : super(code: code, msg: msg);
+  const DataFailed(Errors? error) : super(error: error);
 }

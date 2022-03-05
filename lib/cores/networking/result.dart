@@ -19,6 +19,8 @@ class Result {
   final String msg;
   bool get hasError => !success;
 
+  Errors get error => Errors(code, msg);
+
   factory Result.fromJson(String json) =>
       _$ResultFromJson(jsonDecode(json) as Map<String, dynamic>);
 
@@ -26,7 +28,8 @@ class Result {
   factory Result.unknowError() =>
       Result(code: -1,success: false,msg: "Có lỗi xảy ra! Hãy thử lại");
 }
-@JsonSerializable()
+
+
 class Errors {
   final int code;
   final String message;
