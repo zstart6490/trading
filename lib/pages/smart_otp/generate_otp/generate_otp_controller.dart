@@ -35,7 +35,6 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   @override
   void onReady() {
     startTimer(60);
-    _otpUseCase.generateOTP("1234", "token", OTPMethod.smart.toString());
     super.onReady();
   }
 
@@ -77,7 +76,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   }
 
   Future<void> reGenerateOTP() async {
-
+    _otpUseCase.generateOTP("1234", "token", OTPMethod.smart.toString());
   }
 
   Future<void> onConfirm() async {

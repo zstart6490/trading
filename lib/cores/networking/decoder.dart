@@ -16,7 +16,7 @@ class BaseDecoder<T> {
 
   bool get hasError => result.hasError;
 
-  String? get message => result.message;
+  String? get message => result.msg;
 
   Errors? get error => result.error;
 

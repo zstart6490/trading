@@ -8,14 +8,14 @@ class Result {
   Result({
     this.success = false,
     this.error,
-    this.message,
+    this.msg,
     this.data,
   });
 
   final bool success;
   final Errors? error;
   final dynamic data;
-  final String? message;
+  final String? msg;
   bool get hasError => error != null;
 
   factory Result.fromJson(String json) =>
