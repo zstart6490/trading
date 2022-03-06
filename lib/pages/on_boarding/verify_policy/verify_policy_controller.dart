@@ -84,7 +84,7 @@ class VerifyPolicyController extends BaseController {
   }
 
   void openPdf(String name, int pos) {
-    Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+    Get.toNamed(AppRoutes.SMART_OPT_INPUT);
     // if (pos == 0) {
     //   Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
     //     name,

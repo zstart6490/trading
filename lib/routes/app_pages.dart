@@ -9,6 +9,8 @@ import 'package:trading_module/pages/pdf_reader/pdf_binddings.dart';
 import 'package:trading_module/pages/pdf_reader/pdf_reader_page.dart';
 import 'package:trading_module/pages/smart_otp/generate_otp/generate_otp_binding.dart';
 import 'package:trading_module/pages/smart_otp/generate_otp/generate_otp_scene.dart';
+import 'package:trading_module/pages/smart_otp/input_smart_otp/input_smart_otp_binding.dart';
+import 'package:trading_module/pages/smart_otp/input_smart_otp/input_smart_otp_scene.dart';
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_binding.dart';
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_view.dart';
 import 'package:trading_module/routes/app_routes.dart';
@@ -59,8 +61,8 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.SMART_OPT_INPUT,
-      page: () => const VerifySMSOTPView(),
-      binding: VerifySMSOTPBinding(),
+      page: () => const InputSmartOTPScene(),
+      binding: InputSmartOTPBinding(),
     ),
     GetPage(
       name: AppRoutes.PDF_VIEW,

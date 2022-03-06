@@ -15,6 +15,7 @@ enum EnvironmentConfiguration {
 
 enum OTPMethod { sms, smart }
 
+
 /**
  * common error code
  */
@@ -44,15 +45,6 @@ const NOTI_RELOAD_HOMESAVING = "NOTI_RELOAD_HOMESAVING";
 const NOTI_RELOAD_SAVINGDEPOSIT = "NOTI_RELOAD_SAVINGDEPOSIT";
 const PROGRESSING_DIALOG = 'ProgressingDialog';
 
-const DUR_500 = Duration(milliseconds: 500);
-const DUR_250 = Duration(milliseconds: 250);
-const BOR_RAD12 = BorderRadius.all(Radius.circular(12.0));
-const BOR_RAD24 = BorderRadius.all(Radius.circular(24.0));
-const BOR_RAD32 = BorderRadius.all(Radius.circular(32.0));
-const BOR_RAD60 = BorderRadius.all(Radius.circular(60.0));
-const BOR_RAD8 = BorderRadius.all(Radius.circular(8.0));
-const BOR_RAD = BorderRadius.all(Radius.circular(8.0));
-const BOR_COLOR = Color.fromRGBO(0, 0, 0, 0.08);
 
 /// String Const
 const APPSFLYER_ID = "1520144590";
@@ -71,8 +63,61 @@ const BIOMETRIC_SUFFIX = "_BIOMETRIC";
 const BIOMETRICS_COUNTER_SUFFIX = "_BIOMETRIC_FAILED";
 const DEPOSIT_FIRST_SUFFIX = "_DEPOSIT_FIRST";
 
+/// TEXT
+const SESSION_TIMEOUT_CODE = 1200;
+const MAINTAIN_LV1_CODE = 1007;
+const MAINTAIN_LV2_CODE = 1008;
+const BLOCK_OTP_1_CODE = 1370;
+const BLOCK_OTP_2_CODE = 1371;
+const BLOCK_SMART_OTP_CODE = 1523;
+const EKYC_1_CODE = 1324;
+const EKYC_2_CODE = 1349;
+const EKYC_WITH_POPUP_CODE = 1570;
+const BLOCK_MINI_GAME = 1533;
+const OUT_OFF_TURN_MINI_GAME = 1530;
+
+const DUR_NONE = Duration();
+const DUR_500 = Duration(milliseconds: 500);
+const DUR_400 = Duration(milliseconds: 400);
+const DUR_250 = Duration(milliseconds: 250);
+const BOR_RAD12 = BorderRadius.all(Radius.circular(12.0));
+const BOR_RAD24 = BorderRadius.all(Radius.circular(24.0));
+const BOR_RAD18 = BorderRadius.all(Radius.circular(18.0));
+const BOR_RAD8 = BorderRadius.all(Radius.circular(8.0));
+const BOR_RAD4 = BorderRadius.all(Radius.circular(4.0));
+const BOR_RAD16 = BorderRadius.all(Radius.circular(16.0));
+const BOR_COLOR = Color.fromRGBO(0, 0, 0, 0.08);
+const BOR_RAD8_ONLY = Radius.circular(8.0);
+const BOR_ALL_TOP_24 = BorderRadius.only(
+  topRight: Radius.circular(24),
+  topLeft: Radius.circular(24),
+);
+
+/// String Const
+const APPSFLYER_ID_IOS = "1520144590";
+const APPSFLYER_ID_ANDROID = "com.tikop";
+const DEPOSIT_RECURRING_FIRST_SUFFIX = "_DEPOSIT_RECURRING_FIRST";
+const SMART_OTP_SUFFIX = "_SMART_OTP";
+const MINI_GAME_SUFFIX = "_MINI_GAME";
+const MINI_GAME_SOUND_SUFFIX = "_MINI_GAME_SOUND";
+const UNKNOWN_ERROR = 'Có lỗi xảy ra vui lòng thử lại!';
+
+const UPDATE_VERSION_KEY = "update_popup_version";
+const UPDATE_VERSION_TIME_KEY = "update_popup_time";
+
+
+/// Email otp case
+const FORGOT_OTP = "FORGOT";
+const REGISTER_OTP = "REGISTER";
+const SMART_OTP = "SMART";
+
 /// SIZE
-const AVATAR_SIZE = Size(42, 42);
+const AVATAR_SIZE = Size(40, 40);
+
+/// Time Pending Resend OTP
+
+const TIME_COUNTDOWN_OTP = 60;
+
 
 ///SizedBox Width
 const SIZED_BOX_W02 = SizedBox(width: 2);

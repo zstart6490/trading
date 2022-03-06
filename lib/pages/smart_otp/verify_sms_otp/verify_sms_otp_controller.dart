@@ -2,12 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_navigation/src/dialog/dialog_route.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/networking/result.dart';
+import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
+import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/pages/smart_otp/otp_expired_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/enums.dart';
+import 'package:trading_module/utils/extensions.dart';
+
+import '../../../shared_widgets/CustomAlertDialog.dart';
 
 class VerifySMSOTPController extends OtpExpiredController {
   final formKey = GlobalKey<FormState>();
@@ -16,31 +22,32 @@ class VerifySMSOTPController extends OtpExpiredController {
   RxString otp = RxString("");
   Rx<Errors> errors = Errors.nullValue().obs;
   RxString desc = "Mã xác nhận OTP của bạn được gửi tới số điện thoại: ".obs;
-  RxString descSecond = "(+84)973591728".obs;
+  RxString descSecond = "".obs;
 
   final OtpUseCase _otpUseCase = Get.find();
-  final String token =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJiaXJ0aGRheSI6IjIwMjIvMDIvMjMiLCJwaG9uZU51bWJlciI6IjA5NzM1OTE3MjgiLCJhZGRyZXNzIjoiVGF5IEhhIFRvd2VyLCAxOCBUbyBIdXUsIE5hbSBUdSBMaWVtLCBIYSBOb2ksIFZpZXQgTmFtZSIsImdlbmRlciI6IjAiLCJuYW1lIjoiMDk3MzU5MTcyOCIsImlkIjoxMjEsImV4cCI6MTY0NjI5NjcyNCwidXVpZCI6ImM3M2ViMDllLTQ2Y2ItNDUxNC05YmExLTljOGZhMTJmMjVkOSIsImVtYWlsIjoidHJhZGluZ0B0ZWNobGFiLmFpIn0.50HWCUU-GYlj-UUUJ7No0dy8HH_6ftP1ibJhvLfVptN15rbCNkqJEnKasPXgLGCKtCcRXyKSk0rnr2xHCJ5-eeO3UbU5LXJZuqmrrL2R0O6Xm6NCSc2NFeiNR94cTU3VjKOpBHxXuyL8vqe3Fst8aknvGY8qsJNcuGZ450khwGl9xHtlpaVyPafssvXU6ClaJSQP9OoGlT9PZJ_f2eJ4meUT27UU289t9n48t117od_fBGdiJ-1vdOIFCoOhL2E4BB8H8OPsY8lnkGZDvxNT6rPBRC0DAiMGhwu4o6G5scJfNDeETjssZ4-_CtqyzaHlD4cFTQeHTwm72idqYPvx4DOxQ-IEhlNFhpKcW-Qzh7fLLnl5beIU5JVBM7-Llb2GRaTqbKQiFqrFT45YEQnefTFzI5fkogc3RTVZtMIrVij7AahJ18RD_XSiHxD-LrZizveXVFmGibqlcmyqferVYgBGKFaAGlCLTuzka2Mh6Yx9uXfMU7YIo4I_WrZ-4b3FXo9TSfJV4E_SKXDcMkrBXDFghBovmPAJGHthRN1eDEI0XI49psW_8Dx_1AxAXXCxg8rNL0mLU8CM_R7i7Fz_C-Mnz-nXZheT_93G5ZOtBuXcnQv0L2vzq2k0WECMONtUd1emvefWAE9MF1RCJy9KQvWrMpPe7q_Wh8eaO_hig_w";
+
+  @override
+  MainTradingProvider get mainProvider => Get.find<MainTradingProvider>();
 
   @override
   void onInit() {
     textController = TextEditingController();
+    descSecond.value = mainProvider.dataInputApp.phone!.phoneWithDialCode(mainProvider.dataInputApp.phoneCountryCode!);
+    startTimer(60);
     super.onInit();
-
-    final result = _otpUseCase.generateOTP("1234",token, OTPMethod.sms.name);
   }
 
   @override
   void onReady() {
-    reSendOTP();
     super.onReady();
+    generateOTP();
   }
 
-  void reSendOTP() {
+  void reSendOTP() async {
     //if (!(Get.isDialogOpen ?? true)) showProgressingDialog();
     //request sms
-
-    final result = _otpUseCase.generateOTP("1234",token, OTPMethod.sms.name);
+    startTimer(60);
+    generateOTP();
   }
 
   @override
@@ -64,21 +71,20 @@ class VerifySMSOTPController extends OtpExpiredController {
   Future<void> verifyOTP(String otp) async {
     showProgressingDialog();
     //call api verify otp
-    final result = await _otpUseCase.generateOTP(otp, token, OTPMethod.sms.name);
-    if (result is Errors){
-      errors.value = result as Errors;
-    }else{
+    final result = await _otpUseCase.confirmOTP(
+        otp, OTPMethod.sms.name, mainProvider.dataInputApp.token);
+    if (result.error != null) {
+      final error = result.error!;
+      if (error.code == 101) {
+        showDialogNotify(error.message);
+      } else {
+        errors.value = error;
+      }
+    } else {
       endTimer();
       onSuccess();
     }
     hideDialog();
-    //check result
-    // if (result.success == true) {
-    //   endTimer();
-    //onSuccess();
-    // } else if (result.hasError) {
-    //   errors.value = result.error!;
-    // }
   }
 
   Future<void> onSuccess() async {
@@ -98,9 +104,56 @@ class VerifySMSOTPController extends OtpExpiredController {
     }
   }
 
-  Future<void> generateOTP(SmartOTPType type) async {
-    //showProgressingDialog();
+  Future<void> generateOTP() async {
+    final result = await _otpUseCase.generateOTP(
+        "1234", mainProvider.dataInputApp.token, OTPMethod.sms.name);
+    if (result.error != null) {
+      final error = result.error!;
+      if (error.code == 101) {
+        showDialogNotify(error.message);
+      } else {
+        errors.value = error;
+      }
+    } else {
+      endTimer();
+      onSuccess();
+    }
   }
 
 
+  void showDialogNotify(String desc) {
+    final dialog = CustomAlertDialog(
+      title: "Thông báo".tr,
+      desc: desc,
+      actions: [
+        AlertAction.ok(() {
+          hideDialog();
+        })
+      ],
+    );
+    _showMessageDialog(dialog, name: "BlockMiniGame", canDissmiss: false);
+  }
+
+  bool shouldShowDialog(String? dialogName) {
+    if (!(Get.isDialogOpen ?? false)) return true;
+    final route = Get.rawRoute;
+    if (dialogName != null && route is GetDialogRoute) {
+      return route.settings.name != dialogName &&
+          route.settings.name != "NetworkError";
+    }
+    return true;
+  }
+
+  void _showMessageDialog(Widget dialog,
+      {String? name, bool canDissmiss = true}) {
+    if (shouldShowDialog(name)) {
+      if (Get.isDialogOpen ?? false) {
+        Get.back();
+        DUR_250.delay().then((value) =>
+            Get.dialog<Result>(dialog, barrierDismissible: canDissmiss));
+      } else {
+        Get.dialog<Result>(dialog, barrierDismissible: canDissmiss, name: name);
+      }
+    }
+  }
 }

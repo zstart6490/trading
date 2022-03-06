@@ -28,11 +28,4 @@ abstract class OtpRepo {
     required String token,
   });
 
-  // Future<DataState<OtpGenerateModel>> registerTrading({
-  //   required String email,
-  //   required String kyc,
-  //   required String phone,
-  //   required String phoneCountryCode,
-  //   required String token,
-  // });
 }

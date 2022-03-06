@@ -33,7 +33,11 @@ const Map<String, String> vi_VN = {
   'Đang theo dõi': 'Đang theo dõi',
   'Lệnh đã đặt': 'Lệnh đã đặt',
   "dialog_kyc_pending":"Tài khoản của bạn đang trong trạng thái chờ xác thực eKYC. Vui lòng chờ tài khoản xác thực thành công!",
-  "i_understand":"Tôi đã hiểu"
+  "i_understand":"Tôi đã hiểu",
+  "Thông báo":"Thông báo",
+  "Đồng ý":"Đồng ý",
+
+
 };
 // ignore_for_file: file_names
 

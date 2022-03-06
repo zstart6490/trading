@@ -9,13 +9,13 @@ import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   late Timer _timer;
-  RxBool canNext = true.obs;
+  RxBool canNext = false.obs;
   bool shouldReload = true;
   late DateTime startDate;
 
   final OtpUseCase _otpUseCase = Get.find();
 
-  late RxString otp="12345".obs;
+  late RxString otp="".obs;
 
   RxInt second = 0.obs;
 
@@ -35,6 +35,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   @override
   void onReady() {
     startTimer(60);
+    reGenerateOTP();
     super.onReady();
   }
 
@@ -76,11 +77,32 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   }
 
   Future<void> reGenerateOTP() async {
-    _otpUseCase.generateOTP("1234", "token", OTPMethod.smart.toString());
+    showProgressingDialog();
+    final result = await _otpUseCase.generateOTP(
+        "1234", mainProvider.dataInputApp.token, OTPMethod.smart.name);
+    hideDialog();
+    if (result.data != null) {
+      final otpTmp = result.data?.otp;
+      if (otpTmp != null) {
+        otp.value = otpTmp.toString();
+        canNext.value = true;
+        startTimer(60);
+        update();
+      } else {
+        canNext.value = false;
+        showSnackBar(UNKNOWN_ERROR);
+      }
+    } else if (result.error != null) {
+      canNext.value = false;
+      showSnackBar(result.error!.message);
+    }
   }
 
   Future<void> onConfirm() async {
-    _otpUseCase.confirmOTP("123456", OTPMethod.smart.toString(), "token");
+    endTimer();
+    showProgressingDialog();
+    final result = await _otpUseCase.confirmOTP(otp.value, OTPMethod.smart.toString(), mainProvider.dataInputApp.token);
+    hideDialog();
   }
 
   void checkPassedTime() {

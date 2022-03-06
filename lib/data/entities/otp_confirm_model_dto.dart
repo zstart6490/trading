@@ -14,8 +14,10 @@ class OtpConfirmModelDTO {
 
   static OtpConfirmModelDTO fromResult(dynamic data) =>
       OtpConfirmModelDTO.fromJson(data as Map<String, dynamic>);
-  factory OtpConfirmModelDTO.fromJson(Map<String, dynamic> json) =>
-      _$OtpConfirmModelDTOFromJson(json);
+
+  factory OtpConfirmModelDTO.fromJson(dynamic json) =>
+      _$OtpConfirmModelDTOFromJson(json as Map<String,dynamic>);
+
   Map<String, dynamic> toJson() => _$OtpConfirmModelDTOToJson(this);
 }
 

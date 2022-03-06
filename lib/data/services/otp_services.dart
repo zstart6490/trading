@@ -2,7 +2,9 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/api_services.dart';
 import 'package:trading_module/cores/networking/decoder.dart';
 import 'package:trading_module/cores/networking/result.dart';
+import 'package:trading_module/data/entities/otp_confirm_model_dto.dart';
 import 'package:trading_module/data/entities/otp_generate_model_dto.dart';
+import 'package:trading_module/data/entities/pin_confirm_model_dto.dart';
 
 abstract class OtpService extends ApiServices {
   OtpService() : super();
@@ -11,13 +13,10 @@ abstract class OtpService extends ApiServices {
 
   Future<BaseDecoder<OtpGenerateModelDTO>> generateOTP(String pin, String token, String otpMethod);
 
-  Future<Result> checkPin(String pin, String token);
+  Future<BaseDecoder<PinConfirmModelDTO>>checkPin(String pin, String token);
 
-  Future<Result> confirmOTP(
+  Future<BaseDecoder<OtpConfirmModelDTO>> confirmOTP(
       String otp, String method, String token);
-
-  Future<Result> registerTrading(String email,
-      String kyc, String phone, String phoneCountryCode, String token);
 }
 
 class OtpServiceImpl extends OtpService {
@@ -36,7 +35,7 @@ class OtpServiceImpl extends OtpService {
   @override
   Future<BaseDecoder<OtpGenerateModelDTO>> generateOTP(
       String pin, String token, String otpMethod) async {
-    return  BaseDecoder(await api.postData(
+    return BaseDecoder(await api.postData(
         endPoint: "/v1/on-boarding/get-otp",
         params: {
           "pin": pin,
@@ -48,35 +47,23 @@ class OtpServiceImpl extends OtpService {
   }
 
   @override
-  Future<Result> checkPin(
+  Future<BaseDecoder<PinConfirmModelDTO>> checkPin(
       String pin, String token) async {
-    return await api.postData(
+    return BaseDecoder(await api.postData(
         endPoint: "/v1/on-boarding/check-pin",
         params: {"pin": pin, "token": token},
-        timeOut: AppConstants.TIME_OUT);
+        timeOut: AppConstants.TIME_OUT),
+        decoder: PinConfirmModelDTO.fromJson);
   }
 
   @override
-  Future<Result> confirmOTP(
+  Future<BaseDecoder<OtpConfirmModelDTO>> confirmOTP(
       String otp, String otpMethod, String token) async {
-    return await api.postData(
+    return BaseDecoder(await api.postData(
         endPoint: "/v1/on-boarding/confirm-register",
         params: {"otp": otp, "otpMethod": otpMethod, "token": token},
-        timeOut: AppConstants.TIME_OUT);
+        timeOut: AppConstants.TIME_OUT),
+    decoder: OtpConfirmModelDTO.fromJson);
   }
 
-  @override
-  Future<Result> registerTrading(String email,
-      String kyc, String phone, String phoneCountryCode, String token) async {
-    return await api.postData(
-        endPoint: "/v1/on-boarding/register",
-        params: {
-          "email": email,
-          "kyc": kyc,
-          "phone": phone,
-          "phoneCountryCode": phoneCountryCode,
-          "token": token
-        },
-        timeOut: AppConstants.TIME_OUT);
-  }
 }

@@ -21,8 +21,10 @@ class PinConfirmModelDTO {
 
   static PinConfirmModelDTO fromResult(dynamic data) =>
       PinConfirmModelDTO.fromJson(data as Map<String, dynamic>);
-  factory PinConfirmModelDTO.fromJson(Map<String, dynamic> json) =>
-      _$PinConfirmModelDTOFromJson(json);
+
+  factory PinConfirmModelDTO.fromJson(dynamic json) =>
+      _$PinConfirmModelDTOFromJson(json as Map<String,dynamic>);
+
   Map<String, dynamic> toJson() => _$PinConfirmModelDTOToJson(this);
 }
 
