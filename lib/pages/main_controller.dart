@@ -4,6 +4,7 @@ import 'package:trading_module/data/entities/kyc_status.dart';
 import 'package:trading_module/domain/entities/data_login.dart';
 import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
 class MainController extends BaseController {
   final UserOnBoardingUseCase _boardingUseCase =
@@ -38,6 +39,21 @@ class MainController extends BaseController {
       } else {
         //To Home
         // var userData = dataLogin?.userData;
+      }
+    }else{
+      if (respData.error != null) {
+        Get.back();
+        showAlertDialog(CustomAlertDialog(
+            title: "Xảy ra lỗi",
+            desc: respData.error?.message,
+            actions: [
+              AlertAction(
+                  text: "cancel".tr,
+                  onPressed: () {
+                    hideDialog();
+                  }),
+            ]));
+
       }
     }
   }

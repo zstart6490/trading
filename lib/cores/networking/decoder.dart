@@ -20,7 +20,7 @@ class BaseDecoder<T> {
 
   int get code => result.code;
 
-  Errors get error => Errors(result.code,result.msg);
+  Errors? get error => hasError?Errors(result.code,result.msg):null;
 
   T get modelDTO => decoded();
 

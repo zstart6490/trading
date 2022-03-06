@@ -224,7 +224,6 @@ class Api extends GetConnect {
       if (result.code == 100) {
         //token khong hop le
         print(result.msg);
-        Get.back();
         return result;
       } else if (result.code == 401) {
         //UNAUTHORIZED
