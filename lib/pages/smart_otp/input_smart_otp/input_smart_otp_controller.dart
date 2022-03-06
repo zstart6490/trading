@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 
@@ -50,9 +51,23 @@ class InputSmartOTPController extends BaseController {
           } else {
             isError.value = true;
             errorText.value = "";
+            _showDialogNotify(result.error!.message);
           }
         }
     }
+  }
+
+  void _showDialogNotify(String desc) {
+    final dialog = CustomAlertDialog(
+      title: "Tính năng tạm khoá".tr,
+      desc: desc,
+      actions: [
+        AlertAction.ok(() {
+          hideDialog();
+        })
+      ],
+    );
+    showMessageDialog(dialog, name: "BlockMiniGame", canDissmiss: false);
   }
 
   Future<void> onForgotPIN() async {

@@ -120,7 +120,6 @@ class VerifySMSOTPController extends OtpExpiredController {
     }
   }
 
-
   void showDialogNotify(String desc) {
     final dialog = CustomAlertDialog(
       title: "Thông báo".tr,
@@ -131,29 +130,7 @@ class VerifySMSOTPController extends OtpExpiredController {
         })
       ],
     );
-    _showMessageDialog(dialog, name: "BlockMiniGame", canDissmiss: false);
+    showMessageDialog(dialog, name: AppRoutes.SMART_OPT_VERIFY_SMS, canDissmiss: false);
   }
 
-  bool shouldShowDialog(String? dialogName) {
-    if (!(Get.isDialogOpen ?? false)) return true;
-    final route = Get.rawRoute;
-    if (dialogName != null && route is GetDialogRoute) {
-      return route.settings.name != dialogName &&
-          route.settings.name != "NetworkError";
-    }
-    return true;
-  }
-
-  void _showMessageDialog(Widget dialog,
-      {String? name, bool canDissmiss = true}) {
-    if (shouldShowDialog(name)) {
-      if (Get.isDialogOpen ?? false) {
-        Get.back();
-        DUR_250.delay().then((value) =>
-            Get.dialog<Result>(dialog, barrierDismissible: canDissmiss));
-      } else {
-        Get.dialog<Result>(dialog, barrierDismissible: canDissmiss, name: name);
-      }
-    }
-  }
 }

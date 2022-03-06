@@ -36,8 +36,7 @@ const Map<String, String> vi_VN = {
   "i_understand":"Tôi đã hiểu",
   "Thông báo":"Thông báo",
   "Đồng ý":"Đồng ý",
-
-
+  "Tính năng tạm khoá":"Tính năng tạm khoá",
 };
 // ignore_for_file: file_names
 

@@ -5,6 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_navigation/src/dialog/dialog_route.dart';
+import 'package:trading_module/configs/constants.dart';
+import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
 import 'package:trading_module/pages/main_provider.dart';
 
@@ -64,6 +67,28 @@ abstract class BaseController extends GetxController
     // Get.find<MainTabController>().selTab(selectTab);
   }
 
+  bool _shouldShowDialog(String? dialogName) {
+    if (!(Get.isDialogOpen ?? false)) return true;
+    final route = Get.rawRoute;
+    if (dialogName != null && route is GetDialogRoute) {
+      return route?.settings.name != dialogName &&
+          route.settings.name != "NetworkError";
+    }
+    return true;
+  }
+
+  void showMessageDialog(Widget dialog,
+      {String? name, bool canDissmiss = true}) {
+    if (_shouldShowDialog(name)) {
+      if (Get.isDialogOpen ?? false) {
+        Get.back();
+        DUR_250.delay().then((value) =>
+            Get.dialog<Result>(dialog, barrierDismissible: canDissmiss));
+      } else {
+        Get.dialog<Result>(dialog, barrierDismissible: canDissmiss, name: name);
+      }
+    }
+  }
 
 }
 
