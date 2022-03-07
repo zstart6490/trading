@@ -57,11 +57,12 @@ class VerifyPolicyController extends BaseController {
           AlertAction(
               text: "alert_active_now_smart_otp".tr,
               isDefaultAction: true,
-              onPressed: () => {
-              //active smart OTP
-              //call qua tikop kich hoat otp ngay
-              mainProvider.callToActiveOTP?.call()
-          }),
+              onPressed: () =>
+              {
+                //active smart OTP
+                //call qua tikop kich hoat otp ngay
+                mainProvider.callToActiveOTP?.call()
+              }),
         ]));
   }
 
@@ -70,17 +71,23 @@ class VerifyPolicyController extends BaseController {
         title: "verify_account".tr,
         desc: "content_alert_verify_account".tr,
         actions: [
-          AlertAction(text: "cancel".tr, onPressed: () => hideDialog()),
-          AlertAction(
-              text: "button_verify_alert".tr,
-              isDefaultAction: true,
-              onPressed: () =>
-              {
-                //call to KYC tikop
-                hideDialog(),
-                mainProvider.callToEKYC?.call(),
-              }),
-        ]));
+    AlertAction(text: "cancel".tr, onPressed: () {
+      hideDialog();
+      Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+    }),
+    AlertAction(
+    text: "button_verify_alert".tr,
+    isDefaultAction: true,
+    onPressed: () =>
+    {
+    //call to KYC tikop
+    hideDialog(),
+    mainProvider.callToEKYC?.call(),
+    })
+    ,
+    ]
+    )
+    );
   }
 
   void openPdf(String name, int pos) {

@@ -14,6 +14,7 @@ import 'package:trading_module/pages/main_controller.dart';
 import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_controller.dart';
 import 'package:trading_module/routes/app_pages.dart';
+import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/theme/app_theme.dart';
 
 enum CallbackType {
@@ -79,8 +80,8 @@ class TradingModule {
         break;
       case CallbackType.resultActiveSmartOTP:
         // TODO: Handle this case.
-        if (kDebugMode) {
-          print("CallbackType.resultActiveSmartOTP");
+        if (dataCallback.otpStatus == OtpStatus.enable) {
+          Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
         }
         break;
       case CallbackType.resultForgetSmartOTP:

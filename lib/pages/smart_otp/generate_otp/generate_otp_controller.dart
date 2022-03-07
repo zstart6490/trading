@@ -6,6 +6,7 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
 class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
@@ -38,6 +39,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     startTimer(60);
     reGenerateOTP();
     super.onReady();
+    log("Trading GenerateOtpController");
   }
 
   @override
@@ -65,10 +67,12 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       second--;
       log("Smart OTP: $second");
-      if (second <= 0 && shouldReload) {
+      //if (second <= 0 && shouldReload) {
+      if (second <= 0) {
         reGenerateOTP();
         _timer.cancel();
         canNext.value = false;
+        log("$second");
       }
     });
   }
@@ -103,12 +107,29 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     endTimer();
     showProgressingDialog();
     final result = await _otpUseCase.confirmOTP(otp.value, OTPMethod.smart.toString(), mainProvider.dataInputApp.token);
-    if (result.data != null) {
+    hideDialog();
+    if (result.data!.state == "VALID") {
       Get.toNamed(AppRoutes.CONTRACT);
     }else if (result.error != null) {
-
+      if (result.error!.code == 101) {
+        _showDialogNotify(result.error!.message);
+      } else {
+        showSnackBar(result.error!.message);
+      }
     }
-    hideDialog();
+  }
+
+  void _showDialogNotify(String desc) {
+    final dialog = CustomAlertDialog(
+      title: "Thông báo".tr,
+      desc: desc,
+      actions: [
+        AlertAction.ok(() {
+          hideDialog();
+        })
+      ],
+    );
+    showMessageDialog(dialog, name: "GenerateOtpController", canDissmiss: false);
   }
 
   void checkPassedTime() {

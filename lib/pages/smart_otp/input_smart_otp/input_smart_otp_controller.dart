@@ -67,23 +67,17 @@ class InputSmartOTPController extends BaseController {
         })
       ],
     );
-    showMessageDialog(dialog, name: "BlockMiniGame", canDissmiss: false);
+    showMessageDialog(dialog, name: "InputSmartOTPController", canDissmiss: false);
   }
 
   Future<void> onForgotPIN() async {
     //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
     final result = await _otpUseCase.smartOTPIsBlock(mainProvider.dataInputApp.token);
     if (result.data?.isBlock == false) {
-      //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
-      // Get.toNamed(Routes.createSmartOtp,
-      //     arguments: NavigateSmartOTPData(
-      //         smartOTPType: SmartOTPType.requestToForgot,
-      //         phone: userData.user?.phone ?? "",
-      //         country: mainProvider.savedCountry));
+      //call qua tikop doi ma pin
+      mainProvider.callToForgetPin?.call();
     }else if (result.error != null) {
       _showDialogNotify(result.error!.message);
-    }else{
-      Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
     }
   }
 }
