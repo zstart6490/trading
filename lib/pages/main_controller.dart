@@ -20,6 +20,7 @@ class MainController extends BaseController {
   /// if register and not by-pass on-boarding yet,
   /// return current status of on-boarding 3. if by-pass on-boarding screen, return HOME screen
   Future getDataLogin() async {
+    showProgressingDialog();
     final dataInput =mainProvider.dataInputApp;
     final respData = await _boardingUseCase.getDataLoginUser(
       token:dataInput.token,
@@ -28,6 +29,7 @@ class MainController extends BaseController {
           ? "y"
           : "n",
     );
+    hideDialog();
     if (respData.data != null) {
       final DataLogin? dataLogin = respData.data;
       if (respData.data?.nextScreen == "REGISTER") {

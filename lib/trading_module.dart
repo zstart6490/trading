@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
@@ -13,7 +14,6 @@ import 'package:trading_module/pages/main_controller.dart';
 import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_controller.dart';
 import 'package:trading_module/routes/app_pages.dart';
-import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/theme/app_theme.dart';
 
 enum CallbackType {
@@ -47,18 +47,24 @@ class TradingModule {
     Get.changeThemeMode(ThemeMode.light);
     //init
     Environment().initConfig(EnvironmentConfiguration.develop);
-
-    Get.create(
-        () => MainTradingProvider(
-            dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin),
-        permanent: true);
+    print("===data input===");
+    print("token=${dataInput.token}");
+    print("userIsRegisteredKyc=${dataInput.userIsRegisteredKyc}");
+    print("userIsRegisteredOTP=${dataInput.userIsRegisteredOTP}");
+    print("email=${dataInput.email}");
+    print("phone=${dataInput.phone}");
+    print("phoneCountryCode=${dataInput.phoneCountryCode}");
+    print("fbDeviceId=${dataInput.fbDeviceId}");
+    print("===data input===");
+    Get.replace<MainTradingProvider>(MainTradingProvider(
+        dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin));
 
     Get.lazyPut(() =>
         UserOnBoardingUseCase(OnBoardingReposImpl(OnBoardingServiceImpl())));
-    Get.create(() => MainController(), permanent: true);
+    Get.lazyPut(() => MainController());
 
     Get.find<MainController>().getDataLogin();
-    Get.toNamed(AppRoutes.MAIN);
+    // Get.toNamed(AppRoutes.MAIN);
   }
 
   static void callbackToApp(
@@ -73,6 +79,9 @@ class TradingModule {
         break;
       case CallbackType.resultActiveSmartOTP:
         // TODO: Handle this case.
+        if (kDebugMode) {
+          print("CallbackType.resultActiveSmartOTP");
+        }
         break;
       case CallbackType.resultForgetSmartOTP:
         // TODO: Handle this case.
