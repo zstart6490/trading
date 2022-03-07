@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/domain/entities/model.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
-import 'controller/home_page_controller.dart';
 
 class HomePageView extends GetView<HomePageController> {
   const HomePageView({Key? key}) : super(key: key);
@@ -14,7 +14,6 @@ class HomePageView extends GetView<HomePageController> {
       body: Container(
         color: Colors.white,
         child: ListView.builder(
-            scrollDirection: Axis.vertical,
             itemCount: 8,
             itemBuilder: (context, index) {
               if (index == 0) {

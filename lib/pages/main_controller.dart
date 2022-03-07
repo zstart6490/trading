@@ -21,13 +21,11 @@ class MainController extends BaseController {
   /// return current status of on-boarding 3. if by-pass on-boarding screen, return HOME screen
   Future getDataLogin() async {
     showProgressingDialog();
-    final dataInput =mainProvider.dataInputApp;
+    final dataInput = mainProvider.dataInputApp;
     final respData = await _boardingUseCase.getDataLoginUser(
-      token:dataInput.token,
-      fbDeviceId: dataInput.fbDeviceId??"",
-      kyc: dataInput.userIsRegisteredKyc == KycStatus.verified
-          ? "y"
-          : "n",
+      token: dataInput.token,
+      fbDeviceId: dataInput.fbDeviceId ?? "",
+      kyc: dataInput.userIsRegisteredKyc == KycStatus.verified ? "y" : "n",
     );
     hideDialog();
     if (respData.data != null) {
@@ -38,11 +36,14 @@ class MainController extends BaseController {
             'data_login': dataLogin,
           }
         ]);
-      } else {
+      } else if (respData.data?.nextScreen == "CONFIRM") {
+        mainProvider.callToActiveOTP?.call();
+      } else if (respData.data?.nextScreen == "HOME") {
         //To Home
         // var userData = dataLogin?.userData;
+        Get.toNamed(AppRoutes.HOME_TRADING);
       }
-    }else{
+    } else {
       if (respData.error != null) {
         Get.back();
         showAlertDialog(CustomAlertDialog(
@@ -55,7 +56,6 @@ class MainController extends BaseController {
                     hideDialog();
                   }),
             ]));
-
       }
     }
   }
