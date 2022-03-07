@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
+import 'package:trading_module/routes/app_routes.dart';
 
 class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
@@ -84,7 +85,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     if (result.data != null) {
       final otpTmp = result.data?.otp;
       if (otpTmp != null) {
-        otp.value = otpTmp.toString();
+        otp.value = otpTmp;
         canNext.value = true;
         startTimer(60);
         update();
@@ -102,6 +103,11 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     endTimer();
     showProgressingDialog();
     final result = await _otpUseCase.confirmOTP(otp.value, OTPMethod.smart.toString(), mainProvider.dataInputApp.token);
+    if (result.data != null) {
+      Get.toNamed(AppRoutes.CONTRACT);
+    }else if (result.error != null) {
+
+    }
     hideDialog();
   }
 

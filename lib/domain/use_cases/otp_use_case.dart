@@ -2,6 +2,7 @@ import 'package:trading_module/cores/resources/data_state.dart';
 import 'package:trading_module/domain/entities/OtpModel.dart';
 import 'package:trading_module/domain/entities/otp_generate_model.dart';
 import 'package:trading_module/domain/entities/pin_confirm_model.dart';
+import 'package:trading_module/domain/entities/smart_otp_state_model.dart';
 import 'package:trading_module/domain/repos/otp_repo.dart';
 
 import '../entities/otp_confirm_model.dart';
@@ -34,14 +35,8 @@ class OtpUseCase {
     return result;
   }
 
-  // Future<DataState<OtpGenerateModel>> registerTrading(String email, String kyc,
-  //     String phone, String phoneCountryCode, String token) async {
-  //   final otp = await _otpRepo.registerTrading(
-  //       email: email,
-  //       kyc: kyc,
-  //       phone: phone,
-  //       phoneCountryCode: phoneCountryCode,
-  //       token: token);
-  //   return otp;
-  // }
+  Future<DataState<SmartOtpStateModel>> smartOTPIsBlock(String token) async {
+    final result = await _otpRepo.smartOTPIsBlock(token: token);
+    return result;
+  }
 }

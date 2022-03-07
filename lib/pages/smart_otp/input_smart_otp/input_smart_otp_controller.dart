@@ -71,13 +71,19 @@ class InputSmartOTPController extends BaseController {
   }
 
   Future<void> onForgotPIN() async {
-    // final isBlock = await _smartOTPRepository.smartOTPIsBlock();
-    // if (!isBlock) {
-    //   Get.toNamed(Routes.createSmartOtp,
-    //       arguments: NavigateSmartOTPData(
-    //           smartOTPType: SmartOTPType.requestToForgot,
-    //           phone: userData.user?.phone ?? "",
-    //           country: mainProvider.savedCountry));
-    // }
+    //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
+    final result = await _otpUseCase.smartOTPIsBlock(mainProvider.dataInputApp.token);
+    if (result.data?.isBlock == false) {
+      //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
+      // Get.toNamed(Routes.createSmartOtp,
+      //     arguments: NavigateSmartOTPData(
+      //         smartOTPType: SmartOTPType.requestToForgot,
+      //         phone: userData.user?.phone ?? "",
+      //         country: mainProvider.savedCountry));
+    }else if (result.error != null) {
+      _showDialogNotify(result.error!.message);
+    }else{
+      Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
+    }
   }
 }
