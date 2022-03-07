@@ -6,16 +6,15 @@ import 'package:trading_module/domain/entities/user_data.dart';
 import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
-import 'package:trading_module/trading_module.dart';
 
 class VerifyPolicyController extends BaseController {
   final UserOnBoardingUseCase _boardingUseCase =
-      Get.find<UserOnBoardingUseCase>();
+  Get.find<UserOnBoardingUseCase>();
 
   Future acceptTermAndVerify() async {
-    showProgressingDialog();
     final dataInput = mainProvider.dataInputApp;
     if (dataInput.userIsRegisteredKyc == KycStatus.verified) {
+      showProgressingDialog();
       final resp = await _boardingUseCase.registerTrading(
           dataInput.email ?? "",
           "y",
@@ -23,16 +22,17 @@ class VerifyPolicyController extends BaseController {
           dataInput.phoneCountryCode ?? "",
           dataInput.token);
       hideDialog();
-
       if (resp.data != null) {
         //SUCCESS
         mainProvider.accessToken =
-            AccessToken(token: resp.data?.token ?? "", type: "");
+            AccessToken(token: resp.data?.token ?? "", type: "register_user");
         mainProvider.userData = resp.data?.userData;
         if (dataInput.userIsRegisteredOTP == OtpStatus.disable) {
+          //show alert yêu cầu
           _showPopupActiveSmartOTP();
         } else {
-          //kich hoat ngay
+          //call qua tikop kich hoat otp ngay
+          mainProvider.callToActiveOTP?.call();
         }
       }
     } else {
@@ -58,8 +58,10 @@ class VerifyPolicyController extends BaseController {
               text: "alert_active_now_smart_otp".tr,
               isDefaultAction: true,
               onPressed: () => {
-                    //active smart OTP
-                  }),
+              //active smart OTP
+              //call qua tikop kich hoat otp ngay
+              mainProvider.callToActiveOTP?.call()
+          }),
         ]));
   }
 
@@ -72,35 +74,32 @@ class VerifyPolicyController extends BaseController {
           AlertAction(
               text: "button_verify_alert".tr,
               isDefaultAction: true,
-              onPressed: () => {
-                    //call to KYC tikop
-                    hideDialog(),
-                    mainProvider.callToEKYC?.call(),
-                    //test
-                    TradingModule.callbackToApp(CallbackType.resultEKYC,
-                        DataCallback(kycStatus: KycStatus.verified))
-                  }),
+              onPressed: () =>
+              {
+                //call to KYC tikop
+                hideDialog(),
+                mainProvider.callToEKYC?.call(),
+              }),
         ]));
   }
 
   void openPdf(String name, int pos) {
-    Get.toNamed(AppRoutes.SMART_OPT_INPUT);
-    // if (pos == 0) {
-    //   Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
-    //     name,
-    //     "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
-    //   ]);
-    // } else if (pos == 1) {
-    //   Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
-    //     name,
-    //     "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
-    //   ]);
-    // } else {
-    //   Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
-    //     name,
-    //     "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
-    //   ]);
-    // }
+    if (pos == 0) {
+      Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
+        name,
+        "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+      ]);
+    } else if (pos == 1) {
+      Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
+        name,
+        "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+      ]);
+    } else {
+      Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
+        name,
+        "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+      ]);
+    }
   }
 
   void showDialogKycPending() {
@@ -111,10 +110,11 @@ class VerifyPolicyController extends BaseController {
           AlertAction(
               text: "i_understand".tr,
               isDefaultAction: true,
-              onPressed: () => {
-                    //call to KYC tikop
-                    hideDialog(),
-                  }),
+              onPressed: () =>
+              {
+                //call to KYC tikop
+                hideDialog(),
+              }),
         ]));
   }
 

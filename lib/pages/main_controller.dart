@@ -4,6 +4,7 @@ import 'package:trading_module/data/entities/kyc_status.dart';
 import 'package:trading_module/domain/entities/data_login.dart';
 import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
 class MainController extends BaseController {
   final UserOnBoardingUseCase _boardingUseCase =
@@ -19,6 +20,7 @@ class MainController extends BaseController {
   /// if register and not by-pass on-boarding yet,
   /// return current status of on-boarding 3. if by-pass on-boarding screen, return HOME screen
   Future getDataLogin() async {
+    showProgressingDialog();
     final dataInput =mainProvider.dataInputApp;
     final respData = await _boardingUseCase.getDataLoginUser(
       token:dataInput.token,
@@ -27,6 +29,7 @@ class MainController extends BaseController {
           ? "y"
           : "n",
     );
+    hideDialog();
     if (respData.data != null) {
       final DataLogin? dataLogin = respData.data;
       if (respData.data?.nextScreen == "REGISTER") {
@@ -38,6 +41,21 @@ class MainController extends BaseController {
       } else {
         //To Home
         // var userData = dataLogin?.userData;
+      }
+    }else{
+      if (respData.error != null) {
+        Get.back();
+        showAlertDialog(CustomAlertDialog(
+            title: "Xảy ra lỗi",
+            desc: respData.error?.message,
+            actions: [
+              AlertAction(
+                  text: "cancel".tr,
+                  onPressed: () {
+                    hideDialog();
+                  }),
+            ]));
+
       }
     }
   }
