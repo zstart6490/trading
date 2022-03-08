@@ -73,6 +73,7 @@ class VerifySMSOTPController extends OtpExpiredController {
     //call api verify otp
     final result = await _otpUseCase.confirmOTP(
         otp, OTPMethod.sms.name, mainProvider.dataInputApp.token);
+    hideDialog();
     if (result.error != null) {
       final error = result.error!;
       if (error.code == 101) {
@@ -80,17 +81,16 @@ class VerifySMSOTPController extends OtpExpiredController {
       } else {
         errors.value = error;
       }
-    } else {
+    } else if (result.data!.state == "VALID") {
       endTimer();
       onSuccess();
     }
-    hideDialog();
   }
 
   Future<void> onSuccess() async {
     // showProgressingDialog();
     //handle
-    Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+    Get.toNamed(AppRoutes.CONTRACT);
     hideDialog();
   }
 
@@ -116,7 +116,6 @@ class VerifySMSOTPController extends OtpExpiredController {
       }
     } else {
       endTimer();
-      onSuccess();
     }
   }
 

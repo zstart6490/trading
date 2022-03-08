@@ -32,7 +32,8 @@ class VerifyPolicyController extends BaseController {
           _showPopupActiveSmartOTP();
         } else {
           //call qua tikop kich hoat otp ngay
-          mainProvider.callToActiveOTP?.call();
+          //mainProvider.callToActiveOTP?.call();
+          Get.toNamed(AppRoutes.SMART_OPT_INPUT);
         }
       }
     } else {
@@ -53,6 +54,7 @@ class VerifyPolicyController extends BaseController {
               text: "skip".tr,
               onPressed: () {
                 hideDialog();
+                Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
               }),
           AlertAction(
               text: "alert_active_now_smart_otp".tr,

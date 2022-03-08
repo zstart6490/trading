@@ -36,24 +36,25 @@ class InputSmartOTPController extends BaseController {
   Future<void> onChanged(String pin) async {
     if (pin.length == 4) {
       showProgressingDialog();
-      final result = await _otpUseCase.checkPin(pin, mainProvider.dataInputApp.token);
+      final result = await _otpUseCase.checkPin(
+          pin, mainProvider.dataInputApp.token);
       hideDialog();
-        if (result.data != null) {
-          isError.value = false;
+      if (result.data != null) {
+        isError.value = false;
+        errorText.value = "";
+        Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
+      } else if (result.error != null) {
+        if (result.error!.code != BLOCK_SMART_OTP_CODE) {
+          isError.value = true;
+          errorText.value = result.error!.message;
+          textEditingController.clear();
+          focusNode.requestFocus();
+        } else {
+          isError.value = true;
           errorText.value = "";
-          Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
-        } else if (result.error != null) {
-          if (result.error!.code != BLOCK_SMART_OTP_CODE) {
-            isError.value = true;
-            errorText.value = result.error!.message;
-            textEditingController.clear();
-            focusNode.requestFocus();
-          } else {
-            isError.value = true;
-            errorText.value = "";
-            _showDialogNotify(result.error!.message);
-          }
+          _showDialogNotify(result.error!.message);
         }
+      }
     }
   }
 
@@ -67,17 +68,22 @@ class InputSmartOTPController extends BaseController {
         })
       ],
     );
-    showMessageDialog(dialog, name: "InputSmartOTPController", canDissmiss: false);
+    showMessageDialog(
+        dialog, name: "InputSmartOTPController", canDissmiss: false);
   }
 
   Future<void> onForgotPIN() async {
     //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
-    final result = await _otpUseCase.smartOTPIsBlock(mainProvider.dataInputApp.token);
-    if (result.data?.isBlock == false) {
+    final result = await _otpUseCase.smartOTPIsBlock(
+        mainProvider.dataInputApp.token);
+    // print(result);
+    // print(result.error);
+
+    if (result.error != null) {
+      _showDialogNotify(result.error!.message);
+    } else if (result.data?.isBlock == false) {
       //call qua tikop doi ma pin
       mainProvider.callToForgetPin?.call();
-    }else if (result.error != null) {
-      _showDialogNotify(result.error!.message);
     }
   }
 }

@@ -28,11 +28,13 @@ class IntroController extends BaseController with StateMixin<MsgMap> {
   }
 
   void toAcceptTerm() {
-    Get.back();
-    Get.toNamed(AppRoutes.BOARDING_VERIFY_POLICY, arguments: [
-      {
-        'data_login': dataLogin,
-      }
-    ]);
+
+    Get.toNamed(AppRoutes.SMART_OPT_INPUT);
+    // Get.back();
+    // Get.toNamed(AppRoutes.BOARDING_VERIFY_POLICY, arguments: [
+    //   {
+    //     'data_login': dataLogin,
+    //   }
+    // ]);
   }
 }

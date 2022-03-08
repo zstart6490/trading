@@ -1,5 +1,4 @@
 import 'package:trading_module/cores/resources/data_state.dart';
-import 'package:trading_module/domain/entities/OtpModel.dart';
 import 'package:trading_module/domain/entities/otp_generate_model.dart';
 import 'package:trading_module/domain/entities/pin_confirm_model.dart';
 import 'package:trading_module/domain/entities/smart_otp_state_model.dart';
@@ -13,10 +12,6 @@ class OtpUseCase {
 
   OtpUseCase(this._otpRepo);
 
-  Future<DataState<OtpModel>> enableSmartOTP(String? smsOTP) async {
-    final otp = await _otpRepo.enableSmartOTP(smsOTP: smsOTP);
-    return otp;
-  }
 
   Future<DataState<OtpGenerateModel>> generateOTP(String pin, String token, String otpMethod) async {
     final otp = await _otpRepo.generateOTP(pin: pin, token: token, otpMethod: otpMethod);

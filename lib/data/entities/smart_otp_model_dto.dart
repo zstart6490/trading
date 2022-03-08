@@ -7,10 +7,11 @@ part 'smart_otp_model_dto.g.dart';
 @JsonSerializable()
 class SmartOtpStateModelDTO {
   @JsonKey(name: "isBlock")
-  final bool? isBlock;
+  final int? lockCount;
+  final String? lockDate;
 
 
-  SmartOtpStateModelDTO(this.isBlock);
+  SmartOtpStateModelDTO(this.lockCount,this.lockDate);
 
   static SmartOtpStateModelDTO fromResult(dynamic data) =>
       SmartOtpStateModelDTO.fromJson(data as Map<String, dynamic>);
@@ -24,6 +25,6 @@ class SmartOtpStateModelDTO {
 
 extension SmartOtpStateModelMapper on SmartOtpStateModelDTO {
   SmartOtpStateModel toModel() {
-    return SmartOtpStateModel(isBlock: isBlock ?? false);
+    return SmartOtpStateModel(lockCount: lockCount, lockDate:lockDate);
   }
 }

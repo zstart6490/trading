@@ -71,7 +71,7 @@ abstract class BaseController extends GetxController
     if (!(Get.isDialogOpen ?? false)) return true;
     final route = Get.rawRoute;
     if (dialogName != null && route is GetDialogRoute) {
-      return route?.settings.name != dialogName &&
+      return route.settings.name != dialogName &&
           route.settings.name != "NetworkError";
     }
     return true;

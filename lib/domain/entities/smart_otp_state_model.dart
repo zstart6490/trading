@@ -1,7 +1,10 @@
 class SmartOtpStateModel {
-  final bool isBlock;
+  final bool isBlock = false;
+  final int? lockCount;
+  final String? lockDate;
 
   SmartOtpStateModel({
-    required this.isBlock,
+    required this.lockCount,
+    required this.lockDate,
   });
 }

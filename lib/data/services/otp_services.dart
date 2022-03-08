@@ -11,8 +11,6 @@ import 'package:trading_module/domain/entities/smart_otp_state_model.dart';
 abstract class OtpService extends ApiServices {
   OtpService() : super();
 
-  Future<Result> enableSmartOTP(String? smsOTP);
-
   Future<BaseDecoder<OtpGenerateModelDTO>> generateOTP(String pin, String token, String otpMethod);
 
   Future<BaseDecoder<PinConfirmModelDTO>>checkPin(String pin, String token);
@@ -28,20 +26,10 @@ class OtpServiceImpl extends OtpService {
   OtpServiceImpl() : super();
 
   @override
-  Future<Result> enableSmartOTP(String? smsOTP) async {
-    return await api.getData(
-        endPoint: "/smart-otp/enable",
-        params: {
-          "otp": smsOTP,
-        },
-        timeOut: AppConstants.TIME_OUT);
-  }
-
-  @override
   Future<BaseDecoder<OtpGenerateModelDTO>> generateOTP(
       String pin, String token, String otpMethod) async {
     return BaseDecoder(await api.postData(
-        endPoint: "/v1/on-boarding/get-otp",
+        endPoint: "/v1/otp/get-otp",
         params: {
           "pin": pin,
           "token": token,
@@ -55,7 +43,7 @@ class OtpServiceImpl extends OtpService {
   Future<BaseDecoder<PinConfirmModelDTO>> checkPin(
       String pin, String token) async {
     return BaseDecoder(await api.postData(
-        endPoint: "/v1/on-boarding/check-pin",
+        endPoint: "/v1/otp/check-pin",
         params: {"pin": pin, "token": token},
         timeOut: AppConstants.TIME_OUT),
         decoder: PinConfirmModelDTO.fromJson);
@@ -74,7 +62,7 @@ class OtpServiceImpl extends OtpService {
   @override
   Future<BaseDecoder<SmartOtpStateModelDTO>> smartOTPIsBlock(String token) async {
     return BaseDecoder(await api.postData(
-        endPoint: "/v1/on-boarding/check-pin-block",
+        endPoint: "/v1/otp/check-pin-block",
         params: {"token": token},
         timeOut: AppConstants.TIME_OUT),
         decoder: SmartOtpStateModelDTO.fromJson);
