@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import 'package:trading_module/pages/contract/contract_binding.dart';
+import 'package:trading_module/pages/contract/contract_scene.dart';
+import 'package:trading_module/pages/homePage/home_page.dart';
+import 'package:trading_module/pages/homePage/home_page_bindding.dart';
 import 'package:trading_module/pages/main/views/home_view.dart';
 import 'package:trading_module/pages/main_binding.dart';
 import 'package:trading_module/pages/on_boarding/intro/intro_binding.dart';
@@ -15,8 +19,6 @@ import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_bin
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_view.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
-import 'package:trading_module/pages/contract/contract_scene.dart';
-import '../pages/contract/contract_binding.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppPages {
@@ -28,6 +30,10 @@ class AppPages {
       name: AppRoutes.MAIN,
       page: () => MainView(),
       binding: MainBinding(),
+    ),  GetPage(
+      name: AppRoutes.HOME_TRADING,
+      page: () => HomePageView(),
+      binding: HomePageBinding(),
     ),
     GetPage(
       name: AppRoutes.BOARDING_INTRO,
