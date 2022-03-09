@@ -83,7 +83,7 @@ class TradingModule {
         if (dataCallback.otpStatus == OtpStatus.enable) {
           //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
           Get.offNamed(AppRoutes.SMART_OPT_GENERATE,
-              arguments: ["", dataCallback.otpPin, SmartOTPType.tikop]);
+              arguments: ["", dataCallback.otpPin??"1234", SmartOTPType.tikop]);
         }
         break;
       case CallbackType.resultForgetSmartOTP:
