@@ -9,7 +9,7 @@ import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
 class VerifyPolicyController extends BaseController {
   final UserOnBoardingUseCase _boardingUseCase =
-  Get.find<UserOnBoardingUseCase>();
+      Get.find<UserOnBoardingUseCase>();
 
   Future acceptTermAndVerify() async {
     final dataInput = mainProvider.dataInputApp;
@@ -24,8 +24,7 @@ class VerifyPolicyController extends BaseController {
       hideDialog();
       if (resp.data != null) {
         //SUCCESS
-        mainProvider.accessToken =
-            AccessToken(token: resp.data?.token ?? "");
+        mainProvider.accessToken = AccessToken(token: resp.data?.token ?? "");
         mainProvider.userData = resp.data?.userData;
         if (dataInput.userIsRegisteredOTP == OtpStatus.disable) {
           //show alert yêu cầu
@@ -60,12 +59,11 @@ class VerifyPolicyController extends BaseController {
           AlertAction(
               text: "alert_active_now_smart_otp".tr,
               isDefaultAction: true,
-              onPressed: () =>
-              {
-                //active smart OTP
-                //call qua tikop kich hoat otp ngay
-                mainProvider.callToActiveOTP?.call()
-              }),
+              onPressed: () => {
+                    //active smart OTP
+                    //call qua tikop kich hoat otp ngay
+                    mainProvider.callToActiveOTP?.call()
+                  }),
         ]));
   }
 
@@ -74,23 +72,21 @@ class VerifyPolicyController extends BaseController {
         title: "verify_account".tr,
         desc: "content_alert_verify_account".tr,
         actions: [
-    AlertAction(text: "cancel".tr, onPressed: () {
-      hideDialog();
-      Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
-    }),
-    AlertAction(
-    text: "button_verify_alert".tr,
-    isDefaultAction: true,
-    onPressed: () =>
-    {
-    //call to KYC tikop
-    hideDialog(),
-    mainProvider.callToEKYC?.call(),
-    })
-    ,
-    ]
-    )
-    );
+          AlertAction(
+              text: "cancel".tr,
+              onPressed: () {
+                hideDialog();
+                Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+              }),
+          AlertAction(
+              text: "button_verify_alert".tr,
+              isDefaultAction: true,
+              onPressed: () => {
+                    //call to KYC tikop
+                    hideDialog(),
+                    mainProvider.callToEKYC?.call(),
+                  }),
+        ]));
   }
 
   void openPdf(String name, int pos) {
@@ -120,11 +116,10 @@ class VerifyPolicyController extends BaseController {
           AlertAction(
               text: "i_understand".tr,
               isDefaultAction: true,
-              onPressed: () =>
-              {
-                //call to KYC tikop
-                hideDialog(),
-              }),
+              onPressed: () => {
+                    //call to KYC tikop
+                    hideDialog(),
+                  }),
         ]));
   }
 
