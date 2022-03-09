@@ -25,8 +25,9 @@ enum CallbackType {
 class DataCallback {
   KycStatus? kycStatus;
   OtpStatus? otpStatus;
+  String? otpPin;
 
-  DataCallback({this.kycStatus, this.otpStatus});
+  DataCallback({this.kycStatus, this.otpStatus, this.otpPin});
 }
 
 class TradingModule {
