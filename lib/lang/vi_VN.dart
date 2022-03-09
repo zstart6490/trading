@@ -37,6 +37,8 @@ const Map<String, String> vi_VN = {
   "Thông báo":"Thông báo",
   "Đồng ý":"Đồng ý",
   "Tính năng tạm khoá":"Tính năng tạm khoá",
+  "ekyc_reject_title":"Xác thực không thành công",
+  "ekyc_reject_content":"Tài khoản của bạn đã xác thực eKYC không thành công. Vui lòng thực hiện lại để có thể sử dụng tính năng này.",
 };
 // ignore_for_file: file_names
 

@@ -129,9 +129,9 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     endTimer();
     showProgressingDialog();
     final result = await _otpUseCase.confirmOTP(
-        otp.value, OTPMethod.smart.toString(), mainProvider.dataInputApp.token);
+        otp.value, OTPMethod.smart.name, mainProvider.dataInputApp.token);
     hideDialog();
-    if (result.data!.state == "VALID") {
+    if (result.data?.state == "VALID") {
       Get.toNamed(AppRoutes.CONTRACT);
     } else if (result.error != null) {
       if (result.error!.code == 101) {

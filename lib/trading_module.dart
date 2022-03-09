@@ -26,8 +26,9 @@ enum CallbackType {
 class DataCallback {
   KycStatus? kycStatus;
   OtpStatus? otpStatus;
+  String? otpPin;
 
-  DataCallback({this.kycStatus, this.otpStatus});
+  DataCallback({this.kycStatus, this.otpStatus, this.otpPin});
 }
 
 class TradingModule {
@@ -82,7 +83,7 @@ class TradingModule {
         if (dataCallback.otpStatus == OtpStatus.enable) {
           //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
           Get.offNamed(AppRoutes.SMART_OPT_GENERATE,
-              arguments: ["", "", SmartOTPType.tikop]);
+              arguments: ["", dataCallback.otpPin, SmartOTPType.tikop]);
         }
         break;
       case CallbackType.resultForgetSmartOTP:

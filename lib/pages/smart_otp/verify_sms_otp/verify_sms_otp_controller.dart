@@ -81,7 +81,7 @@ class VerifySMSOTPController extends OtpExpiredController {
       } else {
         errors.value = error;
       }
-    } else if (result.data!.state == "VALID") {
+    } else if (result.data?.state == "VALID") {
       endTimer();
       onSuccess();
     }
