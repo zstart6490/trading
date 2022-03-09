@@ -16,11 +16,9 @@ class ContractPage extends GetView<ContractController> {
         body: Column(
           children: [
             Expanded(
-                child: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: PdfViewPinch(
-                controller: controller.pdfController,
-              )),
+                child:  PdfViewPinch(
+                  controller: controller.pdfController,
+                ),
             ),
             Container(
               margin: const EdgeInsets.only(

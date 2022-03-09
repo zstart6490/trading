@@ -19,13 +19,13 @@ class ContractController extends BaseController {
   @override
   void onInit() {
     String pdfLink =
-        "${Environment().backendUrl}/v1/resource/contract/$pdfPath";
+        "${Environment().backendUrl}/v1/resource/download-contract/$pdfPath";
     if (kDebugMode) {
       print(pdfLink);
     }
     pdfController = PdfControllerPinch(
         document: PdfDocument.openData(InternetFile.get(pdfLink)),
-        initialPage: 0);
+        );
     super.onInit();
   }
 
