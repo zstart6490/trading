@@ -36,7 +36,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   @override
   void onReady() {
-    startTimer(60);
+    //startTimer(60);
     reGenerateOTP();
     super.onReady();
     log("Trading GenerateOtpController");
@@ -67,8 +67,8 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       second--;
       log("Smart OTP: $second");
-      //if (second <= 0 && shouldReload) {
-      if (second <= 0) {
+      if (second <= 0 && shouldReload) {
+      //if (second <= 0) {
         reGenerateOTP();
         _timer.cancel();
         canNext.value = false;
