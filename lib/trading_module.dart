@@ -15,6 +15,7 @@ import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_con
 import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/theme/app_theme.dart';
+import 'package:trading_module/utils/enums.dart';
 
 enum CallbackType {
   resultEKYC,
@@ -79,7 +80,9 @@ class TradingModule {
         break;
       case CallbackType.resultActiveSmartOTP:
         if (dataCallback.otpStatus == OtpStatus.enable) {
-          Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
+          //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
+          Get.offNamed(AppRoutes.SMART_OPT_GENERATE,
+              arguments: ["", "", SmartOTPType.tikop]);
         }
         break;
       case CallbackType.resultForgetSmartOTP:

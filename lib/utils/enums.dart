@@ -186,7 +186,8 @@ enum OptionGuide {
 }
 enum SnackBarType { info, success, error, warning }
 enum SmartOTPType {
-  create
+  create,
+  tikop
 }
 
 enum BannerType {

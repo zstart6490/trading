@@ -7,10 +7,12 @@ import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/utils/enums.dart';
 
 class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   final String pin;
   final String initOTP;
+  final SmartOTPType type;
   late Timer _timer;
   RxBool canNext = true.obs;
   bool shouldReload = true;
@@ -18,11 +20,12 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   final OtpUseCase _otpUseCase = Get.find();
 
-  late RxString otp="".obs;
+  late RxString otp = "".obs;
 
   RxInt second = 0.obs;
 
-  GenerateOtpController({required this.pin, required this.initOTP}) {
+  GenerateOtpController(
+      {required this.pin, required this.initOTP, required this.type}) {
     otp = initOTP.obs;
   }
 
@@ -40,9 +43,8 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   @override
   void onReady() {
-    startTimer(60);
+    setupData();
     super.onReady();
-    log("Trading GenerateOtpController");
   }
 
   @override
@@ -64,6 +66,23 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     }
   }
 
+  void setupData() {
+    switch (type) {
+      case SmartOTPType.create:
+        {
+          canNext.value = true;
+          startTimer(60);
+        }
+        break;
+      case SmartOTPType.tikop:
+        {
+          canNext.value = false;
+          reGenerateOTP();
+        }
+        break;
+    }
+  }
+
   void startTimer(int expired) {
     startDate = DateTime.now();
     second.value = expired;
@@ -71,7 +90,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
       second--;
       log("Smart OTP: $second");
       if (second <= 0 && shouldReload) {
-      //if (second <= 0) {
+        //if (second <= 0) {
         reGenerateOTP();
         _timer.cancel();
         canNext.value = false;
@@ -109,11 +128,12 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   Future<void> onConfirm() async {
     endTimer();
     showProgressingDialog();
-    final result = await _otpUseCase.confirmOTP(otp.value, OTPMethod.smart.toString(), mainProvider.dataInputApp.token);
+    final result = await _otpUseCase.confirmOTP(
+        otp.value, OTPMethod.smart.toString(), mainProvider.dataInputApp.token);
     hideDialog();
     if (result.data!.state == "VALID") {
       Get.toNamed(AppRoutes.CONTRACT);
-    }else if (result.error != null) {
+    } else if (result.error != null) {
       if (result.error!.code == 101) {
         _showDialogNotify(result.error!.message);
       } else {
@@ -132,7 +152,8 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
         })
       ],
     );
-    showMessageDialog(dialog, name: "GenerateOtpController", canDissmiss: false);
+    showMessageDialog(dialog,
+        name: "GenerateOtpController", canDissmiss: false);
   }
 
   void checkPassedTime() {
