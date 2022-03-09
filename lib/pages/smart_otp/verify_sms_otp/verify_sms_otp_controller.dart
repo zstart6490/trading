@@ -106,7 +106,7 @@ class VerifySMSOTPController extends OtpExpiredController {
 
   Future<void> generateOTP() async {
     final result = await _otpUseCase.generateOTP(
-        "1234", mainProvider.dataInputApp.token, OTPMethod.sms.name);
+        "", mainProvider.dataInputApp.token, OTPMethod.sms.name);
     if (result.error != null) {
       final error = result.error!;
       if (error.code == 101) {
