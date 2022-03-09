@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/kyc_status.dart';
 import 'package:trading_module/domain/entities/data_login.dart';
+import 'package:trading_module/domain/entities/user_data.dart';
 import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
@@ -30,6 +31,7 @@ class MainController extends BaseController {
     hideDialog();
     if (respData.data != null) {
       final DataLogin? dataLogin = respData.data;
+      mainProvider.accessToken = AccessToken(token:dataLogin?.token??"");
       if (respData.data?.nextScreen == "REGISTER") {
         Get.offAndToNamed(AppRoutes.BOARDING_INTRO, arguments: [
           {
@@ -41,6 +43,7 @@ class MainController extends BaseController {
       } else if (respData.data?.nextScreen == "HOME") {
         //To Home
         // var userData = dataLogin?.userData;
+        // mainProvider.callToForgetPin?.call();
         Get.toNamed(AppRoutes.HOME_TRADING);
       }
     } else {

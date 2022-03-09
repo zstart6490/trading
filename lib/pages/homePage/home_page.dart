@@ -3,13 +3,15 @@ import 'package:get/get.dart';
 import 'package:trading_module/domain/entities/model.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
+import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 
 class HomePageView extends GetView<HomePageController> {
   const HomePageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BaseScaffoldAppBar<HomePageController>(
+      showBackBtn: false,
       backgroundColor: Colors.white,
       body: Container(
         color: Colors.white,
@@ -26,7 +28,7 @@ class HomePageView extends GetView<HomePageController> {
                 onPressed: () {},
               );
             }),
-      ),
+      ), title: 'HOME',
     );
   }
 }
