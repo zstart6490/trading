@@ -1,7 +1,9 @@
 class OtpConfirmModel {
   final String? state;
+  final String? contractLink;
 
   OtpConfirmModel({
-    required this.state,
+    this.state,
+    this.contractLink,
   });
 }

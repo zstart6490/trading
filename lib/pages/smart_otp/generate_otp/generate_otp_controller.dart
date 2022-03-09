@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
@@ -88,7 +90,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     second.value = expired;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       second--;
-      log("Smart OTP: $second");
+      if (kDebugMode) log("Smart OTP: $second");
       if (second <= 0 && shouldReload) {
         //if (second <= 0) {
         reGenerateOTP();
@@ -132,9 +134,10 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
         otp.value, OTPMethod.smart.name, mainProvider.dataInputApp.token);
     hideDialog();
     if (result.data?.state == "VALID") {
-      Get.toNamed(AppRoutes.CONTRACT);
+      Get.offAndToNamed(AppRoutes.CONTRACT,
+          arguments: result.data?.contractLink ?? "");
     } else if (result.error != null) {
-      if (result.error!.code == 101) {
+      if (result.error?.code == 101) {
         _showDialogNotify(result.error!.message);
       } else {
         showSnackBar(result.error!.message);

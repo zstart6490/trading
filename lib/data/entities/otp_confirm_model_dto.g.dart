@@ -9,9 +9,11 @@ part of 'otp_confirm_model_dto.dart';
 OtpConfirmModelDTO _$OtpConfirmModelDTOFromJson(Map<String, dynamic> json) =>
     OtpConfirmModelDTO(
       json['state'] as String?,
+      json['contractLink'] as String?,
     );
 
 Map<String, dynamic> _$OtpConfirmModelDTOToJson(OtpConfirmModelDTO instance) =>
     <String, dynamic>{
       'state': instance.state,
+      'contractLink': instance.contractLink,
     };

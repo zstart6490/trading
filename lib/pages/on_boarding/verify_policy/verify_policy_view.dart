@@ -106,7 +106,7 @@ class VerifyPolicyView extends GetView<VerifyPolicyController> {
               child: Column(
                 children: [
                   CustomButton.defaultStyle(
-                    title: "verify_policy".tr,
+                    title: "verify".tr,
                     onPressed: () {
                       controller.acceptTermAndVerify();
                     },
