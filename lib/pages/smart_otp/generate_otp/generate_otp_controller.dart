@@ -9,9 +9,10 @@ import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
 class GenerateOtpController extends BaseController with WidgetsBindingObserver {
-
+  final String pin;
+  final String initOTP;
   late Timer _timer;
-  RxBool canNext = false.obs;
+  RxBool canNext = true.obs;
   bool shouldReload = true;
   late DateTime startDate;
 
@@ -21,6 +22,9 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   RxInt second = 0.obs;
 
+  GenerateOtpController({required this.pin, required this.initOTP}) {
+    otp = initOTP.obs;
+  }
 
   @override
   Future<bool> onWillPop() {
@@ -36,8 +40,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   @override
   void onReady() {
-    //startTimer(60);
-    reGenerateOTP();
+    startTimer(60);
     super.onReady();
     log("Trading GenerateOtpController");
   }
@@ -84,7 +87,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   Future<void> reGenerateOTP() async {
     showProgressingDialog();
     final result = await _otpUseCase.generateOTP(
-        "1234", mainProvider.dataInputApp.token, OTPMethod.smart.name);
+        pin, mainProvider.dataInputApp.token, OTPMethod.smart.name);
     hideDialog();
     if (result.data != null) {
       final otpTmp = result.data?.otp;
@@ -100,7 +103,6 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     } else if (result.error != null) {
       canNext.value = false;
       showSnackBar(result.error!.message);
-      startTimer(60);
     }
   }
 

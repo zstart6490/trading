@@ -7,14 +7,12 @@ import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 
-
 class InputSmartOTPController extends BaseController {
   RxBool isError = false.obs;
   final SmartOTPType type;
   late FocusNode focusNode;
   late TextEditingController textEditingController;
   RxString errorText = "".obs;
-
 
   InputSmartOTPController(this.type);
 
@@ -36,13 +34,14 @@ class InputSmartOTPController extends BaseController {
   Future<void> onChanged(String pin) async {
     if (pin.length == 4) {
       showProgressingDialog();
-      final result = await _otpUseCase.checkPin(
-          pin, mainProvider.dataInputApp.token);
+      final result = await _otpUseCase.generateOTP(
+          pin, mainProvider.dataInputApp.token, OTPMethod.smart.name);
       hideDialog();
-      if (result.data != null) {
+      if (result.data?.otp != null) {
         isError.value = false;
         errorText.value = "";
-        Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
+        Get.offNamed(AppRoutes.SMART_OPT_GENERATE,
+            arguments: [pin, result.data?.otp]);
       } else if (result.error != null) {
         if (result.error!.code != BLOCK_SMART_OTP_CODE) {
           isError.value = true;
@@ -54,6 +53,8 @@ class InputSmartOTPController extends BaseController {
           errorText.value = "";
           _showDialogNotify(result.error!.message);
         }
+      } else {
+        showSnackBar(UNKNOWN_ERROR);
       }
     }
   }
@@ -68,14 +69,14 @@ class InputSmartOTPController extends BaseController {
         })
       ],
     );
-    showMessageDialog(
-        dialog, name: "InputSmartOTPController", canDissmiss: false);
+    showMessageDialog(dialog,
+        name: "InputSmartOTPController", canDissmiss: false);
   }
 
   Future<void> onForgotPIN() async {
     //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
-    final result = await _otpUseCase.smartOTPIsBlock(
-        mainProvider.dataInputApp.token);
+    final result =
+        await _otpUseCase.smartOTPIsBlock(mainProvider.dataInputApp.token);
     // print(result);
     // print(result.error);
 

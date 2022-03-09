@@ -9,8 +9,11 @@ import 'generate_otp_controller.dart';
 class GenerateOtpBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<OtpRepo>(() => OtpRepoImpl(OtpServiceImpl()));
-    Get.lazyPut<OtpUseCase>(() => OtpUseCase(Get.find()));
-    Get.lazyPut(() => GenerateOtpController());
+    final arg = Get.arguments;
+    if (arg is List) {
+      Get.lazyPut<OtpRepo>(() => OtpRepoImpl(OtpServiceImpl()));
+      Get.lazyPut<OtpUseCase>(() => OtpUseCase(Get.find()));
+      Get.lazyPut(() => GenerateOtpController(pin: arg[0] as String, initOTP: arg[1] as String));
+    }
   }
 }
