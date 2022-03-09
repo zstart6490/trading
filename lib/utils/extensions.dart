@@ -99,7 +99,7 @@ extension CustomStringExtension on String {
 
   String phoneWithDialCode(String dialCode) {
     var removeSpace = replaceAll(' ', '');
-    if (dialCode == "+84") {
+    if (dialCode == "VN") {
       if (removeSpace.startsWith("0")) removeSpace = removeSpace.substring(1);
       var subString = "";
       for (int i = 1; i <= removeSpace.length; i++) {
@@ -107,9 +107,9 @@ extension CustomStringExtension on String {
           subString += " ${removeSpace.substring(i - 3, i)}";
         }
       }
-      return "($dialCode) $subString";
+      return "(+84) $subString";
     } else {
-      return "($dialCode) $removeSpace";
+      return "(+84) $removeSpace";
     }
   }
 

@@ -81,7 +81,7 @@ class InputSmartOTPController extends BaseController {
 
     if (result.error != null) {
       _showDialogNotify(result.error!.message);
-    } else if (result.data?.isBlock == false) {
+    } else if (result.data != null) {
       //call qua tikop doi ma pin
       mainProvider.callToForgetPin?.call();
     }

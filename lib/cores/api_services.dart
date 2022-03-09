@@ -14,8 +14,8 @@ class ApiServices {
 
   ApiServices() {
     MainTradingProvider mainProvider = Get.find<MainTradingProvider>();
-    //api = Api(backendUrl: Environment().backendUrl, fullToken: mainProvider.accessToken?.token??"");
-    api = Api(backendUrl: Environment().backendUrl, fullToken: tokenTest);
+    api = Api(backendUrl: Environment().backendUrl, fullToken: mainProvider.accessToken?.token??"");
+    //api = Api(backendUrl: Environment().backendUrl, fullToken: tokenTest);
   }
 
   late Api api;

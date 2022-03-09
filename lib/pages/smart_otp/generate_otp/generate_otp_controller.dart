@@ -100,6 +100,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     } else if (result.error != null) {
       canNext.value = false;
       showSnackBar(result.error!.message);
+      startTimer(60);
     }
   }
 
