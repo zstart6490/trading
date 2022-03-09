@@ -14,7 +14,6 @@ class HeaderHomeView<T extends HomePageController> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
       children: [
         SIZED_BOX_H72,
         const HeaderView(),
@@ -138,24 +137,21 @@ class HeaderBoardView<T extends HomePageController> extends StatelessWidget {
           children: [
             HeaderBoardItem(
                 title: "Mã CP".tr,
-                imgUp: Image.asset("assets/images/png/ic_arrow_up.png"),
-                imgDown: Image.asset(
-                    "assets/images/png/ic_arrow_down_selected.png")),
+                imgUp: "ic_arrow_up".pngImage(),
+                imgDown: "ic_arrow_down_selected".pngImage()),
             HeaderBoardItem(
                 title: "Khối lượng".tr,
-                imgUp: Image.asset("assets/images/png/ic_arrow_up.png"),
-                imgDown: Image.asset(
-                    "assets/images/png/ic_arrow_down_selected.png")),
+                imgUp:"ic_arrow_up".pngImage(),
+                imgDown: "ic_arrow_down_selected".pngImage()),
             HeaderBoardItem(
                 title: "Giá khớp".tr,
-                imgUp: Image.asset("assets/images/png/ic_arrow_up.png"),
-                imgDown: Image.asset(
-                    "assets/images/png/ic_arrow_down_selected.png")),
+                imgUp: "ic_arrow_up".pngImage(),
+                imgDown: "ic_arrow_down_selected".pngImage()),
             HeaderBoardItem(
                 title: "+/-".tr,
-                imgUp: Image.asset("assets/images/png/ic_arrow_up.png"),
+                imgUp: "ic_arrow_up".pngImage(),
                 imgDown:
-                    Image.asset("assets/images/png/ic_arrow_down_selected.png"))
+                "ic_arrow_down_selected".pngImage())
           ],
         ));
   }
@@ -247,19 +243,19 @@ class MenuOptionView extends StatelessWidget {
         children: <Widget>[
           ButtonWithIconAndText(
               title: 'top_up'.tr,
-              icon: Image.asset("assets/images/png/ic_top_up.png"),
+              icon: Image.asset("assets/images/png/ic_top_up.png",package: "trading_module"),
               onPressed: () {}),
           ButtonWithIconAndText(
               title: 'cash_drawing'.tr,
-              icon: Image.asset("assets/images/png/ic_cash_drawing.png"),
+              icon: Image.asset("assets/images/png/ic_cash_drawing.png",package: "trading_module"),
               onPressed: () {}),
           ButtonWithIconAndText(
               title: 'buy'.tr,
-              icon: Image.asset("assets/images/png/ic_buy.png"),
+              icon: Image.asset("assets/images/png/ic_buy.png",package: "trading_module"),
               onPressed: () {}),
           ButtonWithIconAndText(
               title: 'sell'.tr,
-              icon: Image.asset("assets/images/png/ic_sell.png"),
+              icon: Image.asset("assets/images/png/ic_sell.png",package: "trading_module"),
               onPressed: () {}),
         ],
       ),

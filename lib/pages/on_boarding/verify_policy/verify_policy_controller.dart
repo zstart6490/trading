@@ -25,7 +25,7 @@ class VerifyPolicyController extends BaseController {
       if (resp.data != null) {
         //SUCCESS
         mainProvider.accessToken =
-            AccessToken(token: resp.data?.token ?? "", type: "register_user");
+            AccessToken(token: resp.data?.token ?? "");
         mainProvider.userData = resp.data?.userData;
         if (dataInput.userIsRegisteredOTP == OtpStatus.disable) {
           //show alert yêu cầu
@@ -34,6 +34,7 @@ class VerifyPolicyController extends BaseController {
           //call qua tikop kich hoat otp ngay
           //mainProvider.callToActiveOTP?.call();
           Get.toNamed(AppRoutes.SMART_OPT_INPUT);
+          // mainProvider.callToForgetPin?.call();
         }
       }
     } else {

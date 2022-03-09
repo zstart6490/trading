@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 
-class HomePageBinding extends Bindings{
+class HomePageBinding extends Bindings {
   @override
   void dependencies() {
-    // TODO: implement dependencies
+    Get.lazyPut(() => HomePageController());
   }
-
 }

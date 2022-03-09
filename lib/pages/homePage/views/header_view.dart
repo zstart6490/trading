@@ -18,7 +18,7 @@ class HeaderView extends GetView<HomePageController> {
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(16)),
         image: DecorationImage(
-          image: AssetImage("assets/images/png/bg_home_header.png"),
+          image: AssetImage("assets/images/png/bg_home_header.png",package: "trading_module"),
           fit: BoxFit.fill,
         ),
       ),
@@ -26,13 +26,13 @@ class HeaderView extends GetView<HomePageController> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _MoneyView(title: 'total_property'.tr, value: 888688888, titleStype: TextStyle(
+          _MoneyView(title: 'total_property'.tr, value: 888688888, titleStype: const TextStyle(
             color: Colors.white,
             fontSize: 14,
             fontFamily: 'iCielHelveticaNowText',
             fontWeight: FontWeight.w700,
             decoration: TextDecoration.none,
-          ), valueStyle: TextStyle(
+          ), valueStyle: const TextStyle(
             color: Colors.white,
             fontSize: 24,
             fontFamily: 'iCielHelveticaNowText',
@@ -42,13 +42,13 @@ class HeaderView extends GetView<HomePageController> {
           SIZED_BOX_H16,
           Row(
             children: [
-              _MoneyView(title: 'total_benefit'.tr, value: 100155000000, titleStype: TextStyle(
+              _MoneyView(title: 'total_benefit'.tr, value: 100155000000, titleStype: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontFamily: 'iCielHelveticaNowText',
                 fontWeight: FontWeight.w500,
                 decoration: TextDecoration.none,
-              ), valueStyle: TextStyle(
+              ), valueStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontFamily: 'iCielHelveticaNowText',
@@ -56,13 +56,13 @@ class HeaderView extends GetView<HomePageController> {
                 decoration: TextDecoration.none,
               )),
               SIZED_BOX_W40,
-              _MoneyView(title:'stock_value'.tr, value: 1000000000, titleStype: TextStyle(
+              _MoneyView(title:'stock_value'.tr, value: 1000000000, titleStype: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontFamily: 'iCielHelveticaNowText',
                 fontWeight: FontWeight.w500,
                 decoration: TextDecoration.none,
-              ), valueStyle: TextStyle(
+              ), valueStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontFamily: 'iCielHelveticaNowText',

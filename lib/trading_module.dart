@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
@@ -79,13 +78,12 @@ class TradingModule {
             .setStatusEKYCAndVerifyNext(dataCallback.kycStatus);
         break;
       case CallbackType.resultActiveSmartOTP:
-        // TODO: Handle this case.
         if (dataCallback.otpStatus == OtpStatus.enable) {
           Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
         }
         break;
       case CallbackType.resultForgetSmartOTP:
-        // TODO: Handle this case.
+        Get.toNamed(AppRoutes.SMART_OPT_INPUT);
         break;
     }
   }

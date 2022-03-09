@@ -37,9 +37,10 @@ class UserData {
 
 class AccessToken {
   final String token;
-  final String type;
+  // final String type;
 
-  String get fullToken => "$type $token";
+  // String get fullToken => "$type $token";
 
-  AccessToken({required this.token, required this.type});
+  // AccessToken({required this.token, required this.type});
+  AccessToken({required this.token});
 }
