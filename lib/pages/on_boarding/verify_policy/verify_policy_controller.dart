@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/kyc_status.dart';
 import 'package:trading_module/data/entities/otp_status.dart';
+import 'package:trading_module/domain/entities/data_login.dart';
 import 'package:trading_module/domain/entities/user_data.dart';
 import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
@@ -10,6 +11,10 @@ import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 class VerifyPolicyController extends BaseController {
   final UserOnBoardingUseCase _boardingUseCase =
       Get.find<UserOnBoardingUseCase>();
+
+  final DataLogin? dataLogin;
+
+  VerifyPolicyController({this.dataLogin});
 
   Future acceptTermAndVerify() async {
     final dataInput = mainProvider.dataInputApp;
@@ -94,17 +99,17 @@ class VerifyPolicyController extends BaseController {
     if (pos == 0) {
       Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
         name,
-        "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+        dataLogin?.msgMap?.obTermUsageMsg??"https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
       ]);
     } else if (pos == 1) {
       Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
         name,
-        "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+        dataLogin?.msgMap?.obTermAccountMsg??"https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
       ]);
     } else {
       Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
         name,
-        "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+        dataLogin?.msgMap?.obTermStockMsg?? "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
       ]);
     }
   }
