@@ -1,1 +1,1 @@
-enum KycStatus { verified,pending, none }
+enum KycStatus { verified,pending,reject, none }

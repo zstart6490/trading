@@ -38,7 +38,11 @@ class VerifyPolicyController extends BaseController {
       }
     } else {
       if (dataInput.userIsRegisteredKyc == KycStatus.none) {
-        showPopupRequiredKYC();
+        showPopupRequiredKYC(
+            "verify_account".tr, "content_alert_verify_account".tr);
+      } else if (dataInput.userIsRegisteredKyc == KycStatus.reject) {
+        showPopupRequiredKYC(
+            "ekyc_reject_title".tr, "ekyc_reject_content".tr);
       } else if (dataInput.userIsRegisteredKyc == KycStatus.pending) {
         showDialogKycPending();
       }
@@ -67,26 +71,23 @@ class VerifyPolicyController extends BaseController {
         ]));
   }
 
-  void showPopupRequiredKYC() {
-    showAlertDialog(CustomAlertDialog(
-        title: "verify_account".tr,
-        desc: "content_alert_verify_account".tr,
-        actions: [
-          AlertAction(
-              text: "cancel".tr,
-              onPressed: () {
-                hideDialog();
-                Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+  void showPopupRequiredKYC(String title, String content) {
+    showAlertDialog(CustomAlertDialog(title: title, desc: content, actions: [
+      AlertAction(
+          text: "cancel".tr,
+          onPressed: () {
+            hideDialog();
+            Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+          }),
+      AlertAction(
+          text: "button_verify_alert".tr,
+          isDefaultAction: true,
+          onPressed: () => {
+                //call to KYC tikop
+                hideDialog(),
+                mainProvider.callToEKYC?.call(),
               }),
-          AlertAction(
-              text: "button_verify_alert".tr,
-              isDefaultAction: true,
-              onPressed: () => {
-                    //call to KYC tikop
-                    hideDialog(),
-                    mainProvider.callToEKYC?.call(),
-                  }),
-        ]));
+    ]));
   }
 
   void openPdf(String name, int pos) {
