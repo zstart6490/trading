@@ -90,7 +90,7 @@ class VerifySMSOTPController extends OtpExpiredController {
   Future<void> onSuccess() async {
     // showProgressingDialog();
     //handle
-    Get.toNamed(AppRoutes.CONTRACT);
+    Get.offNamed(AppRoutes.CONTRACT);
     hideDialog();
   }
 
