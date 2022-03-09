@@ -37,7 +37,7 @@ class VerifyPolicyController extends BaseController {
         } else {
           //call qua tikop kich hoat otp ngay
           //mainProvider.callToActiveOTP?.call();
-          Get.toNamed(AppRoutes.SMART_OPT_INPUT);
+          Get.offAndToNamed(AppRoutes.SMART_OPT_INPUT);
           // mainProvider.callToForgetPin?.call();
         }
       }
@@ -99,17 +99,17 @@ class VerifyPolicyController extends BaseController {
     if (pos == 0) {
       Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
         name,
-        dataLogin?.msgMap?.obTermUsageMsg??"https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+        dataLogin?.configMap?.obTermUsageLink??""
       ]);
     } else if (pos == 1) {
       Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
         name,
-        dataLogin?.msgMap?.obTermAccountMsg??"https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+        dataLogin?.configMap?.obTermAccountLink??""
       ]);
     } else {
       Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
         name,
-        dataLogin?.msgMap?.obTermStockMsg?? "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
+        dataLogin?.configMap?.obTermStockLink?? ""
       ]);
     }
   }

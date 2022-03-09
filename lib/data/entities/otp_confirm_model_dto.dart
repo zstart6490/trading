@@ -1,16 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:trading_module/domain/entities/otp_confirm_model.dart';
 
-
 part 'otp_confirm_model_dto.g.dart';
-
 
 @JsonSerializable()
 class OtpConfirmModelDTO {
   @JsonKey(name: "state")
   final String? state;
+  @JsonKey(name: "contractLink")
+  final String? contractLink;
 
-  OtpConfirmModelDTO(this.state);
+  OtpConfirmModelDTO(this.state,this.contractLink);
 
   static OtpConfirmModelDTO fromResult(dynamic data) =>
       OtpConfirmModelDTO.fromJson(data as Map<String, dynamic>);
@@ -24,6 +24,6 @@ class OtpConfirmModelDTO {
 
 extension OtpConfirmModeMapper on OtpConfirmModelDTO {
   OtpConfirmModel toModel() {
-    return OtpConfirmModel(state: state);
+    return OtpConfirmModel(state: state,contractLink: contractLink);
   }
 }

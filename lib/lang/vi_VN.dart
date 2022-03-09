@@ -12,7 +12,7 @@ const Map<String, String> vi_VN = {
   'verify_policy_line_1':"Điều khoản sử dụng chứng khoán",
   'verify_policy_line_2':"Hợp đồng mở tài khoản chứng khoán",
   'verify_policy_line_3':"Phụ lục hợp đồng chứng khoán lô lẻ",
-  'verify_policy':"Xác nhận",
+  'verify':"Xác nhận",
   'later':"Để sau",
   'policy_title':"Điều khoản sử dụng",
   'button_verify_alert':"Xác thực",

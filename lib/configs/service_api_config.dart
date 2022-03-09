@@ -1,4 +1,5 @@
-import 'constants.dart';
+
+import 'package:trading_module/configs/constants.dart';
 
 abstract class BaseConfig {
   EnvironmentConfiguration get environment;
