@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/dialog/dialog_route.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/networking/result.dart';
-import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/domain/entities/otp_confirm_model.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/pages/smart_otp/otp_expired_controller.dart';
@@ -83,14 +82,18 @@ class VerifySMSOTPController extends OtpExpiredController {
       }
     } else if (result.data?.state == "VALID") {
       endTimer();
-      onSuccess();
+      onSuccess(result.data);
     }
   }
 
-  Future<void> onSuccess() async {
+  Future<void> onSuccess(OtpConfirmModel? data) async {
     // showProgressingDialog();
     //handle
-    Get.offNamed(AppRoutes.CONTRACT);
+    // Get.off(const VerifyPolicyView());
+    // Get.removeRoute(ModalRoute.withName('/home'));
+    Get.offAndToNamed(AppRoutes.CONTRACT,
+        arguments: data?.contractLink ?? "",);
+
     hideDialog();
   }
 
