@@ -8,7 +8,6 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 import 'package:trading_module/routes/app_routes.dart';
-import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/enums.dart';
 
 class GenerateOtpController extends BaseController with WidgetsBindingObserver {
@@ -137,27 +136,10 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
       Get.offAndToNamed(AppRoutes.CONTRACT,
           arguments: result.data?.contractLink ?? "");
     } else if (result.error != null) {
-      if (result.error?.code == 101) {
-        _showDialogNotify(result.error!.message);
-      } else {
-        showSnackBar(result.error!.message);
-      }
+      showSnackBar(result.error!.message);
     }
   }
 
-  void _showDialogNotify(String desc) {
-    final dialog = CustomAlertDialog(
-      title: "Thông báo".tr,
-      desc: desc,
-      actions: [
-        AlertAction.ok(() {
-          hideDialog();
-        })
-      ],
-    );
-    showMessageDialog(dialog,
-        name: "GenerateOtpController", canDissmiss: false);
-  }
 
   void checkPassedTime() {
     final now = DateTime.now();

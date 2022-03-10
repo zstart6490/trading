@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
@@ -9,10 +8,9 @@ import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/pages/smart_otp/otp_expired_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
-import 'package:trading_module/utils/enums.dart';
+import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-import '../../../shared_widgets/CustomAlertDialog.dart';
 
 class VerifySMSOTPController extends OtpExpiredController {
   final formKey = GlobalKey<FormState>();
@@ -76,8 +74,8 @@ class VerifySMSOTPController extends OtpExpiredController {
     hideDialog();
     if (result.error != null) {
       final error = result.error!;
-      if (error.code == 101) {
-        showDialogNotify(error.message);
+      if (error.code == BLOCK_OTP_1_CODE || error.code == BLOCK_OTP_2_CODE) {
+        _showDialogNotify(error.message);
       } else {
         errors.value = error;
       }
@@ -98,23 +96,14 @@ class VerifySMSOTPController extends OtpExpiredController {
     );
   }
 
-  Future<void> showAlert(SmartOTPType type) async {
-    switch (type) {
-      case SmartOTPType.create:
-        showSnackBar("Kích hoạt Smart OTP thành công",
-            type: SnackBarType.success);
-        break;
-      default:
-    }
-  }
 
   Future<void> generateOTP() async {
     final result = await _otpUseCase.generateOTP(
         "", mainProvider.dataInputApp.token, OTPMethod.sms.name);
     if (result.error != null) {
       final error = result.error!;
-      if (error.code == 101) {
-        showDialogNotify(error.message);
+      if (error.code == BLOCK_OTP_1_CODE || error.code == BLOCK_OTP_2_CODE) {
+        _showDialogNotify(error.message);
       } else {
         errors.value = error;
       }
@@ -123,7 +112,7 @@ class VerifySMSOTPController extends OtpExpiredController {
     }
   }
 
-  void showDialogNotify(String desc) {
+  void _showDialogNotify(String desc) {
     final dialog = CustomAlertDialog(
       title: "Thông báo".tr,
       desc: desc,
