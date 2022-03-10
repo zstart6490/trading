@@ -43,7 +43,7 @@ class InputSmartOTPController extends BaseController {
         Get.offNamed(AppRoutes.SMART_OPT_GENERATE,
             arguments: [pin, result.data?.otp, SmartOTPType.create]);
       } else if (result.error != null) {
-        if (result.error!.code != BLOCK_SMART_OTP_CODE) {
+        if (result.error?.code != BLOCK_SMART_OTP_CODE) {
           isError.value = true;
           errorText.value = result.error!.message;
           textEditingController.clear();

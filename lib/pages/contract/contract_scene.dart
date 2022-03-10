@@ -12,7 +12,7 @@ class ContractPage extends GetView<ContractController> {
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<ContractController>(
         backgroundColor: Colors.white,
-        title: "Hợp đồng sử dụng",
+        title: "contract_title".tr,
         body: Column(
           children: [
             Expanded(
@@ -24,9 +24,9 @@ class ContractPage extends GetView<ContractController> {
               margin: const EdgeInsets.only(
                   left: 16, right: 16, top: 16, bottom: 16),
               child: CustomButton.defaultStyle(
-                title: "verify".tr,
+                title: "contract_invest_now".tr,
                 onPressed: () {
-                  controller.showDialogRegisterSuccess();
+                  controller.openHomeTrading();
                 },
               ),
             )
