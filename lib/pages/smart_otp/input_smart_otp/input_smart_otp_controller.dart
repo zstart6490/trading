@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/enums.dart';
-import 'package:trading_module/domain/use_cases/otp_use_case.dart';
 
 class InputSmartOTPController extends BaseController {
   RxBool isError = false.obs;
@@ -60,17 +60,31 @@ class InputSmartOTPController extends BaseController {
   }
 
   void _showDialogNotify(String desc) {
-    final dialog = CustomAlertDialog(
-      title: "Tính năng tạm khoá".tr,
-      desc: desc,
-      actions: [
-        AlertAction.ok(() {
-          hideDialog();
-        })
-      ],
-    );
-    showMessageDialog(dialog,
-        name: "InputSmartOTPController", canDissmiss: false);
+    showAlertDialog(
+        CustomAlertDialog(
+          title: "Tính năng tạm khoá".tr,
+          desc: desc,
+          actions: [
+            AlertAction.ok(() {
+              hideDialog();
+              // Get.back();
+            })
+          ],
+        ),
+        dismissable: false,
+        onCompleted: () => Get.back());
+
+    // final dialog = CustomAlertDialog(
+    //   title: "Tính năng tạm khoá".tr,
+    //   desc: desc,
+    //   actions: [
+    //     AlertAction.ok(() {
+    //       hideDialog();
+    //     })
+    //   ],
+    // );
+    // showMessageDialog(dialog,
+    //     name: "InputSmartOTPController", canDissmiss: false);
   }
 
   Future<void> onForgotPIN() async {

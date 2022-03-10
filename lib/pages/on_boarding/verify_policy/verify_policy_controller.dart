@@ -46,8 +46,7 @@ class VerifyPolicyController extends BaseController {
         showPopupRequiredKYC(
             "verify_account".tr, "content_alert_verify_account".tr);
       } else if (dataInput.userIsRegisteredKyc == KycStatus.reject) {
-        showPopupRequiredKYC(
-            "ekyc_reject_title".tr, "ekyc_reject_content".tr);
+        showPopupRequiredKYC("ekyc_reject_title".tr, "ekyc_reject_content".tr);
       } else if (dataInput.userIsRegisteredKyc == KycStatus.pending) {
         showDialogKycPending();
       }
@@ -69,6 +68,7 @@ class VerifyPolicyController extends BaseController {
               text: "alert_active_now_smart_otp".tr,
               isDefaultAction: true,
               onPressed: () => {
+                    hideDialog(),
                     //active smart OTP
                     //call qua tikop kich hoat otp ngay
                     mainProvider.callToActiveOTP?.call()

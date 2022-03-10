@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
@@ -10,7 +11,6 @@ import 'package:trading_module/pages/smart_otp/otp_expired_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/extensions.dart';
-
 
 class VerifySMSOTPController extends OtpExpiredController {
   final formKey = GlobalKey<FormState>();
@@ -96,7 +96,6 @@ class VerifySMSOTPController extends OtpExpiredController {
     );
   }
 
-
   Future<void> generateOTP() async {
     final result = await _otpUseCase.generateOTP(
         "", mainProvider.dataInputApp.token, OTPMethod.sms.name);
@@ -113,16 +112,20 @@ class VerifySMSOTPController extends OtpExpiredController {
   }
 
   void _showDialogNotify(String desc) {
-    final dialog = CustomAlertDialog(
-      title: "Thông báo".tr,
-      desc: desc,
-      actions: [
-        AlertAction.ok(() {
-          hideDialog();
-        })
-      ],
-    );
-    showMessageDialog(dialog,
-        name: AppRoutes.SMART_OPT_VERIFY_SMS, canDissmiss: false);
+    showAlertDialog(
+        CustomAlertDialog(
+          title: "Thông báo".tr,
+          desc: desc,
+          actions: [
+            AlertAction.ok(() {
+              hideDialog();
+              // Get.back();
+            })
+          ],
+        ),
+        dismissable: false,
+        onCompleted: () => Get.back());
+    // showMessageDialog(dialog,
+    //     name: AppRoutes.SMART_OPT_VERIFY_SMS, canDissmiss: false);
   }
 }
