@@ -75,7 +75,7 @@ class VerifySMSOTPController extends OtpExpiredController {
     hideDialog();
     if (result.error != null) {
       final error = result.error!;
-      if (error.code == 101) {
+      if (error.code == BLOCK_OTP_1_CODE || error.code == BLOCK_OTP_2_CODE) {
         showDialogNotify(error.message);
       } else {
         errors.value = error;
