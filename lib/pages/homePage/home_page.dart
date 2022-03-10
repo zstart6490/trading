@@ -11,7 +11,7 @@ class HomePageView extends GetView<HomePageController> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<HomePageController>(
-      showBackBtn: false,
+      showBackBtn: true,
       backgroundColor: Colors.white,
       body: Container(
         color: Colors.white,

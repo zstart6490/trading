@@ -31,7 +31,8 @@ class VerifySMSOTPController extends OtpExpiredController {
   @override
   void onInit() {
     textController = TextEditingController();
-    descSecond.value = mainProvider.dataInputApp.phone!.phoneWithDialCode(mainProvider.dataInputApp.phoneCountryCode!);
+    descSecond.value = mainProvider.dataInputApp.phone!
+        .phoneWithDialCode(mainProvider.dataInputApp.phoneCountryCode!);
     startTimer(60);
     super.onInit();
   }
@@ -89,12 +90,12 @@ class VerifySMSOTPController extends OtpExpiredController {
   Future<void> onSuccess(OtpConfirmModel? data) async {
     // showProgressingDialog();
     //handle
-    // Get.off(const VerifyPolicyView());
-    // Get.removeRoute(ModalRoute.withName('/home'));
-    Get.offAndToNamed(AppRoutes.CONTRACT,
-        arguments: data?.contractLink ?? "",);
-
     hideDialog();
+    Get.offNamedUntil(
+      AppRoutes.CONTRACT,
+      ModalRoute.withName("/home"),
+      arguments: data?.contractLink ?? "",
+    );
   }
 
   Future<void> showAlert(SmartOTPType type) async {
@@ -132,7 +133,7 @@ class VerifySMSOTPController extends OtpExpiredController {
         })
       ],
     );
-    showMessageDialog(dialog, name: AppRoutes.SMART_OPT_VERIFY_SMS, canDissmiss: false);
+    showMessageDialog(dialog,
+        name: AppRoutes.SMART_OPT_VERIFY_SMS, canDissmiss: false);
   }
-
 }
