@@ -32,6 +32,8 @@ class DataCallback {
 }
 
 class TradingModule {
+  static String versionTrading ="-dev-1.0.0.0";
+
   static void openTradingModule({
     required BuildContext context,
     required DataInputApp dataInput,
@@ -45,6 +47,7 @@ class TradingModule {
     Get.fallbackLocale = TranslationService.fallbackLocale;
     Get.addTranslations(TranslationService().keys);
     final appTheme = AppTheme();
+
     Get.changeTheme(appTheme.lightTheme);
     Get.changeThemeMode(ThemeMode.light);
     //init

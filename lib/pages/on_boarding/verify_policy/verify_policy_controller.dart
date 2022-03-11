@@ -82,7 +82,7 @@ class VerifyPolicyController extends BaseController {
           text: "cancel".tr,
           onPressed: () {
             hideDialog();
-            Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+            // Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
           }),
       AlertAction(
           text: "button_verify_alert".tr,
@@ -96,23 +96,23 @@ class VerifyPolicyController extends BaseController {
   }
 
   void openPdf(String name, int pos) {
-    Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
-    // if (pos == 0) {
-    //   Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
-    //     name,
-    //     dataLogin?.configMap?.obTermUsageLink??""
-    //   ]);
-    // } else if (pos == 1) {
-    //   Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
-    //     name,
-    //     dataLogin?.configMap?.obTermAccountLink??""
-    //   ]);
-    // } else {
-    //   Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
-    //     name,
-    //     dataLogin?.configMap?.obTermStockLink?? ""
-    //   ]);
-    // }
+    // Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+    if (pos == 0) {
+      Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
+        name,
+        dataLogin?.configMap?.obTermUsageLink??""
+      ]);
+    } else if (pos == 1) {
+      Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
+        name,
+        dataLogin?.configMap?.obTermAccountLink??""
+      ]);
+    } else {
+      Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
+        name,
+        dataLogin?.configMap?.obTermStockLink?? ""
+      ]);
+    }
   }
 
   void showDialogKycPending() {
