@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -10,44 +9,45 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
 import 'package:trading_module/pages/main_provider.dart';
+import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
 abstract class BaseController extends GetxController
     with _ScaffoldInterface, BaseCommonWidgets {
-
   MainTradingProvider get mainProvider => Get.find<MainTradingProvider>();
 
+  Future handleErrorResponse(Errors? errors) async {
+    final hasInternet = await mainProvider.hasConnectInternet();
+    if (hasInternet && errors != null) {
+      showAlertDialog(CustomAlertDialog(
+          title: "Có lỗi xả ra!",
+          desc: errors.message,
+          actions: [
+            AlertAction(
+                text: "cancel".tr,
+                onPressed: () {
+                  hideDialog();
+                }),
+          ]));
+    } else {
+      showSnackBar("Kiểm tra lại kết nối mạng");
+    }
+  }
 
-
-  bool isLogged (){
+  bool isLogged() {
     return true;
   }
 
-  void requestLogin(){
+  void requestLogin() {}
 
-  }
+  Future<void> loginFaceBook() async {}
 
+  void loginGoogle() {}
 
+  void handleLoginFacebook() async {}
 
-  Future<void> loginFaceBook() async {
+  Future<void> loginBackend(String token) async {}
 
-  }
-
-  void loginGoogle() {
-
-  }
-
-  void handleLoginFacebook() async {
-
-  }
-
-
-  Future<void> loginBackend(String token) async {
-
-  }
-
-  void saveDataLocal() {
-
-  }
+  void saveDataLocal() {}
 
   @override
   Future<bool> onWillPop() {
@@ -59,8 +59,6 @@ abstract class BaseController extends GetxController
     if (kDebugMode) log("hideKeyboard");
     Get.focusScope?.unfocus();
   }
-
-
 
   void backToHome({int selectTab = 0}) {
     // Get.until((route) => Get.currentRoute == Routes.main);
@@ -89,11 +87,7 @@ abstract class BaseController extends GetxController
       }
     }
   }
-
 }
-
-
-
 
 abstract class _CommonWidgetsInterface {
   void showProgressingDialog();

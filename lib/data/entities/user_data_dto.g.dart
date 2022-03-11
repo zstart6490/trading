@@ -9,11 +9,11 @@ part of 'user_data_dto.dart';
 UserDataDto _$UserDataDtoFromJson(Map<String, dynamic> json) => UserDataDto(
       json['id'] as num,
       json['appId'] as String,
-      json['appUserId'] as num,
-      json['phone'] as String,
-      json['phoneCountryCode'] as String,
-      json['email'] as String,
-      json['status'] as String,
+      json['appUserId'] as num?,
+      json['phone'] as String?,
+      json['phoneCountryCode'] as String?,
+      json['email'] as String?,
+      json['status'] as String?,
 
     );
 

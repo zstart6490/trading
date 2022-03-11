@@ -41,6 +41,7 @@ class TradingModule {
     Function()? callToActiveSmartOtpPin,
     Function()? callToForgetPin,
   }) {
+
     //setup getx
     Get.addPages(AppPages.tradingRoutes);
     Get.locale = TranslationService.locale;

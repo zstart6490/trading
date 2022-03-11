@@ -7,11 +7,11 @@ part 'user_data_dto.g.dart';
 class UserDataDto {
   final num id;
   final String appId;
-  final num appUserId;
-  final String phone;
-  final String phoneCountryCode;
-  final String email;
-  final String status;
+  final num? appUserId;
+  final String? phone;
+  final String? phoneCountryCode;
+  final String? email;
+  final String? status;
 
 
   UserDataDto(
@@ -34,12 +34,12 @@ extension UserDataMapper on UserDataDto {
   UserData toModel() {
     return UserData(
       id: id,
-      status: status,
-      email: email,
+      status: status??"",
+      email: email??"",
       appId: appId,
-      appUserId: appUserId,
-      phoneCountryCode: phoneCountryCode,
-      phone: phone,
+      appUserId: appUserId??0,
+      phoneCountryCode: phoneCountryCode??"",
+      phone: phone??"",
     );
   }
 }

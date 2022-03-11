@@ -40,6 +40,8 @@ class VerifyPolicyController extends BaseController {
           Get.offAndToNamed(AppRoutes.SMART_OPT_INPUT);
           // mainProvider.callToForgetPin?.call();
         }
+      }else{
+        handleErrorResponse(resp.error);
       }
     } else {
       if (dataInput.userIsRegisteredKyc == KycStatus.none) {
