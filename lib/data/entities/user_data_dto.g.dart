@@ -13,16 +13,8 @@ UserDataDto _$UserDataDtoFromJson(Map<String, dynamic> json) => UserDataDto(
       json['phone'] as String,
       json['phoneCountryCode'] as String,
       json['email'] as String,
-      json['isLocked'] as num,
-      json['isKyc'] as num,
-      json['isDeleted'] as num,
       json['status'] as String,
-      json['lockedReason'],
-      json['deletedDate'],
-      json['pinLockCount'] as num,
-      json['pinLockDate'],
-      json['otpLockCount'] as num,
-      json['otpLockDate'],
+
     );
 
 Map<String, dynamic> _$UserDataDtoToJson(UserDataDto instance) =>
@@ -33,14 +25,5 @@ Map<String, dynamic> _$UserDataDtoToJson(UserDataDto instance) =>
       'phone': instance.phone,
       'phoneCountryCode': instance.phoneCountryCode,
       'email': instance.email,
-      'isLocked': instance.isLocked,
-      'isKyc': instance.isKyc,
-      'isDeleted': instance.isDeleted,
       'status': instance.status,
-      'lockedReason': instance.lockedReason,
-      'deletedDate': instance.deletedDate,
-      'pinLockCount': instance.pinLockCount,
-      'pinLockDate': instance.pinLockDate,
-      'otpLockCount': instance.otpLockCount,
-      'otpLockDate': instance.otpLockDate,
     };
