@@ -32,7 +32,7 @@ class DataCallback {
 }
 
 class TradingModule {
-  static String versionTrading ="-dev-1.0.0.0";
+  static String versionTrading = "-dev-1.0.0.0";
 
   static void openTradingModule({
     required BuildContext context,
@@ -41,7 +41,6 @@ class TradingModule {
     Function()? callToActiveSmartOtpPin,
     Function()? callToForgetPin,
   }) {
-
     //setup getx
     Get.addPages(AppPages.tradingRoutes);
     Get.locale = TranslationService.locale;
@@ -94,6 +93,10 @@ class TradingModule {
         Get.toNamed(AppRoutes.SMART_OPT_INPUT);
         break;
     }
+  }
+
+  static void clearCache() {
+    Get.find<MainTradingProvider>().clearAccessToken();
   }
 
   void onInit() {}

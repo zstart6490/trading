@@ -47,21 +47,7 @@ const PROGRESSING_DIALOG = 'ProgressingDialog';
 
 
 /// String Const
-const APPSFLYER_ID = "1520144590";
-const APPSFLYER_KEY = "cfgYFoj97okaEbzqp8q5w5";
-const AUTH_TOKEN_KEY = "tikop_auth";
-const AUTH_TOKEN_TYPE_KEY = "tikop_auth_type";
-const PUSH_TOKEN_KEY = "_pushTk";
-const PASS_INTRO_KEY = "_passedIntro";
-const TEMP_PHONE_KEY = "_temp_phone";
-const AUTH_PHONE_KEY = "PHONE_NUMBER";
-const AUTH_COUNTRY_KEY = "_authCountry";
-const REMOTE_CONFIG_KEY = "_remoteConfig";
-const REFRESH_TK_SUFFIX = "_REFRESH_TK";
-const AUTH_PASS_SUFFIX = "_AUTH_PASS_TK";
-const BIOMETRIC_SUFFIX = "_BIOMETRIC";
-const BIOMETRICS_COUNTER_SUFFIX = "_BIOMETRIC_FAILED";
-const DEPOSIT_FIRST_SUFFIX = "_DEPOSIT_FIRST";
+const AUTH_TOKEN_KEY = "trading_auth";
 
 /// TEXT
 const SESSION_TIMEOUT_CODE = 1200;

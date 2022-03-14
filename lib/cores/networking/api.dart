@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
+import 'package:trading_module/pages/main_controller.dart';
 
 import 'result.dart';
 
@@ -231,10 +232,15 @@ class Api extends GetConnect {
       } else if (result.code == 401) {
         //UNAUTHORIZED
         print(result.msg);
+        Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
         return result;
       }
     }
     return result;
+  }
+
+  void refreshTokenSuccess() {
+    //
   }
 
   Future<Result> onTimeOut(

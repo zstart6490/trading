@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
 import 'package:trading_module/data/entities/data_input_app.dart';
 import 'package:trading_module/domain/entities/user_data.dart';
@@ -27,19 +28,19 @@ class MainTradingProvider with BaseCommonWidgets {
   String appVersion = "";
   String osVersion = "";
 
-  AccessToken? _accessToken;
+  String? _accessToken;
 
-  AccessToken? get accessToken => _accessToken;
+  String? get accessToken => _accessToken;
 
-  set accessToken(AccessToken? accessToken) => _setAccessToken(accessToken);
+  set accessToken(String? accessToken) => _setAccessToken(accessToken);
 
-  _setAccessToken(AccessToken? accessToken) {
+  _setAccessToken(String? accessToken) {
     _accessToken = accessToken;
-    // callBackEky?.call();
   }
 
   void clearAccessToken() {
     _accessToken = null;
+    box.remove(AUTH_TOKEN_KEY);
   }
 
   Future<bool> hasConnectInternet() async {
