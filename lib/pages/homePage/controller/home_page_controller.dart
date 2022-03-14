@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/routes/app_routes.dart';
+import 'package:tikop/models/SavingProduct.dart';
+
 
 class HomePageController extends BaseController  with GetSingleTickerProviderStateMixin {
   final timeRange = ["Đang đầu tư".tr, "Đang theo dõi".tr, "Lệnh đã đặt".tr];
@@ -12,5 +15,10 @@ class HomePageController extends BaseController  with GetSingleTickerProviderSta
     tabController.addListener(() {
 
     });
+  }
+
+  void gotoSaving() {
+    final product = SavingProduct();
+    Get.toNamed(AppRoutes.inputMoneyLocal, arguments: product);
   }
 }

@@ -13,4 +13,10 @@ abstract class AppRoutes {
   static const CONTRACT = '/contract';
   static const HOME_TRADING = '/home_trading';
 
+
+  static const inputMoneyLocal = "/inputMoneyLocal";
+  static const transactionConfirm = "/transactionConfirm";
+  static const transferType = "/transferType";
+  static const transferInfo = "/transferInfo";
+  static const depositTutorial = "/depositTutorial";
 }
