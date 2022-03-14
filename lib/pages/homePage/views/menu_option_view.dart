@@ -21,7 +21,7 @@ class HeaderHomeView<T extends HomePageController> extends StatelessWidget {
         SIZED_BOX_H72,
         const HeaderView(),
         SIZED_BOX_H16,
-        const MenuOptionView(),
+        MenuOptionView(controller: controller),
         SIZED_BOX_H16,
         const SpaceWithCustom(
           height: 8,
@@ -232,10 +232,13 @@ class InvestMenuView<T extends HomePageController> extends StatelessWidget {
   }
 }
 
-class MenuOptionView extends StatelessWidget {
+class MenuOptionView <T extends HomePageController>  extends StatelessWidget{
+
   const MenuOptionView({
-    Key? key,
+    Key? key,required this.controller
   }) : super(key: key);
+
+  final T controller;
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +250,9 @@ class MenuOptionView extends StatelessWidget {
           ButtonWithIconAndText(
               title: 'top_up'.tr,
               icon: Image.asset("assets/images/png/ic_top_up.png",package: "trading_module"),
-              onPressed: () {}),
+              onPressed: () {
+              controller.gotoSaving();
+              }),
           ButtonWithIconAndText(
               title: 'cash_drawing'.tr,
               icon: Image.asset("assets/images/png/ic_cash_drawing.png",package: "trading_module"),

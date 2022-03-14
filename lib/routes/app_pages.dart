@@ -88,5 +88,30 @@ class AppPages {
       name: AppRoutes.withdrawConfirm,
       page: () => const WithdrawConfirmScene(),
     ),
+    GetPage(
+      name: AppRoutes.inputMoneyLocal,
+      page: () => const InputMoneyLocalScene(),
+      binding: InputMoneyLocalBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.transactionConfirm,
+      page: () => const TransactionConfirmScene(),
+      binding: TransactionConfirmBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.transferType,
+      page: () => const TransferTypeScene(),
+      binding: TransferTypeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.transferInfo,
+      page: () => const TransferInfoScene(),
+      binding: TransferInfoBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.depositTutorial,
+      page: () => const DepositeTutorialScene(),
+      binding: DepositeTutorialBinding(),
+    ),
   ];
 }
