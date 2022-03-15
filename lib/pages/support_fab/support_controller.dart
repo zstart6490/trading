@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 //import 'package:tikop/base/stateManagement/base_controller.dart';
-import 'package:tikop/modules/develop/event_tracking_scene.dart';
+//import 'package:tikop/modules/develop/event_tracking_scene.dart';
 // import 'package:tikop/modules/main_provider.dart';
 // import 'package:tikop/routes/routes.dart';
 import 'package:trading_module/configs/constants.dart';
@@ -11,7 +11,7 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/data_input_app.dart';
 import 'package:trading_module/trading_module.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 // import '../../models/NavigateData.dart';
 // import '../../utils/enums.dart';
@@ -89,14 +89,14 @@ class SupportController extends BaseController {
     await Future.delayed(DUR_250);
     const messUrl = "fb-messenger-public://user-thread/107776564307512";
     const fallbackUrl = "https://m.me/tikopapp";
-    try {
-      final bool launched = await launch(messUrl, forceSafariVC: false);
-      if (!launched) {
-        await launch(fallbackUrl, forceSafariVC: false);
-      }
-    } catch (e) {
-      await launch(fallbackUrl, forceSafariVC: false);
-    }
+    // try {
+    //   final bool launched = await launch(messUrl, forceSafariVC: false);
+    //   if (!launched) {
+    //     await launch(fallbackUrl, forceSafariVC: false);
+    //   }
+    // } catch (e) {
+    //   await launch(fallbackUrl, forceSafariVC: false);
+    // }
   }
 
   void openApiLog() {
@@ -111,7 +111,7 @@ class SupportController extends BaseController {
 
 
   String? _getPushTk() {
-    return GetStorage().read(PUSH_TOKEN_KEY);
+    //return GetStorage().read(PUSH_TOKEN_KEY);
   }
 
   void callToEKYC() {

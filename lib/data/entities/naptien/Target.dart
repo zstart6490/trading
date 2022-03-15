@@ -1,7 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tikop/models/Ranking.dart';
+//import 'package:tikop/models/Ranking.dart';
+import 'package:trading_module/utils/enums.dart';
 
-import 'package:tikop/utils/enums.dart';
+
 
 import 'Fund.dart';
 import 'GrowData.dart';
@@ -121,7 +122,7 @@ class Target {
   final bool canRemove;
   @JsonKey(name: "can_setting", defaultValue: true)
   final bool canSetting;
-  final List<AllocateOverviewData>? allocate;
+  //final List<AllocateOverviewData>? allocate;
 
   Target({
     this.name,
@@ -161,7 +162,7 @@ class Target {
     this.hasInvested = false,
     this.canRemove = true,
     this.canSetting = true,
-    this.allocate,
+    //this.allocate,
   });
 
   String get targetId => targetIdDynamic?.toString() ?? "0";
@@ -254,7 +255,7 @@ class Target {
     List<Transaction>? transactions,
     bool? hasInvested,
     bool? canRemove,
-   List<AllocateOverviewData>? allocate,
+   //List<AllocateOverviewData>? allocate,
   }) {
     return Target(
       userIdDynamic: userIdDynamic ?? this.userIdDynamic,
@@ -293,7 +294,7 @@ class Target {
       transactions: transactions ?? this.transactions,
       hasInvested: hasInvested ?? this.hasInvested,
       canRemove: canRemove ?? this.canRemove,
-      allocate: allocate ?? this.allocate,
+      //allocate: allocate ?? this.allocate,
     );
   }
 }

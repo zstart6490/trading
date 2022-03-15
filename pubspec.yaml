@@ -17,7 +17,7 @@ dependencies:
 
   cached_network_image: ^3.2.0
   json_annotation: ^4.4.0
-
+  math_expressions: ^2.3.0
   auto_size_text: ^3.0.0
   flutter_svg: ^0.23.0+1
   get_storage: ^2.0.3

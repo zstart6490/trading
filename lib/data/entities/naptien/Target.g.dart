@@ -94,9 +94,6 @@ Target _$TargetFromJson(Map<String, dynamic> json) => Target(
       hasInvested: json['has_invested'] as bool? ?? false,
       canRemove: json['can_remove'] as bool? ?? true,
       canSetting: json['can_setting'] as bool? ?? true,
-      allocate: (json['allocate'] as List<dynamic>?)
-          ?.map((e) => AllocateOverviewData.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$TargetToJson(Target instance) => <String, dynamic>{
@@ -137,7 +134,6 @@ Map<String, dynamic> _$TargetToJson(Target instance) => <String, dynamic>{
       'has_invested': instance.hasInvested,
       'can_remove': instance.canRemove,
       'can_setting': instance.canSetting,
-      'allocate': instance.allocate,
     };
 
 const _$InvestProductTypeEnumMap = {

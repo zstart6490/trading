@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:tikop/models/SavingProduct.dart';
-import 'package:tikop/modules/main_provider.dart';
-import 'package:tikop/services/server_config.dart';
-import 'package:tikop/utils/enums.dart';
-import 'package:tikop/utils/util.dart';
+// import 'package:tikop/models/SavingProduct.dart';
+// import 'package:tikop/modules/main_provider.dart';
+// import 'package:tikop/services/server_config.dart';
+import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
+import 'package:trading_module/utils/enums.dart';
+
 
 import 'Fund.dart';
 import 'Target.dart';
@@ -277,20 +278,20 @@ class Transaction {
   String? get getMethodDisplay => _getMethodDisplay();
 
   String? _getMethodDisplay() {
-    if (ServerConfig().isProduct) {
-      if (methodStr.hasText) {
-        return methodStr;
-      } else {
-        return Get.find<MainProvider>()
-            .getMethodDisplay(getMethod, type: getType);
-      }
-    } else {
-      if (methodStr.hasText) {
-        return "$methodStr BE";
-      } else {
-        return "${Get.find<MainProvider>().getMethodDisplay(getMethod, type: getType)} FE";
-      }
-    }
+    // if (ServerConfig().isProduct) {
+    //   if (methodStr.hasText) {
+    //     return methodStr;
+    //   } else {
+    //     return Get.find<MainProvider>()
+    //         .getMethodDisplay(getMethod, type: getType);
+    //   }
+    // } else {
+    //   if (methodStr.hasText) {
+    //     return "$methodStr BE";
+    //   } else {
+    //     return "${Get.find<MainProvider>().getMethodDisplay(getMethod, type: getType)} FE";
+    //   }
+    // }
   }
 
   @override

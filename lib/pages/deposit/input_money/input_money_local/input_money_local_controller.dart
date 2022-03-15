@@ -2,10 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tikop/models/NavigateData.dart' show NavigateTransferData;
 
-import 'package:tikop/modules/main_provider.dart';
-import 'package:tikop/routes/routes.dart';
+//import 'package:tikop/models/NavigateData.dart' show NavigateTransferData;
+
+// import 'package:tikop/modules/main_provider.dart';
+// import 'package:tikop/routes/routes.dart';
+
 import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
 
 import 'package:trading_module/pages/deposit/input_money/base_input_money_controller.dart';
@@ -73,10 +75,10 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
       pasMinAmount.value = ConditionState.none;
       pasMaxAmount.value = ConditionState.none;
     } else {
-      pasMinAmount.value = inputAmount >= minMoney
+      pasMinAmount.value = inputAmount >= int.parse(mainProvider.configMap?.minMoneyUser ?? "500000")
           ? ConditionState.success
           : ConditionState.error;
-      pasMaxAmount.value = inputAmount <= maxAmount
+      pasMaxAmount.value = inputAmount <= int.parse(mainProvider.configMap?.maxMoneyUser ?? "999999999999")
           ? ConditionState.success
           : ConditionState.error;
     }
@@ -104,7 +106,7 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
   }
 
   Future<void> onCallSupport() async {
-    GetInstance().find<MainProvider>().supportByPhone();
+    //GetInstance().find<MainProvider>().supportByPhone();
   }
 
   void onFocusChange() {

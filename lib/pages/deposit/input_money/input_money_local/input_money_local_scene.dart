@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:tikop/modules/deposit/components/money_helper_component.dart';
+import 'package:trading_module/pages/deposit/components/money_helper_component.dart';
+//import 'package:tikop/modules/deposit/components/money_helper_component.dart';
 // import 'package:tikop/modules/deposit/interest_tool/money_text_field.dart';
 //import 'package:trading_module/pages/support_fab/support_fab.dart';
-import 'package:tikop/modules/support_fab/support_fab.dart';
+//import 'package:tikop/modules/support_fab/support_fab.dart';
 import 'package:trading_module/pages/deposit/input_money/money_text_field.dart';
+import 'package:trading_module/pages/support_fab/support_fab.dart';
 //import 'package:trading_module/pages/deposit/input_money/money_text_field.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
@@ -20,14 +22,13 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
 
   @override
   Widget build(BuildContext context) {
-    final isRealEstate = controller.product.isRealEstate;
     return BaseScaffoldAppBar<TDInputMoneyLocalController>(
         title: "Nạp tiền đầu tư",
-        fab: const SupportFAB(
-          hasBottomBar: true,
-          shouldShowFull: false,
-          padBot: kBottomNavigationBarHeight,
-        ),
+        // fab: const SupportFAB(
+        //   hasBottomBar: true,
+        //   shouldShowFull: false,
+        //   padBot: kBottomNavigationBarHeight,
+        // ),
         backgroundColor: context.backgroundColor,
         body: Column(
           children: [
@@ -57,31 +58,18 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
                         height: 30,
                         child: ValidateComponent(
                           desc:
-                              "Tối thiểu là ${controller.product.minMoneyUser.toCurrency()} trên một giao dịch",
+                              "Tối thiểu là ${int.parse(controller.mainProvider.configMap?.minMoneyUser ?? "500000").toCurrency()} trên một giao dịch",
                           state: controller.pasMinAmount.value,
                         ),
                       )),
-                  if (isRealEstate)
                     Obx(() => Container(
                           height: 30,
                           padding: PAD_SYM_H16,
                           child: ValidateComponent(
                             desc:
-                                "Tối đa là ${controller.product.maxMoneyUser.toCurrency()} trên 1 suất đầu tư",
+                                "Tối đa là ${int.parse(controller.mainProvider.configMap?.maxMoneyUser ?? "999999999999").toCurrency()} trên 1 suất đầu tư",
                             state: controller.pasMaxAmount.value,
                           ),
-                        )),
-                  if (!isRealEstate)
-                    Obx(() => Container(
-                          height: 30,
-                          padding: PAD_SYM_H16,
-                          child: controller.pasMaxAmount.value ==
-                                  ConditionState.error
-                              ? ValidateComponent(
-                                  desc: "Vượt quá hạn mức cho phép",
-                                  state: controller.pasMaxAmount.value,
-                                )
-                              : const SizedBox(),
                         )),
                   //const InterestListComponent<TDInputMoneyLocalController>(),
                   SIZED_BOX_H16,

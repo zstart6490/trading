@@ -18,7 +18,7 @@ class OnBoardingServiceImpl extends OnBoardingService {
       String token, String kyc) async {
     return BaseDecoder(
         await api.postData(
-            endPoint: "/v1/on-boarding/login",
+            endPoint: "/on-boarding/v1/login",
             params: {
               "token": token,
               "kyc": kyc,
@@ -32,7 +32,7 @@ class OnBoardingServiceImpl extends OnBoardingService {
       String phone, String phoneCountryCode, String token) async {
     return BaseDecoder(
         await api.postData(
-            endPoint: "/v1/on-boarding/register",
+            endPoint: "/on-boarding/v1/register",
             params: {
               "email": email,
               "kyc": kyc,

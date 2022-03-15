@@ -29,7 +29,7 @@ class OtpServiceImpl extends OtpService {
   Future<BaseDecoder<OtpGenerateModelDTO>> generateOTP(
       String pin, String token, String otpMethod) async {
     return BaseDecoder(await api.postData(
-        endPoint: "/v1/otp/get-otp",
+        endPoint: "/otp/v1/get-otp",
         params: {
           "pin": pin,
           "token": token,
@@ -43,7 +43,7 @@ class OtpServiceImpl extends OtpService {
   Future<BaseDecoder<PinConfirmModelDTO>> checkPin(
       String pin, String token) async {
     return BaseDecoder(await api.postData(
-        endPoint: "/v1/otp/check-pin",
+        endPoint: "/otp/v1/check-pin",
         params: {"pin": pin, "token": token},
         timeOut: AppConstants.TIME_OUT),
         decoder: PinConfirmModelDTO.fromJson);
@@ -53,7 +53,7 @@ class OtpServiceImpl extends OtpService {
   Future<BaseDecoder<OtpConfirmModelDTO>> confirmOTP(
       String otp, String otpMethod, String token) async {
     return BaseDecoder(await api.postData(
-        endPoint: "/v1/on-boarding/confirm-register",
+        endPoint: "/on-boarding/v1/confirm-register",
         params: {"otp": otp, "otpMethod": otpMethod, "token": token},
         timeOut: AppConstants.TIME_OUT),
     decoder: OtpConfirmModelDTO.fromJson);
@@ -62,7 +62,7 @@ class OtpServiceImpl extends OtpService {
   @override
   Future<BaseDecoder<SmartOtpStateModelDTO>> smartOTPIsBlock(String token) async {
     return BaseDecoder(await api.postData(
-        endPoint: "/v1/otp/check-pin-block",
+        endPoint: "/otp/v1/check-pin-block",
         params: {"token": token},
         timeOut: AppConstants.TIME_OUT),
         decoder: SmartOtpStateModelDTO.fromJson);

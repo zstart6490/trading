@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tikop/utils/util.dart';
+import 'package:trading_module/utils/util.dart';
+
 
 class BankIcon extends StatelessWidget {
   final String bankIcon;
