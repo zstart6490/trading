@@ -36,8 +36,14 @@ class ConfigMap {
   final String obTermStockLink;
   final String obTermAccountLink;
   final String obTermUsageLink;
+  final String minMoneyUser;
+  final String vatPercent;
+  final String maxMoneyUser;
 
 
-  ConfigMap(this.obTermStockLink, this.obTermAccountLink, this.obTermUsageLink);
+
+  ConfigMap(this.obTermStockLink, this.obTermAccountLink, this.obTermUsageLink,
+      this.minMoneyUser, this.vatPercent, this.maxMoneyUser);
+
 
 }

@@ -4,14 +4,15 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
 import 'package:trading_module/data/entities/data_input_app.dart';
+import 'package:trading_module/domain/entities/data_login.dart';
 import 'package:trading_module/domain/entities/user_data.dart';
 import 'package:trading_module/shared_widgets/NetworkDialog.dart';
 
 class MainTradingProvider with BaseCommonWidgets {
   UserData? userData;
+  ConfigMap? configMap;
 
   GetStorage get box => GetStorage();
   final _connectivity = Connectivity();
@@ -32,6 +33,7 @@ class MainTradingProvider with BaseCommonWidgets {
 
   String? get accessToken => _accessToken;
 
+
   set accessToken(String? accessToken) => _setAccessToken(accessToken);
 
   _setAccessToken(String? accessToken) {
@@ -40,7 +42,9 @@ class MainTradingProvider with BaseCommonWidgets {
 
   void clearAccessToken() {
     _accessToken = null;
-    box.remove(AUTH_TOKEN_KEY);
+    userData = null;
+    configMap = null;
+    // box.remove(AUTH_TOKEN_KEY);
   }
 
   Future<bool> hasConnectInternet() async {

@@ -1,6 +1,9 @@
 // ignore_for_file: file_names
 
 const Map<String, String> vi_VN = {
+  'withdraw_title':'Rút tiền',
+  'withdraw_confirm':'Xác nhận giao dịch',
+  'withdraw_bank':'Ngân hàng nhận tiền',
   'intro_product':'Giới thiệu sản phẩm',
   'verify_account':'Xác Thực Tài Khoản',
   'title_intro_1':'Giới thiệu sản phẩm',

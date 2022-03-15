@@ -21,7 +21,7 @@ class DataLoginDTO {
       this.msgMap, this.themeMap);
 
   factory DataLoginDTO.fromJson(dynamic json) =>
-      _$DataLoginDTOFromJson(json as Map<String,dynamic>);
+      _$DataLoginDTOFromJson(json as Map<String, dynamic>);
 
   Map<String, dynamic> toJson() => _$DataLoginDTOToJson(this);
 }
@@ -69,9 +69,20 @@ class ConfigMapDTO {
   final String? obTermAccountLink;
   @JsonKey(name: "OB_TERM_USAGE_LINK")
   final String? obTermUsageLink;
+  @JsonKey(name: "MIN_MONEY_USER")
+  final String? minMoneyUser;
+  @JsonKey(name: "VAT_PERCENT")
+  final String? vatPercent;
+  @JsonKey(name: "MAX_MONEY_USER")
+  final String? maxMoneyUser;
 
   ConfigMapDTO(
-      this.obTermStockLink, this.obTermAccountLink, this.obTermUsageLink);
+      this.obTermStockLink,
+      this.obTermAccountLink,
+      this.obTermUsageLink,
+      this.minMoneyUser,
+      this.vatPercent,
+      this.maxMoneyUser);
 
   factory ConfigMapDTO.fromJson(Map<String, dynamic> json) =>
       _$ConfigMapDTOFromJson(json);
@@ -91,21 +102,28 @@ class ThemeMapDTO {
 
 extension ConfigMapMapper on ConfigMapDTO {
   ConfigMap toModel() {
-    return ConfigMap(obTermStockLink??"", obTermAccountLink??"", obTermUsageLink??"");
+    return ConfigMap(
+      obTermStockLink ?? "",
+      obTermAccountLink ?? "",
+      obTermUsageLink ?? "",
+      minMoneyUser ?? "",
+      vatPercent ?? "",
+      maxMoneyUser ?? "",
+    );
   }
 }
 
 extension MsgMapMapper on MsgMapDTO {
   MsgMap toModel() {
     return MsgMap(
-        obIntroMsg: obIntroMsg??"",
-        obKycRequestMsg: obKycRequestMsg??"",
-        obTermMsg: obTermMsg??"",
-        obTermUsageMsg: obTermUsageMsg??"",
-        obTermAccountMsg: obTermAccountMsg??"",
-        obTermStockMsg: obTermStockMsg??"",
-        obKycIncompleteMsg: obKycIncompleteMsg??"",
-        obOtpRequestMsg: obOtpRequestMsg??"");
+        obIntroMsg: obIntroMsg ?? "",
+        obKycRequestMsg: obKycRequestMsg ?? "",
+        obTermMsg: obTermMsg ?? "",
+        obTermUsageMsg: obTermUsageMsg ?? "",
+        obTermAccountMsg: obTermAccountMsg ?? "",
+        obTermStockMsg: obTermStockMsg ?? "",
+        obKycIncompleteMsg: obKycIncompleteMsg ?? "",
+        obOtpRequestMsg: obOtpRequestMsg ?? "");
   }
 }
 

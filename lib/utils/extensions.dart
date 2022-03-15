@@ -22,6 +22,12 @@ extension StringNullSafetyExtension on String? {
   }
 }
 
+extension CustomNumberExtension on int {
+  int genRandom(){
+    final Random random = Random();
+    return random.nextInt(this);
+  }
+}
 extension CustomStringExtension on String {
   static const diacritics =
       'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';

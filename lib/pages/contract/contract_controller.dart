@@ -26,7 +26,7 @@ class ContractController extends BaseController {
   }
 
   void openHomeTrading() {
-    Get.offAndToNamed(AppRoutes.HOME_TRADING);
+    Get.offAndToNamed(AppRoutes.homeTrading);
     // showAlertDialog(CustomAlertDialog(
     //     titleWidget: "ic_success".pngImage(),
     //     descWidget: Column(children: const [

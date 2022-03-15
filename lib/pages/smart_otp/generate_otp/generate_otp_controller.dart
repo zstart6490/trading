@@ -133,7 +133,7 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
         otp.value, OTPMethod.smart.name, mainProvider.dataInputApp.token);
     hideDialog();
     if (result.data?.state == "VALID") {
-      Get.offAndToNamed(AppRoutes.CONTRACT,
+      Get.offAndToNamed(AppRoutes.contractPage,
           arguments: result.data?.contractLink ?? "");
     } else if (result.error != null) {
       showSnackBar(result.error!.message);

@@ -19,7 +19,7 @@ abstract class BaseController extends GetxController
     final hasInternet = await mainProvider.hasConnectInternet();
     if (hasInternet && errors != null) {
       showAlertDialog(CustomAlertDialog(
-          title: "Có lỗi xả ra!",
+          title: "Có lỗi xảy ra!",
           desc: errors.message,
           actions: [
             AlertAction(

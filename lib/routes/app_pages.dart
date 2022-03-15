@@ -17,68 +17,76 @@ import 'package:trading_module/pages/smart_otp/input_smart_otp/input_smart_otp_b
 import 'package:trading_module/pages/smart_otp/input_smart_otp/input_smart_otp_scene.dart';
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_binding.dart';
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_view.dart';
+import 'package:trading_module/pages/withdraw/choose_money/withdraw_money_scene.dart';
+import 'package:trading_module/pages/withdraw/confirm/withdraw_confirm_scene.dart';
+import 'package:trading_module/pages/withdraw/reason/withdraw_reason_binding.dart';
+import 'package:trading_module/pages/withdraw/reason/withdraw_reason_scene.dart';
+import 'package:trading_module/pages/withdraw/withdraw_binding.dart';
 import 'package:trading_module/routes/app_routes.dart';
-
 
 // ignore: avoid_classes_with_only_static_members
 class AppPages {
   //static const INITIAL = AppRoutes.MAIN;
-  static const INITIAL = AppRoutes.CONTRACT;
+  static const INITIAL = AppRoutes.contractPage;
 
   static final tradingRoutes = [
     GetPage(
-      name: AppRoutes.MAIN,
+      name: AppRoutes.mainView,
       page: () => MainView(),
       binding: MainBinding(),
-    ),  GetPage(
-      name: AppRoutes.HOME_TRADING,
-      page: () => HomePageView(),
+    ),
+    GetPage(
+      name: AppRoutes.homeTrading,
+      page: () => const HomePageView(),
       binding: HomePageBinding(),
     ),
     GetPage(
-      name: AppRoutes.BOARDING_INTRO,
+      name: AppRoutes.boardingIntro,
       page: () => const IntroProductView(),
       binding: IntroBinding(),
     ),
     GetPage(
-      name: AppRoutes.BOARDING_VERIFY_POLICY,
+      name: AppRoutes.boardingVerifyPolicy,
       page: () => const VerifyPolicyView(),
       binding: VerifyPolicyBinding(),
     ),
     GetPage(
-      name: AppRoutes.SMART_OPT_VERIFY_SMS,
+      name: AppRoutes.smartOtpVerifySms,
       page: () => const VerifySMSOTPView(),
       binding: VerifySMSOTPBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.SMART_OPT_CREATE,
-    //   page: () => const CreateSmartOTPScene(),
-    //   binding: CreateSmartOTPConfirmBinding(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.SMART_OPT_CONFIRM,
-    //   page: () => const ConfirmSmartOTPScene(),
-    //   binding: ConfirmSmartOTPBinding(),
-    // ),
     GetPage(
-      name: AppRoutes.SMART_OPT_GENERATE,
+      name: AppRoutes.smartOtpGenerate,
       page: () => const GenerateOtpScene(),
       binding: GenerateOtpBinding(),
     ),
     GetPage(
-      name: AppRoutes.SMART_OPT_INPUT,
+      name: AppRoutes.smartOtpInput,
       page: () => const InputSmartOTPScene(),
       binding: InputSmartOTPBinding(),
     ),
     GetPage(
-      name: AppRoutes.PDF_VIEW,
+      name: AppRoutes.pdfView,
       page: () => PdfReadePager(),
       binding: PdfReaderBinding(),
     ),
     GetPage(
-        name: AppRoutes.CONTRACT,
-        page: () => const ContractPage(),
-        binding: ContractBinding(),
-       ),
+      name: AppRoutes.contractPage,
+      page: () => const ContractPage(),
+      binding: ContractBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.withdrawReasonScene,
+      page: () => const WithdrawReasonScene(),
+      binding: WithdrawReasonBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.withdrawMoney,
+      page: () => const WithdrawMoneyScene(),
+      binding: WithdrawBinding(),
+    ), GetPage(
+      name: AppRoutes.withdrawConfirm,
+      page: () => const WithdrawConfirmScene(),
+    ),
   ];
 }

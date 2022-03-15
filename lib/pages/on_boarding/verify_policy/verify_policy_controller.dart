@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/kyc_status.dart';
-import 'package:trading_module/data/entities/otp_status.dart';
 import 'package:trading_module/domain/entities/data_login.dart';
 import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
+import 'package:trading_module/pages/smart_otp/base_check_smart_otp.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
-class VerifyPolicyController extends BaseController {
+class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
   final UserOnBoardingUseCase _boardingUseCase =
       Get.find<UserOnBoardingUseCase>();
 
@@ -30,15 +30,7 @@ class VerifyPolicyController extends BaseController {
         //SUCCESS
         mainProvider.accessToken = resp.data?.token;
         mainProvider.userData = resp.data?.userData;
-        if (dataInput.userIsRegisteredOTP == OtpStatus.disable) {
-          //show alert yêu cầu
-          _showPopupActiveSmartOTP();
-        } else {
-          //call qua tikop kich hoat otp ngay
-          //mainProvider.callToActiveOTP?.call();
-          Get.offAndToNamed(AppRoutes.SMART_OPT_INPUT);
-          // mainProvider.callToForgetPin?.call();
-        }
+        checkSmartOTPState();
       } else {
         handleErrorResponse(resp.error);
       }
@@ -54,28 +46,6 @@ class VerifyPolicyController extends BaseController {
     }
   }
 
-  void _showPopupActiveSmartOTP() {
-    showAlertDialog(CustomAlertDialog(
-        title: "alert_title_active_smart_otp".tr,
-        desc: "alert_content_active_smart_otp".tr,
-        actions: [
-          AlertAction(
-              text: "skip".tr,
-              onPressed: () {
-                hideDialog();
-                Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
-              }),
-          AlertAction(
-              text: "alert_active_now_smart_otp".tr,
-              isDefaultAction: true,
-              onPressed: () => {
-                    hideDialog(),
-                    //active smart OTP
-                    //call qua tikop kich hoat otp ngay
-                    mainProvider.callToActiveOTP?.call()
-                  }),
-        ]));
-  }
 
   void showPopupRequiredKYC(String title, String content) {
     showAlertDialog(CustomAlertDialog(title: title, desc: content, actions: [
@@ -99,13 +69,13 @@ class VerifyPolicyController extends BaseController {
   void openPdf(String name, int pos) {
     // Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
     if (pos == 0) {
-      Get.toNamed(AppRoutes.PDF_VIEW,
+      Get.toNamed(AppRoutes.pdfView,
           arguments: [name, dataLogin?.configMap?.obTermUsageLink ?? ""]);
     } else if (pos == 1) {
-      Get.toNamed(AppRoutes.PDF_VIEW,
+      Get.toNamed(AppRoutes.pdfView,
           arguments: [name, dataLogin?.configMap?.obTermAccountLink ?? ""]);
     } else {
-      Get.toNamed(AppRoutes.PDF_VIEW,
+      Get.toNamed(AppRoutes.pdfView,
           arguments: [name, dataLogin?.configMap?.obTermStockLink ?? ""]);
     }
   }
@@ -130,5 +100,15 @@ class VerifyPolicyController extends BaseController {
       mainProvider.dataInputApp.userIsRegisteredKyc = kycStatus;
       acceptTermAndVerify();
     }
+  }
+
+  @override
+  void onActive() {
+    mainProvider.callToActiveOTP?.call();
+  }
+
+  @override
+  void onSkip() {
+    Get.toNamed(AppRoutes.smartOtpVerifySms);
   }
 }

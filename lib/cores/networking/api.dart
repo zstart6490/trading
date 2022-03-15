@@ -2,25 +2,32 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
+import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/pages/main_controller.dart';
-
-import 'result.dart';
+import 'package:trading_module/utils/extensions.dart';
 
 enum Method { GET, POST, DELETE }
 
 class Api extends GetConnect {
   final String backendUrl;
   final String fullToken;
+  final String userId;
 
-  Api({required this.backendUrl, required this.fullToken});
+  Api({required this.backendUrl, required this.fullToken, required this.userId});
 
   @override
   String get baseUrl => backendUrl;
 
   String get authorization => fullToken;
+
+  String generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
+  }
+
 
   @override
   void onInit() {
@@ -33,6 +40,8 @@ class Api extends GetConnect {
       request.headers["Trading-Ver"] = "Trading-Ver";
       request.headers["Device-ID"] = "deviceId";
       request.headers['Authorization'] = authorization;
+      request.headers['X-Request-ID'] = generateMd5(
+          "$userId${DateTime.now().millisecond.toString()}${4.genRandom()}");
       if (kDebugMode) {
         log(request.headers.toString(), name: baseUrl);
       }
@@ -230,6 +239,11 @@ class Api extends GetConnect {
         print(result.msg);
         return result;
       } else if (result.code == 401) {
+        //UNAUTHORIZED
+        print(result.msg);
+        // Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
+        return result;
+      } else if (result.code == SESSION_TIMEOUT_CODE) {
         //UNAUTHORIZED
         print(result.msg);
         Get.find<MainController>().refreshToken(() => refreshTokenSuccess());

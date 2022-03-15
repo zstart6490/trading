@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
@@ -23,11 +24,13 @@ class MainController extends BaseController {
     showProgressingDialog();
     final dataInput = mainProvider.dataInputApp;
     //check token
-    final accessToken = mainProvider.box.read(AUTH_TOKEN_KEY);
-    if (accessToken != null && accessToken is String) {
+    final accessToken = mainProvider.accessToken;
+    if (accessToken != null && mainProvider.userData != null) {
       hideDialog();
-      mainProvider.accessToken = accessToken;
-      Get.toNamed(AppRoutes.HOME_TRADING);
+      if (kDebugMode) {
+        print("TradingToken=$accessToken");
+      }
+      Get.toNamed(AppRoutes.homeTrading);
     } else {
       final respData = await _boardingUseCase.getDataLoginUser(
         token: dataInput.token,
@@ -37,9 +40,8 @@ class MainController extends BaseController {
       hideDialog();
       if (respData.data != null) {
         final DataLogin? dataLogin = respData.data;
-        mainProvider.accessToken = dataLogin?.token;
         if (dataLogin?.nextScreen == "REGISTER") {
-          Get.offAndToNamed(AppRoutes.BOARDING_INTRO, arguments: [
+          Get.offAndToNamed(AppRoutes.boardingIntro, arguments: [
             {
               'data_login': dataLogin,
             }
@@ -48,12 +50,10 @@ class MainController extends BaseController {
           mainProvider.callToActiveOTP?.call();
         } else if (dataLogin?.nextScreen == "HOME") {
           //To Home
-          // var userData = dataLogin?.userData;
-          // mainProvider.callToForgetPin?.call();
-          if (dataLogin?.token != null) {
-            mainProvider.box.write(AUTH_TOKEN_KEY, dataLogin?.token);
-          }
-          Get.toNamed(AppRoutes.HOME_TRADING);
+          mainProvider.accessToken = dataLogin?.token;
+          mainProvider.userData = dataLogin?.userData;
+          mainProvider.configMap = dataLogin?.configMap;
+          Get.toNamed(AppRoutes.homeTrading);
         }
       } else {
         if (respData.error != null) {

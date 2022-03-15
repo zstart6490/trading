@@ -92,7 +92,7 @@ class VerifySMSOTPController extends OtpExpiredController {
     //handle
     hideDialog();
     Get.offNamedUntil(
-      AppRoutes.CONTRACT,
+      AppRoutes.contractPage,
       ModalRoute.withName("/home"),
       arguments: data?.contractLink ?? "",
     );

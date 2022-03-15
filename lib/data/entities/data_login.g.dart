@@ -59,6 +59,9 @@ ConfigMapDTO _$ConfigMapDTOFromJson(Map<String, dynamic> json) => ConfigMapDTO(
       json['OB_TERM_STOCK_LINK'] as String?,
       json['OB_TERM_ACCOUNT_LINK'] as String?,
       json['OB_TERM_USAGE_LINK'] as String?,
+      json['MIN_MONEY_USER'] as String?,
+      json['VAT_PERCENT'] as String?,
+      json['MAX_MONEY_USER'] as String?,
     );
 
 Map<String, dynamic> _$ConfigMapDTOToJson(ConfigMapDTO instance) =>
@@ -66,6 +69,9 @@ Map<String, dynamic> _$ConfigMapDTOToJson(ConfigMapDTO instance) =>
       'OB_TERM_STOCK_LINK': instance.obTermStockLink,
       'OB_TERM_ACCOUNT_LINK': instance.obTermAccountLink,
       'OB_TERM_USAGE_LINK': instance.obTermUsageLink,
+      'MIN_MONEY_USER': instance.minMoneyUser,
+      'VAT_PERCENT': instance.vatPercent,
+      'MAX_MONEY_USER': instance.maxMoneyUser,
     };
 
 ThemeMapDTO _$ThemeMapDTOFromJson(Map<String, dynamic> json) => ThemeMapDTO();

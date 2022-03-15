@@ -14,7 +14,6 @@ UserDataDto _$UserDataDtoFromJson(Map<String, dynamic> json) => UserDataDto(
       json['phoneCountryCode'] as String?,
       json['email'] as String?,
       json['status'] as String?,
-
     );
 
 Map<String, dynamic> _$UserDataDtoToJson(UserDataDto instance) =>

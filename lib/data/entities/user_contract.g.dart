@@ -7,9 +7,7 @@ part of 'user_contract.dart';
 // **************************************************************************
 
 UserContractDTO _$UserContractDTOFromJson(Map<String, dynamic> json) =>
-    UserContractDTO(
-    );
+    UserContractDTO();
 
 Map<String, dynamic> _$UserContractDTOToJson(UserContractDTO instance) =>
-    <String, dynamic>{
-    };
+    <String, dynamic>{};

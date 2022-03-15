@@ -61,7 +61,7 @@ class TradingModule {
     print("phoneCountryCode=${dataInput.phoneCountryCode}");
     print("fbDeviceId=${dataInput.fbDeviceId}");
     print("===data input===");
-    Get.replace<MainTradingProvider>(MainTradingProvider(
+    Get.put<MainTradingProvider>(MainTradingProvider(
         dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin));
 
     Get.lazyPut(() =>
@@ -85,12 +85,12 @@ class TradingModule {
       case CallbackType.resultActiveSmartOTP:
         if (dataCallback.otpStatus == OtpStatus.enable) {
           //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
-          Get.toNamed(AppRoutes.SMART_OPT_GENERATE,
+          Get.toNamed(AppRoutes.smartOtpGenerate,
               arguments: [dataCallback.otpPin ?? "", "", SmartOTPType.tikop]);
         }
         break;
       case CallbackType.resultForgetSmartOTP:
-        Get.toNamed(AppRoutes.SMART_OPT_INPUT);
+        Get.toNamed(AppRoutes.smartOtpInput);
         break;
     }
   }
