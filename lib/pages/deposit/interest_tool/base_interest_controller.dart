@@ -1,8 +1,9 @@
 import 'package:math_expressions/math_expressions.dart';
-import 'package:tikop/models/SavingProduct.dart';
+import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
 import 'package:trading_module/utils/date_utils.dart';
 import 'package:trading_module/utils/extensions.dart';
-import 'package:tikop/base/stateManagement/base_controller.dart';
+
 
 class InterestData {
   final int month;

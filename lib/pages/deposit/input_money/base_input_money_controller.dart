@@ -1,5 +1,6 @@
-import 'package:tikop/models/SavingProduct.dart';
+
 import 'package:tikop/repository/common_repository.dart';
+import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
 import 'package:trading_module/pages/deposit/interest_tool/base_interest_controller.dart';
 
 class TDBaseInputMoneyController extends TDBaseInterstController {

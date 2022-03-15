@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 //import 'package:tikop/base/stateManagement/base_controller.dart';
 import 'package:tikop/modules/develop/event_tracking_scene.dart';
-import 'package:tikop/modules/main_provider.dart';
-import 'package:tikop/routes/routes.dart';
+// import 'package:tikop/modules/main_provider.dart';
+// import 'package:tikop/routes/routes.dart';
 import 'package:trading_module/configs/constants.dart';
 //import 'package:tikop/utils/util.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
@@ -21,67 +21,67 @@ import 'package:url_launcher/url_launcher.dart';
 
 class SupportController extends BaseController {
   Future<void> openTelegram() async {
-    Get.back();
-    final company = await Get.find<MainProvider>().getCompany();
-    await Future.delayed(DUR_250);
-    final url = "tg://resolve?domain=${company!.telegram}";
-    final fallbackUrl = "http://www.telegram.me/${company.telegram}";
-    try {
-      final bool launched = await launch(url, forceSafariVC: false);
-      if (!launched) {
-        await launch(fallbackUrl, forceSafariVC: false);
-      }
-    } catch (e) {
-      await launch(fallbackUrl, forceSafariVC: false);
-    }
+    // Get.back();
+    // final company = await Get.find<MainProvider>().getCompany();
+    // await Future.delayed(DUR_250);
+    // final url = "tg://resolve?domain=${company!.telegram}";
+    // final fallbackUrl = "http://www.telegram.me/${company.telegram}";
+    // try {
+    //   final bool launched = await launch(url, forceSafariVC: false);
+    //   if (!launched) {
+    //     await launch(fallbackUrl, forceSafariVC: false);
+    //   }
+    // } catch (e) {
+    //   await launch(fallbackUrl, forceSafariVC: false);
+    // }
   }
 
   Future<void> openHotline() async {
     Get.back();
-    final company = await Get.find<MainProvider>().getCompany();
-    await Future.delayed(DUR_250);
-    try {
-      final bool launched = await launch("tel:${company!.hotline}");
-      if (!launched) {
-        await launch("tel:${company.hotline}");
-      }
-    } catch (e) {
-      log(e.toString());
-    }
+    // final company = await Get.find<MainProvider>().getCompany();
+    // await Future.delayed(DUR_250);
+    // try {
+    //   final bool launched = await launch("tel:${company!.hotline}");
+    //   if (!launched) {
+    //     await launch("tel:${company.hotline}");
+    //   }
+    // } catch (e) {
+    //   log(e.toString());
+    // }
   }
 
   Future<void> openEmail() async {
     Get.back();
-    final company = await Get.find<MainProvider>().getCompany();
-    await Future.delayed(DUR_250);
-    try {
-      await launch("mailto:${company!.email}");
-    } catch (e) {
-      log(e.toString());
-    }
+    // final company = await Get.find<MainProvider>().getCompany();
+    // await Future.delayed(DUR_250);
+    // try {
+    //   await launch("mailto:${company!.email}");
+    // } catch (e) {
+    //   log(e.toString());
+    // }
   }
 
   Future<void> openFeedback() async {
     Get.back();
-    Future.delayed(DUR_250).then((_) => Get.toNamed(Routes.feedback));
+    //Future.delayed(DUR_250).then((_) => Get.toNamed(Routes.feedback));
   }
 
   Future<void> openZalo() async {
     Get.back();
 
-    final company = await Get.find<MainProvider>().getCompany();
-    await Future.delayed(DUR_250);
-    final url = "https://zalo.me/${company!.zalo}";
-    const fallbackUrl =
-        "https://id.zalo.me/account?continue=https%3A%2F%2Fchat.zalo.me%2F";
-    try {
-      final bool launched = await launch(url, forceSafariVC: false);
-      if (!launched) {
-        await launch(fallbackUrl, forceSafariVC: false);
-      }
-    } catch (e) {
-      await launch(fallbackUrl, forceSafariVC: false);
-    }
+    // final company = await Get.find<MainProvider>().getCompany();
+    // await Future.delayed(DUR_250);
+    // final url = "https://zalo.me/${company!.zalo}";
+    // const fallbackUrl =
+    //     "https://id.zalo.me/account?continue=https%3A%2F%2Fchat.zalo.me%2F";
+    // try {
+    //   final bool launched = await launch(url, forceSafariVC: false);
+    //   if (!launched) {
+    //     await launch(fallbackUrl, forceSafariVC: false);
+    //   }
+    // } catch (e) {
+    //   await launch(fallbackUrl, forceSafariVC: false);
+    // }
   }
 
   Future<void> openMessenger() async {
@@ -115,7 +115,7 @@ class SupportController extends BaseController {
   }
 
   void callToEKYC() {
-    Get.toNamed(Routes.eKYCBegin, arguments: [false, true]);
+    //Get.toNamed(Routes.eKYCBegin, arguments: [false, true]);
   }
 
   void callToForgetPin() {
