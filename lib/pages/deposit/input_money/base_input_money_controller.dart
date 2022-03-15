@@ -1,16 +1,15 @@
-
-import 'package:tikop/modules/deposit/interest_tool/base_interest_controller.dart';
-import 'package:tikop/repository/common_repository.dart';
 import 'package:tikop/models/SavingProduct.dart';
+import 'package:tikop/repository/common_repository.dart';
+import 'package:trading_module/pages/deposit/interest_tool/base_interest_controller.dart';
 
-class BaseInputMoneyController extends BaseInterstController {
+class TDBaseInputMoneyController extends TDBaseInterstController {
   int inputAmount = 0;
 
   bool showMoneySuggess = false;
   final commonRepository = CommonRepository();
 
   final SavingProduct product;
-  BaseInputMoneyController(this.product);
+  TDBaseInputMoneyController(this.product);
 
   @override
   void onInit() {

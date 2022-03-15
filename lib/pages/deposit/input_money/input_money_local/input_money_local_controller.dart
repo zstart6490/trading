@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tikop/models/NavigateData.dart' show NavigateTransferData;
 import 'package:tikop/models/SavingProduct.dart';
-import 'package:tikop/modules/deposit/input_money/base_input_money_controller.dart';
 import 'package:tikop/modules/main_provider.dart';
 import 'package:tikop/routes/routes.dart';
 import 'package:tikop/utils/enums.dart';
 import 'package:tikop/utils/util.dart';
+import 'package:trading_module/pages/deposit/input_money/base_input_money_controller.dart';
 
-class InputMoneyLocalController extends BaseInputMoneyController {
+class TDInputMoneyLocalController extends TDBaseInputMoneyController {
   late TextEditingController textEditingController;
 
   late FocusNode focusNode;
-  InputMoneyLocalController({required SavingProduct product}) : super(product);
+  TDInputMoneyLocalController({required SavingProduct product}) : super(product);
 
   RxDouble percent = 0.0.obs;
   Rx<ConditionState> pasMinAmount = ConditionState.none.obs;
@@ -89,14 +89,14 @@ class InputMoneyLocalController extends BaseInputMoneyController {
 
   Future<void> tikopNow() async {
     showProgressingDialog();
-    final res =
-        await commonRepository.getIsVerify(VerifyType.deposit, isVn: isUserVn);
-    hideDialog();
-    if (res.success) {
-      Get.toNamed(Routes.chooseProduct);
-    } else {
-      Get.toNamed(Routes.eKYCBegin);
-    }
+    // final res =
+    //     await commonRepository.getIsVerify(VerifyType.deposit, isVn: isUserVn);
+    // hideDialog();
+    // if (res.success) {
+    //   Get.toNamed(Routes.chooseProduct);
+    // } else {
+    //   Get.toNamed(Routes.eKYCBegin);
+    // }
   }
 
   int getAmountFromString(String str) {

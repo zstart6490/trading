@@ -3,12 +3,12 @@ import 'package:tikop/models/SavingProduct.dart';
 
 import 'input_money_local_controller.dart';
 
-class InputMoneyLocalBinding extends Bindings {
+class TDInputMoneyLocalBinding extends Bindings {
   @override
   void dependencies() {
     final arg = Get.arguments;
     if (arg is SavingProduct) {
-      Get.lazyPut(() => InputMoneyLocalController(product: arg));
+      Get.lazyPut(() => TDInputMoneyLocalController(product: arg));
     }
   }
 }

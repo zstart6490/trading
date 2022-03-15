@@ -19,6 +19,6 @@ class HomePageController extends BaseController  with GetSingleTickerProviderSta
 
   void gotoSaving() {
     final product = SavingProduct();
-    Get.toNamed(AppRoutes.inputMoneyLocal, arguments: product);
+    Get.toNamed(AppRoutes.tdInputMoneyLocal, arguments: product);
   }
 }
