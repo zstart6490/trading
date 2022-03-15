@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:tikop/modules/deposit/components/interest_list_component.dart';
 import 'package:tikop/modules/deposit/components/money_helper_component.dart';
-import 'package:tikop/modules/deposit/interest_tool/money_text_field.dart';
+// import 'package:tikop/modules/deposit/interest_tool/money_text_field.dart';
+//import 'package:trading_module/pages/support_fab/support_fab.dart';
 import 'package:tikop/modules/support_fab/support_fab.dart';
-import 'package:tikop/shared_widgets/BaseScaffold.dart';
-import 'package:tikop/shared_widgets/CustomButton.dart';
-import 'package:tikop/shared_widgets/ValidateComponent.dart';
-import 'package:tikop/utils/enums.dart';
-import 'package:tikop/utils/util.dart';
+import 'package:trading_module/pages/deposit/input_money/money_text_field.dart';
+//import 'package:trading_module/pages/deposit/input_money/money_text_field.dart';
+import 'package:trading_module/shared_widgets/BaseScaffold.dart';
+import 'package:trading_module/shared_widgets/CustomButton.dart';
+
+import 'package:trading_module/shared_widgets/ValidateComponent.dart';
+import 'package:trading_module/utils/enums.dart';
+import 'package:trading_module/utils/util.dart';
 
 import 'input_money_local_controller.dart';
 

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:tikop/models/SavingProduct.dart';
+import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
+
 
 import 'input_money_local_controller.dart';
 
