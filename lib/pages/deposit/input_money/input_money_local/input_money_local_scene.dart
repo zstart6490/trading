@@ -12,14 +12,14 @@ import 'package:tikop/utils/util.dart';
 
 import 'input_money_local_controller.dart';
 
-class InputMoneyLocalScene extends GetView<InputMoneyLocalController> {
-  const InputMoneyLocalScene({Key? key}) : super(key: key);
+class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
+  const TDInputMoneyLocalScene({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final isRealEstate = controller.product.isRealEstate;
-    return BaseScaffoldAppBar<InputMoneyLocalController>(
-        title: isRealEstate ? "Nạp tiền đầu tư BĐS" : "Nạp tiền tích cóp",
+    return BaseScaffoldAppBar<TDInputMoneyLocalController>(
+        title: "Nạp tiền đầu tư",
         fab: const SupportFAB(
           hasBottomBar: true,
           shouldShowFull: false,
@@ -35,9 +35,7 @@ class InputMoneyLocalScene extends GetView<InputMoneyLocalController> {
                   Padding(
                     padding: PAD_SYM_H16,
                     child: Text(
-                      isRealEstate
-                          ? "Nhập Số Tiền Muốn Nạp"
-                          : "Nhập Số Tiền Muốn Tích Cóp",
+                          "Nhập Số tiền muốn nạp",
                       style: context.textSize16,
                     ),
                   ),
@@ -82,7 +80,7 @@ class InputMoneyLocalScene extends GetView<InputMoneyLocalController> {
                                 )
                               : const SizedBox(),
                         )),
-                  const InterestListComponent<InputMoneyLocalController>(),
+                  //const InterestListComponent<TDInputMoneyLocalController>(),
                   SIZED_BOX_H16,
                 ],
               ),
@@ -104,7 +102,7 @@ class InputMoneyLocalScene extends GetView<InputMoneyLocalController> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
-              child: GetBuilder<InputMoneyLocalController>(
+              child: GetBuilder<TDInputMoneyLocalController>(
                 builder: (controller) {
                   if (controller.showMoneySuggess) {
                     return MoneyHelperComponent(
@@ -123,3 +121,4 @@ class InputMoneyLocalScene extends GetView<InputMoneyLocalController> {
         ));
   }
 }
+

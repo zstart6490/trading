@@ -14,9 +14,9 @@ abstract class AppRoutes {
   static const HOME_TRADING = '/home_trading';
 
 
-  static const inputMoneyLocal = "/inputMoneyLocal";
-  static const transactionConfirm = "/transactionConfirm";
-  static const transferType = "/transferType";
-  static const transferInfo = "/transferInfo";
-  static const depositTutorial = "/depositTutorial";
+  static const tdInputMoneyLocal = "/td_inputMoneyLocal";
+  static const tdTransactionConfirm = "/td_transactionConfirm";
+  static const tdTransferType = "/td_transferType";
+  static const tdTransferInfo = "/td_transferInfo";
+  static const tdDepositTutorial = "/td_depositTutorial";
 }
