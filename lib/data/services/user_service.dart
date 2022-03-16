@@ -15,7 +15,7 @@ class UserServiceImpl extends UserService {
   @override
   Future<BaseDecoder<UserContractDTO>> getUserContract() async {
     return  BaseDecoder(await api.getData(
-        endPoint: "/v1/user/contract",
+        endPoint: "/user/v1/contract",
         params: {
         },
         timeOut: AppConstants.TIME_OUT),

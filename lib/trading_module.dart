@@ -32,7 +32,7 @@ class DataCallback {
 }
 
 class TradingModule {
-  static String versionTrading = "-dev-1.0.0.0";
+  static String versionTrading = "-dev-1.0.0.1";
 
   static void openTradingModule({
     required BuildContext context,
@@ -61,9 +61,12 @@ class TradingModule {
     print("phoneCountryCode=${dataInput.phoneCountryCode}");
     print("fbDeviceId=${dataInput.fbDeviceId}");
     print("===data input===");
-    Get.put<MainTradingProvider>(MainTradingProvider(
-        dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin));
-
+    if(!Get.isRegistered<MainTradingProvider>()){
+      Get.put<MainTradingProvider>(MainTradingProvider(
+          dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin));
+    }else{
+      Get.find<MainTradingProvider>().dataInputApp =dataInput;
+    }
     Get.lazyPut(() =>
         UserOnBoardingUseCase(OnBoardingReposImpl(OnBoardingServiceImpl())));
     Get.lazyPut(() => MainController());
@@ -86,7 +89,7 @@ class TradingModule {
         if (dataCallback.otpStatus == OtpStatus.enable) {
           //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
           Get.toNamed(AppRoutes.smartOtpGenerate,
-              arguments: [dataCallback.otpPin ?? "", "", SmartOTPType.tikop]);
+              arguments: [dataCallback.otpPin ?? "", "", SmartOTPType.fromAppParent]);
         }
         break;
       case CallbackType.resultForgetSmartOTP:

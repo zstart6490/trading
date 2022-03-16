@@ -6,6 +6,7 @@ import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/pages/smart_otp/base_check_smart_otp.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/utils/enums.dart';
 
 class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
   final UserOnBoardingUseCase _boardingUseCase =
@@ -29,8 +30,8 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
       if (resp.data != null) {
         //SUCCESS
         mainProvider.accessToken = resp.data?.token;
-        mainProvider.userData = resp.data?.userData;
-        checkSmartOTPState();
+        // mainProvider.userData = resp.data?.userData;
+        checkSmartOTPState(SmartOTPType.registerTrading);
       } else {
         handleErrorResponse(resp.error);
       }
@@ -109,6 +110,6 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
 
   @override
   void onSkip() {
-    Get.toNamed(AppRoutes.smartOtpVerifySms);
+    Get.toNamed(AppRoutes.smartOtpVerifySms,arguments: SmsOTPType.registerTrading);
   }
 }

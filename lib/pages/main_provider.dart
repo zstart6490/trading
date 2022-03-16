@@ -24,6 +24,10 @@ class MainTradingProvider with BaseCommonWidgets {
   MainTradingProvider(this.dataInputApp, this.callToEKYC, this.callToActiveOTP,
       this.callToForgetPin);
 
+  // void updateDataInput(DataInputApp dataInputApp){
+  //   this.dataInputApp =dataInputApp;
+  // }
+
   String deviceId = "";
   String deviceName = "";
   String appVersion = "";

@@ -186,10 +186,16 @@ enum OptionGuide {
 }
 enum SnackBarType { info, success, error, warning }
 enum SmartOTPType {
-  create,
-  tikop
+  fromAppParent,
+  registerTrading,
+  cashOutTrading,
+  cashInTrading
 }
-
+enum SmsOTPType {
+  registerTrading,
+  cashOutTrading,
+  cashInTrading
+}
 enum BannerType {
   @JsonValue("IN_APP")
   inApp,

@@ -8,6 +8,7 @@ import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/domain/use_cases/withdraw_usecase.dart';
 import 'package:trading_module/pages/smart_otp/base_check_smart_otp.dart';
 import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/utils/enums.dart';
 
 class WithdrawController extends BaseController with BaseCheckSmartOTP {
   final NavigateWithdrawData data;
@@ -152,25 +153,21 @@ class WithdrawController extends BaseController with BaseCheckSmartOTP {
   }
 
   Future<void> onConfirm() async {
-    // if (config.smartOTPEnable) {
-    //   checkSmartOTPState(SmartOTPType.savingWithdraw);
-    // } else {
-    //   smsOTP();
-    // }
+    if (dataAppParent.smartOTPEnable) {
+      checkSmartOTPState(SmartOTPType.cashOutTrading);
+    } else {
+      Get.toNamed(AppRoutes.smartOtpVerifySms);
+    }
   }
 
   @override
   void onActive() {
-    // Get.toNamed(Routes.createSmartOtp,
-    //     arguments: NavigateSmartOTPData(
-    //       phone: userData.user?.phone ?? "",
-    //       country: savedCountry,
-    //       smartOTPType: SmartOTPType.savingWithdraw,
-    //     ));
+    mainProvider.callToActiveOTP?.call();
   }
 
   @override
   void onSkip() {
-    // smsOTP();
+    Get.toNamed(AppRoutes.smartOtpVerifySms,arguments: SmsOTPType.cashOutTrading);
   }
 }
+

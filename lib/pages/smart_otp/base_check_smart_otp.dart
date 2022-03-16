@@ -4,25 +4,27 @@ import 'package:trading_module/data/entities/otp_status.dart';
 import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/utils/enums.dart';
 
 mixin BaseCheckSmartOTP on BaseCommonWidgets {
   MainTradingProvider get mainProvider =>
       GetInstance().find<MainTradingProvider>();
 
-  Future<void> checkSmartOTPState() async {
+  Future<void> checkSmartOTPState(SmartOTPType smartOTPType) async {
     showProgressingDialog();
-    var isEnable =
+    final isEnable =
         mainProvider.dataInputApp.userIsRegisteredOTP == OtpStatus.enable;
-    if (!isEnable) {
-      isEnable = await _getSmartOTPState();
-    }
+    // if (!isEnable) {
+    //   isEnable = await _getSmartOTPState();
+    // }
+    print("isEnableOTP=$isEnable");
     if (isEnable) {
       // mainProvider.enableSmartOtp.value = true;
       // final isBlock = await _smartOTPIsBlock();
       hideDialog();
       // if (!isBlock) {
       //   Get.toNamed(AppRoutes.smartOtpInput, arguments: type);
-      Get.offAndToNamed(AppRoutes.smartOtpInput);
+      Get.offAndToNamed(AppRoutes.smartOtpInput,arguments: smartOTPType);
       // }
     } else {
       hideDialog();
