@@ -9,6 +9,9 @@ class DataInputApp {
   String? phone;
   String? phoneCountryCode;
   String? fbDeviceId;
+  bool? configSmartOTPEnable;
+
+  bool get smartOTPEnable => configSmartOTPEnable ?? true;
 
   DataInputApp(
       {this.userIsRegisteredKyc,
@@ -17,5 +20,6 @@ class DataInputApp {
       this.email,
       this.phone,
       this.phoneCountryCode,
-      this.fbDeviceId});
+      this.fbDeviceId,
+      this.configSmartOTPEnable});
 }

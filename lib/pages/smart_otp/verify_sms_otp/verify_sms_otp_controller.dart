@@ -6,10 +6,10 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/domain/entities/otp_confirm_model.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
-import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/pages/smart_otp/otp_expired_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class VerifySMSOTPController extends OtpExpiredController {
@@ -22,9 +22,9 @@ class VerifySMSOTPController extends OtpExpiredController {
   RxString descSecond = "".obs;
 
   final OtpUseCase _otpUseCase = Get.find();
+  SmsOTPType type;
 
-  @override
-  MainTradingProvider get mainProvider => Get.find<MainTradingProvider>();
+  VerifySMSOTPController(this.type);
 
   @override
   void onInit() {
@@ -82,7 +82,7 @@ class VerifySMSOTPController extends OtpExpiredController {
     } else if (result.data?.state == "VALID") {
       endTimer();
       onSuccess(result.data);
-    }else{
+    } else {
       handleErrorResponse(result.error);
     }
   }

@@ -8,12 +8,15 @@ import 'package:get/get_navigation/src/dialog/dialog_route.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
+import 'package:trading_module/data/entities/data_input_app.dart';
 import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
 abstract class BaseController extends GetxController
     with _ScaffoldInterface, BaseCommonWidgets {
   MainTradingProvider get mainProvider => Get.find<MainTradingProvider>();
+
+  DataInputApp get dataAppParent => mainProvider.dataInputApp;
 
   Future handleErrorResponse(Errors? errors) async {
     final hasInternet = await mainProvider.hasConnectInternet();

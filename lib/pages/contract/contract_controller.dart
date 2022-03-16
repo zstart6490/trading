@@ -15,7 +15,7 @@ class ContractController extends BaseController {
   @override
   void onInit() {
     String pdfLink =
-        "${Environment().backendUrl}/v1/resource/download-contract/$pdfPath";
+        "${Environment().backendUrl}/resource/v1/download-contract/$pdfPath";
     if (kDebugMode) {
       print(pdfLink);
     }

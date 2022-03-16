@@ -41,7 +41,7 @@ class InputSmartOTPController extends BaseController {
         isError.value = false;
         errorText.value = "";
         Get.offNamed(AppRoutes.smartOtpGenerate,
-            arguments: [pin, result.data?.otp, SmartOTPType.create]);
+            arguments: [pin, result.data?.otp,type]);
       } else if (result.error != null) {
         if (result.error?.code != BLOCK_SMART_OTP_CODE) {
           isError.value = true;

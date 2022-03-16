@@ -28,7 +28,7 @@ class WithdrawServiceImpl extends WithdrawService {
   @override
   Future<BaseDecoder<InfoWithdraw>> createCashOut(String linkId, String amount) async{
     return  BaseDecoder(await api.postData(
-        endPoint: "account/v1/cashout/create",
+        endPoint: "/account/v1/cashout/create",
         params: {
           'amount': amount,
           'linkId': linkId,

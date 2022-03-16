@@ -69,17 +69,23 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   void setupData() {
     switch (type) {
-      case SmartOTPType.create:
+      case SmartOTPType.registerTrading:
         {
           canNext.value = true;
           startTimer(60);
         }
         break;
-      case SmartOTPType.tikop:
+      case SmartOTPType.fromAppParent:
         {
           canNext.value = false;
           reGenerateOTP();
         }
+        break;
+      case SmartOTPType.cashOutTrading:
+        handleCashOutTrading();
+        break;
+      case SmartOTPType.cashInTrading:
+        // TODO: Handle this case.
         break;
     }
   }
@@ -151,5 +157,9 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
       _timer.cancel();
       reGenerateOTP();
     }
+  }
+
+  void handleCashOutTrading() {
+
   }
 }
