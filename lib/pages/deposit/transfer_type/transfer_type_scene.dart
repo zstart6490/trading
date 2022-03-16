@@ -21,7 +21,7 @@ class TDTransferTypeScene extends GetView<TDTransferTypeController> {
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<TDTransferTypeController>(
         title: "Hình thức nạp tiền",
-        fab: const SupportFAB(shouldShowFull: false),
+        fab: const TDSupportFAB(shouldShowFull: false),
         body: ListView(
           children: [
             if (true)

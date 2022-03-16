@@ -24,11 +24,11 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<TDInputMoneyLocalController>(
         title: "Nạp tiền đầu tư",
-        // fab: const SupportFAB(
-        //   hasBottomBar: true,
-        //   shouldShowFull: false,
-        //   padBot: kBottomNavigationBarHeight,
-        // ),
+        fab: const TDSupportFAB(
+          hasBottomBar: true,
+          shouldShowFull: false,
+          padBot: kBottomNavigationBarHeight,
+        ),
         backgroundColor: context.backgroundColor,
         body: Column(
           children: [

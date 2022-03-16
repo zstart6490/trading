@@ -19,7 +19,7 @@ import 'package:trading_module/trading_module.dart';
 // // ignore: unused_import
 // import '../develop/testScene.dart';
 
-class SupportController extends BaseController {
+class TDSupportController extends BaseController {
   Future<void> openTelegram() async {
     // Get.back();
     // final company = await Get.find<MainProvider>().getCompany();

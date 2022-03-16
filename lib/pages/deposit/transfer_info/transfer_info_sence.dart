@@ -28,7 +28,7 @@ class TDTransferInfoScene extends GetView<TDTransferInfoController> {
     return BaseScaffoldAppBar<TDTransferInfoController>(
       title: "Thông tin chuyển khoản",
       showBackBtn: false,
-      fab: const SupportFAB(
+      fab: const TDSupportFAB(
         hasBottomBar: true,
         shouldShowFull: false,
         padBot: kBottomNavigationBarHeight,

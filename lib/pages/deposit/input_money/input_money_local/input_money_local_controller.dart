@@ -55,7 +55,7 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
     final amount = int.parse(textEditingController.text.numericOnly()) *
         product.multipleOf;
     print("AAAAA");
-    Get.toNamed(AppRoutes.tdTransactionConfirm,
+    Get.toNamed(AppRoutes.tdDepositTutorial,
         arguments: NavigateTransferData(amount: amount, product: product));
   }
 

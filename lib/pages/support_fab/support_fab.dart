@@ -5,8 +5,8 @@ import 'package:trading_module/pages/support_fab/support_controller.dart';
 import 'package:trading_module/shared_widgets/CustomFAB.dart';
 import 'package:trading_module/utils/util.dart';
 
-class SupportFAB extends StatelessWidget {
-  const SupportFAB(
+class TDSupportFAB extends StatelessWidget {
+  const TDSupportFAB(
       {Key? key,
       this.hasBottomBar = false,
       this.shouldShowFull = true,
@@ -18,8 +18,8 @@ class SupportFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SupportController>(
-        init: SupportController(),
+    return GetBuilder<TDSupportController>(
+        init: TDSupportController(),
         builder: (controller) {
           return Padding(
             padding: EdgeInsets.only(bottom: padBot),

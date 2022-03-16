@@ -24,11 +24,11 @@ class TDTransactionConfirmScene extends GetView<TDTransactionConfirmController> 
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<TDTransactionConfirmController>(
         title: 'Xác nhận giao dịch',
-        // fab: const SupportFAB(
-        //   hasBottomBar: true,
-        //   shouldShowFull: false,
-        //   padBot: kBottomNavigationBarHeight,
-        // ),
+        fab: const TDSupportFAB(
+          hasBottomBar: true,
+          shouldShowFull: false,
+          padBot: kBottomNavigationBarHeight,
+        ),
         body: Padding(
           padding: PAD_SYM_H12,
           child: controller.obx(
