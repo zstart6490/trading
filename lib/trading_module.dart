@@ -61,9 +61,12 @@ class TradingModule {
     print("phoneCountryCode=${dataInput.phoneCountryCode}");
     print("fbDeviceId=${dataInput.fbDeviceId}");
     print("===data input===");
-    Get.replace<MainTradingProvider>(MainTradingProvider(
-        dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin));
-
+    if(!Get.isRegistered<MainTradingProvider>()){
+      Get.put<MainTradingProvider>(MainTradingProvider(
+          dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin));
+    }else{
+      Get.find<MainTradingProvider>().dataInputApp =dataInput;
+    }
     Get.lazyPut(() =>
         UserOnBoardingUseCase(OnBoardingReposImpl(OnBoardingServiceImpl())));
     Get.lazyPut(() => MainController());
