@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
 // import 'package:tikop/base/networking/decoder.dart';
 // import 'package:tikop/base/stateManagement/base_controller.dart';
 // import 'package:tikop/models/Bank.dart';
@@ -24,6 +25,7 @@ import 'package:trading_module/data/entities/naptien/Bank.dart';
 import 'package:trading_module/data/entities/naptien/NavigateData.dart';
 import 'package:trading_module/data/entities/naptien/Transaction.dart';
 import 'package:trading_module/data/entities/naptien/notify_message.dart';
+import 'package:trading_module/domain/use_cases/cash_in_usecase.dart';
 import 'package:trading_module/pages/deposit/transfer_info/component/overlay_widget/overlay_widget.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/shared_widgets/CustomOverlay.dart';
@@ -36,11 +38,13 @@ class TDTransferInfoController extends BaseController
   final NavigateTransferData data;
 
   final ScrollController scrollController = ScrollController();
+
   TDTransferInfoController({required this.data});
 
   RxList<OurBank> banks = RxList<OurBank>();
   Rx<OurBank?> selectedBank = Rx<OurBank?>(null);
   int selectedIndex = 0;
+
   // bool needScrolled = false;
   final box = GetStorage();
 
@@ -62,6 +66,8 @@ class TDTransferInfoController extends BaseController
   // final CommonRepository _commonRepository = CommonRepository();
   // final UserRepository _userRepository = UserRepository();
 
+  final CashInUseCase _cashInUseCase = Get.find();
+
   @override
   void onReady() {
     super.onReady();
@@ -70,6 +76,7 @@ class TDTransferInfoController extends BaseController
         .delay()
         .then((value) => onLoadingFinish());
     getListBank();
+    cashIn();
   }
 
   @override
@@ -77,15 +84,15 @@ class TDTransferInfoController extends BaseController
     return Future.value(false);
   }
 
-  // void scrollToIndex(int index) {
-  //   if (index > 4) {
-  //     final toOffset = index ~/ 4 * Get.width;
-  //     final clamp = toOffset.clamp(scrollController.position.minScrollExtent,
-  //         scrollController.position.maxScrollExtent);
-  //     scrollController.animateTo(clamp,
-  //         duration: DUR_250, curve: Curves.easeIn);
-  //   }
-  // }
+  void scrollToIndex(int index) {
+    if (index > 4) {
+      final toOffset = index ~/ 4 * Get.width;
+      final clamp = toOffset.clamp(scrollController.position.minScrollExtent,
+          scrollController.position.maxScrollExtent);
+      scrollController.animateTo(clamp,
+          duration: DUR_250, curve: Curves.easeIn);
+    }
+  }
 
   Future<void> onReceivePush(NotifyMessage message) async {
     final String id = message.data.id;
@@ -179,6 +186,10 @@ class TDTransferInfoController extends BaseController
     // } else if (result.hasError) {
     //   showSnackBar(result.error!.message);
     // }
+  }
+
+  Future<void> cashIn() async {
+    final result = _cashInUseCase.createCashIn("900000000");
   }
 
   void onSetSelectedBank(List<OurBank> listBank) {

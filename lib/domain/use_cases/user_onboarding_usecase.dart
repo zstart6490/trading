@@ -11,7 +11,7 @@ class UserOnBoardingUseCase {
       {required String token,
         required String fbDeviceId,
         required String kyc}) async {
-    var result = await _onBoardingRepos.getDataLoginUser(token: token, fbDeviceId: fbDeviceId, kyc: kyc);
+    final result = await _onBoardingRepos.getDataLoginUser(token: token, fbDeviceId: fbDeviceId, kyc: kyc);
     // xử lý thêm nếu muốn
     return result;
   }

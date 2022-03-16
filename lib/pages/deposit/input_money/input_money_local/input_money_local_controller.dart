@@ -1,16 +1,8 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/data/entities/naptien/NavigateData.dart';
-
-//import 'package:tikop/models/NavigateData.dart' show NavigateTransferData;
-
-// import 'package:tikop/modules/main_provider.dart';
-// import 'package:tikop/routes/routes.dart';
-
 import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
-
 import 'package:trading_module/pages/deposit/input_money/base_input_money_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/enums.dart';
@@ -21,14 +13,13 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
 
   late FocusNode focusNode;
   TDInputMoneyLocalController({required SavingProduct product}) : super(product);
-
   RxDouble percent = 0.0.obs;
   Rx<ConditionState> pasMinAmount = ConditionState.none.obs;
   Rx<ConditionState> pasMaxAmount = ConditionState.none.obs;
 
   bool get isValid =>
       pasMinAmount.value == ConditionState.success &&
-      pasMaxAmount.value == ConditionState.success;
+          pasMaxAmount.value == ConditionState.success;
 
   @override
   void onInit() {
@@ -37,10 +28,12 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
     focusNode.addListener(() => onFocusChange());
     inputAmount = product.minMoneyUser;
     if (product.investType == InvestType.normal) {
+      print("AAA");
       textEditingController =
           TextEditingController(text: inputAmount.toCurrency(symbol: ""));
       checkMoneyValid();
     } else {
+      print("BBB");
       textEditingController = TextEditingController();
     }
   }
@@ -54,9 +47,10 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
   void next() {
     final amount = int.parse(textEditingController.text.numericOnly()) *
         product.multipleOf;
-    print("AAAAA");
-    Get.toNamed(AppRoutes.tdDepositTutorial,
+    Get.toNamed(AppRoutes.tdTransferInfo,
         arguments: NavigateTransferData(amount: amount, product: product));
+    // Get.toNamed(Routes.transferType,
+    //     arguments: NavigateTransferData(amount: amount, product: product));
   }
 
   void onChangeMoney(String val) {
@@ -78,10 +72,10 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
       pasMinAmount.value = ConditionState.none;
       pasMaxAmount.value = ConditionState.none;
     } else {
-      pasMinAmount.value = inputAmount >= int.parse(mainProvider.configMap?.minMoneyUser ?? "500000")
+      pasMinAmount.value = inputAmount >= minMoney
           ? ConditionState.success
           : ConditionState.error;
-      pasMaxAmount.value = inputAmount <= int.parse(mainProvider.configMap?.maxMoneyUser ?? "999999999999")
+      pasMaxAmount.value = inputAmount <= maxAmount
           ? ConditionState.success
           : ConditionState.error;
     }
@@ -92,17 +86,7 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
     onChangeMoney("$i");
   }
 
-  Future<void> tikopNow() async {
-    showProgressingDialog();
-    // final res =
-    //     await commonRepository.getIsVerify(VerifyType.deposit, isVn: isUserVn);
-    // hideDialog();
-    // if (res.success) {
-    //   Get.toNamed(Routes.chooseProduct);
-    // } else {
-    //   Get.toNamed(Routes.eKYCBegin);
-    // }
-  }
+
 
   int getAmountFromString(String str) {
     return int.tryParse(str.numericOnly()) ?? 0;

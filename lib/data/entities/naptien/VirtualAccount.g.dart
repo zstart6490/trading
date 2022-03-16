@@ -10,7 +10,6 @@ VirtualAccount _$VirtualAccountFromJson(Map<String, dynamic> json) =>
     VirtualAccount(
       json['id'] as int,
       json['uname'] as String,
-      //OurBank.fromJson(json['bank'] as Map<String, dynamic>),
       json['account_no'] as String,
       json['account_name'] as String,
       json['account_address'] as String,
@@ -23,7 +22,6 @@ Map<String, dynamic> _$VirtualAccountToJson(VirtualAccount instance) =>
     <String, dynamic>{
       'id': instance.id,
       'uname': instance.userName,
-      //'bank': instance.bank,
       'account_no': instance.accountNo,
       'account_name': instance.accountName,
       'account_address': instance.accountAddress,
