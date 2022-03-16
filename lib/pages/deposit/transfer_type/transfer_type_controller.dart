@@ -1,10 +1,4 @@
 import 'package:get/get.dart';
-// import 'package:tikop/base/stateManagement/base_controller.dart';
-// import 'package:tikop/models/NavigateData.dart';
-// import 'package:tikop/models/SavingProduct.dart';
-// import 'package:tikop/modules/deposit/transfer_type/component/popup_settlement.dart';
-// import 'package:tikop/repository/saving_repository.dart';
-// import 'package:tikop/utils/enums.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/naptien/NavigateData.dart';
 import 'package:trading_module/data/entities/naptien/SavingProduct.dart';

@@ -26,28 +26,20 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
     super.onInit();
     focusNode = FocusNode();
     focusNode.addListener(() => onFocusChange());
-    inputAmount = product.minMoneyUser;
-    if (product.investType == InvestType.normal) {
-      print("AAA");
-      textEditingController =
-          TextEditingController(text: inputAmount.toCurrency(symbol: ""));
-      checkMoneyValid();
-    } else {
-      print("BBB");
-      textEditingController = TextEditingController();
-    }
+    textEditingController = TextEditingController();
+
   }
 
   @override
   void onReady() {
-    caculateInterest(inputAmount);
+    //caculateInterest(inputAmount);
     super.onReady();
   }
 
   void next() {
     final amount = int.parse(textEditingController.text.numericOnly()) *
         product.multipleOf;
-    Get.toNamed(AppRoutes.tdTransferInfo,
+    Get.toNamed(AppRoutes.tdTransactionConfirm,
         arguments: NavigateTransferData(amount: amount, product: product));
     // Get.toNamed(Routes.transferType,
     //     arguments: NavigateTransferData(amount: amount, product: product));
@@ -63,19 +55,18 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
     }
     checkMoneyValid();
     updateMoneysuggest();
-    caculateInterest(inputAmount);
+    //caculateInterest(inputAmount);
   }
 
   void checkMoneyValid() {
-    final minMoney = product.minMoneyUser;
     if (inputAmount == 0) {
       pasMinAmount.value = ConditionState.none;
       pasMaxAmount.value = ConditionState.none;
     } else {
-      pasMinAmount.value = inputAmount >= minMoney
+      pasMinAmount.value = inputAmount >= int.parse(mainProvider.configMap?.minMoneyUser ?? "500000")
           ? ConditionState.success
           : ConditionState.error;
-      pasMaxAmount.value = inputAmount <= maxAmount
+      pasMaxAmount.value = inputAmount <= int.parse(mainProvider.configMap?.maxMoneyUser ?? "999999999999")
           ? ConditionState.success
           : ConditionState.error;
     }

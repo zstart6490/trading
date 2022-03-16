@@ -1,18 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cash_in_model_dto.dart';
+part of 'cash_in_confirm_model_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CashInModelDTO _$CashInModelDTOFromJson(Map<String, dynamic> json) =>
-    CashInModelDTO(
+CashInConfirmModelDTO _$CashInConfirmModelDTOFromJson(
+        Map<String, dynamic> json) =>
+    CashInConfirmModelDTO(
       json['state'] as String?,
       json['contractLink'] as String?,
     );
 
-Map<String, dynamic> _$CashInModelDTOToJson(CashInModelDTO instance) =>
+Map<String, dynamic> _$CashInConfirmModelDTOToJson(
+        CashInConfirmModelDTO instance) =>
     <String, dynamic>{
       'state': instance.state,
       'contractLink': instance.contractLink,

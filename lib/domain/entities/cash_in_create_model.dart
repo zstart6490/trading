@@ -1,8 +1,8 @@
-class CashInModel {
+class CashInCreateModel {
   final String? state;
   final String? contractLink;
 
-  CashInModel({
+  CashInCreateModel({
     this.state,
     this.contractLink,
   });

@@ -189,7 +189,7 @@ class TDTransferInfoController extends BaseController
   }
 
   Future<void> cashIn() async {
-    final result = _cashInUseCase.createCashIn("900000000");
+    final result = _cashInUseCase.confirmCashIn("900000000" ,"");
   }
 
   void onSetSelectedBank(List<OurBank> listBank) {
