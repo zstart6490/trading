@@ -14,12 +14,12 @@ import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 
 import 'transfer_type_controller.dart';
 
-class TransferTypeScene extends GetView<TransferTypeController> {
-  const TransferTypeScene({Key? key}) : super(key: key);
+class TDTransferTypeScene extends GetView<TDTransferTypeController> {
+  const TDTransferTypeScene({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffoldAppBar<TransferTypeController>(
+    return BaseScaffoldAppBar<TDTransferTypeController>(
         title: "Hình thức nạp tiền",
         fab: const SupportFAB(shouldShowFull: false),
         body: ListView(

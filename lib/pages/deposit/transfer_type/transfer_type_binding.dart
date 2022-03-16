@@ -4,12 +4,12 @@ import 'package:trading_module/data/entities/naptien/NavigateData.dart';
 
 import 'transfer_type_controller.dart';
 
-class TransferTypeBinding extends Bindings {
+class TDTransferTypeBinding extends Bindings {
   @override
   void dependencies() {
     final arg = Get.arguments;
     if (arg is NavigateTransferData) {
-      Get.lazyPut<TransferTypeController>(() => TransferTypeController(arg));
+      Get.lazyPut<TDTransferTypeController>(() => TDTransferTypeController(arg));
     }
   }
 }

@@ -5,6 +5,12 @@ import 'package:trading_module/pages/deposit/input_money/input_money_local/input
 import 'package:trading_module/pages/deposit/input_money/input_money_local/input_money_local_scene.dart';
 import 'package:trading_module/pages/deposit/transaction_confirm/transaction_confirm_binding.dart';
 import 'package:trading_module/pages/deposit/transaction_confirm/transaction_confirm_scene.dart';
+import 'package:trading_module/pages/deposit/transfer_info/transfer_info_binding.dart';
+import 'package:trading_module/pages/deposit/transfer_info/transfer_info_sence.dart';
+import 'package:trading_module/pages/deposit/transfer_type/transfer_type_binding.dart';
+import 'package:trading_module/pages/deposit/transfer_type/transfer_type_scene.dart';
+import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tutorial_binding.dart';
+import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tutorial_scene.dart';
 import 'package:trading_module/pages/homePage/home_page.dart';
 import 'package:trading_module/pages/homePage/home_page_bindding.dart';
 import 'package:trading_module/pages/main/views/home_view.dart';
@@ -102,20 +108,20 @@ class AppPages {
       page: () => const TDTransactionConfirmScene(),
       binding: TDTransactionConfirmBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.tdTransferType,
-    //   page: () => const TransferTypeScene(),
-    //   binding: TransferTypeBinding(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.tdTransferInfo,
-    //   page: () => const TransferInfoScene(),
-    //   binding: TransferInfoBinding(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.tdDepositTutorial,
-    //   page: () => const DepositeTutorialScene(),
-    //   binding: DepositeTutorialBinding(),
-    // ),
+    GetPage(
+      name: AppRoutes.tdTransferType,
+      page: () => const TDTransferTypeScene(),
+      binding: TDTransferTypeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.tdTransferInfo,
+      page: () => const TDTransferInfoScene(),
+      binding: TDTransferInfoBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.tdDepositTutorial,
+      page: () => const TDDepositeTutorialScene(),
+      binding: TDDepositeTutorialBinding(),
+    ),
   ];
 }

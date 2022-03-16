@@ -11,11 +11,11 @@ import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
 import 'package:trading_module/pages/deposit/transfer_type/component/popup_settlement.dart';
 import 'package:trading_module/utils/enums.dart';
 
-class TransferTypeController extends BaseController {
+class TDTransferTypeController extends BaseController {
   RxList<SavingProduct> listProduct = RxList<SavingProduct>();
   final NavigateTransferData data;
   //final SavingRepository _savingRepository = SavingRepository();
-  TransferTypeController(this.data);
+  TDTransferTypeController(this.data);
 
   @override
   void onReady() {
