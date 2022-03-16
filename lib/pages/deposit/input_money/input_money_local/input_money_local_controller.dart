@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/data/entities/naptien/NavigateData.dart';
 
 //import 'package:tikop/models/NavigateData.dart' show NavigateTransferData;
 
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
 
 import 'package:trading_module/pages/deposit/input_money/base_input_money_controller.dart';
+import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/util.dart';
 
@@ -52,8 +54,9 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
   void next() {
     final amount = int.parse(textEditingController.text.numericOnly()) *
         product.multipleOf;
-    // Get.toNamed(Routes.transactionConfirm,
-    //     arguments: NavigateTransferData(amount: amount, product: product));
+    print("AAAAA");
+    Get.toNamed(AppRoutes.tdTransactionConfirm,
+        arguments: NavigateTransferData(amount: amount, product: product));
   }
 
   void onChangeMoney(String val) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trading_module/configs/constants.dart';
-import 'package:trading_module/utils/extensions.dart';
+import 'package:trading_module/utils/util.dart';
 
 class CustomShadow extends StatelessWidget {
   final BoxShape? shape;

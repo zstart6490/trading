@@ -3,6 +3,8 @@ import 'package:trading_module/pages/contract/contract_binding.dart';
 import 'package:trading_module/pages/contract/contract_scene.dart';
 import 'package:trading_module/pages/deposit/input_money/input_money_local/input_money_local_binding.dart';
 import 'package:trading_module/pages/deposit/input_money/input_money_local/input_money_local_scene.dart';
+import 'package:trading_module/pages/deposit/transaction_confirm/transaction_confirm_binding.dart';
+import 'package:trading_module/pages/deposit/transaction_confirm/transaction_confirm_scene.dart';
 import 'package:trading_module/pages/homePage/home_page.dart';
 import 'package:trading_module/pages/homePage/home_page_bindding.dart';
 import 'package:trading_module/pages/main/views/home_view.dart';
@@ -95,11 +97,11 @@ class AppPages {
       page: () => const TDInputMoneyLocalScene(),
       binding: TDInputMoneyLocalBinding(),
     ),
-    // GetPage(
-    //   name: AppRoutes.tdTransactionConfirm,
-    //   page: () => const TransactionConfirmScene(),
-    //   binding: TransactionConfirmBinding(),
-    // ),
+    GetPage(
+      name: AppRoutes.tdTransactionConfirm,
+      page: () => const TDTransactionConfirmScene(),
+      binding: TDTransactionConfirmBinding(),
+    ),
     // GetPage(
     //   name: AppRoutes.tdTransferType,
     //   page: () => const TransferTypeScene(),
