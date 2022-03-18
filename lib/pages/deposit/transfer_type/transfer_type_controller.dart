@@ -2,12 +2,13 @@ import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/naptien/NavigateData.dart';
 import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
+import 'package:trading_module/domain/entities/cash_in_create_model.dart';
 import 'package:trading_module/pages/deposit/transfer_type/component/popup_settlement.dart';
 import 'package:trading_module/utils/enums.dart';
 
 class TDTransferTypeController extends BaseController {
   RxList<SavingProduct> listProduct = RxList<SavingProduct>();
-  final NavigateTransferData data;
+  final CashInCreateModel data;
   //final SavingRepository _savingRepository = SavingRepository();
   TDTransferTypeController(this.data);
 

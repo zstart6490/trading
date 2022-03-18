@@ -1,18 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:trading_module/domain/entities/cash_in_create_model.dart';
 
-
-
 part 'cash_in_create_model_dto.g.dart';
 
 @JsonSerializable()
 class CashInCreateModelDTO {
-  @JsonKey(name: "state")
-  final String? state;
-  @JsonKey(name: "contractLink")
-  final String? contractLink;
+  @JsonKey(name: "transactionId")
+  final String? transactionId;
+  @JsonKey(name: "amount")
+  final int? amount;
+  @JsonKey(name: "feeAmount")
+  final int? feeAmount;
 
-  CashInCreateModelDTO(this.state,this.contractLink);
+  CashInCreateModelDTO(this.transactionId,this.amount,this.feeAmount);
 
   static CashInCreateModelDTO fromResult(dynamic data) =>
       CashInCreateModelDTO.fromJson(data as Map<String, dynamic>);
@@ -26,6 +26,6 @@ class CashInCreateModelDTO {
 
 extension CashInModeMapper on CashInCreateModelDTO {
   CashInCreateModel toModel() {
-    return CashInCreateModel(state: state,contractLink: contractLink);
+    return CashInCreateModel(transactionId: transactionId ?? "", amount: amount ?? 0, feeAmount: feeAmount ?? 0);
   }
 }

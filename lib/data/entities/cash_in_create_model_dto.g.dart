@@ -9,13 +9,15 @@ part of 'cash_in_create_model_dto.dart';
 CashInCreateModelDTO _$CashInCreateModelDTOFromJson(
         Map<String, dynamic> json) =>
     CashInCreateModelDTO(
-      json['state'] as String?,
-      json['contractLink'] as String?,
+      json['transactionId'] as String?,
+      json['amount'] as int?,
+      json['feeAmount'] as int?,
     );
 
 Map<String, dynamic> _$CashInCreateModelDTOToJson(
         CashInCreateModelDTO instance) =>
     <String, dynamic>{
-      'state': instance.state,
-      'contractLink': instance.contractLink,
+      'transactionId': instance.transactionId,
+      'amount': instance.amount,
+      'feeAmount': instance.feeAmount,
     };

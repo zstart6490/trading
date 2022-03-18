@@ -64,7 +64,7 @@ abstract class BaseController extends GetxController
   }
 
   void backToHome({int selectTab = 0}) {
-    // Get.until((route) => Get.currentRoute == Routes.main);
+    // Get.until((route) => Get.currentRoute == AppRoutes  );
     // Get.find<MainTabController>().selTab(selectTab);
   }
 

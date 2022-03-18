@@ -1,30 +1,23 @@
 import 'package:get/get.dart';
-
-//import 'package:tikop/models/NavigateData.dart'
-    //show NavigateTranDetail, NavigateTransferData;
-
-
-import 'package:trading_module/data/entities/naptien/NavigateData.dart' show NavigateTranDetail, NavigateTransferData;
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/data/entities/naptien/NavigateData.dart' show NavigateTranDetail, NavigateTransferData;
 import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
-import 'package:trading_module/data/entities/naptien/Transaction.dart';
-import 'package:trading_module/data/entities/naptien/VirtualAccount.dart';
-import 'package:trading_module/pages/deposit/transaction_confirm/components/swap_product_bottomsheet.dart';
+import 'package:trading_module/domain/entities/cash_in_create_model.dart';
+import 'package:trading_module/domain/use_cases/cash_in_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/enums.dart';
 
 class TDTransactionConfirmController extends BaseController
-    with StateMixin<TransferFee> {
-  final NavigateTransferData data;
-  late List<SavingProduct> products;
-  SavingProduct? swapProduct;
-  //final CommonRepository _commonRepository = CommonRepository();
+    with StateMixin<CashInCreateModel> {
+  final int amount;
+
+  final CashInUseCase _cashInUseCase = Get.find();
   bool canShowMore = false;
   RxString swapName = "".obs;
   RxString methodName = "".obs;
-  RxList<VirtualAccount> virtualAccounts = RxList<VirtualAccount>();
 
-  late Transaction transaction;
+
+  late CashInCreateModel transaction;
 
   bool originRecurringTransfer = false;
   RxBool shouldShowRecurringTransfer = false.obs;
@@ -32,11 +25,11 @@ class TDTransactionConfirmController extends BaseController
 
   RxBool showDesc1 = false.obs;
 
-  TDTransactionConfirmController(this.data);
+  TDTransactionConfirmController(this.amount);
 
   bool chooseSaving = false;
   SavingProduct? savingProduct;
-  int amountEnough = 0;
+
 
   @override
   void onInit() {
@@ -46,25 +39,21 @@ class TDTransactionConfirmController extends BaseController
 
   @override
   void onReady() {
-    amountEnough = data.amount;
     getTransferFee();
-    getDepositMethod();
-    getRecurringTransferData();
     super.onReady();
   }
 
   Future<void> getTransferFee() async {
-    // showProgressingDialog();
-    // await getSwapProduct();
-    // final result = await _commonRepository
-    //     .getTransferFee(NinePayType.keep, amountEnough, target: data.target);
-    //
-    // hideDialog();
-    // if (result.success) {
-    //   change(result.model, status: RxStatus.success());
-    // } else if (result.hasError) {
-    //   showSnackBar(result.error!.message);
-    // }
+    showProgressingDialog();
+    final result = await _cashInUseCase.createCashIn(amount.toString());
+    hideDialog();
+
+    if (result.data != null) {
+      transaction = result.data!;
+      change(result.data, status: RxStatus.success());
+    } else if (result.error != null) {
+      showSnackBar(result.error!.message);
+    }
   }
 
   Future<void> onConfirm() async {
@@ -94,62 +83,21 @@ class TDTransactionConfirmController extends BaseController
     //   requestServer();
     // }
 
-    Get.toNamed(AppRoutes.tdTransferType, arguments: data);
+    Get.toNamed(AppRoutes.tdTransferInfo, arguments: transaction);
   }
 
-  Future<void> requestServer() async {
-    // showProgressingDialog();
-    // BaseDecoder<Transaction> deposit;
-    // try {
-    //   if (data.product != null) {
-    //     deposit = await _savingRepository.depositSaving(
-    //         data.transferType!,
-    //         data.product!.id,
-    //         data.amount,
-    //         data.swapProduct?.id ?? data.product!.id);
-    //   } else if (data.target != null) {
-    //     deposit = await _investRepository.depositInvest(
-    //         data.transferType!, data.target!.targetId, data.amount, data.funds!,
-    //         userTargetId: data.target!.userId);
-    //   } else {
-    //     throw Exception();
-    //   }
-    //   hideDialog();
-    //   if (deposit.success) {
-    //     transaction = deposit.model;
-    //     data.transaction = transaction;
-    //     Get.toNamed(Routes.transferInfo, arguments: data);
-    //   } else if (deposit.hasError) {
-    //     showSnackBar(deposit.error!.message);
-    //   } else {
-    //     showSnackBar(UNKNOWN_ERROR);
-    //   }
-    // } catch (e) {
-    //   showSnackBar(UNKNOWN_ERROR);
-    // }
-  }
 
-  Future<void> onChangePaymentMethod() async {
-    // final result = await Get.toNamed(Routes.transferType, arguments: data);
-    // if (result != null) {}
-    // if (result is SavingProduct) {
-    //   onSetTransferProduct(result);
-    // }
-    // if (result is TransferType) {
-    //   onSetTransferMethod(result);
-    // }
-    // if (result is SavingProductNotEnough) {
-    //   onSetTransferProductNotEnough(result);
-    // }
+
+  void onChangePaymentMethod() {
+    Get.toNamed(AppRoutes.tdTransferType, arguments: transaction);
   }
 
   void onSetSwapProduct(SavingProduct toProduct) {
     //data.swapProduct = toProduct;
-    swapProduct = toProduct;
-    final bool isSame = toProduct.id == data.product?.id;
-    swapName.value = isSame
-        ? "Tự động gia hạn hợp đồng"
-        : "Chuyển sang ${toProduct.fullName}";
+    // final bool isSame = toProduct.id == data.product?.id;
+    // swapName.value = isSame
+    //     ? "Tự động gia hạn hợp đồng"
+    //     : "Chuyển sang ${toProduct.fullName}";
   }
 
   void onSetTransferProduct(SavingProduct product) {
@@ -163,7 +111,7 @@ class TDTransactionConfirmController extends BaseController
     chooseSaving = true;
     savingProduct = savingProductNotEnough.savingProduct;
     methodName.value = savingProductNotEnough.savingProduct.fullName ?? "";
-    amountEnough = savingProductNotEnough.amount.toInt();
+   // amountEnough = savingProductNotEnough.amount.toInt();
     getTransferFee();
   }
 
@@ -190,20 +138,19 @@ class TDTransactionConfirmController extends BaseController
   }
 
   void onChangeSwapProduct() {
-    final String productId = data.product?.id ?? '';
-    bottomSheet(SwapProductBottomSheet(
-      movedProductId: productId,
-      currentProductId: productId,
-      products: products,
-      onConfirm: (product) {
-        Get.back();
-        onSetSwapProduct(product);
-      },
-    ));
+    // final String productId = data.product?.id ?? '';
+    // bottomSheet(SwapProductBottomSheet(
+    //   movedProductId: productId,
+    //   currentProductId: productId,
+    //   onConfirm: (product) {
+    //     Get.back();
+    //     onSetSwapProduct(product);
+    //   },
+    // ));
   }
 
   Future<void> getSwapProduct() async {
-    if (data.product != null) {
+    //if (data.product != null) {
       // final result = await _commonRepository.getListProducts(1);
       // if (result.success) {
       //   products = result.model.where((element) => element.canRenew).toList();
@@ -224,7 +171,7 @@ class TDTransactionConfirmController extends BaseController
       //     onSetSwapProduct(products.first);
       //   }
       //}
-    }
+    //}
   }
 
   void getDepositMethod() {

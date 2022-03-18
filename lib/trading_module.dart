@@ -32,7 +32,7 @@ class DataCallback {
 }
 
 class TradingModule {
-  static String versionTrading = "-dev-1.0.0.1";
+  static String versionTrading = "-dev-1.0.0.2";
 
   static void openTradingModule({
     required BuildContext context,

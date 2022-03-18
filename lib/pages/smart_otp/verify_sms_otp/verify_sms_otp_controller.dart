@@ -44,7 +44,6 @@ class VerifySMSOTPController extends OtpExpiredController {
   void reSendOTP() async {
     //if (!(Get.isDialogOpen ?? true)) showProgressingDialog();
     //request sms
-    startTimer(60);
     generateOTP();
   }
 
@@ -111,6 +110,7 @@ class VerifySMSOTPController extends OtpExpiredController {
     } else {
       endTimer();
     }
+    startTimer(60);
   }
 
   void _showDialogNotify(String desc) {

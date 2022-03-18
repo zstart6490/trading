@@ -13,7 +13,7 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
 
   late FocusNode focusNode;
   TDInputMoneyLocalController({required SavingProduct product}) : super(product);
-  RxDouble percent = 0.0.obs;
+
   Rx<ConditionState> pasMinAmount = ConditionState.none.obs;
   Rx<ConditionState> pasMaxAmount = ConditionState.none.obs;
 
@@ -32,7 +32,6 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
 
   @override
   void onReady() {
-    //caculateInterest(inputAmount);
     super.onReady();
   }
 
@@ -40,9 +39,7 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
     final amount = int.parse(textEditingController.text.numericOnly()) *
         product.multipleOf;
     Get.toNamed(AppRoutes.tdTransactionConfirm,
-        arguments: NavigateTransferData(amount: amount, product: product));
-    // Get.toNamed(Routes.transferType,
-    //     arguments: NavigateTransferData(amount: amount, product: product));
+        arguments: amount);
   }
 
   void onChangeMoney(String val) {
@@ -55,7 +52,7 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
     }
     checkMoneyValid();
     updateMoneysuggest();
-    //caculateInterest(inputAmount);
+
   }
 
   void checkMoneyValid() {

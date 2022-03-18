@@ -65,7 +65,7 @@ class TDTransferInfoScene extends GetView<TDTransferInfoController> {
                         bankContentKey: controller.paymentContentKey,
                         bank: controller.selectedBank.value,
                         amount: controller.data.amount,
-                        content: transaction!.content)),
+                        content: transaction!.state)),
                   ),
                   SIZED_BOX_H16,
                   const Padding(

@@ -1,9 +1,15 @@
 class CashInCreateModel {
-  final String? state;
-  final String? contractLink;
+  final String transactionId;
+  final int amount;
+  final int feeAmount;
+
+
+  int get totalAmount => amount + feeAmount;
 
   CashInCreateModel({
-    this.state,
-    this.contractLink,
+    required this.transactionId,
+    required this.amount,
+    required this.feeAmount,
   });
+
 }

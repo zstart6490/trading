@@ -1,7 +1,9 @@
 import 'package:trading_module/cores/resources/data_state.dart';
 import 'package:trading_module/data/entities/cash_in_confirm_model_dto.dart';
+import 'package:trading_module/data/entities/cash_in_create_model_dto.dart';
 import 'package:trading_module/data/services/cash_in_service.dart';
 import 'package:trading_module/domain/entities/cash_in_confirm_model.dart';
+import 'package:trading_module/domain/entities/cash_in_create_model.dart';
 import 'package:trading_module/domain/repos/cash_in_repo.dart';
 
 
@@ -13,7 +15,7 @@ class CashInRepoImpl extends CashInRepo {
 
 
   @override
-  Future<DataState<CashInConfirmModel>> createCashIn({required String amount}) async{
+  Future<DataState<CashInCreateModel>> createCashIn({required String amount}) async{
     final result = await _services.createCashIn(amount);
     if (result.success) {
       final model = result.modelDTO.toModel();

@@ -12,12 +12,13 @@ import 'package:trading_module/shared_widgets/Seperator/MainSeperator.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/util.dart';
 
-import 'components/recurring_transfer_component.dart';
+
 import 'components/row_content.dart';
 import 'components/row_content_have_button.dart';
 import 'transaction_confirm_controller.dart';
 
-class TDTransactionConfirmScene extends GetView<TDTransactionConfirmController> {
+class TDTransactionConfirmScene
+    extends GetView<TDTransactionConfirmController> {
   const TDTransactionConfirmScene({Key? key}) : super(key: key);
 
   @override
@@ -61,17 +62,10 @@ class TDTransactionConfirmScene extends GetView<TDTransactionConfirmController> 
                                   title: 'Số tiền cần chuyển',
                                   value: fee!.totalAmount.toCurrency()),
                               SIZED_BOX_H12,
-                              if (controller.data.target != null)
-                                RowContent(
-                                  title: 'Phí mua',
-                                  value: (fee.buyFee ?? 0).toCurrency(),
-                                  isMoney: false,
-                                ),
-                              if (controller.data.target != null) SIZED_BOX_H12,
                               RowContent(
                                   title: 'Phí dịch vụ',
                                   isMoney: false,
-                                  value: fee.fee.toCurrency()),
+                                  value: fee.feeAmount.toCurrency()),
                               SIZED_BOX_H12,
                               RowContent(
                                   title: 'Tiền nạp',
@@ -89,31 +83,7 @@ class TDTransactionConfirmScene extends GetView<TDTransactionConfirmController> 
                         ),
                         child: Column(
                           children: [
-                            if (shouldShowMethod())
-                              Padding(
-                                padding: PAD_SYM_H16,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Phương Thức Tất Toán',
-                                      style: context.textSize14.copyWith(
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    SIZED_BOX_H12,
-                                    Obx(
-                                      () => RowContentHaveButton(
-                                        title: controller.swapName.value,
-                                        onPressChanged: () =>
-                                            controller.onChangeSwapProduct(),
-                                      ),
-                                    ),
-                                    SIZED_BOX_H16,
-                                  ],
-                                ),
-                              ),
-                            if (shouldShowMethod()) const DashLine(),
-                            SIZED_BOX_H16,
+                            SIZED_BOX_H08,
                             Padding(
                               padding: PAD_SYM_H16,
                               child: Column(
@@ -136,82 +106,7 @@ class TDTransactionConfirmScene extends GetView<TDTransactionConfirmController> 
                                 ],
                               ),
                             ),
-                            Obx(() => controller
-                                    .shouldShowRecurringTransfer.value
-                                ? Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const DashLine(),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            16.0, 16.0, 10.0, 0.0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Nạp tiền định kỳ',
-                                              style: context.textSize14
-                                                  .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 8.0),
-                                              decoration: BoxDecoration(
-                                                borderRadius: BOR_RAD8,
-                                                color: const Color(0xFFC2F0D9)
-                                                    .withOpacity(0.4),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 8.0,
-                                                        vertical: 4.0),
-                                                child: Text(
-                                                  "Khuyến nghị",
-                                                  style: context.textSize12
-                                                      .copyWith(
-                                                          color: const Color(
-                                                              0xFF33CC7F)),
-                                                ),
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            Obx(
-                                              () => CupertinoSwitch(
-                                                  value: controller
-                                                      .recurringTransfer.value,
-                                                  onChanged: (val) =>
-                                                      controller.onToggleSwitch(
-                                                          newVal: val)
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SIZED_BOX_H08,
-                                      Padding(
-                                        padding: PAD_SYM_H16,
-                                        child: Text(
-                                          "Đặt lịch chuyển khoản từ ngân hàng của bạn đến tài khoản của Tikop",
-                                          style: context.textSize14.copyWith(
-                                              color: context.disabledColor),
-                                        ),
-                                      ),
-                                      Obx(
-                                        () => controller.recurringTransfer.value
-                                            ? RecurringTransferComponent(
-                                                mListVA:
-                                                    controller.virtualAccounts,
-                                                showDesc1:
-                                                    controller.showDesc1.value)
-                                            : const SizedBox(),
-                                      ),
-                                      SIZED_BOX_H24,
-                                    ],
-                                  )
-                                : const SizedBox()),
+                            const SizedBox(),
                           ],
                         ),
                       )
@@ -232,9 +127,4 @@ class TDTransactionConfirmScene extends GetView<TDTransactionConfirmController> 
         ));
   }
 
-  bool shouldShowMethod() {
-    return controller.data.product?.investType == InvestType.normal &&
-        (controller.data.product?.isLimited ?? false) &&
-        !(controller.data.product?.isRealEstate ?? true);
-  }
 }
