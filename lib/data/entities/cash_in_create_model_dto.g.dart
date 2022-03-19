@@ -12,6 +12,9 @@ CashInCreateModelDTO _$CashInCreateModelDTOFromJson(
       json['transactionId'] as String?,
       json['amount'] as int?,
       json['feeAmount'] as int?,
+      (json['paymentMethod'] as List<dynamic>?)
+          ?.map((e) => PaymentMethodModelDTO.fromJson(e))
+          .toList(),
     );
 
 Map<String, dynamic> _$CashInCreateModelDTOToJson(
@@ -20,4 +23,23 @@ Map<String, dynamic> _$CashInCreateModelDTOToJson(
       'transactionId': instance.transactionId,
       'amount': instance.amount,
       'feeAmount': instance.feeAmount,
+      'paymentMethod': instance.paymentMethod,
+    };
+
+PaymentMethodModelDTO _$PaymentMethodModelDTOFromJson(
+        Map<String, dynamic> json) =>
+    PaymentMethodModelDTO(
+      title: json['title'] as String?,
+      note: json['note'] as String?,
+      introduce: json['introduce'] as String?,
+      key: json['key'] as String?,
+    );
+
+Map<String, dynamic> _$PaymentMethodModelDTOToJson(
+        PaymentMethodModelDTO instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'note': instance.note,
+      'introduce': instance.introduce,
+      'key': instance.key,
     };

@@ -7,9 +7,7 @@ import 'package:trading_module/pages/deposit/transfer_type/component/popup_settl
 import 'package:trading_module/utils/enums.dart';
 
 class TDTransferTypeController extends BaseController {
-  RxList<SavingProduct> listProduct = RxList<SavingProduct>();
   final CashInCreateModel data;
-  //final SavingRepository _savingRepository = SavingRepository();
   TDTransferTypeController(this.data);
 
   @override

@@ -30,8 +30,8 @@ CashInConfirmModelDTO _$CashInConfirmModelDTOFromJson(
       plus: json['plus'] as bool?,
       icon: json['icon'] as String?,
       method: json['method'],
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => BankModelDTO.fromJson(e))
+      banks: (json['data'] as List<dynamic>?)
+          ?.map((e) => BankCashInModelDTO.fromJson(e))
           .toList(),
       redirectUrl: json['redirectUrl'] as String?,
       order: json['order'],
@@ -75,7 +75,7 @@ Map<String, dynamic> _$CashInConfirmModelDTOToJson(
       'plus': instance.plus,
       'icon': instance.icon,
       'method': instance.method,
-      'data': instance.data,
+      'data': instance.banks,
       'redirectUrl': instance.redirectUrl,
       'order': instance.order,
       'fromUserId': instance.fromUserId,
@@ -94,7 +94,8 @@ Map<String, dynamic> _$CashInConfirmModelDTOToJson(
       'totalBalanceToUser': instance.totalBalanceToUser,
     };
 
-BankModelDTO _$BankModelDTOFromJson(Map<String, dynamic> json) => BankModelDTO(
+BankCashInModelDTO _$BankCashInModelDTOFromJson(Map<String, dynamic> json) =>
+    BankCashInModelDTO(
       id: json['id'] as String?,
       name: json['name'] as String?,
       code: json['code'] as String?,
@@ -105,7 +106,7 @@ BankModelDTO _$BankModelDTOFromJson(Map<String, dynamic> json) => BankModelDTO(
       va: json['va'] as bool?,
     );
 
-Map<String, dynamic> _$BankModelDTOToJson(BankModelDTO instance) =>
+Map<String, dynamic> _$BankCashInModelDTOToJson(BankCashInModelDTO instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

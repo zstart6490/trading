@@ -50,11 +50,11 @@ class NinePayType extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Icon(
-                      Icons.keyboard_arrow_right,
-                      color: context.primaryColor,
-                      size: 36,
-                    ),
+                    // Icon(
+                    //   Icons.keyboard_arrow_right,
+                    //   color: context.primaryColor,
+                    //   size: 36,
+                    // ),
                   ],
                 ),
                 SIZED_BOX_H16,
@@ -67,7 +67,7 @@ class NinePayType extends StatelessWidget {
                         SvgPicture.asset("assets/images/svg/ic_tag.svg"),
                         SIZED_BOX_W06,
                         Text(
-                          "Phí dịch vụ ",
+                          "Phí dịch vụ  ",
                           style: context.textSize12
                               .copyWith(color: context.disabledColor),
                         ),

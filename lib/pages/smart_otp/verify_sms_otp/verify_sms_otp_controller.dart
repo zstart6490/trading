@@ -21,6 +21,8 @@ class VerifySMSOTPController extends OtpExpiredController {
   RxString desc = "Mã xác nhận OTP của bạn được gửi tới số điện thoại: ".obs;
   RxString descSecond = "".obs;
 
+  Rx<bool> focusState = true.obs;
+
   final OtpUseCase _otpUseCase = Get.find();
   SmsOTPType type;
 
@@ -98,9 +100,12 @@ class VerifySMSOTPController extends OtpExpiredController {
   }
 
   Future<void> generateOTP() async {
+    print("AAAA");
     final result = await _otpUseCase.generateOTP(
         "", mainProvider.dataInputApp.token, OTPMethod.sms.name);
     if (result.error != null) {
+      print("VBBBB");
+      focusState.value = false;
       final error = result.error!;
       if (error.code == BLOCK_OTP_1_CODE || error.code == BLOCK_OTP_2_CODE) {
         _showDialogNotify(error.message);
@@ -108,12 +113,15 @@ class VerifySMSOTPController extends OtpExpiredController {
         errors.value = error;
       }
     } else {
+      print("CCCCC");
       endTimer();
+
     }
     startTimer(60);
   }
 
   void _showDialogNotify(String desc) {
+    FocusManager.instance.primaryFocus?.unfocus();
     showAlertDialog(
         CustomAlertDialog(
           title: "Thông báo".tr,
@@ -127,7 +135,5 @@ class VerifySMSOTPController extends OtpExpiredController {
         ),
         dismissable: false,
         onCompleted: () => Get.back());
-    // showMessageDialog(dialog,
-    //     name: AppRoutes.SMART_OPT_VERIFY_SMS, canDissmiss: false);
   }
 }

@@ -9,7 +9,9 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
 import 'package:trading_module/data/entities/data_input_app.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/main_provider.dart';
+import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 
 abstract class BaseController extends GetxController
@@ -64,8 +66,8 @@ abstract class BaseController extends GetxController
   }
 
   void backToHome({int selectTab = 0}) {
-    // Get.until((route) => Get.currentRoute == AppRoutes  );
-    // Get.find<MainTabController>().selTab(selectTab);
+    Get.until(ModalRoute.withName(AppRoutes.homeTrading));
+    Get.find<HomePageController>().selTab(selectTab);
   }
 
   bool _shouldShowDialog(String? dialogName) {

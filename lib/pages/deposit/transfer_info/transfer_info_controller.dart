@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'package:trading_module/cores/states/base_controller.dart';
-import 'package:trading_module/data/entities/naptien/Bank.dart';
 
 import 'package:trading_module/domain/entities/cash_in_confirm_model.dart';
 import 'package:trading_module/domain/entities/cash_in_create_model.dart';
@@ -23,8 +22,8 @@ class TDTransferInfoController extends BaseController
 
   TDTransferInfoController({required this.data});
 
-  RxList<OurBank> banks = RxList<OurBank>();
-  Rx<OurBank?> selectedBank = Rx<OurBank?>(null);
+  RxList<BankCashInModel> banks = RxList<BankCashInModel>();
+  Rx<BankCashInModel?> selectedBank = Rx<BankCashInModel?>(null);
   int selectedIndex = 0;
 
   // bool needScrolled = false;
@@ -43,6 +42,7 @@ class TDTransferInfoController extends BaseController
   late Offset paymentContentOffset;
 
 
+  late CashInConfirmModel result;
   final CashInUseCase _cashInUseCase = Get.find();
 
   @override
@@ -96,7 +96,9 @@ class TDTransferInfoController extends BaseController
   }
 
   void onPaymentContentContinue() {
-
+    final key = (mainProvider.dataInputApp.phone ?? "") + TD_DEPOSIT_FIRST_SUFFIX;
+    box.write(key, true);
+    Get.back();
   }
 
   void onPaymentContentBack() {
@@ -110,9 +112,9 @@ class TDTransferInfoController extends BaseController
   }
 
   void getPositionWidget() {
-    // final key = mainProvider.savedPhone + DEPOSIT_FIRST_SUFFIX;
-    // if (box.read(key) ?? false) return;
-    // if (userData.user?.hasDeposited ?? false) return;
+    final key = (mainProvider.dataInputApp.phone ?? "") + TD_DEPOSIT_FIRST_SUFFIX;
+    if (box.read(key) ?? false) return;
+
     bankOffset = getOffsetWidget(bankKey);
     accountNumberOffset = getOffsetWidget(accountNumberKey);
     paymentContentOffset = getOffsetWidget(paymentContentKey);
@@ -133,20 +135,7 @@ class TDTransferInfoController extends BaseController
     //box.write(data.transferType.toString(), banks[index].id);
   }
 
-  Future<void> getListBank() async {
-    // BaseDecoder<List<OurBank>> result;
-    // if (data.transferType == TransferType.manual) {
-    //   result = await _commonRepository.getListBank();
-    // } else {
-    //   result = await _commonRepository.getList9PayBank();
-    // }
-    //
-    // if (result.success) {
-    //   onSetSelectedBank(result.model);
-    // } else if (result.hasError) {
-    //   showSnackBar(result.error!.message);
-    // }
-  }
+
 
   Future<void> cashInConfirm() async {
     showProgressingDialog();
@@ -154,6 +143,9 @@ class TDTransferInfoController extends BaseController
     hideDialog();
     if (result.data != null) {
       change(result.data, status: RxStatus.success());
+      banks.value = result.data!.banks!;
+      selectedBank.value = banks.first;
+      this.result = result.data!;
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
     }
@@ -184,16 +176,9 @@ class TDTransferInfoController extends BaseController
 
   void onFinish() {
     backToHome();
-    // if (Get.isRegistered<ListTransactionController>()) {
-    //   Get.find<ListTransactionController>().onReceivePush();
-    // }
   }
 
   void onLoadingFinish() {
     getPositionWidget();
-    // if (banks.isNotEmpty) {
-    //   scrollToIndex(selectedIndex);
-    //   needScrolled = true;
-    // }
   }
 }

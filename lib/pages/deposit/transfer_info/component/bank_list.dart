@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-// import 'package:tikop/models/Bank.dart';
-// import 'package:tikop/utils/util.dart';
-import 'package:trading_module/data/entities/naptien/Bank.dart';
+import 'package:trading_module/domain/entities/cash_in_confirm_model.dart';
 
 import '../../../../shared_widgets/BankIcon.dart';
 import 'package:trading_module/utils/util.dart';
 
 class BankListComponent extends StatelessWidget {
-  final List<OurBank> banks;
-  final OurBank? selectedBank;
+  final List<BankCashInModel> banks;
+  final BankCashInModel? selectedBank;
   final Function(int) onSelectedIndex;
   final Key? bankKey;
   final ScrollController? scrollController;

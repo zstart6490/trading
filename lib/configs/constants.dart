@@ -47,6 +47,7 @@ const PROGRESSING_DIALOG = 'ProgressingDialog';
 
 /// String Const
 const AUTH_TOKEN_KEY = "trading_auth";
+const TD_DEPOSIT_FIRST_SUFFIX = "_TD_DEPOSIT_FIRST";
 
 /// TEXT
 const SESSION_TIMEOUT_CODE = 1200;
@@ -77,6 +78,9 @@ const BOR_ALL_TOP_24 = BorderRadius.only(
   topRight: Radius.circular(24),
   topLeft: Radius.circular(24),
 );
+
+
+
 
 /// String Const
 const APPSFLYER_ID_IOS = "1520144590";
