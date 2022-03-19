@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-// import 'package:tikop/theme/app_color.dart';
-// import 'package:tikop/utils/util.dart';
 import 'package:trading_module/theme/app_color.dart';
 import 'package:trading_module/utils/util.dart';
 

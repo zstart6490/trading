@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:tikop/base/stateManagement/base_common_widget.dart';
-// import 'package:tikop/models/VirtualAccount.dart';
-// import 'package:tikop/shared_widgets/CustomButton.dart';
-// import 'package:tikop/utils/enums.dart';
-// import 'package:tikop/utils/util.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
 import 'package:trading_module/data/entities/naptien/VirtualAccount.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';

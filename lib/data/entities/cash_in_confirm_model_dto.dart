@@ -48,7 +48,7 @@ class CashInConfirmModelDTO {
   @JsonKey(name: "method")
   dynamic method;
   @JsonKey(name: "data")
-  final List<BankModelDTO>? data;
+  final List<BankCashInModelDTO>? banks;
   @JsonKey(name: "redirectUrl")
   final String? redirectUrl;
   @JsonKey(name: "order")
@@ -104,7 +104,7 @@ class CashInConfirmModelDTO {
     this.plus,
     this.icon,
     this.method,
-    this.data,
+    this.banks,
     this.redirectUrl,
     this.order,
     this.fromUserId,
@@ -131,10 +131,27 @@ class CashInConfirmModelDTO {
       _$CashInConfirmModelDTOFromJson(json as Map<String, dynamic>);
 
   Map<String, dynamic> toJson() => _$CashInConfirmModelDTOToJson(this);
+
+
+  List<BankCashInModel> getListBank(){
+    final lstBank = <BankCashInModel>[];
+    if (banks != null) {
+      for (final item in banks!) {
+        lstBank.add(item.toModel());
+      }
+    }
+    return lstBank;
+  }
+}
+
+extension CashInModeMapper on CashInConfirmModelDTO {
+  CashInConfirmModel toModel() {
+    return CashInConfirmModel(id: id,requestAmount: requestAmount, banks: getListBank(), transferCode: transferCode ?? "");
+  }
 }
 
 @JsonSerializable()
-class BankModelDTO {
+class BankCashInModelDTO {
   @JsonKey(name: "id")
   final String? id;
   @JsonKey(name: "name")
@@ -152,7 +169,7 @@ class BankModelDTO {
   @JsonKey(name: "va")
   final bool? va;
 
-  BankModelDTO({
+  BankCashInModelDTO({
     this.id,
     this.name,
     this.code,
@@ -163,14 +180,15 @@ class BankModelDTO {
     this.va,
   });
 
-  factory BankModelDTO.fromJson(dynamic json) =>
-      _$BankModelDTOFromJson(json as Map<String, dynamic>);
+  factory BankCashInModelDTO.fromJson(dynamic json) =>
+      _$BankCashInModelDTOFromJson(json as Map<String, dynamic>);
 
-  Map<String, dynamic> toJson() => _$BankModelDTOToJson(this);
+  Map<String, dynamic> toJson() => _$BankCashInModelDTOToJson(this);
 }
 
-extension CashInModeMapper on CashInConfirmModelDTO {
-  CashInConfirmModel toModel() {
-    return CashInConfirmModel(state: id, contractLink: name);
+extension BankCashInModelDTOMapper on BankCashInModelDTO {
+  BankCashInModel toModel() {
+    return BankCashInModel(id:id, name: name, code: code ?? "", imageUrl: imageUrl ?? "", branchName: branchName, accountNo: accountNo, accountName: accountName, va: va);
   }
 }
+

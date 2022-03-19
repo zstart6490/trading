@@ -57,7 +57,7 @@ class VerifySMSOTPView extends GetView<VerifySMSOTPController> {
                       key: controller.formKey,
                       child: Obx(
                         () => TextFieldCustomBorder(
-                          autoFocus: true,
+                          autoFocus: controller.focusState.value,
                           hintText: "Nhập mã OTP",
                           controller: controller.textController,
                           textInputType: TextInputType.number,

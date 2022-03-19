@@ -31,7 +31,7 @@ class RowContentHaveButton extends StatelessWidget {
         InkWell(
           onTap: onPressed,
           child: Text(
-            'Thay đổi',
+            "Chi tiết",
             style: context.textSize14.copyWith(color: COLOR_SEMANTIC_INFO),
           ),
         ),

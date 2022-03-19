@@ -12,7 +12,6 @@ import 'package:trading_module/shared_widgets/Seperator/MainSeperator.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/util.dart';
 
-
 import 'components/row_content.dart';
 import 'components/row_content_have_button.dart';
 import 'transaction_confirm_controller.dart';
@@ -95,12 +94,10 @@ class TDTransactionConfirmScene
                                         .copyWith(fontWeight: FontWeight.w500),
                                   ),
                                   SIZED_BOX_H12,
-                                  Obx(
-                                    () => RowContentHaveButton(
-                                      title: controller.methodName.value,
-                                      onPressChanged: () =>
-                                          controller.onChangePaymentMethod(),
-                                    ),
+                                  RowContentHaveButton(
+                                    title: fee.paymentMethod?.first.title ?? "",
+                                    onPressChanged: () =>
+                                        controller.onChangePaymentMethod(),
                                   ),
                                   SIZED_BOX_H24,
                                 ],
@@ -126,5 +123,4 @@ class TDTransactionConfirmScene
           ),
         ));
   }
-
 }

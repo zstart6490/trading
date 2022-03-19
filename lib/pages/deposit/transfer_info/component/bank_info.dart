@@ -2,16 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-// import 'package:tikop/base/stateManagement/base_common_widget.dart';
-// import 'package:tikop/models/Bank.dart';
-// import 'package:tikop/models/Transaction.dart';
-// import 'package:tikop/shared_widgets/CustomButton.dart';
-// import 'package:tikop/shared_widgets/CustomShadow.dart';
-// import 'package:tikop/utils/enums.dart';
-// import 'package:tikop/utils/util.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
-import 'package:trading_module/data/entities/naptien/Bank.dart';
 import 'package:trading_module/data/entities/naptien/Transaction.dart';
+import 'package:trading_module/domain/entities/cash_in_confirm_model.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/shared_widgets/CustomShadow.dart';
 import 'package:trading_module/utils/enums.dart';
@@ -20,7 +13,7 @@ import 'package:trading_module/utils/util.dart';
 import 'bank_info/bank_account_number.dart';
 
 class BankInfoComponent extends StatelessWidget {
-  final OurBank bank;
+  final BankCashInModel bank;
   final Transaction transaction;
   final int amount;
   const BankInfoComponent(

@@ -18,6 +18,10 @@ class HomePageController extends BaseController  with GetSingleTickerProviderSta
     });
   }
 
+  void selTab(int index) {
+    tabController.animateTo(index);
+  }
+
   void gotoSaving() {
     final product = SavingProduct();
     Get.toNamed(AppRoutes.tdInputMoneyLocal, arguments: product);

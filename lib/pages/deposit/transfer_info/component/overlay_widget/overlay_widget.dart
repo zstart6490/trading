@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-//import 'package:tikop/utils/enums.dart';
 import 'package:trading_module/utils/enums.dart';
 
 import '../../transfer_info_controller.dart';
@@ -68,7 +67,7 @@ class OverlayWidget extends GetView<TDTransferInfoController> {
                 ? ViewAccountNumber(
                     onContinue: onAccountContinue,
                     onBack: onAccountBack,
-                    accountNumber: "aa",
+                    accountNumber: controller.banks.first.accountNo ?? "",
                   )
                 : const SizedBox.shrink(),
           ),
@@ -82,7 +81,7 @@ class OverlayWidget extends GetView<TDTransferInfoController> {
                     reverseView: reverseViewPaymentContent,
                     onContinue: onPaymentContinue,
                     onBack: onPaymentBack,
-                    content:  "aaa",
+                    content: controller.result.transferCode ?? "",
                   )
                 : const SizedBox.shrink(),
           )

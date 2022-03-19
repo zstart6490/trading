@@ -130,6 +130,11 @@ extension CustomIntExtension on int {
     return "${oCcy.format(this)}$symbol";
   }
 
+  String toCurrencyVND({String symbol = "VNĐ"}) {
+    final oCcy = NumberFormat.decimalPattern("vi");
+    return "${oCcy.format(this)} $symbol";
+  }
+
   DateTime millisecondsToDateTime() {
     return DateTime.fromMillisecondsSinceEpoch(this);
   }

@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-// import 'package:tikop/modules/deposit/transfer_info/component/bank_info/bank_info.dart';
-// import 'package:tikop/modules/deposit/transfer_info/transfer_info_controller.dart';
-// import 'package:tikop/modules/support_fab/support_fab.dart';
-// import 'package:tikop/shared_widgets/BaseScaffold.dart';
-// import 'package:tikop/shared_widgets/CustomButton.dart';
-// import 'package:tikop/shared_widgets/GuideComponent.dart';
-// import 'package:tikop/theme/app_color.dart';
-// import 'package:tikop/utils/util.dart';
-
 
 import 'package:trading_module/pages/deposit/transfer_info/component/bank_info/bank_info.dart';
 import 'package:trading_module/pages/deposit/transfer_info/transfer_info_controller.dart';
@@ -65,7 +56,7 @@ class TDTransferInfoScene extends GetView<TDTransferInfoController> {
                         bankContentKey: controller.paymentContentKey,
                         bank: controller.selectedBank.value,
                         amount: controller.data.amount,
-                        content: transaction!.state)),
+                        content: transaction?.transferCode)),
                   ),
                   SIZED_BOX_H16,
                   const Padding(
