@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
-import 'package:trading_module/data/entities/reason.dart';
 import 'package:trading_module/domain/entities/model.dart';
-import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/header_view.dart';
-import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 
@@ -233,12 +230,15 @@ class InvestMenuView<T extends HomePageController> extends StatelessWidget {
 }
 
 class MenuOptionView extends StatelessWidget {
+
+
   const MenuOptionView({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final HomePageController controller = Get.find<HomePageController>();
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: Row(
@@ -252,13 +252,10 @@ class MenuOptionView extends StatelessWidget {
               title: 'cash_drawing'.tr,
               icon: Image.asset("assets/images/png/ic_cash_drawing.png",package: "trading_module"),
               onPressed: () {
-                final listReason =[
-                  Reason(idDynamic:1,reason: "Tôi có việc gấp cần tiền"),
-                  Reason(idDynamic:2,reason: "Tôi cần tiền cho kế hoạch đã có từ trước"),
-                  Reason(idDynamic:3,reason: "Tôi không có nhu cầu đầu tư nữa"),
-                  Reason(idDynamic:4,reason: "Tôi có phương án đầu tư khác hấp dẫn hơn"),
-                ];
-                Get.toNamed(AppRoutes.withdrawReasonScene,arguments: NavigateWithdrawData(listReason: listReason,totalMoneyUser:50000000));
+                controller.openCashOut();
+
+                // Get.toNamed(AppRoutes.withdrawReasonScene,arguments: NavigateWithdrawData(listReason: listReason,totalMoneyUser:50000000));
+                // Get.toNamed(AppRoutes.transactionDetail,arguments: NavigateTranDetail(Transaction()));
               }),
           ButtonWithIconAndText(
               title: 'buy'.tr,

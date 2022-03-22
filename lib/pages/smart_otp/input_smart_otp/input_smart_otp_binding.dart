@@ -10,7 +10,7 @@ class InputSmartOTPBinding extends Bindings {
   @override
   void dependencies() {
     var arg = Get.arguments;
-    if (arg is SmartOTPType) {
+    if (arg is TradingSmartOTPType) {
       Get.lazyPut<OtpRepo>(() => OtpRepoImpl(OtpServiceImpl()));
       Get.lazyPut<OtpUseCase>(() => OtpUseCase(Get.find()));
       Get.lazyPut(() => InputSmartOTPController(arg));

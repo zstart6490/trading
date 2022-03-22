@@ -17,11 +17,14 @@ import 'package:trading_module/pages/smart_otp/input_smart_otp/input_smart_otp_b
 import 'package:trading_module/pages/smart_otp/input_smart_otp/input_smart_otp_scene.dart';
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_binding.dart';
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_view.dart';
+import 'package:trading_module/pages/transaction/transaction_detail_binding.dart';
+import 'package:trading_module/pages/transaction/transaction_detail_scene.dart';
+import 'package:trading_module/pages/withdraw/choose_money/choose_money_binding.dart';
 import 'package:trading_module/pages/withdraw/choose_money/withdraw_money_scene.dart';
+import 'package:trading_module/pages/withdraw/confirm/withdraw_binding.dart';
 import 'package:trading_module/pages/withdraw/confirm/withdraw_confirm_scene.dart';
 import 'package:trading_module/pages/withdraw/reason/withdraw_reason_binding.dart';
 import 'package:trading_module/pages/withdraw/reason/withdraw_reason_scene.dart';
-import 'package:trading_module/pages/withdraw/withdraw_binding.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
 // ignore: avoid_classes_with_only_static_members
@@ -83,10 +86,16 @@ class AppPages {
     GetPage(
       name: AppRoutes.withdrawMoney,
       page: () => const WithdrawMoneyScene(),
-      binding: WithdrawBinding(),
-    ), GetPage(
+      binding: ChooseMoneyBinding(),
+    ),
+    GetPage(
       name: AppRoutes.withdrawConfirm,
       page: () => const WithdrawConfirmScene(),
+      binding: WithdrawBinding(),
     ),
+    GetPage(
+        name: AppRoutes.transactionDetail,
+        page: () => const TransactionDetailScene(),
+        binding: TransactionBinding()),
   ];
 }

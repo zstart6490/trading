@@ -27,8 +27,10 @@ class DataCallback {
   KycStatus? kycStatus;
   OtpStatus? otpStatus;
   String? otpPin;
+  TradingSmartOTPType? smartOTPType;
 
-  DataCallback({this.kycStatus, this.otpStatus, this.otpPin});
+  DataCallback(
+      {this.kycStatus, this.otpStatus, this.otpPin, this.smartOTPType});
 }
 
 class TradingModule {
@@ -38,9 +40,10 @@ class TradingModule {
     required BuildContext context,
     required DataInputApp dataInput,
     Function()? callToEKYC,
-    Function()? callToActiveSmartOtpPin,
-    Function()? callToForgetPin,
-  }) {
+    Function(Function()? onComplete)? callToAddBank,
+    Function(TradingSmartOTPType smartOTPType)? callToActiveSmartOtpPin,
+    Function(TradingSmartOTPType smartOTPType)? callToForgetPin,
+  }) async{
     //setup getx
     Get.addPages(AppPages.tradingRoutes);
     Get.locale = TranslationService.locale;
@@ -61,17 +64,18 @@ class TradingModule {
     print("phoneCountryCode=${dataInput.phoneCountryCode}");
     print("fbDeviceId=${dataInput.fbDeviceId}");
     print("===data input===");
-    if(!Get.isRegistered<MainTradingProvider>()){
+    if (!Get.isRegistered<MainTradingProvider>()) {
       Get.put<MainTradingProvider>(MainTradingProvider(
-          dataInput, callToEKYC, callToActiveSmartOtpPin, callToForgetPin));
-    }else{
-      Get.find<MainTradingProvider>().dataInputApp =dataInput;
+          dataInput, callToEKYC,callToAddBank, callToActiveSmartOtpPin, callToForgetPin));
+    } else {
+      Get.find<MainTradingProvider>().dataInputApp = dataInput;
     }
     Get.lazyPut(() =>
         UserOnBoardingUseCase(OnBoardingReposImpl(OnBoardingServiceImpl())));
     Get.lazyPut(() => MainController());
+    await Get.find<MainTradingProvider>().loadDataDeviceInfo();
+    await Get.find<MainController>().getDataLogin();
 
-    Get.find<MainController>().getDataLogin();
     // Get.toNamed(AppRoutes.MAIN);
   }
 
@@ -87,13 +91,20 @@ class TradingModule {
         break;
       case CallbackType.resultActiveSmartOTP:
         if (dataCallback.otpStatus == OtpStatus.enable) {
-          //Get.toNamed(AppRoutes.SMART_OPT_GENERATE);
-          Get.toNamed(AppRoutes.smartOtpGenerate,
-              arguments: [dataCallback.otpPin ?? "", "", SmartOTPType.fromAppParent]);
+          if (dataCallback.smartOTPType != null) {
+            Get.toNamed(AppRoutes.smartOtpGenerate, arguments: [
+              dataCallback.otpPin ?? "",
+              "",
+              dataCallback.smartOTPType
+            ]);
+          }
         }
         break;
       case CallbackType.resultForgetSmartOTP:
-        Get.toNamed(AppRoutes.smartOtpInput);
+        if (dataCallback.smartOTPType != null) {
+          Get.toNamed(AppRoutes.smartOtpInput,
+              arguments: dataCallback.smartOTPType);
+        }
         break;
     }
   }

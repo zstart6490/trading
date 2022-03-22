@@ -6,21 +6,14 @@ part of 'info_withdraw_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-InfoWithdraw _$InfoWithdrawFromJson(Map<String, dynamic> json) => InfoWithdraw(
-      transactionId: json['transactionId'] as String?,
-      amount: json['amount'] as String?,
+InfoWithdrawDto _$InfoWithdrawDtoFromJson(Map<String, dynamic> json) =>
+    InfoWithdrawDto(
+      transactionId: json['transactionId'] as int?,
+      amount: json['amount'] as num?,
       linkId: json['linkId'] as String?,
-      free: json['free'] as String?,
-      finalAmount: json['finalAmount'] as String?,
-      remainAmount: json['remainAmount'] as String?,
+      balance: json['balance'] as num?,
+      feeAmount: json['feeAmount'] as num?,
+      finalAmount: json['receiveAmount'] as num?,
+      remainAmount: json['remainingBalance'] as num?,
     );
 
-Map<String, dynamic> _$InfoWithdrawToJson(InfoWithdraw instance) =>
-    <String, dynamic>{
-      'transactionId': instance.transactionId,
-      'amount': instance.amount,
-      'linkId': instance.linkId,
-      'free': instance.free,
-      'finalAmount': instance.finalAmount,
-      'remainAmount': instance.remainAmount,
-    };

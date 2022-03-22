@@ -15,5 +15,6 @@ abstract class AppRoutes {
   static const withdrawReasonScene = '/withdraw_reason_scene';
   static const withdrawMoney = '/tradingWithdrawMoney';
   static const withdrawConfirm = '/tradingWithdrawConfirm';
+  static const transactionDetail = '/tradingTransactionDetail';
 
 }

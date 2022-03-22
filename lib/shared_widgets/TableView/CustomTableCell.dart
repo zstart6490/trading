@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
+import 'package:trading_module/theme/app_color.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 
@@ -28,7 +29,7 @@ class CustomTableCell extends StatelessWidget with BaseCommonWidgets {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 6.0),
+      padding: const EdgeInsets.fromLTRB(12.0, 7.0, 12.0, 7.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +46,7 @@ class CustomTableCell extends StatelessWidget with BaseCommonWidgets {
           Expanded(
             child: Text(
               detail,
-              style: detailStyle ?? context.textSize14,
+              style: detailStyle ?? context.textSize14.copyWith(color: COLOR_333333,fontWeight: FontWeight.w400),
               maxLines: 2,
               textAlign: TextAlign.right,
             ),
@@ -55,7 +56,7 @@ class CustomTableCell extends StatelessWidget with BaseCommonWidgets {
               onTap: () {
                 Clipboard.setData(ClipboardData(text: detail));
                 showSnackBar("Đã sao chép ${title.toLowerCase()}",
-                    type: SnackBarType.success);
+                    type: TdSnackBarType.success);
               },
               child: Padding(
                 padding: PAD_SYM_H4,
@@ -111,7 +112,7 @@ class CustomTableCell2 extends StatelessWidget with BaseCommonWidgets {
               onTap: () {
                 Clipboard.setData(ClipboardData(text: detail));
                 showSnackBar("Đã sao chép ${title.toLowerCase()}",
-                    type: SnackBarType.success);
+                    type: TdSnackBarType.success);
               },
               child: Padding(
                 padding: PAD_SYM_H4,

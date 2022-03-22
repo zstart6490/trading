@@ -1,30 +1,40 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:trading_module/domain/entities/reason.dart';
 
 part 'reason.g.dart';
 
 @JsonSerializable()
-class Reason {
+class ReasonDto {
   @JsonKey(name: "id")
-  final dynamic idDynamic;
-  final String reason;
+  final int? id;
+  @JsonKey(name: "content")
+  final String? reason;
   @JsonKey(ignore: true)
   String? note;
 
-  Reason({
-    this.idDynamic,
-    required this.reason,
+  ReasonDto({
+    this.id,
+    this.reason,
   });
 
-  String get id => "$idDynamic";
-  static List<Reason> getList(dynamic data) {
-    final list = data["reasons"] as List;
-    return list.map((e) => Reason.fromJson(e as Map<String, dynamic>)).toList();
+  static List<ReasonDto> getList(dynamic data) {
+    final list = data as List;
+    return list
+        .map((e) => ReasonDto.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 
-  factory Reason.other() {
-    return Reason(idDynamic: "0", reason: "Lý do khác");
+  factory ReasonDto.other() {
+    return ReasonDto(id: 0, reason: "Lý do khác");
   }
 
-  factory Reason.fromJson(Map<String, dynamic> json) => _$ReasonFromJson(json);
-  Map<String, dynamic> toJson() => _$ReasonToJson(this);
+  factory ReasonDto.fromJson(Map<String, dynamic> json) =>
+      _$ReasonDtoFromJson(json);
+
+}
+
+extension ReasonMapper on ReasonDto {
+  Reason toModel() {
+    return Reason(id: id ?? 0, reason: reason ?? "");
+  }
 }

@@ -10,7 +10,7 @@ mixin BaseCheckSmartOTP on BaseCommonWidgets {
   MainTradingProvider get mainProvider =>
       GetInstance().find<MainTradingProvider>();
 
-  Future<void> checkSmartOTPState(SmartOTPType smartOTPType) async {
+  Future<void> checkSmartOTPState(TradingSmartOTPType smartOTPType) async {
     showProgressingDialog();
     final isEnable =
         mainProvider.dataInputApp.userIsRegisteredOTP == OtpStatus.enable;
@@ -24,7 +24,7 @@ mixin BaseCheckSmartOTP on BaseCommonWidgets {
       hideDialog();
       // if (!isBlock) {
       //   Get.toNamed(AppRoutes.smartOtpInput, arguments: type);
-      Get.offAndToNamed(AppRoutes.smartOtpInput,arguments: smartOTPType);
+      Get.toNamed(AppRoutes.smartOtpInput,arguments: smartOTPType);
       // }
     } else {
       hideDialog();

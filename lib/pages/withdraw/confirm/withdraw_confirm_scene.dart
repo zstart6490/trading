@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:trading_module/configs/constants.dart';
-import 'package:trading_module/pages/withdraw/withdraw_controller.dart';
-import 'package:trading_module/shared_widgets/BankInfoWidget.dart';
+import 'package:trading_module/pages/withdraw/choose_money/components/withdraw_bank_component.dart';
+import 'package:trading_module/pages/withdraw/confirm/withdraw_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/theme/app_color.dart';
@@ -45,19 +45,16 @@ class WithdrawConfirmScene extends GetView<WithdrawController> {
                               Text(
                                 "Tài khoản đầu tư chứng khoán",
                                 style: context.textSize14.copyWith(
-                                  fontWeight: FontWeight.normal,
-                                  color: COLOR_858585
-                                ),
+                                    fontWeight: FontWeight.normal,
+                                    color: COLOR_858585),
                               ),
                               Expanded(
                                 child: AutoSizeText(
-                                  int.parse(controller.withdrawInfo?.amount ??
-                                          "0")
+                                  (controller.withdrawInfo.balance)
                                       .toCurrency(),
                                   style: context.textSize14.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: COLOR_333333
-                                  ),
+                                      fontWeight: FontWeight.w700,
+                                      color: COLOR_333333),
                                   textAlign: TextAlign.end,
                                 ),
                               )
@@ -76,8 +73,7 @@ class WithdrawConfirmScene extends GetView<WithdrawController> {
                             Padding(
                               padding: const EdgeInsets.only(right: 11.0),
                               child: AutoSizeText(
-                                int.parse(
-                                        controller.withdrawInfo?.amount ?? "0")
+                                (controller.withdrawInfo.amount)
                                     .toCurrency(),
                                 style: context.textSize14.copyWith(
                                   fontWeight: FontWeight.bold,
@@ -89,17 +85,14 @@ class WithdrawConfirmScene extends GetView<WithdrawController> {
                         ),
                         SIZED_BOX_H08,
                         _Cell(
-                          title:
-                              "Phí giao dịch",
-                          detail: int.parse(
-                              controller.withdrawInfo?.free ?? "0")
+                          title: "Phí giao dịch",
+                          detail: (controller.withdrawInfo.feeAmount)
                               .toCurrency(),
                         ),
                         SIZED_BOX_H08,
                         _Cell(
                           title: "Số tiền thực nhận",
-                          detail: int.parse(
-                                  controller.withdrawInfo?.finalAmount ?? "0")
+                          detail: (controller.withdrawInfo.receiveAmount)
                               .toCurrency(),
                           detailStyle: context.textSize14.copyWith(
                               color: context.primaryColor,
@@ -108,8 +101,7 @@ class WithdrawConfirmScene extends GetView<WithdrawController> {
                         SIZED_BOX_H08,
                         _Cell(
                           title: "Số tiền còn lại",
-                          detail: int.parse(
-                                  controller.withdrawInfo?.remainAmount ?? "0")
+                          detail: (controller.withdrawInfo.remainingBalance)
                               .toCurrency(),
                         ),
                       ],
@@ -117,28 +109,7 @@ class WithdrawConfirmScene extends GetView<WithdrawController> {
                   ),
                 ),
                 SIZED_BOX_H16,
-                Container(
-                  padding: PAD_ALL16,
-                  color: context.backgroundColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Ngân hàng nhận tiền",
-                        style: context.textSize16,
-                      ),
-                      SIZED_BOX_H12,
-                      BankInfoWidget(
-                        imageUrl:
-                            controller.selectedBank.value?.bank?.logo ?? "",
-                        accountNo: controller.selectedBank.value?.accountNo,
-                        accountName: controller.selectedBank.value?.accountName,
-                        codeBank: controller.selectedBank.value?.bank?.code,
-                        borderColor: SCAFFOLD_COLOR,
-                      )
-                    ],
-                  ),
-                ),
+                const WithdrawBankComponent()
               ],
             ),
           ),
