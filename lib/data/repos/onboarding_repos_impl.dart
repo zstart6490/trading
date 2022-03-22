@@ -14,11 +14,27 @@ class OnBoardingReposImpl extends OnBoardingRepos {
       {required String token,
       required String fbDeviceId,
       required String kyc}) async {
-    var result = await _services.getDataLoginUser(token,kyc);
-    if (result.response.success) {
-      var data = result.data.toModel();
-      return DataSuccess(data);
+    final result = await _services.getDataLoginUser(token, kyc);
+    if (result.success) {
+      // final data = result.data.toModel();
+      return DataSuccess(result.modelDTO.toModel());
     }
-    return DataFailed(result.response.error);
+    return DataFailed(result.error);
+  }
+
+  @override
+  Future<DataState<DataLogin>> registerTrading(
+      {required String email,
+      required String kyc,
+      required String phone,
+      required String phoneCountryCode,
+      required String token}) async {
+    final result = await _services.registerTrading(
+        email, kyc, phone, phoneCountryCode, token);
+    if (result.success) {
+      var model = result.modelDTO.toModel();
+      return DataSuccess(model);
+    }
+    return DataFailed(result.error);
   }
 }

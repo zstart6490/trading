@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:trading_module/data/entities/user_data.dart';
+import 'package:trading_module/data/entities/user_data_dto.dart';
 import 'package:trading_module/domain/entities/data_login.dart';
 
 part 'data_login.g.dart';
@@ -9,7 +9,7 @@ class DataLoginDTO {
   final String? nextScreen;
   final String? token;
   @JsonKey(name: "user")
-  final UserDataDTO? userData;
+  final UserDataDto? userData;
   @JsonKey(name: "configMap")
   final ConfigMapDTO? configMap;
   @JsonKey(name: "msgMap")
@@ -20,8 +20,8 @@ class DataLoginDTO {
   DataLoginDTO(this.nextScreen, this.token, this.userData, this.configMap,
       this.msgMap, this.themeMap);
 
-  factory DataLoginDTO.fromJson(Map<String, dynamic> json) =>
-      _$DataLoginDTOFromJson(json);
+  factory DataLoginDTO.fromJson(dynamic json) =>
+      _$DataLoginDTOFromJson(json as Map<String, dynamic>);
 
   Map<String, dynamic> toJson() => _$DataLoginDTOToJson(this);
 }
@@ -29,21 +29,21 @@ class DataLoginDTO {
 @JsonSerializable()
 class MsgMapDTO {
   @JsonKey(name: "OB_INTRO_MSG")
-  final String obIntroMsg;
+  final String? obIntroMsg;
   @JsonKey(name: "OB_KYC_REQUEST_MSG")
-  final String obKycRequestMsg;
+  final String? obKycRequestMsg;
   @JsonKey(name: "OB_TERM_MSG")
-  final String obTermMsg;
+  final String? obTermMsg;
   @JsonKey(name: "OB_TERM_USAGE_MSG")
-  final String obTermUsageMsg;
+  final String? obTermUsageMsg;
   @JsonKey(name: "OB_TERM_ACCOUNT_MSG")
-  final String obTermAccountMsg;
+  final String? obTermAccountMsg;
   @JsonKey(name: "OB_TERM_STOCK_MSG")
-  final String obTermStockMsg;
+  final String? obTermStockMsg;
   @JsonKey(name: "OB_KYC_INCOMPLETE_MSG")
-  final String obKycIncompleteMsg;
+  final String? obKycIncompleteMsg;
   @JsonKey(name: "OB_OTP_REQUEST_MSG")
-  final String obOtpRequestMsg;
+  final String? obOtpRequestMsg;
 
   factory MsgMapDTO.fromJson(Map<String, dynamic> json) =>
       _$MsgMapDTOFromJson(json);
@@ -64,14 +64,25 @@ class MsgMapDTO {
 @JsonSerializable()
 class ConfigMapDTO {
   @JsonKey(name: "OB_TERM_STOCK_LINK")
-  final String obTermStockLink;
+  final String? obTermStockLink;
   @JsonKey(name: "OB_TERM_ACCOUNT_LINK")
-  final String obTermAccountLink;
+  final String? obTermAccountLink;
   @JsonKey(name: "OB_TERM_USAGE_LINK")
-  final String obTermUsageLink;
+  final String? obTermUsageLink;
+  @JsonKey(name: "MIN_MONEY_USER")
+  final String? minMoneyUser;
+  @JsonKey(name: "VAT_PERCENT")
+  final String? vatPercent;
+  @JsonKey(name: "MAX_MONEY_USER")
+  final String? maxMoneyUser;
 
   ConfigMapDTO(
-      this.obTermStockLink, this.obTermAccountLink, this.obTermUsageLink);
+      this.obTermStockLink,
+      this.obTermAccountLink,
+      this.obTermUsageLink,
+      this.minMoneyUser,
+      this.vatPercent,
+      this.maxMoneyUser);
 
   factory ConfigMapDTO.fromJson(Map<String, dynamic> json) =>
       _$ConfigMapDTOFromJson(json);
@@ -91,21 +102,28 @@ class ThemeMapDTO {
 
 extension ConfigMapMapper on ConfigMapDTO {
   ConfigMap toModel() {
-    return ConfigMap(obTermStockLink, obTermAccountLink, obTermUsageLink);
+    return ConfigMap(
+      obTermStockLink ?? "",
+      obTermAccountLink ?? "",
+      obTermUsageLink ?? "",
+      minMoneyUser ?? "",
+      vatPercent ?? "",
+      maxMoneyUser ?? "",
+    );
   }
 }
 
 extension MsgMapMapper on MsgMapDTO {
   MsgMap toModel() {
     return MsgMap(
-        obIntroMsg: obIntroMsg,
-        obKycRequestMsg: obKycRequestMsg,
-        obTermMsg: obTermMsg,
-        obTermUsageMsg: obTermUsageMsg,
-        obTermAccountMsg: obTermAccountMsg,
-        obTermStockMsg: obTermStockMsg,
-        obKycIncompleteMsg: obKycIncompleteMsg,
-        obOtpRequestMsg: obOtpRequestMsg);
+        obIntroMsg: obIntroMsg ?? "",
+        obKycRequestMsg: obKycRequestMsg ?? "",
+        obTermMsg: obTermMsg ?? "",
+        obTermUsageMsg: obTermUsageMsg ?? "",
+        obTermAccountMsg: obTermAccountMsg ?? "",
+        obTermStockMsg: obTermStockMsg ?? "",
+        obKycIncompleteMsg: obKycIncompleteMsg ?? "",
+        obOtpRequestMsg: obOtpRequestMsg ?? "");
   }
 }
 

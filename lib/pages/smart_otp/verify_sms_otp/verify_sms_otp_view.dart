@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
+import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/shared_widgets/CustomTextField.dart';
@@ -11,10 +12,9 @@ import 'package:trading_module/utils/extensions.dart';
 import 'package:trading_module/utils/text_field_utils/otp_formatter.dart';
 
 
-import 'verify_sms_otp_controller.dart';
-
 class VerifySMSOTPView extends GetView<VerifySMSOTPController> {
   const VerifySMSOTPView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<VerifySMSOTPController>(
@@ -57,7 +57,7 @@ class VerifySMSOTPView extends GetView<VerifySMSOTPController> {
                       key: controller.formKey,
                       child: Obx(
                         () => TextFieldCustomBorder(
-                          autoFocus: true,
+                          autoFocus: controller.focusState.value,
                           hintText: "Nhập mã OTP",
                           controller: controller.textController,
                           textInputType: TextInputType.number,
@@ -115,7 +115,7 @@ class VerifySMSOTPView extends GetView<VerifySMSOTPController> {
   void onNext() {
     if (controller.formKey.currentState?.validate() ?? false) {
       final otp = controller.textController.text.removeAllWhitespace;
-      controller.verifyOTP(otp);
+        controller.verifyOTP(otp);
     }
   }
 }

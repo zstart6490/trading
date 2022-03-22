@@ -8,4 +8,12 @@ abstract class OnBoardingRepos{
     required String fbDeviceId,
     required String kyc,
   });
+
+  Future<DataState<DataLogin>> registerTrading({
+    required String email,
+    required String kyc,
+    required String phone,
+    required String phoneCountryCode,
+    required String token,
+  });
 }

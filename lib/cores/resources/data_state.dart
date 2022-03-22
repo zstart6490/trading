@@ -1,3 +1,5 @@
+
+
 import 'package:trading_module/cores/networking/result.dart';
 
 abstract class DataState<T> {

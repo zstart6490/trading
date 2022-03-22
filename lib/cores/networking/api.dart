@@ -2,36 +2,50 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get_connect/connect.dart';
+import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
-
-import 'result.dart';
+import 'package:trading_module/cores/networking/result.dart';
+import 'package:trading_module/pages/main_controller.dart';
+import 'package:trading_module/pages/main_provider.dart';
+import 'package:trading_module/utils/extensions.dart';
 
 enum Method { GET, POST, DELETE }
 
 class Api extends GetConnect {
   final String backendUrl;
-  final String fullToken;
+  String fullToken;
+  final String userId;
 
-  Api({required this.backendUrl, required this.fullToken});
+  Api(
+      {required this.backendUrl,
+      required this.fullToken,
+      required this.userId});
 
   @override
   String get baseUrl => backendUrl;
 
   String get authorization => fullToken;
 
+  String generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
+  }
+
   @override
   void onInit() {
     httpClient.timeout = AppConstants.TIME_OUT;
+    final mainProvider = GetInstance().find<MainTradingProvider>();
     httpClient.addRequestModifier<void>((request) async {
       // request.headers.remove('user-agent');
-      request.headers["Parent-App"] = "App version";
-      request.headers["Lang"] = "App version";
-      request.headers["App-Ver"] = "App version";
-      request.headers["Trading-Ver"] = "Trading-Ver";
-      request.headers["Device-ID"] = "deviceId";
+      request.headers["Parent-App"] = "TIKOP";
+      request.headers["Lang"] = "vi";
+      request.headers["App-Ver"] = mainProvider.appVersion;
+      request.headers["Trading-Ver"] = mainProvider.appTradingVersion;
+      request.headers["Device-ID"] = mainProvider.deviceId;
       request.headers['Authorization'] = authorization;
+      request.headers['X-Request-ID'] = generateMd5(
+          "$userId${DateTime.now().millisecond.toString()}${4.genRandom()}");
       if (kDebugMode) {
         log(request.headers.toString(), name: baseUrl);
       }
@@ -103,7 +117,10 @@ class Api extends GetConnect {
         res = await httpClient.post(endPoint).timeout(timeOut);
       } else {
         res = await httpClient.post(endPoint, body: params).timeout(timeOut);
+        print("body:");
+        print(res.body);
       }
+
       if (res.isOk) {
         _requestOk(Method.POST, endPoint, params, res.bodyString);
       } else {
@@ -200,6 +217,7 @@ class Api extends GetConnect {
       final fullUrl = baseUrl + endPoint;
       log("$method: $fullUrl Params: $params", name: "API");
       log("$status => $exception", name: "API");
+      log("Response => ${bodyString}", name: "API");
     }
   }
 
@@ -220,22 +238,43 @@ class Api extends GetConnect {
 
   Result handlerResult(Result result, {String? endPoint}) {
     if (!result.success) {
-      if (result.error != null) {}
+      if (result.code == 100) {
+        //token khong hop le
+        print(result.msg);
+        return result;
+      } else if (result.code == 401) {
+        //UNAUTHORIZED
+        Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
+        print(result.msg);
+        // Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
+        return result;
+      } else if (result.code == SESSION_TIMEOUT_CODE) {
+        //UNAUTHORIZED
+        print(result.msg);
+        Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
+        return result;
+      }
     }
     return result;
+  }
+
+  void refreshTokenSuccess() {
+    //
+    final MainTradingProvider mainProvider = Get.find<MainTradingProvider>();
+    fullToken = mainProvider.accessToken ?? "";
   }
 
   Future<Result> onTimeOut(
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-    return Result();
+    return Result(msg: "onTimeOut=$endPoint", success: false, code: -1);
   }
 
   Future<Result> onServerError(
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-    return Result();
+    return Result(msg: "onServerError=$endPoint", success: false, code: -1);
   }
 }

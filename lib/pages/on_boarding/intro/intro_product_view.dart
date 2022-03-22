@@ -27,17 +27,28 @@ class IntroProductView extends GetView<IntroController> {
                           "img_intro_1".pngImage(),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 20),
+                                horizontal: 16, vertical: 20,),
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Html(
-                                    data: data?.obIntroMsg.replaceAll("\n", "</br>"),
+                                    data: data?.obIntroMsg,
                                     style: {
-                                      "body": Style(
+                                      "b": Style(
+                                          fontSize: const FontSize(16),
+                                          fontFamily: 'iCielHelveticaNowText',
+                                          fontStyle: FontStyle.normal,
+                                          fontWeight: FontWeight.w500,
+                                          color: COLOR_333333),
+                                      "#content_1": Style(
                                           fontSize: FontSize.medium,
                                           fontFamily: 'iCielHelveticaNowText',
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.normal,
+                                          color: COLOR_858585),
+                                      "#content_2": Style(
+                                          fontSize: FontSize.medium,
+                                          fontFamily: 'iCielHelveticaNowText',
+                                          fontWeight: FontWeight.normal,
                                           color: COLOR_858585),
                                     },
                                   )

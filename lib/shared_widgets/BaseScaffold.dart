@@ -55,17 +55,17 @@ class BaseScaffoldAppBar<T extends BaseController> extends StatelessWidget {
           child: Scaffold(
             floatingActionButton: fab,
             floatingActionButtonLocation:
-                fabLocation ?? FloatingActionButtonLocation.endFloat,
+            fabLocation ?? FloatingActionButtonLocation.endFloat,
             appBar: AppBar(
               title: Text(
                 title,
                 style: context.textSize18,
               ),
-              leading: leading ,
+              leading: leading,
               actions: actions,
               automaticallyImplyLeading: showBackBtn,
               elevation:
-                  elevation ?? Theme.of(context).appBarTheme.elevation ?? 1.0,
+              elevation ?? Theme.of(context).appBarTheme.elevation ?? 1.0,
             ),
             backgroundColor: backgroundColor ?? context.scaffoldBackgroundColor,
             body: SafeArea(

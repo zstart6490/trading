@@ -184,11 +184,18 @@ enum OptionGuide {
   bankAccount,
   paymentContent,
 }
-enum SnackBarType { info, success, error, warning }
-enum SmartOTPType {
-  create
+enum TdSnackBarType { info, success, error, warning }
+enum TradingSmartOTPType {
+  registerTrading,
+  cashOutTrading,
+  forgotToRegister,
+  forgotToCashOut,
 }
-
+enum SmsOTPType {
+  registerTrading,
+  cashOutTrading,
+  cashInTrading
+}
 enum BannerType {
   @JsonValue("IN_APP")
   inApp,

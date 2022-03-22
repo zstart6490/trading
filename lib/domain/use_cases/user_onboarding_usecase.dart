@@ -11,8 +11,19 @@ class UserOnBoardingUseCase {
       {required String token,
         required String fbDeviceId,
         required String kyc}) async {
-    var result = await _onBoardingRepos.getDataLoginUser(token: token, fbDeviceId: fbDeviceId, kyc: kyc);
+    final result = await _onBoardingRepos.getDataLoginUser(token: token, fbDeviceId: fbDeviceId, kyc: kyc);
     // xử lý thêm nếu muốn
     return result;
+  }
+
+  Future<DataState<DataLogin>> registerTrading(String email, String kyc,
+      String phone, String phoneCountryCode, String token) async {
+    final otp = await _onBoardingRepos.registerTrading(
+        email: email,
+        kyc: kyc,
+        phone: phone,
+        phoneCountryCode: phoneCountryCode,
+        token: token);
+    return otp;
   }
 }

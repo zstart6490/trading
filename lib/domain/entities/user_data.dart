@@ -1,24 +1,23 @@
 
+
 class UserData {
   final num id;
-  final String name;
-  final String phoneNumber;
-  final  String email;
-  final  String fullName;
-  final  String birthday;
-  final String address;
-  final num gender;
+  final String appId;
+  final num appUserId;
+  final String phone;
+  final String phoneCountryCode;
+  final String email;
+  final String status;
 
-  UserData(this.id, this.name, this.phoneNumber, this.email, this.fullName,
-      this.birthday, this.address, this.gender);
+
+  UserData(
+      {required this.id,
+      required this.appId,
+      required this.appUserId,
+      required this.phone,
+      required this.phoneCountryCode,
+      required this.email,
+      required this.status,
+   });
 }
 
-class AccessToken {
-  final String token;
-  final String type;
-
-  String get fullToken => "$type $token";
-
-  AccessToken({required this.token, required this.type});
-
-}

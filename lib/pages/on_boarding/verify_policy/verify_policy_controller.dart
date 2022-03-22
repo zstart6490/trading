@@ -1,71 +1,115 @@
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
-import 'package:trading_module/pages/main_controller.dart';
+import 'package:trading_module/data/entities/kyc_status.dart';
+import 'package:trading_module/domain/entities/data_login.dart';
+import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/pages/smart_otp/base_check_smart_otp.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/utils/enums.dart';
 
-class VerifyPolicyController extends BaseController with BaseCheckSmartOTP {
-  final MainController _mainController = Get.find();
+class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
+  final UserOnBoardingUseCase _boardingUseCase =
+      Get.find<UserOnBoardingUseCase>();
 
-  @override
-  void onInit() {
-    super.onInit();
-    // Get.lazyPut(() => KycCallbackImpl());
-    // var kycImpl = Get.find<KycCallbackImpl>();
+  final DataLogin? dataLogin;
 
+  VerifyPolicyController({this.dataLogin});
+
+  Future acceptTermAndVerify() async {
+    final dataInput = mainProvider.dataInputApp;
+    if (dataInput.userIsRegisteredKyc == KycStatus.verified) {
+      showProgressingDialog();
+      final resp = await _boardingUseCase.registerTrading(
+          dataInput.email ?? "",
+          "y",
+          dataInput.phone ?? "",
+          dataInput.phoneCountryCode ?? "",
+          dataInput.token);
+      hideDialog();
+      if (resp.data != null) {
+        //SUCCESS
+        mainProvider.accessToken = resp.data?.token;
+        // mainProvider.userData = resp.data?.userData;
+        checkSmartOTPState(TradingSmartOTPType.registerTrading);
+      } else {
+        handleErrorResponse(resp.error);
+      }
+    } else {
+      if (dataInput.userIsRegisteredKyc == KycStatus.none) {
+        showPopupRequiredKYC(
+            "verify_account".tr, "content_alert_verify_account".tr);
+      } else if (dataInput.userIsRegisteredKyc == KycStatus.reject) {
+        showPopupRequiredKYC("ekyc_reject_title".tr, "ekyc_reject_content".tr);
+      } else if (dataInput.userIsRegisteredKyc == KycStatus.pending) {
+        showDialogKycPending();
+      }
+    }
   }
 
-  void acceptTerm() {
-    if (!_mainController.userIsRegisteredKyc) {
-      showPopupRequiredKYC();
-    } else {}
+
+  void showPopupRequiredKYC(String title, String content) {
+    showAlertDialog(CustomAlertDialog(title: title, desc: content, actions: [
+      AlertAction(
+          text: "cancel".tr,
+          onPressed: () {
+            hideDialog();
+            // Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+          }),
+      AlertAction(
+          text: "button_verify_alert".tr,
+          isDefaultAction: true,
+          onPressed: () => {
+                //call to KYC tikop
+                hideDialog(),
+                mainProvider.callToEKYC?.call(),
+              }),
+    ]));
   }
 
-  void showPopupRequiredKYC() {
+  void openPdf(String name, int pos) {
+    // Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
+    if (pos == 0) {
+      Get.toNamed(AppRoutes.pdfView,
+          arguments: [name, dataLogin?.configMap?.obTermUsageLink ?? ""]);
+    } else if (pos == 1) {
+      Get.toNamed(AppRoutes.pdfView,
+          arguments: [name, dataLogin?.configMap?.obTermAccountLink ?? ""]);
+    } else {
+      Get.toNamed(AppRoutes.pdfView,
+          arguments: [name, dataLogin?.configMap?.obTermStockLink ?? ""]);
+    }
+  }
+
+  void showDialogKycPending() {
     showAlertDialog(CustomAlertDialog(
         title: "verify_account".tr,
-        desc: "content_alert_verify_account".tr,
+        desc: "dialog_kyc_pending".tr,
         actions: [
-          AlertAction(text: "cancel".tr, onPressed: () => hideDialog()),
           AlertAction(
-              text: "button_verify_alert".tr,
+              text: "i_understand".tr,
               isDefaultAction: true,
               onPressed: () => {
                     //call to KYC tikop
-
+                    hideDialog(),
                   }),
         ]));
   }
 
-  @override
-  void onActive() {
-    Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
-  }
-
-  void openPdf(String name,int pos) {
-    if (pos == 0) {
-      Get.toNamed(AppRoutes.PDF_VIEW, arguments: [
-        name,
-        "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
-      ]);
-    } else if (pos == 1) {
-      Get.toNamed(AppRoutes.PDF_VIEW,
-          arguments: [
-            name,
-            "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
-          ]);
-    } else {
-      Get.toNamed(AppRoutes.PDF_VIEW,
-          arguments: [
-            name,
-            "https://raw.githubusercontent.com/tienbm/DemoPdf-Flutter/main/demo.pdf"
-          ]);
+  void setStatusEKYCAndVerifyNext(KycStatus? kycStatus) {
+    if (kycStatus != null) {
+      mainProvider.dataInputApp.userIsRegisteredKyc = kycStatus;
+      acceptTermAndVerify();
     }
   }
 
   @override
+  void onActive() {
+    mainProvider.callToActiveOTP?.call(TradingSmartOTPType.registerTrading);
+  }
+
+  @override
   void onSkip() {
-    // TODO: implement onSkip
+    Get.toNamed(AppRoutes.smartOtpVerifySms,arguments: SmsOTPType.registerTrading);
   }
 }

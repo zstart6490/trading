@@ -28,19 +28,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    Get.lazyPut(() => MainTradingProvider());
-    final OnBoardingRepos repos = Get.put<OnBoardingReposImpl>(
-      OnBoardingReposImpl(OnBoardingServiceImpl()),
-    );
-    Get.lazyPut(() => UserOnBoardingUseCase(repos));
-    Get.lazyPut(
-      () => MainController(
-        tokenTest: tokenTest,
-        userIsRegisteredKyc: false,
-        userIsRegisteredOTP: false,
-      ),
-    );
-    Get.find<MainController>();
+    // Get.lazyPut(() => MainTradingProvider());
+    // final OnBoardingRepos repos = Get.put<OnBoardingReposImpl>(
+    //   OnBoardingReposImpl(OnBoardingServiceImpl()),
+    // );
+    // Get.lazyPut(() => UserOnBoardingUseCase(repos));
+    // Get.lazyPut(
+    //   () => MainController(
+    //     tokenTest: tokenTest,
+    //     userIsRegisteredKyc: false,
+    //     userIsRegisteredOTP: false,
+    //   ),
+    // );
+    // Get.find<MainController>();
     super.initState();
   }
 

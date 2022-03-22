@@ -1,4 +1,5 @@
-import 'constants.dart';
+
+import 'package:trading_module/configs/constants.dart';
 
 abstract class BaseConfig {
   EnvironmentConfiguration get environment;
@@ -30,6 +31,10 @@ class StagingConfig implements BaseConfig {
   String get host => "stg-api.trading.vn";
   @override
   String get protocol => "https://";
+  // @override
+  // String get host => "104.199.179.48:8501";
+  // @override
+  // String get protocol => "http://";
   @override
   String get appName => "Trading-Stg";
   @override
@@ -44,6 +49,10 @@ class ProdConfig implements BaseConfig {
   String get host => "api.trading.vn";
   @override
   String get protocol => "https://";
+  // @override
+  // String get host => "104.199.179.48:8501";
+  // @override
+  // String get protocol => "http://";
   @override
   String get appName => "Trading";
   @override
