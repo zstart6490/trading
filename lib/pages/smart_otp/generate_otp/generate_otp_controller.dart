@@ -6,14 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/data/entities/navigate_trans_detail.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
+import 'package:trading_module/domain/use_cases/withdraw_usecase.dart';
+import 'package:trading_module/pages/withdraw/confirm/withdraw_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/enums.dart';
 
 class GenerateOtpController extends BaseController with WidgetsBindingObserver {
   final String pin;
   final String initOTP;
-  final SmartOTPType type;
+  final TradingSmartOTPType type;
   late Timer _timer;
   RxBool canNext = true.obs;
   bool shouldReload = true;
@@ -69,23 +72,19 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   void setupData() {
     switch (type) {
-      case SmartOTPType.registerTrading:
+      case TradingSmartOTPType.forgotToRegister:
+      case TradingSmartOTPType.forgotToCashOut:
+      case TradingSmartOTPType.cashOutTrading:
+      case TradingSmartOTPType.registerTrading:
         {
-          canNext.value = true;
-          startTimer(60);
+          if (initOTP.isNotEmpty) {
+            canNext.value = true;
+            startTimer(60);
+          } else {
+            canNext.value = false;
+            reGenerateOTP();
+          }
         }
-        break;
-      case SmartOTPType.fromAppParent:
-        {
-          canNext.value = false;
-          reGenerateOTP();
-        }
-        break;
-      case SmartOTPType.cashOutTrading:
-        handleCashOutTrading();
-        break;
-      case SmartOTPType.cashInTrading:
-        // TODO: Handle this case.
         break;
     }
   }
@@ -134,18 +133,22 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   Future<void> onConfirm() async {
     endTimer();
-    showProgressingDialog();
-    final result = await _otpUseCase.confirmOTP(
-        otp.value, OTPMethod.smart.name, mainProvider.dataInputApp.token);
-    hideDialog();
-    if (result.data?.state == "VALID") {
-      Get.offAndToNamed(AppRoutes.contractPage,
-          arguments: result.data?.contractLink ?? "");
-    } else if (result.error != null) {
-      showSnackBar(result.error!.message);
+    if (type == TradingSmartOTPType.registerTrading) {
+      showProgressingDialog();
+      final result = await _otpUseCase.confirmOTP(
+          otp.value, OTPMethod.smart.name, mainProvider.dataInputApp.token);
+      hideDialog();
+      if (result.data?.state == "VALID") {
+        Get.offAndToNamed(AppRoutes.contractPage,
+            arguments: result.data?.contractLink ?? "");
+      } else if (result.error != null) {
+        showSnackBar(result.error!.message);
+      }
+    } else if (type == TradingSmartOTPType.cashOutTrading ||
+        type == TradingSmartOTPType.forgotToCashOut) {
+      handleCashOutTrading();
     }
   }
-
 
   void checkPassedTime() {
     final now = DateTime.now();
@@ -159,7 +162,31 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
     }
   }
 
-  void handleCashOutTrading() {
-
+  Future handleCashOutTrading() async {
+    if (Get.isRegistered<WithdrawController>()) {
+      final wc = Get.find<WithdrawController>();
+      final cashOut = Get.find<WithdrawUseCase>();
+      final withdrawInfo = wc.withdrawInfo;
+      // final data = wc.data;
+      if (withdrawInfo == null) return;
+      showProgressingDialog();
+      final result = await cashOut.confirmCashOut(
+          otp: otp.value,
+          otpMethod: OTPMethod.smart.name,
+          tokenParent: dataAppParent.token,
+          transactionId: withdrawInfo.transactionId.toString());
+      hideDialog();
+      if (result.data != null) {
+        Get.offNamedUntil(AppRoutes.transactionDetail,
+            ModalRoute.withName(AppRoutes.homeTrading),
+            arguments:
+                NavigateTranDetail(transaction: result.data!, hasBtn: false));
+      } else if (result.error != null) {
+        showSnackBar(result.error!.message);
+      }
+    } else {
+      Get.back();
+      showSnackBar(UNKNOWN_ERROR);
+    }
   }
 }

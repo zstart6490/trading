@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_view_model.dart';
 import 'package:trading_module/domain/entities/bank.dart';
-import 'package:trading_module/pages/withdraw/withdraw_controller.dart';
+import 'package:trading_module/pages/withdraw/choose_money/choose_money_controller.dart';
 import 'package:trading_module/shared_widgets/BankInfoWidget.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-class WithdrawBankComponent extends BaseViewModel<WithdrawController> {
+class WithdrawBankComponent extends BaseViewModel<ChooseMoneyController> {
   const WithdrawBankComponent({
     Key? key,
   }) : super(key: key);

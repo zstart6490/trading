@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/networking/result.dart';
+import 'package:trading_module/data/entities/navigate_trans_detail.dart';
 import 'package:trading_module/domain/entities/otp_confirm_model.dart';
 import 'package:trading_module/domain/use_cases/otp_use_case.dart';
+import 'package:trading_module/domain/use_cases/withdraw_usecase.dart';
 import 'package:trading_module/pages/smart_otp/otp_expired_controller.dart';
+import 'package:trading_module/pages/withdraw/confirm/withdraw_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/enums.dart';
@@ -68,23 +71,51 @@ class VerifySMSOTPController extends OtpExpiredController {
   }
 
   Future<void> verifyOTP(String otp) async {
-    showProgressingDialog();
-    //call api verify otp
-    final result = await _otpUseCase.confirmOTP(
-        otp, OTPMethod.sms.name, mainProvider.dataInputApp.token);
-    hideDialog();
-    if (result.error != null) {
-      final error = result.error!;
-      if (error.code == BLOCK_OTP_1_CODE || error.code == BLOCK_OTP_2_CODE) {
-        _showDialogNotify(error.message);
-      } else {
-        errors.value = error;
+    final otp = textController.text.removeAllWhitespace;
+    if (type == SmsOTPType.cashOutTrading) {
+      if (Get.isRegistered<WithdrawController>()) {
+        final wc = Get.find<WithdrawController>();
+        final cashOut = Get.find<WithdrawUseCase>();
+        final withdrawInfo = wc.withdrawInfo;
+        // final data = wc.data;
+        if (withdrawInfo == null) return;
+        showProgressingDialog();
+        final result = await cashOut.confirmCashOut(
+            otp: otp,
+            otpMethod: OTPMethod.sms.name,
+            tokenParent: dataAppParent.token,
+            transactionId: withdrawInfo.transactionId.toString());
+        hideDialog();
+        if (result.data != null) {
+          Get.offNamedUntil(AppRoutes.transactionDetail,
+              ModalRoute.withName(AppRoutes.homeTrading),
+              arguments:
+                  NavigateTranDetail(transaction: result.data!, hasBtn: false));
+        } else if (result.error != null) {
+          showSnackBar(result.error!.message);
+        }
       }
-    } else if (result.data?.state == "VALID") {
-      endTimer();
-      onSuccess(result.data);
-    } else {
-      handleErrorResponse(result.error);
+      return;
+    }
+    if (type == SmsOTPType.registerTrading) {
+      showProgressingDialog();
+      //call api verify otp
+      final result = await _otpUseCase.confirmOTP(
+          otp, OTPMethod.sms.name, mainProvider.dataInputApp.token);
+      hideDialog();
+      if (result.error != null) {
+        final error = result.error!;
+        if (error.code == BLOCK_OTP_1_CODE || error.code == BLOCK_OTP_2_CODE) {
+          _showDialogNotify(error.message);
+        } else {
+          errors.value = error;
+        }
+      } else if (result.data?.state == "VALID") {
+        endTimer();
+        onSuccess(result.data);
+      } else {
+        handleErrorResponse(result.error);
+      }
     }
   }
 
@@ -92,11 +123,13 @@ class VerifySMSOTPController extends OtpExpiredController {
     // showProgressingDialog();
     //handle
     hideDialog();
-    Get.offNamedUntil(
-      AppRoutes.contractPage,
-      ModalRoute.withName("/home"),
-      arguments: data?.contractLink ?? "",
-    );
+    if (type == SmsOTPType.registerTrading) {
+      Get.offNamedUntil(
+        AppRoutes.contractPage,
+        ModalRoute.withName("/home"),
+        arguments: data?.contractLink ?? "",
+      );
+    }
   }
 
   Future<void> generateOTP() async {

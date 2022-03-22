@@ -26,7 +26,7 @@ class CustomTableHeader extends StatelessWidget {
             padding: PAD_SYM_H12,
             child: Text(
               title,
-              style: context.textSize14.copyWith(
+              style: context.textSize16.copyWith(
                   color: context.backgroundColor, fontWeight: FontWeight.w500),
               textAlign: TextAlign.left,
             ),

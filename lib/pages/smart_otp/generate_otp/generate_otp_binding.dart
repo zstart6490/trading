@@ -17,7 +17,7 @@ class GenerateOtpBinding extends Bindings {
       Get.lazyPut(() => GenerateOtpController(
           pin: arg[0] as String,
           initOTP: arg[1] as String,
-          type: arg[2] as SmartOTPType
+          type: arg[2] as TradingSmartOTPType
       ));
     }
   }
