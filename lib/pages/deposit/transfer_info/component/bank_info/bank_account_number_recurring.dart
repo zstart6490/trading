@@ -9,6 +9,7 @@ import 'package:trading_module/utils/util.dart';
 class BankAccountNumberRecurring extends StatelessWidget
     with BaseCommonWidgets {
   final Key? bankAccountKey;
+
   const BankAccountNumberRecurring({Key? key, this.va, this.bankAccountKey})
       : super(key: key);
 

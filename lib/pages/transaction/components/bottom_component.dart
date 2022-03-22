@@ -17,7 +17,7 @@ class BottomComponent extends StatelessWidget {
       return Padding(
         padding: PAD_BOTTOM_16,
         child: CustomButton.defaultStyle(
-            title: "Về trang chủ", onPressed: () => controller.backToHome()),
+            title: "Về trang chủ", onPressed: () => controller.goToHomeTrading()),
       );
     // } else {
     //   return const SizedBox();

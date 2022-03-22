@@ -36,14 +36,14 @@ class DataCallback {
 class TradingModule {
   static String versionTrading = "-dev-1.0.0.2";
 
-  static void openTradingModule({
+  static Future openTradingModule({
     required BuildContext context,
     required DataInputApp dataInput,
     Function()? callToEKYC,
     Function(Function()? onComplete)? callToAddBank,
     Function(TradingSmartOTPType smartOTPType)? callToActiveSmartOtpPin,
     Function(TradingSmartOTPType smartOTPType)? callToForgetPin,
-  }) async{
+  }) async {
     //setup getx
     Get.addPages(AppPages.tradingRoutes);
     Get.locale = TranslationService.locale;
@@ -65,8 +65,8 @@ class TradingModule {
     print("fbDeviceId=${dataInput.fbDeviceId}");
     print("===data input===");
     if (!Get.isRegistered<MainTradingProvider>()) {
-      Get.put<MainTradingProvider>(MainTradingProvider(
-          dataInput, callToEKYC,callToAddBank, callToActiveSmartOtpPin, callToForgetPin));
+      Get.put<MainTradingProvider>(MainTradingProvider(dataInput, callToEKYC,
+          callToAddBank, callToActiveSmartOtpPin, callToForgetPin));
     } else {
       Get.find<MainTradingProvider>().dataInputApp = dataInput;
     }
@@ -110,7 +110,9 @@ class TradingModule {
   }
 
   static void clearCache() {
-    Get.find<MainTradingProvider>().clearAccessToken();
+    if (Get.isRegistered<MainTradingProvider>()) {
+      Get.find<MainTradingProvider>().clearAccessToken();
+    }
   }
 
   void onInit() {}
