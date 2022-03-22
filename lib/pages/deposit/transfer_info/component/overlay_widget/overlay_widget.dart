@@ -81,7 +81,7 @@ class OverlayWidget extends GetView<TDTransferInfoController> {
                     reverseView: reverseViewPaymentContent,
                     onContinue: onPaymentContinue,
                     onBack: onPaymentBack,
-                    content: controller.result.transferCode ?? "",
+                    content: controller.result.transferCode,
                   )
                 : const SizedBox.shrink(),
           )

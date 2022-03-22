@@ -3,7 +3,6 @@ import 'package:trading_module/data/entities/naptien/Transaction.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/util.dart';
 
-
 import 'Country.dart';
 import 'Fund.dart';
 import 'Reason.dart';
@@ -124,7 +123,7 @@ class NavigateSmartOTPData extends NavigateBase {
   @override
   Country country;
 
-  SmartOTPType? smartOTPType;
+  TradingSmartOTPType? smartOTPType;
   String? pin;
 
   NavigateSmartOTPData(
