@@ -54,7 +54,7 @@ class BankAccountNumberRecurring extends StatelessWidget
                     ? () {
                         Clipboard.setData(ClipboardData(text: va!.accountNo));
                         showSnackBar("Đã sao chép số tài khoản",
-                            type: SnackBarType.success);
+                            type: TdSnackBarType.success);
                       }
                     : null,
               ),

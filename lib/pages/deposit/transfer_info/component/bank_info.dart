@@ -200,7 +200,7 @@ class TransferInfo extends StatelessWidget with BaseCommonWidgets {
                           ? () {
                               Clipboard.setData(ClipboardData(text: content));
                               showSnackBar("Đã sao chép nội dung chuyển khoản",
-                                  type: SnackBarType.success);
+                                  type: TdSnackBarType.success);
                             }
                           : null,
                     ),
