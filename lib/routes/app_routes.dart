@@ -1,6 +1,7 @@
 //part of 'app_pages.dart';
 
 abstract class AppRoutes {
+  static const homeParent = '/home';
   static const mainView = '/main';
   static const boardingIntro = '/boarding_intro_product';
   static const boardingVerifyPolicy = '/boarding_verify_policy';
