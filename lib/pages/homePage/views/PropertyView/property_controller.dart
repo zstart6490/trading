@@ -19,10 +19,10 @@ class HomePropertyController extends BaseController
   @override
   void onReady() {
     super.onReady();
-    getData();
+    getAccountInfo();
   }
 
-  Future<void> getData() async {
+  Future<void> getAccountInfo() async {
     final result = await _homeTradingUseCase.getAccountInfo();
     if (result.data != null) {
       change(result.data, status: RxStatus.success());
