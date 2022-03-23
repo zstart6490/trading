@@ -5,6 +5,7 @@ import 'package:trading_module/data/entities/reason.dart';
 import 'package:trading_module/domain/entities/model.dart';
 import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
+import 'package:trading_module/pages/homePage/views/TradingHeaderView.dart';
 import 'package:trading_module/pages/homePage/views/header_view.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/extensions.dart';
@@ -18,8 +19,8 @@ class HeaderHomeView<T extends HomePageController> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SIZED_BOX_H72,
-        const HeaderView(),
+        SIZED_BOX_H16,
+        const TradingHeaderView(),
         SIZED_BOX_H16,
         MenuOptionView(controller: controller),
         SIZED_BOX_H16,
@@ -59,7 +60,6 @@ class BoardItemCell extends StatelessWidget {
           color: const Color(0xFFF5F6FA)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             item.gstId,
@@ -93,7 +93,6 @@ class BoardItemCell extends StatelessWidget {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 item.gstId,
@@ -186,7 +185,6 @@ class HeaderBoardItem extends StatelessWidget {
         SIZED_BOX_W06,
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [imgUp, imgDown],
         ),
       ],

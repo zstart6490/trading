@@ -23,7 +23,6 @@ class HeaderView extends GetView<HomePageController> {
         ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _MoneyView(title: 'total_property'.tr, value: 888688888, titleStype: const TextStyle(
@@ -97,7 +96,6 @@ class _MoneyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-// import 'package:tikop/utils/util.dart';
 import 'package:trading_module/utils/util.dart';
 
 class Intro9PayComponent extends StatefulWidget {

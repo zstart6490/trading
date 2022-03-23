@@ -3,7 +3,6 @@ import 'package:trading_module/cores/api_services.dart';
 import 'package:trading_module/cores/networking/decoder.dart';
 import 'package:trading_module/data/entities/cash_in_confirm_model_dto.dart';
 import 'package:trading_module/data/entities/cash_in_create_model_dto.dart';
-import 'package:trading_module/data/entities/otp_generate_model_dto.dart';
 
 abstract class CashInService extends ApiServices {
   CashInService() : super();
