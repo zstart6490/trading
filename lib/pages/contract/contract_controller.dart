@@ -20,13 +20,16 @@ class ContractController extends BaseController {
       print(pdfLink);
     }
     pdfController = PdfControllerPinch(
-        document: PdfDocument.openData(InternetFile.get(pdfLink)),
-        );
+      document: PdfDocument.openData(InternetFile.get(pdfLink)),
+    );
     super.onInit();
   }
 
   void openHomeTrading() {
     Get.offAndToNamed(AppRoutes.homeTrading);
+    // Get.back();
+    // Get.offNamedUntil(AppRoutes.homeTrading, ModalRoute.withName(AppRoutes.homeTrading),
+// );
     // showAlertDialog(CustomAlertDialog(
     //     titleWidget: "ic_success".pngImage(),
     //     descWidget: Column(children: const [

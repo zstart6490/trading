@@ -2,23 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
-import 'package:trading_module/data/entities/info_withdraw_dto.dart';
 import 'package:trading_module/domain/entities/bank.dart';
+import 'package:trading_module/domain/entities/info_withdraw.dart';
 import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/domain/use_cases/withdraw_usecase.dart';
-import 'package:trading_module/pages/smart_otp/base_check_smart_otp.dart';
 import 'package:trading_module/routes/app_routes.dart';
-import 'package:trading_module/utils/enums.dart';
 
-class WithdrawController extends BaseController with BaseCheckSmartOTP {
+class ChooseMoneyController extends BaseController  {
   final NavigateWithdrawData data;
   final WithdrawUseCase _withdrawUseCase = Get.find<WithdrawUseCase>();
   late FocusNode focusNode;
   int minMoneyCanWithdraw = 0;
   bool canSelectTotal = false;
 
-
-  WithdrawController(this.data);
+  ChooseMoneyController(this.data);
 
   RxInt otpExpired = 1000.obs;
   int requestAmount = 0;
@@ -26,19 +23,21 @@ class WithdrawController extends BaseController with BaseCheckSmartOTP {
   RxList<UserBank> userBanks = <UserBank>[].obs;
   RxBool isAllin = true.obs;
   RxBool canConfirm = true.obs;
+  RxBool validMinMoney = false.obs;
+  RxBool validMaxMoney = false.obs;
   TextEditingController textEditController = TextEditingController();
   double vatPercent = 5.0;
   int maxMoneyCanWithdraw = 0;
   int multipileOf = 1;
   bool mustAllin = false;
-  InfoWithdraw? withdrawInfo;
+  late InfoWithdraw withdrawInfo;
 
   @override
   void onInit() {
     super.onInit();
     //To-do : get tu api config
     vatPercent = double.parse(mainProvider.configMap?.vatPercent ?? "0");
-    maxMoneyCanWithdraw = data.totalMoneyUser;
+    maxMoneyCanWithdraw = data.totalMoneyUser.toInt();
     minMoneyCanWithdraw =
         int.parse(mainProvider.configMap?.minMoneyUser ?? "50000");
 
@@ -60,7 +59,7 @@ class WithdrawController extends BaseController with BaseCheckSmartOTP {
   Future getListBank() async {
     showProgressingDialog();
     final result = await _withdrawUseCase.listBankUser(
-        tokenApp: mainProvider.dataInputApp.token);
+        tokenApp: mainProvider.dataInputApp.token,);
     hideDialog();
     if (result.data != null) {
       userBanks.clear();
@@ -98,20 +97,24 @@ class WithdrawController extends BaseController with BaseCheckSmartOTP {
 
   void checkRequestAmount() {
     if (isAllin.value) {
-      canConfirm.value = true;
+      canConfirm.value = maxMoneyCanWithdraw>0;
+      requestAmount =maxMoneyCanWithdraw;
     } else {
       requestAmount =
           (int.tryParse(textEditController.text.numericOnly()) ?? 0) *
               multipileOf;
-      canConfirm.value = requestAmount >= minMoneyCanWithdraw &&
+      canConfirm.value = maxMoneyCanWithdraw>0&&requestAmount >= minMoneyCanWithdraw &&
           requestAmount <= data.totalMoneyUser;
+
+      // validMinMoney.value =requestAmount >= minMoneyCanWithdraw;
+      // validMaxMoney.value =requestAmount <= data.totalMoneyUser;
     }
   }
 
   Future<void> onConfirmAmount() async {
     if (selectedBank.value == null) {
       showSnackBar(
-          "Bạn chưa chọn ngân hàng rút tiền. Nếu chưa có bạn hãy thêm ngân hàng mới");
+          "Bạn chưa chọn ngân hàng rút tiền. Nếu chưa có bạn hãy thêm ngân hàng mới",);
       return;
     }
     hideKeyboard();
@@ -119,11 +122,13 @@ class WithdrawController extends BaseController with BaseCheckSmartOTP {
     showProgressingDialog();
     final result = await _withdrawUseCase.createCashOut(
         linkId: selectedBank.value!.id.toString(),
-        amount: requestAmount.toString());
+        amount: requestAmount.toString(),
+        transactionId: (data.transactionId ?? 0).toString());
     //call api rut tien
     hideDialog();
     if (result.data != null) {
       withdrawInfo = result.data!;
+      withdrawInfo.userBank =selectedBank.value;
       // final tranId = withdrawInfo.transactionId;
       moveToConfirmScene();
     } else if (result.error != null) {
@@ -131,9 +136,8 @@ class WithdrawController extends BaseController with BaseCheckSmartOTP {
     }
   }
 
-
   void moveToConfirmScene() {
-    Get.toNamed(AppRoutes.withdrawConfirm);
+    Get.toNamed(AppRoutes.withdrawConfirm,arguments: withdrawInfo);
   }
 
   void onInputOver() {
@@ -152,22 +156,5 @@ class WithdrawController extends BaseController with BaseCheckSmartOTP {
     selectedBank.value = bank;
   }
 
-  Future<void> onConfirm() async {
-    if (dataAppParent.smartOTPEnable) {
-      checkSmartOTPState(SmartOTPType.cashOutTrading);
-    } else {
-      Get.toNamed(AppRoutes.smartOtpVerifySms);
-    }
-  }
 
-  @override
-  void onActive() {
-    mainProvider.callToActiveOTP?.call();
-  }
-
-  @override
-  void onSkip() {
-    Get.toNamed(AppRoutes.smartOtpVerifySms,arguments: SmsOTPType.cashOutTrading);
-  }
 }
-

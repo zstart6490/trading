@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/domain/entities/cash_in_confirm_model.dart';
+import 'package:trading_module/shared_widgets/BankIcon.dart';
 
-import '../../../../shared_widgets/BankIcon.dart';
-import 'package:trading_module/utils/util.dart';
+
 
 class BankListComponent extends StatelessWidget {
   final List<BankCashInModel> banks;

@@ -1,6 +1,7 @@
 //part of 'app_pages.dart';
 
 abstract class AppRoutes {
+  static const homeParent = '/home';
   static const mainView = '/main';
   static const boardingIntro = '/boarding_intro_product';
   static const boardingVerifyPolicy = '/boarding_verify_policy';
@@ -15,6 +16,7 @@ abstract class AppRoutes {
   static const withdrawReasonScene = '/withdraw_reason_scene';
   static const withdrawMoney = '/tradingWithdrawMoney';
   static const withdrawConfirm = '/tradingWithdrawConfirm';
+  static const transactionDetail = '/tradingTransactionDetail';
 
 
   static const tdInputMoneyLocal = "/td_inputMoneyLocal";

@@ -41,28 +41,28 @@ class BaseCommonWidgets implements _CommonWidgetsInterface {
 
   @override
   void showSnackBar(String message,
-      {SnackBarType type = SnackBarType.error,
+      {TdSnackBarType type = TdSnackBarType.error,
       SnackPosition position = SnackPosition.TOP}) {
     Color color;
     Color bgColor;
     String iconPath;
     switch (type) {
-      case SnackBarType.info:
+      case TdSnackBarType.info:
         color = const Color(0xFF2F80ED);
         bgColor = const Color(0xFFD5E6FB);
         iconPath = "assets/images/svg/ic_sb_info.svg";
         break;
-      case SnackBarType.success:
+      case TdSnackBarType.success:
         color = const Color(0xFF2EB872);
         bgColor = const Color(0xFFC2F0D9);
         iconPath = "assets/images/svg/ic_sb_success.svg";
         break;
-      case SnackBarType.error:
+      case TdSnackBarType.error:
         color = const Color(0xFFF46666);
         bgColor = const Color(0xFFFCD1D1);
         iconPath = "assets/images/svg/ic_sb_error.svg";
         break;
-      case SnackBarType.warning:
+      case TdSnackBarType.warning:
         color = const Color(0xFFE6AB3A);
         bgColor = const Color(0xFFFFECC6);
         iconPath = "assets/images/svg/ic_sb_warning.svg";
@@ -109,7 +109,7 @@ class BaseCommonWidgets implements _CommonWidgetsInterface {
 
 abstract class _CommonWidgetsInterface {
   void showProgressingDialog();
-  void showSnackBar(String message, {SnackBarType type = SnackBarType.error});
+  void showSnackBar(String message, {TdSnackBarType type = TdSnackBarType.error});
   void showAlertDialog(Widget dialog,
       {bool dismissable = true, Function onCompleted});
   void bottomSheet(Widget bottomSheet);
