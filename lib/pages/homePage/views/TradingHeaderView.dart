@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 
-class TradingHeaderView extends GetView<HomePageController> {
+class TradingHeaderView <T extends HomePageController> extends StatelessWidget {
   const TradingHeaderView({
-    Key? key,
+    Key? key, required this.controller
   }) : super(key: key);
+  final T controller;
+
 
   @override
   Widget build(BuildContext context) {

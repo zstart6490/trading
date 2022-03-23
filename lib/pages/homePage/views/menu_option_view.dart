@@ -5,8 +5,8 @@ import 'package:trading_module/data/entities/reason.dart';
 import 'package:trading_module/domain/entities/model.dart';
 import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
+import 'package:trading_module/pages/homePage/views/PropertyView/property_view.dart';
 import 'package:trading_module/pages/homePage/views/TradingHeaderView.dart';
-import 'package:trading_module/pages/homePage/views/header_view.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/extensions.dart';
 
@@ -20,7 +20,7 @@ class HeaderHomeView<T extends HomePageController> extends StatelessWidget {
     return Column(
       children: [
         SIZED_BOX_H16,
-        const TradingHeaderView(),
+        const PropertyView(),
         SIZED_BOX_H16,
         MenuOptionView(controller: controller),
         SIZED_BOX_H16,

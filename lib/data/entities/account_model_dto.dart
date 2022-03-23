@@ -27,6 +27,6 @@ class AccountInfoModelDTO {
 
 extension AccountInfoModelMapper on AccountInfoModelDTO {
   AccountInfoModel toModel() {
-    return AccountInfoModel(total:total, interest:interest, stock:stock);
+    return AccountInfoModel(total:total ?? 0, interest:interest ?? 0, stock:stock ?? 0);
   }
 }

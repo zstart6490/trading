@@ -9,7 +9,7 @@ import 'package:trading_module/routes/app_routes.dart';
 
 
 class HomePageController extends BaseController  with GetSingleTickerProviderStateMixin {
-  final timeRange = ["Đang đầu tư".tr, "Đang theo dõi".tr, "Lệnh đã đặt".tr];
+  final timeRange = ["Đang đầu tư".tr, "Đang theo dõi".tr];
   late TabController tabController;
 
   late RefreshController refreshController;

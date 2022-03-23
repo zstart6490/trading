@@ -142,9 +142,13 @@ const PAD_ZERO = EdgeInsets.zero;
 const PAD_ALL12 = EdgeInsets.all(12.0);
 const PAD_ALL16 = EdgeInsets.all(16.0);
 const PAD_ALL06 = EdgeInsets.all(4.0);
+const PAD_ALL08 = EdgeInsets.all(8.0);
 const PAD_BOTTOM_16 = EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0);
 const PAD_ONLY_T20 = EdgeInsets.only(top: 20);
 const PAD_ONLY_R20 = EdgeInsets.only(right: 20);
+const PAD_TOP_16 = EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0);
+const PAD_SYM_H16_B24 = EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0);
+
 
 /// MARGIN
 const MAR_ZERO = EdgeInsets.zero;
