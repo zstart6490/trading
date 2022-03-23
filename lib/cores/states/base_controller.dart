@@ -68,9 +68,6 @@ abstract class BaseController extends GetxController
   void backToHome({int selectTab = 0}) {
     Get.until(ModalRoute.withName(AppRoutes.homeTrading));
     Get.find<HomePageController>().selTab(selectTab);
-    // Get.until((route) => Get.currentRoute == Routes.main);
-    // Get.find<MainTabController>().selTab(selectTab);
-    Get.back();
   }
 
   bool _shouldShowDialog(String? dialogName) {

@@ -48,9 +48,7 @@ class TDTransferInfoController extends BaseController
   @override
   void onReady() {
     super.onReady();
-    const Duration(milliseconds: 1000)
-        .delay()
-        .then((value) => onLoadingFinish());
+
     cashInConfirm();
   }
 
@@ -149,6 +147,10 @@ class TDTransferInfoController extends BaseController
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
     }
+
+    const Duration(milliseconds: 600)
+        .delay()
+        .then((value) => getPositionWidget());
   }
 
 
@@ -167,7 +169,6 @@ class TDTransferInfoController extends BaseController
               text: "Đã hoàn thành",
               isDefaultAction: true,
               onPressed: () {
-                Get.back();
                 DUR_250.delay().then((value) => onFinish());
               }),
         ]);
@@ -178,7 +179,4 @@ class TDTransferInfoController extends BaseController
     backToHome();
   }
 
-  void onLoadingFinish() {
-    getPositionWidget();
-  }
 }

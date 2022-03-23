@@ -12,10 +12,7 @@ class TDTransferInfoBinding extends Bindings {
   void dependencies() {
     final arg = Get.arguments;
     if (arg is CashInCreateModel) {
-      Get.lazyPut(() => TDTransferInfoController(data: arg));
-
-      Get.lazyPut<CashInRepo>(() => CashInRepoImpl(CashInServiceImpl()));
-      Get.lazyPut<CashInUseCase>(() => CashInUseCase(Get.find()));
+      Get.lazyPut<CashInUseCase>(() => CashInUseCase(CashInRepoImpl(CashInServiceImpl())));
       Get.lazyPut(() => TDTransferInfoController(data: arg));
     }
   }

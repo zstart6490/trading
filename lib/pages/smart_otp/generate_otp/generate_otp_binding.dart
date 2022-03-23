@@ -12,8 +12,7 @@ class GenerateOtpBinding extends Bindings {
   void dependencies() {
     final arg = Get.arguments;
     if (arg is List) {
-      Get.lazyPut<OtpRepo>(() => OtpRepoImpl(OtpServiceImpl()));
-      Get.lazyPut<OtpUseCase>(() => OtpUseCase(Get.find()));
+      Get.lazyPut<OtpUseCase>(() => OtpUseCase(OtpRepoImpl(OtpServiceImpl())));
       Get.lazyPut(() => GenerateOtpController(
           pin: arg[0] as String,
           initOTP: arg[1] as String,

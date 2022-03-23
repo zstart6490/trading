@@ -12,10 +12,8 @@ class VerifySMSOTPBinding extends Bindings {
   void dependencies() {
     final arg = Get.arguments;
     if(arg is SmsOTPType){
-      Get.lazyPut<OtpRepo>(() => OtpRepoImpl(OtpServiceImpl()));
-      Get.lazyPut<OtpUseCase>(() => OtpUseCase(Get.find()));
+      Get.lazyPut<OtpUseCase>(() => OtpUseCase(OtpRepoImpl(OtpServiceImpl())));
       Get.lazyPut(() => VerifySMSOTPController(arg));
     }
-
   }
 }

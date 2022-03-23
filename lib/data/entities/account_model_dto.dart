@@ -4,16 +4,24 @@ import 'package:trading_module/domain/entities/account_info_model.dart';
 
 part 'account_model_dto.g.dart';
 
+
 @JsonSerializable()
 class AccountInfoModelDTO {
   @JsonKey(name: "total")
   final double? total;
+  @JsonKey(name: "stockBalance")
+  final double? stockBalance;
+  @JsonKey(name: "cashBalance")
+  final double? cashBalance;
   @JsonKey(name: "interest")
   final double? interest;
-  @JsonKey(name: "stock")
-  final double? stock;
+  @JsonKey(name: "pendingCashIn")
+  final double? pendingCashIn;
+  @JsonKey(name: "pendingCashOut")
+  final double? pendingCashOut;
 
-  AccountInfoModelDTO(this.total,this.interest,this.stock);
+
+  AccountInfoModelDTO(this.total,this.stockBalance,this.cashBalance,this.interest,this.pendingCashIn,this.pendingCashOut);
 
   static AccountInfoModelDTO fromResult(dynamic data) =>
       AccountInfoModelDTO.fromJson(data as Map<String, dynamic>);
@@ -27,6 +35,6 @@ class AccountInfoModelDTO {
 
 extension AccountInfoModelMapper on AccountInfoModelDTO {
   AccountInfoModel toModel() {
-    return AccountInfoModel(total:total ?? 0, interest:interest ?? 0, stock:stock ?? 0);
+    return AccountInfoModel(total:total ?? 0,stockBalance: stockBalance ?? 0, cashBalance: cashBalance ?? 0, interest: interest ?? 0, pendingCashIn: pendingCashIn ?? 0, pendingCashOut: pendingCashOut ?? 0);
   }
 }

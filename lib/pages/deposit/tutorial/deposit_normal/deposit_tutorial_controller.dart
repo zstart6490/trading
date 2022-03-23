@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:tikop/base/stateManagement/base_controller.dart';
-// import 'package:tikop/utils/util.dart';
-
-
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/utils/util.dart';
 

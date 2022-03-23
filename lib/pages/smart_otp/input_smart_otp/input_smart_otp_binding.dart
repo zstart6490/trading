@@ -9,10 +9,9 @@ import 'package:trading_module/utils/enums.dart';
 class InputSmartOTPBinding extends Bindings {
   @override
   void dependencies() {
-    var arg = Get.arguments;
+    final arg = Get.arguments;
     if (arg is TradingSmartOTPType) {
-      Get.lazyPut<OtpRepo>(() => OtpRepoImpl(OtpServiceImpl()));
-      Get.lazyPut<OtpUseCase>(() => OtpUseCase(Get.find()));
+      Get.lazyPut<OtpUseCase>(() => OtpUseCase(OtpRepoImpl(OtpServiceImpl())));
       Get.lazyPut(() => InputSmartOTPController(arg));
     }
   }

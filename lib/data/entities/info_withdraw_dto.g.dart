@@ -13,7 +13,17 @@ InfoWithdrawDto _$InfoWithdrawDtoFromJson(Map<String, dynamic> json) =>
       linkId: json['linkId'] as String?,
       balance: json['balance'] as num?,
       feeAmount: json['feeAmount'] as num?,
-      finalAmount: json['receiveAmount'] as num?,
-      remainAmount: json['remainingBalance'] as num?,
+      finalAmount: json['finalAmount'] as num?,
+      remainAmount: json['remainAmount'] as num?,
     );
 
+Map<String, dynamic> _$InfoWithdrawDtoToJson(InfoWithdrawDto instance) =>
+    <String, dynamic>{
+      'transactionId': instance.transactionId,
+      'linkId': instance.linkId,
+      'amount': instance.amount,
+      'feeAmount': instance.feeAmount,
+      'balance': instance.balance,
+      'finalAmount': instance.finalAmount,
+      'remainAmount': instance.remainAmount,
+    };

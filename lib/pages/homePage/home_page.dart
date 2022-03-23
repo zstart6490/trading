@@ -16,6 +16,7 @@ class HomePageView extends GetView<HomePageController> {
         textScaleFactor: 1,
       ),
       child: Scaffold(
+        backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text(
