@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
+import 'package:trading_module/utils/extensions.dart';
 
 class TradingHeaderView <T extends HomePageController> extends StatelessWidget {
   const TradingHeaderView({
@@ -211,13 +211,10 @@ class TradingHeaderView <T extends HomePageController> extends StatelessWidget {
             ),
           ]),
         ),
-        const Positioned(
+         Positioned(
           right: 0,
           bottom: 10,
-          child: Image(
-            image: AssetImage("assets/images/png/bg_trading_home_property.png",
-                package: "trading_module"),
-          ),
+          child: "bg_trading_home_property".pngImage(),
         ),
       ],
     );

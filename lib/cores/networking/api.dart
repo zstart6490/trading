@@ -268,13 +268,18 @@ class Api extends GetConnect {
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-    return Result(msg: "onTimeOut=$endPoint", success: false, code: -1);
+    log("onTimeOut=$endPoint");
+    return Result(msg: "Request TimeOut. Please come back in a few minutes", success: false, code: -1);
   }
 
   Future<Result> onServerError(
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-    return Result(msg: "onServerError=$endPoint", success: false, code: -1);
+    log("onServerError=$endPoint");
+    return Result(
+        msg: "Server Error. Please come back in a few minutes",
+        success: false,
+        code: -1);
   }
 }
