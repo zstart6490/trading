@@ -10,16 +10,19 @@ class DataInputApp {
   String? phoneCountryCode;
   String? fbDeviceId;
   bool? configSmartOTPEnable;
+  bool? hasAddBank;
 
   bool get smartOTPEnable => configSmartOTPEnable ?? true;
 
-  DataInputApp(
-      {this.userIsRegisteredKyc,
-      this.userIsRegisteredOTP,
-      required this.token,
-      this.email,
-      this.phone,
-      this.phoneCountryCode,
-      this.fbDeviceId,
-      this.configSmartOTPEnable});
+  DataInputApp({
+    this.userIsRegisteredKyc,
+    this.userIsRegisteredOTP,
+    required this.token,
+    this.email,
+    this.phone,
+    this.phoneCountryCode,
+    this.fbDeviceId,
+    this.configSmartOTPEnable,
+    this.hasAddBank,
+  });
 }

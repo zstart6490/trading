@@ -31,7 +31,7 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
         //SUCCESS
         mainProvider.accessToken = resp.data?.token;
         // mainProvider.userData = resp.data?.userData;
-        checkSmartOTPState(SmartOTPType.registerTrading);
+        checkSmartOTPState(TradingSmartOTPType.registerTrading);
       } else {
         handleErrorResponse(resp.error);
       }
@@ -105,7 +105,7 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
 
   @override
   void onActive() {
-    mainProvider.callToActiveOTP?.call();
+    mainProvider.callToActiveOTP?.call(TradingSmartOTPType.registerTrading);
   }
 
   @override

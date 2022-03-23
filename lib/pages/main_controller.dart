@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/kyc_status.dart';
 import 'package:trading_module/domain/entities/data_login.dart';
 import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/utils/enums.dart';
 
 class MainController extends BaseController {
   final UserOnBoardingUseCase _boardingUseCase =
@@ -47,7 +47,7 @@ class MainController extends BaseController {
             }
           ]);
         } else if (dataLogin?.nextScreen == "CONFIRM") {
-          mainProvider.callToActiveOTP?.call();
+          mainProvider.callToActiveOTP?.call(TradingSmartOTPType.registerTrading);
         } else if (dataLogin?.nextScreen == "HOME") {
           //To Home
           mainProvider.accessToken = dataLogin?.token;
@@ -75,8 +75,8 @@ class MainController extends BaseController {
     if (respData.data != null) {
       if (respData.data?.token != null) {
         mainProvider.accessToken = respData.data?.token;
-        mainProvider.box.write(AUTH_TOKEN_KEY, respData.data?.token);
       }
     }
+    callBack.call();
   }
 }

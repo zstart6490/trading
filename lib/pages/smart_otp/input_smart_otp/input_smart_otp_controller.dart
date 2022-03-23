@@ -9,7 +9,7 @@ import 'package:trading_module/utils/enums.dart';
 
 class InputSmartOTPController extends BaseController {
   RxBool isError = false.obs;
-  final SmartOTPType type;
+  final TradingSmartOTPType type;
   late FocusNode focusNode;
   late TextEditingController textEditingController;
   RxString errorText = "".obs;
@@ -98,7 +98,7 @@ class InputSmartOTPController extends BaseController {
       _showDialogNotify(result.error!.message);
     } else if (result.data != null) {
       //call qua tikop doi ma pin
-      mainProvider.callToForgetPin?.call();
+      mainProvider.callToForgetPin?.call(type);
     }
   }
 }

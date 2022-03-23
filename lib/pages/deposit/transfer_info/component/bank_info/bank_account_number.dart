@@ -54,7 +54,7 @@ class BankAccountNumber extends StatelessWidget with BaseCommonWidgets {
                         Clipboard.setData(
                             ClipboardData(text: bank!.accountNo));
                         showSnackBar("Đã sao chép số tài khoản",
-                            type: SnackBarType.success);
+                            type: TdSnackBarType.success);
                       }
                     : null,
               ),

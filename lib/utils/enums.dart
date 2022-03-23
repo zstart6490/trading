@@ -184,12 +184,12 @@ enum OptionGuide {
   bankAccount,
   paymentContent,
 }
-enum SnackBarType { info, success, error, warning }
-enum SmartOTPType {
-  fromAppParent,
+enum TdSnackBarType { info, success, error, warning }
+enum TradingSmartOTPType {
   registerTrading,
   cashOutTrading,
-  cashInTrading
+  forgotToRegister,
+  forgotToCashOut,
 }
 enum SmsOTPType {
   registerTrading,

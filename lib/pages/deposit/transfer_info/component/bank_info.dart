@@ -5,17 +5,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
 import 'package:trading_module/data/entities/naptien/Transaction.dart';
 import 'package:trading_module/domain/entities/cash_in_confirm_model.dart';
+import 'package:trading_module/pages/deposit/transfer_info/component/bank_info/bank_account_number.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/shared_widgets/CustomShadow.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/util.dart';
 
-import 'bank_info/bank_account_number.dart';
-
 class BankInfoComponent extends StatelessWidget {
   final BankCashInModel bank;
   final Transaction transaction;
   final int amount;
+
   const BankInfoComponent(
       {Key? key,
       required this.bank,
@@ -200,7 +200,7 @@ class TransferInfo extends StatelessWidget with BaseCommonWidgets {
                           ? () {
                               Clipboard.setData(ClipboardData(text: content));
                               showSnackBar("Đã sao chép nội dung chuyển khoản",
-                                  type: SnackBarType.success);
+                                  type: TdSnackBarType.success);
                             }
                           : null,
                     ),
