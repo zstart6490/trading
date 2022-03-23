@@ -247,7 +247,7 @@ class MenuOptionView <T extends HomePageController>  extends StatelessWidget{
               title: 'top_up'.tr,
               icon: Image.asset("assets/images/png/ic_top_up.png",package: "trading_module"),
               onPressed: () {
-              controller.gotoSaving();
+              //controller.gotoSaving();
               }),
           ButtonWithIconAndText(
               title: 'cash_drawing'.tr,
