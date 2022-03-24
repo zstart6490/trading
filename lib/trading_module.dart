@@ -43,6 +43,7 @@ class TradingModule {
     Function(Function()? onComplete)? callToAddBank,
     Function(TradingSmartOTPType smartOTPType)? callToActiveSmartOtpPin,
     Function(TradingSmartOTPType smartOTPType)? callToForgetPin,
+    Function()? callToSignIn,
   }) async {
     //setup getx
     Get.addPages(AppPages.tradingRoutes);
@@ -66,7 +67,7 @@ class TradingModule {
     print("===data input===");
     if (!Get.isRegistered<MainTradingProvider>()) {
       Get.put<MainTradingProvider>(MainTradingProvider(dataInput, callToEKYC,
-          callToAddBank, callToActiveSmartOtpPin, callToForgetPin));
+          callToAddBank, callToActiveSmartOtpPin, callToForgetPin,callToSignIn));
     } else {
       Get.find<MainTradingProvider>().dataInputApp = dataInput;
     }

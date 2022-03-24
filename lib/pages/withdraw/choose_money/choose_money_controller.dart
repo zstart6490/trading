@@ -8,7 +8,7 @@ import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/domain/use_cases/withdraw_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
-class ChooseMoneyController extends BaseController  {
+class ChooseMoneyController extends BaseController {
   final NavigateWithdrawData data;
   final WithdrawUseCase _withdrawUseCase = Get.find<WithdrawUseCase>();
   late FocusNode focusNode;
@@ -30,6 +30,7 @@ class ChooseMoneyController extends BaseController  {
   int maxMoneyCanWithdraw = 0;
   int multipileOf = 1;
   bool mustAllin = false;
+  RxBool isEmptyText = true.obs;
   late InfoWithdraw withdrawInfo;
 
   @override
@@ -47,6 +48,10 @@ class ChooseMoneyController extends BaseController  {
         setAllin(false);
       }
     });
+    textEditController.addListener(() {
+      isEmptyText.value =textEditController.value.text.isEmpty;
+      // print("abc");
+    });
   }
 
   @override
@@ -59,7 +64,8 @@ class ChooseMoneyController extends BaseController  {
   Future getListBank() async {
     showProgressingDialog();
     final result = await _withdrawUseCase.listBankUser(
-        tokenApp: mainProvider.dataInputApp.token,);
+      tokenApp: mainProvider.dataInputApp.token,
+    );
     hideDialog();
     if (result.data != null) {
       userBanks.clear();
@@ -97,13 +103,14 @@ class ChooseMoneyController extends BaseController  {
 
   void checkRequestAmount() {
     if (isAllin.value) {
-      canConfirm.value = maxMoneyCanWithdraw>0;
-      requestAmount =maxMoneyCanWithdraw;
+      canConfirm.value = maxMoneyCanWithdraw > 0;
+      requestAmount = maxMoneyCanWithdraw;
     } else {
       requestAmount =
           (int.tryParse(textEditController.text.numericOnly()) ?? 0) *
               multipileOf;
-      canConfirm.value = maxMoneyCanWithdraw>0&&requestAmount >= minMoneyCanWithdraw &&
+      canConfirm.value = maxMoneyCanWithdraw > 0 &&
+          requestAmount >= minMoneyCanWithdraw &&
           requestAmount <= data.totalMoneyUser;
 
       // validMinMoney.value =requestAmount >= minMoneyCanWithdraw;
@@ -114,7 +121,8 @@ class ChooseMoneyController extends BaseController  {
   Future<void> onConfirmAmount() async {
     if (selectedBank.value == null) {
       showSnackBar(
-          "Bạn chưa chọn ngân hàng rút tiền. Nếu chưa có bạn hãy thêm ngân hàng mới",);
+        "Bạn chưa chọn ngân hàng rút tiền. Nếu chưa có bạn hãy thêm ngân hàng mới",
+      );
       return;
     }
     hideKeyboard();
@@ -128,7 +136,7 @@ class ChooseMoneyController extends BaseController  {
     hideDialog();
     if (result.data != null) {
       withdrawInfo = result.data!;
-      withdrawInfo.userBank =selectedBank.value;
+      withdrawInfo.userBank = selectedBank.value;
       // final tranId = withdrawInfo.transactionId;
       moveToConfirmScene();
     } else if (result.error != null) {
@@ -137,7 +145,7 @@ class ChooseMoneyController extends BaseController  {
   }
 
   void moveToConfirmScene() {
-    Get.toNamed(AppRoutes.withdrawConfirm,arguments: withdrawInfo);
+    Get.toNamed(AppRoutes.withdrawConfirm, arguments: withdrawInfo);
   }
 
   void onInputOver() {
@@ -156,5 +164,7 @@ class ChooseMoneyController extends BaseController  {
     selectedBank.value = bank;
   }
 
-
+  void clearText() {
+    textEditController.clear();
+  }
 }

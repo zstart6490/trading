@@ -65,17 +65,7 @@ class WithdrawController extends BaseController with BaseCheckSmartOTP {
   Future verifySMS() async {
     Get.toNamed(AppRoutes.smartOtpVerifySms,
         arguments: SmsOTPType.cashOutTrading);
-    // if (data != null) {
-    //   print("OTP CODE $data");
-    //   showProgressingDialog();
-    //   var result = await _withdrawUseCase.confirmCashOut(
-    //     otp: data as String,
-    //     otpMethod: OTPMethod.sms.name,
-    //     tokenParent: dataAppParent.token,
-    //     transactionId: (withdrawInfo.transactionId).toString(),
-    //   );
-    //   hideDialog();
-    // }
+
   }
 
   void onAddBank() {}

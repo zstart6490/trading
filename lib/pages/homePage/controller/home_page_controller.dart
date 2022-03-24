@@ -73,7 +73,7 @@ class HomePageController extends BaseController
               arguments: NavigateWithdrawData(
                   listReason: result.data!,
                   listUserBank: [],
-                  totalMoneyUser: 5000000));
+                  totalMoneyUser: balance));
         }
         if (result.error != null) {
           showSnackBar(result.error!.message);
