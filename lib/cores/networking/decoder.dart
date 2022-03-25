@@ -1,4 +1,3 @@
-
 import 'package:trading_module/cores/networking/result.dart';
 
 typedef Decoder<T> = T Function(dynamic data);
@@ -18,9 +17,10 @@ class BaseDecoder<T> {
 
   String? get msg => result.msg;
 
-  int get code => result.code;
+  int get code => result.code ?? -1;
 
-  Errors? get error => hasError?Errors(result.code,result.msg):null;
+  Errors? get error =>
+      hasError ? Errors(result.code ?? -1, result.msg ?? "") : null;
 
   T get modelDTO => decoded();
 

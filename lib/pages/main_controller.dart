@@ -30,7 +30,7 @@ class MainController extends BaseController {
       if (kDebugMode) {
         print("TradingToken=$accessToken");
       }
-      Get.toNamed(AppRoutes.homeTrading);
+      Get.toNamed(AppRoutes.homeTrading,preventDuplicates: false);
     } else {
       final respData = await _boardingUseCase.getDataLoginUser(
         token: dataInput.token,

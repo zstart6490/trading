@@ -8,13 +8,16 @@ import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/enums.dart';
 
-class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
+class VerifyPolicyController extends BaseController with BaseCheckSmartOTP {
   final UserOnBoardingUseCase _boardingUseCase =
       Get.find<UserOnBoardingUseCase>();
+
+
 
   final DataLogin? dataLogin;
 
   VerifyPolicyController({this.dataLogin});
+
 
   Future acceptTermAndVerify() async {
     final dataInput = mainProvider.dataInputApp;
@@ -31,7 +34,7 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
         //SUCCESS
         mainProvider.accessToken = resp.data?.token;
         // mainProvider.userData = resp.data?.userData;
-        checkSmartOTPState(TradingSmartOTPType.registerTrading);
+       await checkSmartOTPState(TradingSmartOTPType.registerTrading);
       } else {
         handleErrorResponse(resp.error);
       }
@@ -46,7 +49,6 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
       }
     }
   }
-
 
   void showPopupRequiredKYC(String title, String content) {
     showAlertDialog(CustomAlertDialog(title: title, desc: content, actions: [
@@ -110,6 +112,13 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP{
 
   @override
   void onSkip() {
-    Get.toNamed(AppRoutes.smartOtpVerifySms,arguments: SmsOTPType.registerTrading);
+    Get.toNamed(AppRoutes.smartOtpVerifySms,
+        arguments: SmsOTPType.registerTrading);
+  }
+
+  void gotoHomeParent() {
+    Get.back();
+    Get.back();
+    // Get.offAllNamed(AppRoutes.homeParent);
   }
 }

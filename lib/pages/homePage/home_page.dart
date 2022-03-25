@@ -20,7 +20,7 @@ class HomePageView extends GetView<HomePageController> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text(
-            "Tài sản",
+            "Chứng khoán",
             style: TextStyle(
                 fontSize: context.textSize18.fontSize, color: Colors.white),
           ),

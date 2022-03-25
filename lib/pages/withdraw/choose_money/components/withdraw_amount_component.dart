@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_view_model.dart';
 import 'package:trading_module/pages/withdraw/choose_money/choose_money_controller.dart';
@@ -71,6 +72,22 @@ class WithdrawAmountComponent extends BaseViewModel<ChooseMoneyController> {
                                         fillColor: context.backgroundColor,
                                       ),
                                     ))),
+                            Visibility(
+                              visible: !controller.isEmptyText.value,
+                              child: InkWell(
+                                onTap: () {
+                                  controller.clearText();
+                                },
+                                child: SvgPicture.asset(
+                                  "assets/images/svg/ic_close.svg",
+                                  width: 16,
+                                  height: 16,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 24,
+                            ),
                             Icon(
                               !isAllin
                                   ? Icons.check_circle

@@ -4,11 +4,15 @@ import 'dart:developer';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_navigation/src/dialog/dialog_route.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/pages/main_controller.dart';
 import 'package:trading_module/pages/main_provider.dart';
+import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/trading_module.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 enum Method { GET, POST, DELETE }
@@ -43,11 +47,11 @@ class Api extends GetConnect {
       request.headers["App-Ver"] = mainProvider.appVersion;
       request.headers["Trading-Ver"] = mainProvider.appTradingVersion;
       request.headers["Device-ID"] = mainProvider.deviceId;
-      request.headers['Authorization'] = authorization;
+      request.headers['Authorization'] = mainProvider.accessToken??"";
       request.headers['X-Request-ID'] = generateMd5(
           "$userId${DateTime.now().millisecond.toString()}${4.genRandom()}");
       if (kDebugMode) {
-        log(request.headers.toString(), name: baseUrl);
+        log(request.headers.toString(), name: request.url.path);
       }
       return request;
     });
@@ -238,24 +242,95 @@ class Api extends GetConnect {
 
   Result handlerResult(Result result, {String? endPoint}) {
     if (!result.success) {
-      if (result.code == 100) {
-        //token khong hop le
-        print(result.msg);
-        return result;
-      } else if (result.code == 401) {
-        //UNAUTHORIZED
-        Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
-        print(result.msg);
-        // Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
-        return result;
+      if (result.code == 401) {
+        onSessionTimeout(result);
+        return Result();
       } else if (result.code == SESSION_TIMEOUT_CODE) {
         //UNAUTHORIZED
-        print(result.msg);
         Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
-        return result;
+        return Result();
+      } else if (result.code == BLOCK_OTP_1_CODE ||
+          result.code == BLOCK_OTP_2_CODE) {
+        onBlockOTP(result, endPoint: endPoint);
+        return Result();
+      } else if (result.code == BLOCK_SMART_OTP_CODE) {
+        onBlockSmartOtp(result);
+        return Result();
       }
     }
     return result;
+  }
+
+  void onBlockSmartOtp(Result result) {
+    final dialog = CustomAlertDialog(
+      title: "Tài khoản tạm khóa OTP",
+      desc: result.error?.message ?? "",
+      actions: [
+        AlertAction.ok(() {
+          Get.back();
+          // Get.find<MainTabController>().selTab(0);
+        })
+      ],
+    );
+    _showMessageDialog(dialog, name: "BlockSmartOTP", canDissmiss: false);
+  }
+
+  void onBlockOTP(Result result, {String? endPoint}) {
+    if (Get.isBottomSheetOpen ?? false) Get.back();
+
+    final dialog = CustomAlertDialog(
+      title: "Thông báo",
+      desc: result.error?.message ?? "",
+      actions: [
+        AlertAction.ok(() {
+          Get.back();
+          // Get.until(ModalRoute.withName(Routes.home));
+        })
+      ],
+    );
+
+    _showMessageDialog(dialog, name: "BlockOTP", canDissmiss: false);
+  }
+
+  void onSessionTimeout(Result result) {
+    // print("kkkkkkkkkkkkkk");
+    final dialog = CustomAlertDialog(
+      desc: result.error?.message,
+      actions: [
+        AlertAction(
+            text: "Đã hiểu",
+            isDefaultAction: true,
+            onPressed: () {
+              Get.back();
+              TradingModule.clearCache();
+              Get.find<MainTradingProvider>().callToSignIn?.call();
+            })
+      ],
+    );
+    _showMessageDialog(dialog, name: "SessionTimeout", canDissmiss: false);
+  }
+
+  void _showMessageDialog(Widget dialog,
+      {String? name, bool canDissmiss = true}) {
+    if (shouldShowDialog(name)) {
+      if (Get.isDialogOpen ?? false) {
+        Get.back();
+        DUR_250.delay().then((value) =>
+            Get.dialog<Result>(dialog, barrierDismissible: canDissmiss));
+      } else {
+        Get.dialog<Result>(dialog, barrierDismissible: canDissmiss, name: name);
+      }
+    }
+  }
+
+  bool shouldShowDialog(String? dialogName) {
+    if (!(Get.isDialogOpen ?? false)) return true;
+    final route = Get.rawRoute;
+    if (dialogName != null && route is GetDialogRoute) {
+      return route.settings.name != dialogName &&
+          route.settings.name != "NetworkError";
+    }
+    return true;
   }
 
   void refreshTokenSuccess() {
@@ -268,13 +343,21 @@ class Api extends GetConnect {
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-    return Result(msg: "onTimeOut=$endPoint", success: false, code: -1);
+    log("onTimeOut=$endPoint");
+    return Result(
+        msg: "Request TimeOut. Please come back in a few minutes",
+        success: false,
+        code: -1);
   }
 
   Future<Result> onServerError(
       {Method method = Method.GET,
       required String endPoint,
       dynamic params}) async {
-    return Result(msg: "onServerError=$endPoint", success: false, code: -1);
+    log("onServerError=$endPoint");
+    return Result(
+        msg: "Server Error. Please come back in a few minutes",
+        success: false,
+        code: -1);
   }
 }
