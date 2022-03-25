@@ -12,6 +12,7 @@ import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/pages/main_controller.dart';
 import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/trading_module.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 enum Method { GET, POST, DELETE }
@@ -46,11 +47,11 @@ class Api extends GetConnect {
       request.headers["App-Ver"] = mainProvider.appVersion;
       request.headers["Trading-Ver"] = mainProvider.appTradingVersion;
       request.headers["Device-ID"] = mainProvider.deviceId;
-      request.headers['Authorization'] = authorization;
+      request.headers['Authorization'] = mainProvider.accessToken??"";
       request.headers['X-Request-ID'] = generateMd5(
           "$userId${DateTime.now().millisecond.toString()}${4.genRandom()}");
       if (kDebugMode) {
-        log(request.headers.toString(), name: baseUrl);
+        log(request.headers.toString(), name: request.url.path);
       }
       return request;
     });
@@ -241,11 +242,7 @@ class Api extends GetConnect {
 
   Result handlerResult(Result result, {String? endPoint}) {
     if (!result.success) {
-      if (result.code == 100) {
-        //token khong hop le
-        onSessionTimeout(result);
-        return Result();
-      } else if (result.code == 401) {
+      if (result.code == 401) {
         onSessionTimeout(result);
         return Result();
       } else if (result.code == SESSION_TIMEOUT_CODE) {
@@ -305,6 +302,7 @@ class Api extends GetConnect {
             isDefaultAction: true,
             onPressed: () {
               Get.back();
+              TradingModule.clearCache();
               Get.find<MainTradingProvider>().callToSignIn?.call();
             })
       ],
