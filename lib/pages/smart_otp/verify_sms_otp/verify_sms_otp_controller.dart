@@ -133,11 +133,9 @@ class VerifySMSOTPController extends OtpExpiredController {
   }
 
   Future<void> generateOTP() async {
-    print("AAAA");
     final result = await _otpUseCase.generateOTP(
         "", mainProvider.dataInputApp.token, OTPMethod.sms.name);
     if (result.error != null) {
-      print("VBBBB");
       focusState.value = false;
       final error = result.error!;
       if (error.code == BLOCK_OTP_1_CODE || error.code == BLOCK_OTP_2_CODE) {
@@ -146,7 +144,6 @@ class VerifySMSOTPController extends OtpExpiredController {
         errors.value = error;
       }
     } else {
-      print("CCCCC");
       endTimer();
 
     }

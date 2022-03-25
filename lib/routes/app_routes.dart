@@ -18,7 +18,6 @@ abstract class AppRoutes {
   static const withdrawConfirm = '/tradingWithdrawConfirm';
   static const transactionDetail = '/tradingTransactionDetail';
 
-
   static const tdInputMoneyLocal = "/td_inputMoneyLocal";
   static const tdTransactionConfirm = "/td_transactionConfirm";
   static const tdTransferType = "/td_transferType";

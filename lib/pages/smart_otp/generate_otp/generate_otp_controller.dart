@@ -133,14 +133,13 @@ class GenerateOtpController extends BaseController with WidgetsBindingObserver {
 
   Future<void> onConfirm() async {
     endTimer();
-    if (type == TradingSmartOTPType.registerTrading) {
+    print(type);
+    if (type == TradingSmartOTPType.registerTrading || type == TradingSmartOTPType.forgotToRegister) {
       showProgressingDialog();
       final result = await _otpUseCase.confirmOTP(
           otp.value, OTPMethod.smart.name, mainProvider.dataInputApp.token);
       hideDialog();
       if (result.data?.state == "VALID") {
-        // Get.offAndToNamed(AppRoutes.contractPage,
-        //     arguments: result.data?.contractLink ?? "");
         Get.offNamedUntil(AppRoutes.contractPage,
             ModalRoute.withName(AppRoutes.homeParent),arguments: result.data?.contractLink ?? "");
       } else if (result.error != null) {

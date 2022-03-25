@@ -102,8 +102,14 @@ class TradingModule {
         break;
       case CallbackType.resultForgetSmartOTP:
         if (dataCallback.smartOTPType != null) {
-          Get.toNamed(AppRoutes.smartOtpInput,
-              arguments: dataCallback.smartOTPType);
+          // Get.toNamed(AppRoutes.smartOtpInput,
+          //     arguments: dataCallback.smartOTPType);
+
+          Get.toNamed(AppRoutes.smartOtpGenerate, arguments: [
+            dataCallback.otpPin ?? "",
+            "",
+            dataCallback.smartOTPType
+          ]);
         }
         break;
     }
