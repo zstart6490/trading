@@ -5,6 +5,10 @@ abstract class BaseConfig {
   EnvironmentConfiguration get environment;
   String get host;
   String get protocol;
+
+  String get marketHost;
+  String get marketProtocol;
+
   String get appName;
   String get appBundle;
 }
@@ -17,6 +21,10 @@ class DevConfig implements BaseConfig {
   String get host => "104.199.179.48:8501";
   @override
   String get protocol => "http://";
+  @override
+  String get marketHost => "104.199.179.48:8910";
+  @override
+  String get marketProtocol => "http://";
   @override
   String get appName => "Trading-Dev";
   @override
@@ -31,10 +39,10 @@ class StagingConfig implements BaseConfig {
   String get host => "stg-api.trading.vn";
   @override
   String get protocol => "https://";
-  // @override
-  // String get host => "104.199.179.48:8501";
-  // @override
-  // String get protocol => "http://";
+  @override
+  String get marketHost => "104.199.179.48:8910";
+  @override
+  String get marketProtocol => "http://";
   @override
   String get appName => "Trading-Stg";
   @override
@@ -49,10 +57,10 @@ class ProdConfig implements BaseConfig {
   String get host => "api.trading.vn";
   @override
   String get protocol => "https://";
-  // @override
-  // String get host => "104.199.179.48:8501";
-  // @override
-  // String get protocol => "http://";
+  @override
+  String get marketHost => "104.199.179.48:8910";
+  @override
+  String get marketProtocol => "http://";
   @override
   String get appName => "Trading";
   @override
@@ -86,5 +94,6 @@ class Environment {
 
 
   String get backendUrl => '${config.protocol}${config.host}';
+  String get maketUrl => '${config.marketProtocol}${config.marketHost}';
   bool get isProduct => config.environment == EnvironmentConfiguration.product;
 }
