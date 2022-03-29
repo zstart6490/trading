@@ -30,7 +30,7 @@ class IntroController extends BaseController with StateMixin<MsgMap> {
   void toAcceptTerm() {
 
     //Get.toNamed(AppRoutes.SMART_OPT_VERIFY_SMS);
-    Get.offAndToNamed(AppRoutes.boardingVerifyPolicy, arguments: [
+    Get.toNamed(AppRoutes.boardingVerifyPolicy, arguments: [
       {
         'data_login': dataLogin,
       }

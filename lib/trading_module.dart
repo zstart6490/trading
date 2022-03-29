@@ -34,7 +34,7 @@ class DataCallback {
 }
 
 class TradingModule {
-  static String versionTrading = "-dev-1.0.0.2";
+  static String versionTrading = "-dev-1.0.1.0";
 
   static Future openTradingModule({
     required BuildContext context,
@@ -43,16 +43,10 @@ class TradingModule {
     Function(Function()? onComplete)? callToAddBank,
     Function(TradingSmartOTPType smartOTPType)? callToActiveSmartOtpPin,
     Function(TradingSmartOTPType smartOTPType)? callToForgetPin,
+    Function()? callToSignIn,
   }) async {
-    //setup getx
-    Get.addPages(AppPages.tradingRoutes);
-    Get.locale = TranslationService.locale;
-    Get.fallbackLocale = TranslationService.fallbackLocale;
-    Get.addTranslations(TranslationService().keys);
-    final appTheme = AppTheme();
+    initGetxTrading();
 
-    Get.changeTheme(appTheme.lightTheme);
-    Get.changeThemeMode(ThemeMode.light);
     //init
     Environment().initConfig(EnvironmentConfiguration.develop);
     print("===data input===");
@@ -65,8 +59,13 @@ class TradingModule {
     print("fbDeviceId=${dataInput.fbDeviceId}");
     print("===data input===");
     if (!Get.isRegistered<MainTradingProvider>()) {
-      Get.put<MainTradingProvider>(MainTradingProvider(dataInput, callToEKYC,
-          callToAddBank, callToActiveSmartOtpPin, callToForgetPin));
+      Get.put<MainTradingProvider>(MainTradingProvider(
+          dataInput,
+          callToEKYC,
+          callToAddBank,
+          callToActiveSmartOtpPin,
+          callToForgetPin,
+          callToSignIn));
     } else {
       Get.find<MainTradingProvider>().dataInputApp = dataInput;
     }
@@ -121,5 +120,23 @@ class TradingModule {
     }
   }
 
-  void onInit() {}
+  static void initGetxTrading() {
+    //setup getx
+    Get.clearTranslations();
+    Get.locale = TranslationService.locale;
+    Get.fallbackLocale = TranslationService.fallbackLocale;
+    Get.appendTranslations(TranslationService().keys);
+    final appTheme = AppTheme();
+    // Get.changeTheme(appTheme.lightTheme);
+    // Get.changeThemeMode(ThemeMode.light);
+    if (Get.routeTree.routes.isNotEmpty) {
+      for (var value in AppPages.tradingRoutes) {
+        if (!Get.routeTree.routes.contains(value)) {
+          Get.addPage(value);
+        }
+      }
+    }
+  }
+
+  void init() {}
 }

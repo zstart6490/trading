@@ -116,7 +116,7 @@ class VerifyPolicyView extends GetView<VerifyPolicyController> {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      controller.gotoHomeParent();
                     },
                     child: Text(
                       "later".tr,

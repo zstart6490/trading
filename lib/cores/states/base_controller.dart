@@ -33,8 +33,6 @@ abstract class BaseController extends GetxController
                   hideDialog();
                 }),
           ]));
-    } else {
-      showSnackBar("Kiểm tra lại kết nối mạng");
     }
   }
 

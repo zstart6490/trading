@@ -10,8 +10,8 @@ class InfoWithdrawDto {
   final num? amount;
   final num? feeAmount;
   final num? balance;
-  final num? finalAmount;
-  final num? remainAmount;
+  final num? receiveAmount;
+  final num? remainingBalance;
 
   InfoWithdrawDto({
     this.transactionId,
@@ -19,8 +19,8 @@ class InfoWithdrawDto {
     this.linkId,
     this.balance,
     this.feeAmount,
-    this.finalAmount,
-    this.remainAmount,
+    this.receiveAmount,
+    this.remainingBalance,
   });
 
   factory InfoWithdrawDto.fromJson(dynamic json) =>
@@ -35,7 +35,7 @@ extension InfoWithdrawMapper on InfoWithdrawDto {
         linkId: linkId ?? "0",
         balance: balance ?? 0,
         feeAmount: feeAmount ?? 0,
-        receiveAmount: finalAmount ?? 0,
-        remainingBalance: remainAmount ?? 0);
+        receiveAmount: receiveAmount ?? 0,
+        remainingBalance: remainingBalance ?? 0);
   }
 }
