@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client_sse/flutter_client_sse.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
@@ -7,7 +8,6 @@ import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
 import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
 import 'package:trading_module/domain/use_cases/stock_use_case.dart';
-import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
 import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
