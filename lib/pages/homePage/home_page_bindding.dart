@@ -16,14 +16,14 @@ import 'package:trading_module/pages/homePage/views/PropertyView/property_contro
 class HomePageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeTradingRepo>(() => HomeTradingRepoImpl(HomeTradingServiceImpl()));
-    Get.lazyPut(() => HomePropertyController());
-
-    Get.lazyPut(() =>  OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
-    Get.lazyPut<StockUseCase>(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
-
-    Get.lazyPut<HomeTradingUseCase>(() => HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl())));
-    Get.lazyPut(() => HomePageController());
+    // Get.lazyPut<HomeTradingRepo>(() => HomeTradingRepoImpl(HomeTradingServiceImpl()));
+    // Get.lazyPut(() => HomePropertyController());
+    //
+    // Get.lazyPut(() =>  OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
+    // Get.lazyPut<StockUseCase>(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
+    //
+    // Get.lazyPut<HomeTradingUseCase>(() => HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl())));
+    // Get.lazyPut(() => HomePageController());
 
   }
 }

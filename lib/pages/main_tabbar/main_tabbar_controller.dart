@@ -1,11 +1,10 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 
-class MainTabController extends BaseController
+class TDMainTabController extends BaseController
     with WidgetsBindingObserver, GetSingleTickerProviderStateMixin {
   late TabController tabController;
 

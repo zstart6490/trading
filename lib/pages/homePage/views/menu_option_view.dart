@@ -34,7 +34,7 @@ class HeaderHomeView<T extends HomePageController> extends StatelessWidget {
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
             height: 6),
-         InvestMenuView(controller: controller),
+        InvestMenuView(controller: controller),
         Container(
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
@@ -142,32 +142,32 @@ class HeaderBoardView<T extends HomePageController> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-    child: Container(
-        height: 50.0,
-        padding: const EdgeInsets.all(5.0),
-        margin: MAR_SIDE_16,
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            HeaderBoardItem(
-                title: "Mã CP".tr,
-                imgUp: "ic_arrow_up".pngImage(),
-                imgDown: "ic_arrow_down_selected".pngImage()),
-            HeaderBoardItem(
-                title: "Khối lượng".tr,
-                imgUp: "ic_arrow_up".pngImage(),
-                imgDown: "ic_arrow_down_selected".pngImage()),
-            HeaderBoardItem(
-                title: "Giá khớp".tr,
-                imgUp: "ic_arrow_up".pngImage(),
-                imgDown: "ic_arrow_down_selected".pngImage()),
-            HeaderBoardItem(
-                title: "+/-".tr,
-                imgUp: "ic_arrow_up".pngImage(),
-                imgDown: "ic_arrow_down_selected".pngImage())
-          ],
-        )));
+        child: Container(
+            height: 50.0,
+            padding: const EdgeInsets.all(5.0),
+            margin: MAR_SIDE_16,
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                HeaderBoardItem(
+                    title: "Mã CP".tr,
+                    imgUp: "ic_arrow_up".pngImage(),
+                    imgDown: "ic_arrow_down_selected".pngImage()),
+                HeaderBoardItem(
+                    title: "Khối lượng".tr,
+                    imgUp: "ic_arrow_up".pngImage(),
+                    imgDown: "ic_arrow_down_selected".pngImage()),
+                HeaderBoardItem(
+                    title: "Giá hiện tại".tr,
+                    imgUp: "ic_arrow_up".pngImage(),
+                    imgDown: "ic_arrow_down_selected".pngImage()),
+                HeaderBoardItem(
+                    title: "+/-".tr,
+                    imgUp: "ic_arrow_up".pngImage(),
+                    imgDown: "ic_arrow_down_selected".pngImage())
+              ],
+            )));
   }
 }
 
@@ -188,7 +188,7 @@ class HeaderBoardItem extends StatelessWidget {
       children: [
         Text(title,
             style: const TextStyle(
-              color: Colors.black,
+              color: Color(0xFF858585),
               fontSize: 12,
               fontFamily: 'iCielHelveticaNowText',
               fontWeight: FontWeight.w400,
@@ -212,35 +212,35 @@ class InvestMenuView<T extends HomePageController> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
-    child: Container(
-      height: 40.0,
-      padding: const EdgeInsets.all(2.0),
-      margin: PAD_SYM_H12,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100.0),
-          color: const Color(0xFFF5F6FA)),
-      child: TabBar(
-          controller: controller.tabController,
-          indicator: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              100.0,
-            ),
-            color: Colors.white,
-          ),
-          labelPadding: const EdgeInsets.all(2.0),
-          labelStyle: context.textSize12.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-          labelColor: const Color(0xFF333333),
-          unselectedLabelColor: context.disabledColor,
-          unselectedLabelStyle:
-              context.textSize12.copyWith(color: context.disabledColor),
-          tabs: List.generate(controller.timeRange.length, (index) {
-            return Tab(
-              text: controller.timeRange[index],
-            );
-          })),
-    ));
+        child: Container(
+          height: 40.0,
+          padding: const EdgeInsets.all(2.0),
+          margin: PAD_SYM_H12,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100.0),
+              color: const Color(0xFFF5F6FA)),
+          child: TabBar(
+              controller: controller.tabController,
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  100.0,
+                ),
+                color: Colors.white,
+              ),
+              labelPadding: const EdgeInsets.all(2.0),
+              labelStyle: context.textSize12.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+              labelColor: const Color(0xFF333333),
+              unselectedLabelColor: context.disabledColor,
+              unselectedLabelStyle:
+                  context.textSize12.copyWith(color: context.disabledColor),
+              tabs: List.generate(controller.timeRange.length, (index) {
+                return Tab(
+                  text: controller.timeRange[index],
+                );
+              })),
+        ));
   }
 }
 
@@ -272,9 +272,6 @@ class MenuOptionView<T extends HomePageController> extends StatelessWidget {
                     package: "trading_module"),
                 onPressed: () {
                   controller.openCashOut();
-
-                  // Get.toNamed(AppRoutes.withdrawReasonScene,arguments: NavigateWithdrawData(listReason: listReason,totalMoneyUser:50000000));
-                  // Get.toNamed(AppRoutes.transactionDetail,arguments: NavigateTranDetail(Transaction()));
                 }),
             ButtonWithIconAndText(
                 title: 'buy'.tr,

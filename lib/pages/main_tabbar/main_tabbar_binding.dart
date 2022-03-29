@@ -1,13 +1,29 @@
 import 'package:get/instance_manager.dart';
+import 'package:trading_module/data/repos/home_trading_repo_imp.dart';
+import 'package:trading_module/data/repos/stock_repo_impl.dart';
+import 'package:trading_module/data/repos/withdraw_repos_impl.dart';
+import 'package:trading_module/data/services/home_trading_service.dart';
+import 'package:trading_module/data/services/stock_service.dart';
+import 'package:trading_module/data/services/withdraw_service.dart';
+import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
+import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
+import 'package:trading_module/domain/use_cases/stock_use_case.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
+import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';
+import 'package:trading_module/pages/stock_market/stock_market_sell_controller.dart';
 
-
-class MainBinding extends Bindings {
+class MainTabBinding extends Bindings {
   @override
   void dependencies() {
+    Get.lazyPut(() => TDMainTabController());
     Get.lazyPut(() => HomePageController());
-    // Get.lazyPut(() => IntroController(userIsRegisteredKyc:true, userIsRegisteredOTP: true));
-    Get.lazyPut(() => MainTabController());
+    Get.lazyPut(() => StockMarketSellController());
+    Get.lazyPut(() => HomePropertyController());
+
+    Get.lazyPut(() => HomeTradingRepoImpl(HomeTradingServiceImpl()));
+    Get.lazyPut(() => OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
+    Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
+    Get.lazyPut(() => HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl())));
   }
 }

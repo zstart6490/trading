@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';
+import 'package:trading_module/pages/stock_market/stock_market_sell_scene.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 import '../../shared_widgets/FABBottomAppBar.dart';
 import '../../shared_widgets/KeepAliveWrapper.dart';
 import '../homePage/home_page.dart';
-import '../on_boarding/intro/intro_product_view.dart';
 
 
-class MainTabBar extends GetView<MainTabController> {
+
+class MainTabBar extends GetView<TDMainTabController> {
   const MainTabBar({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -26,13 +27,13 @@ class MainTabBar extends GetView<MainTabController> {
       items: [
         FABBottomAppBarItem(
           title: "Tài sản".tr,
-          inActivePath: "assets/images/svg/tabbar_market.svg",
+          inActivePath: "assets/images/svg/tabbar_property.svg",
           activePath: "assets/images/svg/tabbar_property_active.svg",
         ),
         FABBottomAppBarItem(
           title: "Thị trường".tr,
           inActivePath: "assets/images/svg/tabbar_market.svg",
-          activePath: "assets/images/svg/tabbar_property_active.svg",
+          activePath: "assets/images/svg/tabbar_market_active.svg",
         ),
       ],
       color: const Color(0xFFADADAD),
@@ -53,7 +54,7 @@ class MainTabBar extends GetView<MainTabController> {
       physics: const NeverScrollableScrollPhysics(),
       children: const [
         KeepAliveWrapper(child: HomePageView()),
-        KeepAliveWrapper(child: IntroProductView()),
+        KeepAliveWrapper(child: StockMarketSellPage()),
       ],
     );
   }

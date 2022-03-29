@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/domain/entities/model.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
 import 'package:trading_module/shared_widgets/CustomRefresher.dart';
+import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class HomePageView extends GetView<HomePageController> {
@@ -64,25 +66,40 @@ class HomePageView extends GetView<HomePageController> {
               child: CustomRefresher(
                 controller: controller.refreshController,
                 onRefresh: controller.onRefresh,
-                child: ListView.builder(
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        return HeaderHomeView(
-                          controller: controller,
-                        );
-                      }
-                      return BoardItemCell(
-                        item: Model(gstId: "SSI", startTime: DateTime.now()),
-                        onPressed: () {},
-                      );
-                    }),
+                child: _buildChild(),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildChild() {
+    return ListView.builder(
+        itemCount: controller.countItem,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return HeaderHomeView(
+              controller: controller,
+            );
+          }
+          if (controller.countItem > 2) {
+            return BoardItemCell(
+              item: Model(gstId: "SSI", startTime: DateTime.now()),
+              onPressed: () {},
+            );
+          } else {
+            return ListNoDataBackground(
+                pngPath: "assets/images/png/banner_empty_data.png",
+                desc: "Chưa có mã nào trong mục này".tr,
+                padding: PAD_SYM_H40,
+                btnTitle: "Thêm mã",
+                onPressed: () {
+                  controller.openCashOut();
+                });
+          }
+        });
   }
 }
 

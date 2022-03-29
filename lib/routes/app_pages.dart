@@ -13,8 +13,9 @@ import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tut
 import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tutorial_scene.dart';
 import 'package:trading_module/pages/homePage/home_page.dart';
 import 'package:trading_module/pages/homePage/home_page_bindding.dart';
-import 'package:trading_module/pages/main/views/home_view.dart';
-import 'package:trading_module/pages/main_binding.dart';
+import 'package:trading_module/pages/main_tabbar/main_tabbar.dart';
+import 'package:trading_module/pages/main_tabbar/main_tabbar_binding.dart';
+
 import 'package:trading_module/pages/on_boarding/intro/intro_binding.dart';
 import 'package:trading_module/pages/on_boarding/intro/intro_product_view.dart';
 import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_binding.dart';
@@ -39,14 +40,13 @@ import 'package:trading_module/routes/app_routes.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class AppPages {
-  //static const INITIAL = AppRoutes.MAIN;
-  static const INITIAL = AppRoutes.contractPage;
+  static const INITIAL = AppRoutes.mainView;
 
   static final tradingRoutes = [
     GetPage(
       name: AppRoutes.mainView,
-      page: () => MainView(),
-      binding: MainBinding(),
+      page: () => const MainTabBar(),
+      binding: MainTabBinding(),
     ),
     GetPage(
       name: AppRoutes.homeTrading,

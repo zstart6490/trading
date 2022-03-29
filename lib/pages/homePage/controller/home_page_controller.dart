@@ -24,6 +24,8 @@ class HomePageController extends BaseController
 
   late Stream myStream;
 
+  final int countItem = 2;
+
   @override
   void onInit() {
     super.onInit();
@@ -118,16 +120,14 @@ class HomePageController extends BaseController
   }
 
 
-
   void subscribe() {
     print("Start subscribe");
     SSEClient.subscribeToSSE(
         url:
-        'http://104.199.179.48:8910/stock/v1/subscribe/AAA-AAT-ABS',
+        'http://192.168.1.149:8502/stock/v1/subscribe/AAA-AAT-ABS',
         header: {
-          "Cookie":
-          'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2NDMyMTAyMzEsImV4cCI6MTY0MzgxNTAzMX0.U0aCAM2fKE1OVnGFbgAU_UVBvNwOMMquvPY8QaLD138; Path=/; Expires=Wed, 02 Feb 2022 15:17:11 GMT; HttpOnly; SameSite=Strict',
-          "Accept": "text/event-stream",
+          "Authorization":
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJsb2dpblR5cGUiOjAsImV4cCI6MTY0ODU0MTEzOSwidXNlcklkIjoxLCJ1dWlkIjoiMWViMjA2OTMtODQ0MC00ODY2LTlmZmYtZGU3ZWFmOTVhZDA2IiwidXNlcm5hbWUiOiIwOTE4NjY1NjUzIn0.67PGVA1I1yQ3BMgUgVUsrwRpCckfqzJ8VW9gSHG0GlAlSUL0OXO3Q6xo1ZEMRuBO1HJDwIcvA2DpqC6qzywuVUxykAhW4893HWdhlkJAL9KG0tb_Apm2FT2URE_8eY4xODEq11F2IROw204L2H2juI7o1SmynBA40Dho8M1j7Kc3spqUip6WujLbaiNOWV3FAGIvcCzHfyt96pw7R_PhNOQz1WPV4fasJ8c4wFKJASnJMow9OgGROdZU0ZxA3PU5QwitowznqyZ7IkfN6Vvt-700qRN0qf5drBHx4CZF7iaZY8KHe4kStP_-I1nO8cLAN2C7tzje8RbRo6UbRmMzAgwdBdBoka1zAxdAObh4fo0tQF4xhX22XKrQCbtLjOdlTdYyCnz_IykhJQ8VAOGFIlQAge_nVvp24IdKMMD8obzivKKtFJI_7PrjD1RzMiNBnrU6vilO4FhooQRyQjKUp-JqeinVgFGb-aGuS6XTyKknyTqcLTmN3zX93sAXnpv3atsNeD3a8XEDnsp9nkD0-yvuRrO0FPFY69QCGEIAdd_pTN7AnqBbWdUTHEzMKVSL45P6DsXkJRSc9DULn4GxHLu9jHRrz_xksyBiUi-KWRYT-dwH1EsesTo1y2qsOusrxwTNjPdqa6Bye0Sy5gDJn0ZjcHFlcMUJr-kEjZ9nhSM',
           "Cache-Control": "no-cache",
         }).listen((event) {
       print('Id: ' + event.id!);

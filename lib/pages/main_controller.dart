@@ -30,7 +30,7 @@ class MainController extends BaseController {
       if (kDebugMode) {
         print("TradingToken=$accessToken");
       }
-      Get.toNamed(AppRoutes.homeTrading,preventDuplicates: false);
+      Get.toNamed(AppRoutes.mainView,preventDuplicates: false);
     } else {
       final respData = await _boardingUseCase.getDataLoginUser(
         token: dataInput.token,
@@ -53,7 +53,7 @@ class MainController extends BaseController {
           mainProvider.accessToken = dataLogin?.token;
           mainProvider.userData = dataLogin?.userData;
           mainProvider.configMap = dataLogin?.configMap;
-          Get.toNamed(AppRoutes.homeTrading);
+          Get.toNamed(AppRoutes.mainView);
         }
       } else {
         if (respData.error != null) {

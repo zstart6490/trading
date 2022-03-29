@@ -4,17 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/configs/service_api_config.dart';
-import 'package:trading_module/data/repos/onboarding_repos_impl.dart';
-import 'package:trading_module/data/services/onboarding_service.dart';
-import 'package:trading_module/domain/repos/onboarding_repos.dart';
-import 'package:trading_module/domain/use_cases/user_onboarding_usecase.dart';
 import 'package:trading_module/lang/translation_service.dart';
 import 'package:trading_module/pages/main_binding.dart';
-import 'package:trading_module/pages/main_controller.dart';
-import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/shared/logger/logger_utils.dart';
 import 'package:trading_module/theme/app_theme.dart';
+
+
+
 
 Future<void> mainCommon(EnvironmentConfiguration serverConfig) async {
   Environment().initConfig(serverConfig);

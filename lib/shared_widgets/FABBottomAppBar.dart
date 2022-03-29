@@ -144,7 +144,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SvgPicture.asset(
-                        isActive ? item.activePath : item.inActivePath),
+                        isActive ? item.activePath : item.inActivePath ,package: "trading_module"),
                     Text(
                       item.title,
                       textScaleFactor: 1,
