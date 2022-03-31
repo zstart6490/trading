@@ -3,8 +3,8 @@ import 'dart:ffi';
 import 'dart:ui';
 
 class StockModel {
-  final String? symbol;
-  final String? stockName;
+  final String symbol;
+  final String stockName;
   final String? imageUrl;
   final int? stockType;
   final double? lastPrice;

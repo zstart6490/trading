@@ -1,10 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 
-
 part 'stock_model_dto.g.dart';
-
-
 
 @JsonSerializable()
 class StockModelDTO {
@@ -23,13 +20,14 @@ class StockModelDTO {
   @JsonKey(name: "ratioChange")
   final double? ratioChange;
 
-  StockModelDTO(this.symbol,this.stockName,this.imageUrl,this.stockType,this.lastPrice,this.change,this.ratioChange);
+  StockModelDTO(this.symbol, this.stockName, this.imageUrl, this.stockType,
+      this.lastPrice, this.change, this.ratioChange);
 
   static Future<StockModelDTO> fromResult(dynamic data) async =>
       StockModelDTO.fromJson(data as Map<String, dynamic>);
 
   factory StockModelDTO.fromJson(dynamic json) =>
-      _$StockModelDTOFromJson(json as Map<String,dynamic>);
+      _$StockModelDTOFromJson(json as Map<String, dynamic>);
 
   Map<String, dynamic> toJson() => _$StockModelDTOToJson(this);
 
@@ -39,12 +37,11 @@ class StockModelDTO {
         .map((e) => StockModelDTO.fromJson(e as Map<String, dynamic>))
         .toList();
   }
-
 }
-
 
 extension StockModelMapper on StockModelDTO {
   StockModel toModel() {
-    return StockModel(symbol, stockName, imageUrl, stockType, lastPrice, change, ratioChange ?? 0);
+    return StockModel(symbol ?? "", stockName ?? "", imageUrl, stockType,
+        lastPrice, change, ratioChange ?? 0);
   }
 }

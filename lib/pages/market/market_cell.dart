@@ -67,7 +67,7 @@ class MarketCell extends StatelessWidget {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        (stock.symbol ?? "").toUpperCase(),
+                        stock.symbol.toUpperCase(),
                         style: mediumStyle,
                         textAlign: TextAlign.left,
                       ),
@@ -75,7 +75,7 @@ class MarketCell extends StatelessWidget {
                      Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        stock.stockName ?? "",
+                        stock.stockName,
                         style: const TextStyle(
                             fontFamily: 'iCielHelveticaNowText',
                             color: Color(0xFF9AA0A5),
