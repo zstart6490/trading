@@ -24,32 +24,36 @@ class MarketScene extends GetView<MarketController> {
                 borderRadius: BorderRadius.circular(20.0),
                 color: const Color(0xFFF5F6FA),
               ),
-              child:Obx(
-                    () => TextField(
-                textAlignVertical: TextAlignVertical.center,
-                controller: controller.nameHolder,
-                decoration: InputDecoration(
-                  isCollapsed: true,
-                  border: InputBorder.none,
-                  hintText: "Tìm kiếm mã cổ phiếu",
-                  hintStyle: const TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'iCielHelveticaNowText',
-                      color: Color(0xFF858585)),
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Color(0xFFADADAD),
+              child: Obx(
+                () => TextField(
+                  textAlignVertical: TextAlignVertical.center,
+                  controller: controller.nameHolder,
+                  decoration: InputDecoration(
+                    isCollapsed: true,
+                    border: InputBorder.none,
+                    hintText: "Tìm kiếm mã cổ phiếu",
+                    hintStyle: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'iCielHelveticaNowText',
+                        color: Color(0xFF858585)),
+                    prefixIcon: const Icon(
+                      Icons.search,
+                      color: Color(0xFFADADAD),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                          controller.hiddenRemoveSearch.value
+                              ? null
+                              : Icons.clear,
+                          color: Color(0xFFADADAD)),
+                      onPressed: () {
+                        controller.cleanSearch();
+                      },
+                    ),
                   ),
-                  suffixIcon: IconButton(
-                    icon: Icon(controller.hiddenRemoveSearch.value ?  null : Icons.clear, color: Color(0xFFADADAD)),
-                    onPressed: () {
-                    controller.cleanSearch();
-                  },
-                  ),
+                  onChanged: (val) => controller.onChangeSearchStock(val),
                 ),
-                onChanged: (val) => controller.onChangeSearchStock(val),
               ),
-            ),
             ),
           ),
           controller.obx(
@@ -59,11 +63,16 @@ class MarketScene extends GetView<MarketController> {
                   delegate: SliverChildListDelegate(
                       List.generate(stocks!.length, (index) {
                     final stock = stocks[index];
-                    return MarketCell(stock: stock);
+                    return MarketCell(
+                      stock: stock,
+                      onPressed: () => controller.onTapped(stock),
+                    );
                   })),
                 ),
               ]),
             ),
+            onLoading: const SizedBox(),
+            onError: (error) => Text(error ?? "Load Content Error!"),
             onEmpty: ListNoDataBackground(
               pngPath: "assets/images/png/banner_search_not_found.png",
               title: "Không tìm thấy kết quả".tr,

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_use_case.dart';
+import 'package:trading_module/routes/app_routes.dart';
 
 class MarketController extends BaseController
     with StateMixin<List<StockModel>> {
@@ -10,7 +11,7 @@ class MarketController extends BaseController
   final nameHolder = TextEditingController();
   List<StockModel> listStock = <StockModel>[];
 
-  Rx<bool> hiddenRemoveSearch = false.obs;
+  Rx<bool> hiddenRemoveSearch = true.obs;
 
   @override
   void onInit() {
@@ -33,8 +34,8 @@ class MarketController extends BaseController
       change(listStock, status: RxStatus.success());
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
+      change(null, status: RxStatus.error());
     }
-    update();
   }
 
   void cleanSearch() {
@@ -53,5 +54,9 @@ class MarketController extends BaseController
     }else {
       change(null, status: RxStatus.empty());
     }
+  }
+
+  void onTapped(StockModel stock) {
+    Get.toNamed(AppRoutes.tdTransferInfo, arguments: stock);
   }
 }
