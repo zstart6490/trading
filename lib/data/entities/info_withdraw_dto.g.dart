@@ -24,6 +24,6 @@ Map<String, dynamic> _$InfoWithdrawDtoToJson(InfoWithdrawDto instance) =>
       'amount': instance.amount,
       'feeAmount': instance.feeAmount,
       'balance': instance.balance,
-      'finalAmount': instance.receiveAmount,
-      'remainAmount': instance.remainingBalance,
+      'receiveAmount': instance.receiveAmount,
+      'remainingBalance': instance.remainingBalance,
     };

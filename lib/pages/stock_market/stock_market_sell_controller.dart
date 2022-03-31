@@ -4,7 +4,7 @@ import 'package:trading_module/pages/history_share_transaction/transaction_model
 
 class StockMarketSellController extends BaseController  with StateMixin<List<TransactionModel>>  {
 
-  final list_share = List<TransactionModel>.filled(5, new TransactionModel("ABC","456","3","oke oke"));
+  //final list_share = List<TransactionModel>.filled(50, new TransactionModel("ABC","456","3","oke oke"));
 
   @override
   void onInit() {

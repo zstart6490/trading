@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
-import 'package:trading_module/data/entities/naptien/Transaction.dart';
+import 'package:trading_module/data/entities/transaction.dart';
 import 'package:trading_module/domain/entities/cash_in_confirm_model.dart';
 import 'package:trading_module/pages/deposit/transfer_info/component/bank_info/bank_account_number.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
@@ -76,7 +76,7 @@ class BankInfoComponent extends StatelessWidget {
             ),
           ),
           TransferInfo(
-            content: transaction.content ?? "",
+            content: transaction.noticeStatus ?? "",
           ),
         ],
       ),

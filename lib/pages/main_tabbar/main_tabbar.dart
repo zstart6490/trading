@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/pages/homePage/home_page.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';
-import 'package:trading_module/pages/stock_market/stock_market_sell_scene.dart';
+import 'package:trading_module/pages/market/market_scene.dart';
+import 'package:trading_module/shared_widgets/FABBottomAppBar.dart';
+import 'package:trading_module/shared_widgets/KeepAliveWrapper.dart';
 import 'package:trading_module/utils/extensions.dart';
-
-import '../../shared_widgets/FABBottomAppBar.dart';
-import '../../shared_widgets/KeepAliveWrapper.dart';
-import '../homePage/home_page.dart';
 
 
 
@@ -54,7 +53,7 @@ class MainTabBar extends GetView<TDMainTabController> {
       physics: const NeverScrollableScrollPhysics(),
       children: const [
         KeepAliveWrapper(child: HomePageView()),
-        KeepAliveWrapper(child: StockMarketSellPage()),
+        KeepAliveWrapper(child: MarketScene()),
       ],
     );
   }

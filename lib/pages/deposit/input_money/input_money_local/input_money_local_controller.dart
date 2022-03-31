@@ -1,8 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_module/data/entities/naptien/NavigateData.dart';
-import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
 import 'package:trading_module/pages/deposit/input_money/base_input_money_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/enums.dart';
@@ -12,7 +10,7 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
   late TextEditingController textEditingController;
 
   late FocusNode focusNode;
-  TDInputMoneyLocalController({required SavingProduct product}) : super(product);
+
 
   Rx<ConditionState> pasMinAmount = ConditionState.none.obs;
   Rx<ConditionState> pasMaxAmount = ConditionState.none.obs;
@@ -36,8 +34,7 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
   }
 
   void next() {
-    final amount = int.parse(textEditingController.text.numericOnly()) *
-        product.multipleOf;
+    final amount = int.parse(textEditingController.text.numericOnly());
     Get.toNamed(AppRoutes.tdTransactionConfirm,
         arguments: amount);
   }
@@ -45,11 +42,7 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
   void onChangeMoney(String val) {
     log(val);
     final str = val.numericOnly();
-    if (product.investType == InvestType.normal) {
-      inputAmount = int.tryParse(str) ?? 0;
-    } else {
-      inputAmount = (int.tryParse(str) ?? 0) * product.multipleOf;
-    }
+    inputAmount = int.tryParse(str) ?? 0;
     checkMoneyValid();
     updateMoneysuggest();
 
@@ -85,8 +78,6 @@ class TDInputMoneyLocalController extends TDBaseInputMoneyController {
   }
 
   void onFocusChange() {
-    showMoneySuggess =
-        product.investType == InvestType.normal && focusNode.hasFocus;
     update();
   }
 

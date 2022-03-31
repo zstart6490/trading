@@ -11,14 +11,15 @@ import 'package:trading_module/domain/use_cases/stock_use_case.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';
-import 'package:trading_module/pages/stock_market/stock_market_sell_controller.dart';
+import 'package:trading_module/pages/market/market_controller.dart';
+
 
 class MainTabBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => TDMainTabController());
     Get.lazyPut(() => HomePageController());
-    Get.lazyPut(() => StockMarketSellController());
+    Get.lazyPut(() => MarketController());
     Get.lazyPut(() => HomePropertyController());
 
     Get.lazyPut(() => HomeTradingRepoImpl(HomeTradingServiceImpl()));

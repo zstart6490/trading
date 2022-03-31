@@ -15,8 +15,8 @@ class CashInUseCase {
     return result;
   }
 
-  Future<DataState<CashInConfirmModel>> confirmCashIn(String amount, String transactionId) async {
-    final result = await _cashInRepo.confirmCashIn(amount: amount, transactionId: transactionId);
+  Future<DataState<CashInConfirmModel>> confirmCashIn(String transactionId) async {
+    final result = await _cashInRepo.confirmCashIn(transactionId: transactionId);
     return result;
   }
 }

@@ -10,8 +10,8 @@ CashInCreateModelDTO _$CashInCreateModelDTOFromJson(
         Map<String, dynamic> json) =>
     CashInCreateModelDTO(
       json['transactionId'] as String?,
-      json['amount'] as int?,
-      json['feeAmount'] as int?,
+      (json['amount'] as num?)?.toDouble(),
+      (json['feeAmount'] as num?)?.toDouble(),
       (json['paymentMethod'] as List<dynamic>?)
           ?.map((e) => PaymentMethodModelDTO.fromJson(e))
           .toList(),

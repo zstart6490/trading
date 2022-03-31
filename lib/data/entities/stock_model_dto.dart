@@ -5,25 +5,27 @@ import 'package:trading_module/domain/entities/stock_model.dart';
 part 'stock_model_dto.g.dart';
 
 
+
 @JsonSerializable()
 class StockModelDTO {
-  @JsonKey(name: "total")
-  final double? total;
-  @JsonKey(name: "stockBalance")
-  final double? stockBalance;
-  @JsonKey(name: "cashBalance")
-  final double? cashBalance;
-  @JsonKey(name: "interest")
-  final double? interest;
-  @JsonKey(name: "pendingCashIn")
-  final double? pendingCashIn;
-  @JsonKey(name: "pendingCashOut")
-  final double? pendingCashOut;
+  @JsonKey(name: "symbol")
+  final String? symbol;
+  @JsonKey(name: "stockName")
+  final String? stockName;
+  @JsonKey(name: "imageUrl")
+  final String? imageUrl;
+  @JsonKey(name: "stockType")
+  final int? stockType;
+  @JsonKey(name: "lastPrice")
+  final double? lastPrice;
+  @JsonKey(name: "change")
+  final double? change;
+  @JsonKey(name: "ratioChange")
+  final double? ratioChange;
 
+  StockModelDTO(this.symbol,this.stockName,this.imageUrl,this.stockType,this.lastPrice,this.change,this.ratioChange);
 
-  StockModelDTO(this.total,this.stockBalance,this.cashBalance,this.interest,this.pendingCashIn,this.pendingCashOut);
-
-  static StockModelDTO fromResult(dynamic data) =>
+  static Future<StockModelDTO> fromResult(dynamic data) async =>
       StockModelDTO.fromJson(data as Map<String, dynamic>);
 
   factory StockModelDTO.fromJson(dynamic json) =>
@@ -37,11 +39,12 @@ class StockModelDTO {
         .map((e) => StockModelDTO.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
 }
 
 
 extension StockModelMapper on StockModelDTO {
   StockModel toModel() {
-    return StockModel("","","","",1.0);
+    return StockModel(symbol, stockName, imageUrl, stockType, lastPrice, change, ratioChange ?? 0);
   }
 }

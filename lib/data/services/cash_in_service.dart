@@ -10,8 +10,7 @@ abstract class CashInService extends ApiServices {
   Future<BaseDecoder<CashInCreateModelDTO>> createCashIn(
       String amount);
 
-  Future<BaseDecoder<CashInConfirmModelDTO>> confirmCashIn(
-      String amount, String transactionId);
+  Future<BaseDecoder<CashInConfirmModelDTO>> confirmCashIn(String transactionId);
 }
 
 class CashInServiceImpl extends CashInService {
@@ -31,13 +30,11 @@ class CashInServiceImpl extends CashInService {
   }
 
   @override
-  Future<BaseDecoder<CashInConfirmModelDTO>> confirmCashIn(
-      String amount, String transactionId) async {
+  Future<BaseDecoder<CashInConfirmModelDTO>> confirmCashIn(String transactionId) async {
     return BaseDecoder(
         await api.postData(
             endPoint: "/account/v1/cashin/confirm",
             params: {
-              "amount": amount,
               "transactionId": transactionId
             },
             timeOut: AppConstants.TIME_OUT),

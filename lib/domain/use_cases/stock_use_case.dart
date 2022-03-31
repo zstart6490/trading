@@ -8,7 +8,7 @@ class StockUseCase {
   StockUseCase(this._stockRepo);
 
 
-  Future<DataState<StockModel>> getList() async {
+  Future<DataState<List<StockModel>>> getList() async {
     final otp = await _stockRepo.getList();
     return otp;
   }

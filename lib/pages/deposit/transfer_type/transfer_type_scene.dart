@@ -22,7 +22,7 @@ class TDTransferTypeScene extends GetView<TDTransferTypeController> {
               NinePayType(
                 title: controller.data.paymentMethod?.first.title ?? "",
                 info: controller.data.paymentMethod?.first.note ?? "",
-                cost: controller.data.feeAmount.toCurrencyVND(),
+                cost: controller.data.feeAmount.toCurrency(symbol:"VNĐ"),
                 onTapped: () => controller.onTapped9Pay(),
               ),
           ],

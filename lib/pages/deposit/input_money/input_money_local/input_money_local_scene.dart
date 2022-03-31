@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:trading_module/pages/deposit/components/money_helper_component.dart';
-//import 'package:tikop/modules/deposit/components/money_helper_component.dart';
-// import 'package:tikop/modules/deposit/interest_tool/money_text_field.dart';
-//import 'package:trading_module/pages/support_fab/support_fab.dart';
-//import 'package:tikop/modules/support_fab/support_fab.dart';
 import 'package:trading_module/pages/deposit/input_money/money_text_field.dart';
 import 'package:trading_module/pages/support_fab/support_fab.dart';
-//import 'package:trading_module/pages/deposit/input_money/money_text_field.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 
@@ -46,11 +41,11 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
                   Padding(
                     padding: PAD_ALL16,
                     child: MoneyInputComponent(
-                      investType: controller.product.investType,
+                      investType: InvestType.normal,
                       focusNode: controller.focusNode,
                       textEditingController: controller.textEditingController,
                       onChangeMoney: (val) => controller.onChangeMoney(val),
-                      multipleOf: controller.product.multipleOf,
+                      multipleOf: 1,
                     ),
                   ),
                   Obx(() => Container(
@@ -99,8 +94,8 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
                     return MoneyHelperComponent(
                       onTappedMoney: (money) => controller.setMoney(money),
                       amount: controller.inputAmount,
-                      minAmount: controller.product.minMoneyUser,
-                      maxAmount: controller.maxAmount,
+                      minAmount: int.parse(controller.mainProvider.configMap?.minMoneyUser ?? "500000"),
+                      maxAmount: int.parse(controller.mainProvider.configMap?.maxMoneyUser ?? "999999999999"),
                     );
                   } else {
                     return const SizedBox();

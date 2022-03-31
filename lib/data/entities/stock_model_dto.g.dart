@@ -8,20 +8,22 @@ part of 'stock_model_dto.dart';
 
 StockModelDTO _$StockModelDTOFromJson(Map<String, dynamic> json) =>
     StockModelDTO(
-      (json['total'] as num?)?.toDouble(),
-      (json['stockBalance'] as num?)?.toDouble(),
-      (json['cashBalance'] as num?)?.toDouble(),
-      (json['interest'] as num?)?.toDouble(),
-      (json['pendingCashIn'] as num?)?.toDouble(),
-      (json['pendingCashOut'] as num?)?.toDouble(),
+      json['symbol'] as String?,
+      json['stockName'] as String?,
+      json['imageUrl'] as String?,
+      json['stockType'] as int?,
+      (json['lastPrice'] as num?)?.toDouble(),
+      (json['change'] as num?)?.toDouble(),
+      (json['ratioChange'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$StockModelDTOToJson(StockModelDTO instance) =>
     <String, dynamic>{
-      'total': instance.total,
-      'stockBalance': instance.stockBalance,
-      'cashBalance': instance.cashBalance,
-      'interest': instance.interest,
-      'pendingCashIn': instance.pendingCashIn,
-      'pendingCashOut': instance.pendingCashOut,
+      'symbol': instance.symbol,
+      'stockName': instance.stockName,
+      'imageUrl': instance.imageUrl,
+      'stockType': instance.stockType,
+      'lastPrice': instance.lastPrice,
+      'change': instance.change,
+      'ratioChange': instance.ratioChange,
     };

@@ -12,13 +12,16 @@ class StockRepoImpl extends StockRepo {
   StockRepoImpl(this._services);
 
 
-
   @override
-  Future<DataState<StockModel>> getList() async{
+  Future<DataState<List<StockModel>>> getList() async{
     final result = await _services.getList();
     if (result.success) {
-      final model = StockModelDTO.fromJson(result as Map<String, dynamic>).toModel();
-      return DataSuccess(model);
+      final model = result.modelDTO;
+      final List<StockModel> list =[];
+      for (final value in model) {
+        list.add(value.toModel());
+      }
+      return DataSuccess<List<StockModel>>(list);
     }
     return DataFailed(result.error);
   }

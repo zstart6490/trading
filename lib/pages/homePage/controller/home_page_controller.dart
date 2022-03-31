@@ -3,7 +3,6 @@ import 'package:flutter_client_sse/flutter_client_sse.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
-import 'package:trading_module/data/entities/naptien/SavingProduct.dart';
 import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
 import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
@@ -32,7 +31,6 @@ class HomePageController extends BaseController
     tabController = TabController(length: timeRange.length, vsync: this);
     tabController.addListener(() {});
     refreshController = RefreshController();
-    getListStock();
     subscribe();
   }
 
@@ -104,8 +102,7 @@ class HomePageController extends BaseController
   }
 
   void gotoSaving() {
-    final product = SavingProduct();
-    Get.toNamed(AppRoutes.tdInputMoneyLocal, arguments: product);
+    Get.toNamed(AppRoutes.tdInputMoneyLocal);
   }
 
   void onRefresh() {
@@ -115,19 +112,14 @@ class HomePageController extends BaseController
     //refreshListTransaction();
   }
 
-  void getListStock() async{
-    //final stock = await  _stockUseCase.subscribe(["AAA","AAT","ABS"]);
-  }
-
 
   void subscribe() {
     print("Start subscribe");
     SSEClient.subscribeToSSE(
         url:
-        'http://192.168.1.149:8502/stock/v1/subscribe/AAA-AAT-ABS',
+        'http://104.199.179.48:8910/stock/v1/subscribe/AAA-AAT-ABS',
         header: {
-          "Authorization":
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJsb2dpblR5cGUiOjAsImV4cCI6MTY0ODU0MTEzOSwidXNlcklkIjoxLCJ1dWlkIjoiMWViMjA2OTMtODQ0MC00ODY2LTlmZmYtZGU3ZWFmOTVhZDA2IiwidXNlcm5hbWUiOiIwOTE4NjY1NjUzIn0.67PGVA1I1yQ3BMgUgVUsrwRpCckfqzJ8VW9gSHG0GlAlSUL0OXO3Q6xo1ZEMRuBO1HJDwIcvA2DpqC6qzywuVUxykAhW4893HWdhlkJAL9KG0tb_Apm2FT2URE_8eY4xODEq11F2IROw204L2H2juI7o1SmynBA40Dho8M1j7Kc3spqUip6WujLbaiNOWV3FAGIvcCzHfyt96pw7R_PhNOQz1WPV4fasJ8c4wFKJASnJMow9OgGROdZU0ZxA3PU5QwitowznqyZ7IkfN6Vvt-700qRN0qf5drBHx4CZF7iaZY8KHe4kStP_-I1nO8cLAN2C7tzje8RbRo6UbRmMzAgwdBdBoka1zAxdAObh4fo0tQF4xhX22XKrQCbtLjOdlTdYyCnz_IykhJQ8VAOGFIlQAge_nVvp24IdKMMD8obzivKKtFJI_7PrjD1RzMiNBnrU6vilO4FhooQRyQjKUp-JqeinVgFGb-aGuS6XTyKknyTqcLTmN3zX93sAXnpv3atsNeD3a8XEDnsp9nkD0-yvuRrO0FPFY69QCGEIAdd_pTN7AnqBbWdUTHEzMKVSL45P6DsXkJRSc9DULn4GxHLu9jHRrz_xksyBiUi-KWRYT-dwH1EsesTo1y2qsOusrxwTNjPdqa6Bye0Sy5gDJn0ZjcHFlcMUJr-kEjZ9nhSM',
+          "Authorization": mainProvider.accessToken??"",
           "Cache-Control": "no-cache",
         }).listen((event) {
       print('Id: ' + event.id!);

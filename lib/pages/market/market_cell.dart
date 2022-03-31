@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-class StockMarketCell extends StatelessWidget {
-  //final StockModel trans;
+class MarketCell extends StatelessWidget {
+  final StockModel stock;
 
-  final Color? bgColor;
-
-  const StockMarketCell( //this.trans,
+  const MarketCell( //this.trans,
       {
     Key? key,
     //this.onPressed,
-    this.bgColor,
+    required this.stock,
   }) : super(key: key);
 
   @override
@@ -45,7 +44,7 @@ class StockMarketCell extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: Color(0xFF9AA0A5),
+                        color: const Color(0xFF9AA0A5),
                       )),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
@@ -68,16 +67,16 @@ class StockMarketCell extends StatelessWidget {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "data".toUpperCase(),
+                        (stock.symbol ?? "").toUpperCase(),
                         style: mediumStyle,
                         textAlign: TextAlign.left,
                       ),
                     ),
-                    const Align(
+                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "ABT Công ty Cổ phần XNK Thủy sản Bến...",
-                        style: TextStyle(
+                        stock.stockName ?? "",
+                        style: const TextStyle(
                             fontFamily: 'iCielHelveticaNowText',
                             color: Color(0xFF9AA0A5),
                             fontSize: 12,
@@ -96,11 +95,11 @@ class StockMarketCell extends StatelessWidget {
             child: SizedBox(
               width: 70,
               child: Column(
-                children: const [
+                children: [
                   Align(
                     alignment: Alignment.topRight,
                     child: Text(
-                      "data3",
+                      stock.lastPrice!.getPriceStock(),
                       style: mediumStyle,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -108,8 +107,12 @@ class StockMarketCell extends StatelessWidget {
                   Align(
                     alignment: Alignment.topRight,
                     child: Text(
-                      "+0,40%",
-                      style: mediumStyle,
+                      stock.ratioChange.getRatioChange(),
+                      style: TextStyle(
+                          fontFamily: 'iCielHelveticaNowText',
+                          color: stock.ratioChange.getStockColor(),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),

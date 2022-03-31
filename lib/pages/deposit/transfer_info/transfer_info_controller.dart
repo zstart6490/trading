@@ -137,7 +137,7 @@ class TDTransferInfoController extends BaseController
 
   Future<void> cashInConfirm() async {
     showProgressingDialog();
-    final result = await _cashInUseCase.confirmCashIn(data.amount.toString() ,data.transactionId);
+    final result = await _cashInUseCase.confirmCashIn(data.transactionId);
     hideDialog();
     if (result.data != null) {
       change(result.data, status: RxStatus.success());

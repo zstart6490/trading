@@ -15,6 +15,8 @@ import 'package:trading_module/pages/homePage/home_page.dart';
 import 'package:trading_module/pages/homePage/home_page_bindding.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_binding.dart';
+import 'package:trading_module/pages/market/market_binding.dart';
+import 'package:trading_module/pages/market/market_scene.dart';
 
 import 'package:trading_module/pages/on_boarding/intro/intro_binding.dart';
 import 'package:trading_module/pages/on_boarding/intro/intro_product_view.dart';
@@ -47,6 +49,11 @@ class AppPages {
       name: AppRoutes.mainView,
       page: () => const MainTabBar(),
       binding: MainTabBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.market,
+      page: () => const MarketScene(),
+      binding: MarketBinding(),
     ),
     GetPage(
       name: AppRoutes.homeTrading,

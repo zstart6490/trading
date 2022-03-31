@@ -1,11 +1,11 @@
 class CashInCreateModel {
   final String transactionId;
-  final int amount;
-  final int feeAmount;
+  final double amount;
+  final double feeAmount;
   final List<PaymentMethodModel>? paymentMethod;
 
 
-  int get totalAmount => amount + feeAmount;
+  double get totalAmount => amount + feeAmount;
 
   CashInCreateModel({
     required this.transactionId,

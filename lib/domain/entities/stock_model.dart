@@ -1,11 +1,19 @@
 import 'dart:ffi';
 
-class StockModel {
-  late String nameCompany;
-  late String numbers;
-  late String price;
-  late String labelCompany;
-  late double interest;
+import 'dart:ui';
 
-  StockModel(this.nameCompany, this.numbers, this.price, this.labelCompany , this.interest);
+class StockModel {
+  final String? symbol;
+  final String? stockName;
+  final String? imageUrl;
+  final int? stockType;
+  final double? lastPrice;
+  final double? change;
+  final double ratioChange;
+
+
+  StockModel(this.symbol, this.stockName, this.imageUrl, this.stockType , this.lastPrice  , this.change  , this.ratioChange);
+
+
 }
+

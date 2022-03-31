@@ -8,9 +8,9 @@ class CashInCreateModelDTO {
   @JsonKey(name: "transactionId")
   final String? transactionId;
   @JsonKey(name: "amount")
-  final int? amount;
+  final double? amount;
   @JsonKey(name: "feeAmount")
-  final int? feeAmount;
+  final double? feeAmount;
 
   @JsonKey(name: "paymentMethod")
   final List<PaymentMethodModelDTO>? paymentMethod;

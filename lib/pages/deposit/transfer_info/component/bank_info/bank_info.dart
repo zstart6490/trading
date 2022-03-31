@@ -11,7 +11,7 @@ import 'transfer_info.dart';
 class BankInfoComponent extends StatelessWidget {
   final BankCashInModel? bank;
   final String? content;
-  final int amount;
+  final double amount;
   final Key? bankContentKey;
   final Key? bankAccountKey;
   const BankInfoComponent({
@@ -81,7 +81,7 @@ class BankInfoComponent extends StatelessWidget {
           if (content.hasText)
             TransferInfo(
               paymentContentKey: bankContentKey,
-              content: content!,
+              content: content ?? "",
             ),
           if (content.hasText) const NoticeTransfer(),
           SIZED_BOX_H24

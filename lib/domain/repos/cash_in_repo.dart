@@ -12,7 +12,6 @@ abstract class CashInRepo {
   });
 
   Future<DataState<CashInConfirmModel>> confirmCashIn({
-    required String amount,
     required String transactionId
   });
 

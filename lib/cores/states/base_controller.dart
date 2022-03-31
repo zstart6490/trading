@@ -64,7 +64,7 @@ abstract class BaseController extends GetxController
   }
 
   void backToHome({int selectTab = 0}) {
-    Get.until(ModalRoute.withName(AppRoutes.homeTrading));
+    Get.until(ModalRoute.withName(AppRoutes.mainView));
     Get.find<HomePageController>().selTab(selectTab);
   }
 

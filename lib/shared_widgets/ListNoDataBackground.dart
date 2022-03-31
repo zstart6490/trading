@@ -50,7 +50,7 @@ class ListNoDataBackground extends StatelessWidget {
             onPressed!();
           },
           child: Container(
-            padding: const EdgeInsets.only(left: 20, top: 12, right: 20, bottom: 12),
+            padding: const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               color: const Color(0xFF27AE60),

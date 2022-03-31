@@ -3,6 +3,7 @@
 abstract class AppRoutes {
   static const homeParent = '/home';
   static const mainView = '/main';
+  static const market = '/market';
   static const boardingIntro = '/boarding_intro_product';
   static const boardingVerifyPolicy = '/boarding_verify_policy';
   static const smartOtpVerifySms = '/smart_otp_verify_sms';

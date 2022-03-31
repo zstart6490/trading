@@ -21,7 +21,7 @@ class StockServiceImpl extends StockService {
         params: {
         },
         timeOut: AppConstants.TIME_OUT),
-    decoder: StockModelDTO.fromJson);
+    decoder: StockModelDTO.getList);
   }
 
   @override

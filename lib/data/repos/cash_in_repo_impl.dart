@@ -25,8 +25,8 @@ class CashInRepoImpl extends CashInRepo {
   }
 
   @override
-  Future<DataState<CashInConfirmModel>> confirmCashIn({required String amount, required String transactionId}) async{
-    final result = await _services.confirmCashIn(amount, transactionId);
+  Future<DataState<CashInConfirmModel>> confirmCashIn({required String transactionId}) async{
+    final result = await _services.confirmCashIn(transactionId);
     if (result.success) {
       final model = result.modelDTO.toModel();
       return DataSuccess(model);

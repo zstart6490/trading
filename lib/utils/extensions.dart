@@ -23,11 +23,12 @@ extension StringNullSafetyExtension on String? {
 }
 
 extension CustomNumberExtension on int {
-  int genRandom(){
+  int genRandom() {
     final Random random = Random();
     return random.nextInt(this);
   }
 }
+
 extension CustomStringExtension on String {
   static const diacritics =
       'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
@@ -161,6 +162,35 @@ extension CustomDoubleExtension on double {
     final oCcy = NumberFormat.decimalPattern("vi");
     return "${oCcy.format(this)}$symbol";
   }
+
+  Color getStockColor() {
+    if (this == 0) {
+      return const Color(0xFFFF9500);
+    }
+    if (this  > 0) {
+      return const Color(0xFF33CC7F);
+    }
+    return const Color(0xFFF46666);
+  }
+
+  String getRatioChange(){
+    if (this == 0) {
+      return "0.0%";
+    }
+    if (this  > 0) {
+      return "+${this}%";
+    }
+    return "${this}%";
+  }
+
+  String getPriceStock() {
+    final oCcy = NumberFormat.decimalPattern("vi");
+    final value = oCcy.format(this);
+    final value1 = oCcy.format(this).replaceRange(value.length - 1, value.length, "");
+    return value1;
+  }
+
+
 }
 
 extension BuildContextExtension on BuildContext {
@@ -212,7 +242,12 @@ extension BuildContextExtension on BuildContext {
 }
 
 extension ImageExtension on String {
-  Image pngImage({double? mWidth,double? mHeight}) {
-    return Image.asset("assets/images/png/$this.png",width: mWidth,height: mHeight,package: 'trading_module',);
+  Image pngImage({double? mWidth, double? mHeight}) {
+    return Image.asset(
+      "assets/images/png/$this.png",
+      width: mWidth,
+      height: mHeight,
+      package: 'trading_module',
+    );
   }
 }
