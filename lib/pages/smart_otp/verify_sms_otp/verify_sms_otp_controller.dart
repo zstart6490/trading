@@ -88,7 +88,7 @@ class VerifySMSOTPController extends OtpExpiredController {
         hideDialog();
         if (result.data != null) {
           Get.offNamedUntil(AppRoutes.transactionDetail,
-              ModalRoute.withName(AppRoutes.homeTrading),
+              ModalRoute.withName(AppRoutes.mainView),
               arguments:
                   NavigateTranDetail(transaction: result.data!, hasBtn: false));
         } else if (result.error != null) {

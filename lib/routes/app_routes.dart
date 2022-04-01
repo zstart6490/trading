@@ -13,7 +13,6 @@ abstract class AppRoutes {
   static const smartOtpInput = '/smart_otp_input';
   static const pdfView = '/pdf_view';
   static const contractPage = '/contract';
-  static const homeTrading = '/home_trading';
   static const withdrawReasonScene = '/withdraw_reason_scene';
   static const withdrawMoney = '/tradingWithdrawMoney';
   static const withdrawConfirm = '/tradingWithdrawConfirm';

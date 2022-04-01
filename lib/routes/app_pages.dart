@@ -58,11 +58,6 @@ class AppPages {
       binding: MarketBinding(),
     ),
     GetPage(
-      name: AppRoutes.homeTrading,
-      page: () => const HomePageView(),
-      binding: HomePageBinding(),
-    ),
-    GetPage(
       name: AppRoutes.boardingIntro,
       page: () => const IntroProductView(),
       binding: IntroBinding(),

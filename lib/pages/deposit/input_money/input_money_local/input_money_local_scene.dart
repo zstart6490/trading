@@ -45,7 +45,7 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
                       focusNode: controller.focusNode,
                       textEditingController: controller.textEditingController,
                       onChangeMoney: (val) => controller.onChangeMoney(val),
-                      multipleOf: 1,
+                      multipleOf: 1, state: ConditionState.none,
                     ),
                   ),
                   Obx(() => Container(

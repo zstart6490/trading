@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart' show NumberFormat;
+import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 import 'package:trading_module/utils/util.dart';
 
@@ -25,6 +26,7 @@ class MoneyTextField extends StatefulWidget {
   final List<TextInputFormatter>? formaters;
   final bool isCollapsed;
   final int multiple;
+  final ConditionState state;
 
   const MoneyTextField({
     Key? key,
@@ -47,6 +49,7 @@ class MoneyTextField extends StatefulWidget {
     this.multiple = 1000000,
     this.isCollapsed = false,
     this.suffixText = "đ",
+    this.state = ConditionState.none,
   })  : assert(maxLength == null || maxLength > 0),
         super(key: key);
 
@@ -77,7 +80,7 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
     controller.dispose();
     focusNode.dispose();
   }
-
+// change textStyle color
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -153,7 +156,7 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
         children: [
           Text(
             getSuffixStr(),
-            style: widget.textStyle ?? context.textSize14,
+            style: context.textSize14,
           ),
           const Spacer(),
           if (content.isNotEmpty)

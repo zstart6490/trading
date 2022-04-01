@@ -97,7 +97,7 @@ class BuyStockScene extends GetView<BuyStockController> {
                       textEditingController: controller.textEditingController,
                       onChangeMoney: (val) => controller.onChangeMoney(val),
 
-                      multipleOf: 7,
+                      multipleOf: 7, state: ConditionState.none,
                     ),
                   ),
                   const Padding(

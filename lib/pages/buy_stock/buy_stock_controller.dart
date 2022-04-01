@@ -25,7 +25,7 @@ class BuyStockController extends BaseController {
   }
 
   void openHomeTrading() {
-    Get.offAndToNamed(AppRoutes.homeTrading);
+    Get.offAndToNamed(AppRoutes.mainView);
 
   }
 

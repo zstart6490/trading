@@ -26,45 +26,6 @@ class ContractController extends BaseController {
   }
 
   void openHomeTrading() {
-    Get.offAndToNamed(AppRoutes.homeTrading);
-    // Get.back();
-    // Get.offNamedUntil(AppRoutes.homeTrading, ModalRoute.withName(AppRoutes.homeTrading),
-// );
-    // showAlertDialog(CustomAlertDialog(
-    //     titleWidget: "ic_success".pngImage(),
-    //     descWidget: Column(children: const [
-    //       Text(
-    //         "Đăng ký chứng khoán thành công",
-    //         style: TextStyle(
-    //             fontStyle: FontStyle.normal,
-    //             color: Colors.black,
-    //             fontWeight: FontWeight.bold,
-    //             fontFamily: 'iCielHelveticaNowText',
-    //             decoration: TextDecoration.none,
-    //             fontSize: 16),
-    //       ),
-    //       SizedBox(height: 6,),
-    //       Text(
-    //         "Đăng ký chứng khoán thành công bạn có thể bắt đầu đầu tư ngay bây giờ",
-    //         style: TextStyle(
-    //             color: Colors.black45,
-    //             fontWeight: FontWeight.normal,
-    //             fontFamily: 'iCielHelveticaNowText',
-    //             fontStyle: FontStyle.normal,
-    //             decoration: TextDecoration.none,
-    //             fontSize: 12),
-    //         textAlign: TextAlign.center,
-    //       )
-    //     ]),
-    //     actions: [
-    //       AlertAction(
-    //           text: "Tôi đã hiểu",
-    //           isDefaultAction: true,
-    //           onPressed: () => {
-    //                 //call to KYC tikop
-    //                 hideDialog(),
-    //                 Get.offAndToNamed(AppRoutes.HOME_TRADING)
-    //               }),
-    //     ]));
+    Get.offAndToNamed(AppRoutes.mainView);
   }
 }

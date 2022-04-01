@@ -12,6 +12,7 @@ class MoneyInputComponent extends StatelessWidget {
   final Function(String) onChangeMoney;
   final TextStyle? textStyle;
   final int multipleOf;
+  final ConditionState state;
 
   const MoneyInputComponent(
       {Key? key,
@@ -20,7 +21,7 @@ class MoneyInputComponent extends StatelessWidget {
       required this.onChangeMoney,
       required this.multipleOf,
       this.focusNode,
-      this.textStyle})
+      this.textStyle, required this.state})
       : super(key: key);
 
   @override
@@ -44,10 +45,10 @@ class MoneyInputComponent extends StatelessWidget {
         hintText: "0",
         controller: textEditingController,
         autoFocus: true,
-        maxLength: 7,
+        maxLength: 8,
         focusNode: focusNode,
         textInputType: TextInputType.number,
-        textStyle:textStyle,
+        textStyle:context.textSize24,
         onChanged: (val) => onChangeMoney(val),
         multiple: multipleOf,
         suffixText: "CP",

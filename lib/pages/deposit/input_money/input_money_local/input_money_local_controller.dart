@@ -66,6 +66,8 @@ class TDInputMoneyLocalController extends BaseController {
   void setMoney(int i) {
     textEditingController.text = i.toCurrency(symbol: "");
     onChangeMoney("$i");
+
+    //textEditingController.text
   }
 
 
