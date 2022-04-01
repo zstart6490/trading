@@ -1,16 +1,17 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_module/pages/deposit/input_money/base_input_money_controller.dart';
+import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/util.dart';
 
-class TDInputMoneyLocalController extends TDBaseInputMoneyController {
+class TDInputMoneyLocalController extends BaseController {
   late TextEditingController textEditingController;
 
   late FocusNode focusNode;
-
+  int inputAmount = 0;
+  bool showMoneySuggess = false;
 
   Rx<ConditionState> pasMinAmount = ConditionState.none.obs;
   Rx<ConditionState> pasMaxAmount = ConditionState.none.obs;

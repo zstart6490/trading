@@ -57,6 +57,6 @@ class MarketController extends BaseController
   }
 
   void onTapped(StockModel stock) {
-    Get.toNamed(AppRoutes.tdTransferInfo, arguments: stock);
+    Get.toNamed(AppRoutes.tdBuyStock, arguments: stock);
   }
 }

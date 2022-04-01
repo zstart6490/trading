@@ -24,4 +24,6 @@ abstract class AppRoutes {
   static const tdTransferType = "/td_transferType";
   static const tdTransferInfo = "/td_transferInfo";
   static const tdDepositTutorial = "/td_depositTutorial";
+
+  static const tdBuyStock = "/td_buyStock";
 }

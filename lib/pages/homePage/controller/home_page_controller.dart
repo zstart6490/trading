@@ -113,6 +113,10 @@ class HomePageController extends BaseController
   }
 
 
+  void buyStock(){
+    Get.toNamed(AppRoutes.tdBuyStock, arguments: null);
+  }
+
   void subscribe() {
     print("Start subscribe");
     SSEClient.subscribeToSSE(

@@ -24,6 +24,8 @@ enum InvestType {
   normal,
   @JsonValue("PROPERTY")
   property,
+  @JsonValue("STOCK")
+  stock,
 }
 
 enum StatusReferral {
@@ -191,11 +193,7 @@ enum TradingSmartOTPType {
   forgotToRegister,
   forgotToCashOut,
 }
-enum SmsOTPType {
-  registerTrading,
-  cashOutTrading,
-  cashInTrading
-}
+enum SmsOTPType { registerTrading, cashOutTrading, cashInTrading }
 enum BannerType {
   @JsonValue("IN_APP")
   inApp,

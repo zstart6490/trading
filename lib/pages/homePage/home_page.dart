@@ -96,7 +96,7 @@ class HomePageView extends GetView<HomePageController> {
                 padding: PAD_SYM_H40,
                 btnTitle: "Thêm mã",
                 onPressed: () {
-                  controller.openCashOut();
+                  controller.buyStock();
                 });
           }
         });
@@ -105,10 +105,10 @@ class HomePageView extends GetView<HomePageController> {
 
 class CustomShape extends CustomClipper<Path> {
   @override
-  getClip(Size size) {
-    double height = size.height;
-    double width = size.width;
-    var path = Path();
+  Path getClip(Size size) {
+    final double height = size.height;
+    final double width = size.width;
+    final path = Path();
     path.lineTo(0, height - 50);
     path.quadraticBezierTo(width / 2, height, width, height - 50);
     path.lineTo(width, 0);

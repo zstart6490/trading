@@ -10,7 +10,7 @@ class MoneyInputComponent extends StatelessWidget {
   final TextEditingController textEditingController;
   final FocusNode? focusNode;
   final Function(String) onChangeMoney;
-
+  final TextStyle? textStyle;
   final int multipleOf;
 
   const MoneyInputComponent(
@@ -19,7 +19,8 @@ class MoneyInputComponent extends StatelessWidget {
       required this.textEditingController,
       required this.onChangeMoney,
       required this.multipleOf,
-      this.focusNode})
+      this.focusNode,
+      this.textStyle})
       : super(key: key);
 
   @override
@@ -35,6 +36,21 @@ class MoneyInputComponent extends StatelessWidget {
         textStyle: context.textSize24,
         onChanged: (val) => onChangeMoney(val),
         multiple: multipleOf,
+        formaters: [CurrencyInputFormatter()],
+      );
+    } else if (investType == InvestType.stock) {
+      print("ABCD");
+      return MoneyTextField(
+        hintText: "0",
+        controller: textEditingController,
+        autoFocus: true,
+        maxLength: 7,
+        focusNode: focusNode,
+        textInputType: TextInputType.number,
+        textStyle:textStyle,
+        onChanged: (val) => onChangeMoney(val),
+        multiple: multipleOf,
+        suffixText: "CP",
         formaters: [CurrencyInputFormatter()],
       );
     } else {

@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
-
-
-import 'input_money_local_controller.dart';
+import 'package:trading_module/pages/deposit/input_money/input_money_local/input_money_local_controller.dart';
 
 class TDInputMoneyLocalBinding extends Bindings {
   @override

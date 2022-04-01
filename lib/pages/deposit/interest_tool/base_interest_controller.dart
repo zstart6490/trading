@@ -26,7 +26,4 @@ class InterestData {
   }
 }
 
-class TDBaseInterstController extends BaseController {
 
-
-}
