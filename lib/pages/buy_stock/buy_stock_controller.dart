@@ -6,15 +6,15 @@ import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/enums.dart';
 
 
-class BuyStockController extends BaseController {
-  //StockModel stock;
-
+class BuyStockController extends BaseController with StateMixin<StockModel>{
+  final StockModel stock;
   late TextEditingController textEditingController;
   late FocusNode focusNode;
-  Rx<ConditionState> pasMinAmount = ConditionState.none.obs;
-  Rx<ConditionState> pasMaxAmount = ConditionState.none.obs;
 
-  //BuyStockController(this.stock);
+  Rx<ConditionState> overBuy = ConditionState.none.obs;
+
+
+  BuyStockController(this.stock);
 
   @override
   void onInit() {
@@ -24,6 +24,13 @@ class BuyStockController extends BaseController {
     textEditingController = TextEditingController();
   }
 
+  @override
+  void onReady() {
+    change(stock, status: RxStatus.success());
+    super.onReady();
+  }
+
+
   void openHomeTrading() {
     Get.offAndToNamed(AppRoutes.mainView);
 
@@ -31,12 +38,17 @@ class BuyStockController extends BaseController {
 
 
   void onChangeMoney(String val) {
-
+    if (val.length > 5) {
+      overBuy.value = ConditionState.error;
+    }else{
+      overBuy.value = ConditionState.none;
+    }
 
   }
 
   void next() {
-
+    print("ABCD");
+    overBuy.value = ConditionState.error;
   }
 
   void showGuide() {

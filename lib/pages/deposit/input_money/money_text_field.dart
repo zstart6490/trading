@@ -40,18 +40,18 @@ class MoneyInputComponent extends StatelessWidget {
         formaters: [CurrencyInputFormatter()],
       );
     } else if (investType == InvestType.stock) {
-      print("ABCD");
       return MoneyTextField(
         hintText: "0",
         controller: textEditingController,
         autoFocus: true,
-        maxLength: 8,
+        maxLength: 9,
         focusNode: focusNode,
         textInputType: TextInputType.number,
         textStyle:context.textSize24,
         onChanged: (val) => onChangeMoney(val),
         multiple: multipleOf,
         suffixText: "CP",
+        state: state,
         formaters: [CurrencyInputFormatter()],
       );
     } else {

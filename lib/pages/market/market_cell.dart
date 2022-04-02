@@ -52,7 +52,7 @@ class MarketCell extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.network(
-                        "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
+                        stock.fullLink,
                         fit: BoxFit.contain,
                       ),
                     ),

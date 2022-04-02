@@ -11,7 +11,6 @@ import 'package:trading_module/utils/util.dart';
 class BuyStockScene extends GetView<BuyStockController> {
   const BuyStockScene({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<BuyStockController>(
@@ -22,59 +21,61 @@ class BuyStockScene extends GetView<BuyStockController> {
             Expanded(
               child: ListView(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg",
-                            width: 40,
-                            height: 40,
-                            fit: BoxFit.contain,
+                  controller.obx(
+                    (stock) => Padding(
+                      padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(
+                              stock?.fullLink ?? "",
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.contain,
+                            ),
                           ),
-                        ),
-                        SIZED_BOX_W10,
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                "FLC",
-                                style: TextStyle(
-                                  color: Color(0xFF333333),
-                                  fontSize: 14,
-                                  fontFamily: 'iCielHelveticaNowText',
-                                  fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.none,
+                          SIZED_BOX_W10,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  stock?.symbol ?? "",
+                                  style: const TextStyle(
+                                    color: Color(0xFF333333),
+                                    fontSize: 14,
+                                    fontFamily: 'iCielHelveticaNowText',
+                                    fontWeight: FontWeight.w500,
+                                    decoration: TextDecoration.none,
+                                  ),
                                 ),
-                              ),
-                              SIZED_BOX_H02,
-                              Text(
-                                "Công ty Cổ phần Tập đoàn FLC",
-                                style: TextStyle(
-                                  color: Color(0xFFADADAD),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'iCielHelveticaNowText',
-                                  decoration: TextDecoration.none,
+                                SIZED_BOX_H02,
+                                Text(
+                                  stock?.stockName ?? "",
+                                  style: const TextStyle(
+                                    color: Color(0xFFADADAD),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'iCielHelveticaNowText',
+                                    decoration: TextDecoration.none,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        const Text(
-                          "18.68",
-                          style: TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'iCielHelveticaNowText',
-                            decoration: TextDecoration.none,
+                           Text(
+                            stock?.lastPrice?.getPriceStock() ?? "0.0",
+                            style: const TextStyle(
+                              color: Color(0xFF333333),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'iCielHelveticaNowText',
+                              decoration: TextDecoration.none,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   const SpaceWithCustom(
@@ -89,27 +90,33 @@ class BuyStockScene extends GetView<BuyStockController> {
                       style: context.textSize16,
                     ),
                   ),
-                  Padding(
-                    padding: PAD_ALL16,
-                    child: MoneyInputComponent(
-                      investType: InvestType.stock,
-                      focusNode: controller.focusNode,
-                      textEditingController: controller.textEditingController,
-                      onChangeMoney: (val) => controller.onChangeMoney(val),
-
-                      multipleOf: 7, state: ConditionState.none,
+                  Obx(
+                    () => Padding(
+                      padding: PAD_ALL16,
+                      child: MoneyInputComponent(
+                        investType: InvestType.stock,
+                        focusNode: controller.focusNode,
+                        textEditingController: controller.textEditingController,
+                        onChangeMoney: (val) => controller.onChangeMoney(val),
+                        multipleOf: 9,
+                        state: controller.overBuy.value,
+                      ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-                    child: Text(
-                      "Sức mua của bạn không đủ. Hãy giảm khối lượng cổ phiếu hoặc nạp thêm tiền để thực hiện giao dịch.",
-                      style: TextStyle(
-                        color: Color(0xFFF46666),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'iCielHelveticaNowText',
-                        decoration: TextDecoration.none,
+                  Obx(
+                    () => Padding(
+                      padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+                      child: Text(
+                        controller.overBuy.value == ConditionState.none
+                            ? ""
+                            : "Sức mua của bạn không đủ. Hãy giảm khối lượng cổ phiếu hoặc nạp thêm tiền để thực hiện giao dịch.",
+                        style: const TextStyle(
+                          color: Color(0xFFF46666),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'iCielHelveticaNowText',
+                          decoration: TextDecoration.none,
+                        ),
                       ),
                     ),
                   ),

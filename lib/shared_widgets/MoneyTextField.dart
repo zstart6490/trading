@@ -62,6 +62,7 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
   late double size;
   late TextEditingController controller;
   late FocusNode focusNode;
+  late TextStyle? style;
 
   @override
   void initState() {
@@ -83,6 +84,23 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
 // change textStyle color
   @override
   Widget build(BuildContext context) {
+    switch(widget.state){
+      case ConditionState.error:
+        style = const TextStyle(
+            fontFamily: 'iCielHelveticaNowText',
+            color: Color(0xFFF46666),
+            fontSize: 28,
+            fontWeight: FontWeight.w700);
+        break;
+      default:
+        style = const TextStyle(
+            fontFamily: 'iCielHelveticaNowText',
+            color: Color(0xFF333333),
+            fontSize: 28,
+            fontWeight: FontWeight.w700);
+        break;
+    }
+
     return GestureDetector(
       onTap: () => onFocus(),
       behavior: HitTestBehavior.translucent,
@@ -91,7 +109,7 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
           SizedBox(
             width: size,
             child: TextFormField(
-              style: widget.textStyle ?? context.textSize14,
+              style: style ?? widget.textStyle ?? context.textSize14,
               keyboardType: widget.textInputType,
               textCapitalization: widget.textCapitalization,
               enabled: widget.enable,
@@ -103,7 +121,7 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
                 setState(() {
                   content = val;
                   size = _textSize(
-                      content, widget.textStyle ?? context.textSize14);
+                      content, style ?? widget.textStyle ?? context.textSize14);
                 });
                 widget.onChanged?.call(val);
               },
@@ -119,7 +137,7 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
                 hintText: widget.hintText,
                 fillColor: context.backgroundColor,
                 counterText: "",
-                labelStyle: widget.textStyle ?? context.textSize12,
+                labelStyle: style ?? widget.textStyle ?? context.textSize12,
               ),
             ),
           ),
@@ -140,7 +158,7 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
       textDirection: TextDirection.rtl,
     )..layout();
     //1 is cursor width
-    final width = textPainter.size.width + 1;
+    final width = textPainter.size.width + 3;
     return width;
   }
 
@@ -156,7 +174,11 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
         children: [
           Text(
             getSuffixStr(),
-            style: context.textSize14,
+            style: const TextStyle(
+                fontFamily: 'iCielHelveticaNowText',
+                color: Color(0xFFC2C6C9),
+                fontSize: 14,
+                fontWeight: FontWeight.w400),
           ),
           const Spacer(),
           if (content.isNotEmpty)

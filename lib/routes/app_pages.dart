@@ -13,8 +13,6 @@ import 'package:trading_module/pages/deposit/transfer_type/transfer_type_binding
 import 'package:trading_module/pages/deposit/transfer_type/transfer_type_scene.dart';
 import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tutorial_binding.dart';
 import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tutorial_scene.dart';
-import 'package:trading_module/pages/homePage/home_page.dart';
-import 'package:trading_module/pages/homePage/home_page_bindding.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_binding.dart';
 import 'package:trading_module/pages/market/market_binding.dart';

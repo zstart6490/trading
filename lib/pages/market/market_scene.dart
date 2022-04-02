@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/market/market_cell.dart';
 import 'package:trading_module/pages/market/market_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
