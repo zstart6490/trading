@@ -186,8 +186,8 @@ extension CustomDoubleExtension on double {
   String getPriceStock() {
     final oCcy = NumberFormat.decimalPattern("vi");
     final value = oCcy.format(this);
-    final value1 = oCcy.format(this).replaceRange(value.length - 1, value.length, "");
-    return value1;
+    final summary = oCcy.format(this).replaceRange(value.length - 1, value.length, "");
+    return summary;
   }
 
 
