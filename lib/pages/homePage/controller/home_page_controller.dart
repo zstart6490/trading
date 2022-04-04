@@ -130,6 +130,8 @@ class HomePageController extends BaseController
       print('Event: ' + event.event!);
       print('Data: ' + event.data!);
     });
+
+    SSEClient.unsubscribeFromSSE();
   }
 
 
