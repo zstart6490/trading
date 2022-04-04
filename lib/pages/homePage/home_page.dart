@@ -96,7 +96,7 @@ class HomePageView extends GetView<HomePageController> {
                 padding: PAD_SYM_H40,
                 btnTitle: "Thêm mã",
                 onPressed: () {
-                  controller.buyStock();
+                  controller.selectStock();
                 });
           }
         });

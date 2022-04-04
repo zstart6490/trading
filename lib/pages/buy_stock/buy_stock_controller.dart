@@ -6,13 +6,18 @@ import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/utils/enums.dart';
 
 
-class BuyStockController extends BaseController with StateMixin<StockModel>{
+
+class BuyStockController extends BaseController with StateMixin<StockModel> {
   final StockModel stock;
   late TextEditingController textEditingController;
   late FocusNode focusNode;
+  bool reverseViewPaymentContent = false;
 
   Rx<ConditionState> overBuy = ConditionState.none.obs;
 
+  Rx<bool> isShowToolTip = false.obs;
+
+  bool get isValid => overBuy.value == ConditionState.success;
 
   BuyStockController(this.stock);
 
@@ -27,23 +32,22 @@ class BuyStockController extends BaseController with StateMixin<StockModel>{
   @override
   void onReady() {
     change(stock, status: RxStatus.success());
+    //getPositionWidget();
     super.onReady();
   }
 
 
   void openHomeTrading() {
     Get.offAndToNamed(AppRoutes.mainView);
-
   }
 
 
   void onChangeMoney(String val) {
     if (val.length > 5) {
       overBuy.value = ConditionState.error;
-    }else{
+    } else {
       overBuy.value = ConditionState.none;
     }
-
   }
 
   void next() {
@@ -51,11 +55,22 @@ class BuyStockController extends BaseController with StateMixin<StockModel>{
     overBuy.value = ConditionState.error;
   }
 
-  void showGuide() {
 
+  void showToolTip(){
+    print(isShowToolTip.value);
+    isShowToolTip.value = !isShowToolTip.value;
   }
 
   void onFocusChange() {
     update();
   }
+
+  Offset getOffsetWidget(GlobalKey globalKey) {
+    final RenderBox? renderBox =
+    globalKey.currentContext?.findRenderObject() as RenderBox?;
+    return renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
+  }
+
+
+
 }

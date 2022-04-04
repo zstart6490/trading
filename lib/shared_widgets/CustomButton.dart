@@ -111,6 +111,8 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(bgColor);
+    print(Theme.of(context).primaryColor);
     return SizedBox(
       height: height,
       width: width ?? double.infinity,
@@ -119,7 +121,7 @@ class CustomButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius!)),
           primary: bgColor ?? Theme.of(context).primaryColor,
-          elevation: 0,
+          //elevation: 0,
         ),
         onPressed: onPressed,
         child: child ??

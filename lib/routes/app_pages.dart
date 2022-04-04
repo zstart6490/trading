@@ -24,12 +24,18 @@ import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_bin
 import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_view.dart';
 import 'package:trading_module/pages/pdf_reader/pdf_binddings.dart';
 import 'package:trading_module/pages/pdf_reader/pdf_reader_page.dart';
+import 'package:trading_module/pages/select_stock/select_stock_binding.dart';
+import 'package:trading_module/pages/select_stock/select_stock_scene.dart';
 import 'package:trading_module/pages/smart_otp/generate_otp/generate_otp_binding.dart';
 import 'package:trading_module/pages/smart_otp/generate_otp/generate_otp_scene.dart';
 import 'package:trading_module/pages/smart_otp/input_smart_otp/input_smart_otp_binding.dart';
 import 'package:trading_module/pages/smart_otp/input_smart_otp/input_smart_otp_scene.dart';
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_binding.dart';
 import 'package:trading_module/pages/smart_otp/verify_sms_otp/verify_sms_otp_view.dart';
+import 'package:trading_module/pages/stock_detail/stock_detail_binding.dart';
+import 'package:trading_module/pages/stock_detail/stock_detail_scene.dart';
+import 'package:trading_module/pages/stock_more_detail/stock_more_binding.dart';
+import 'package:trading_module/pages/stock_more_detail/stock_more_detail_scene.dart';
 import 'package:trading_module/pages/transaction/transaction_detail_binding.dart';
 import 'package:trading_module/pages/transaction/transaction_detail_scene.dart';
 import 'package:trading_module/pages/withdraw/choose_money/choose_money_binding.dart';
@@ -138,5 +144,17 @@ class AppPages {
         name: AppRoutes.tdBuyStock,
         page: () => const BuyStockScene(),
         binding: BuyStockBinding()),
+    GetPage(
+        name: AppRoutes.stockDetail,
+        page: () => const StockDetailScene(),
+        binding: StockDetailBinding()),
+    GetPage(
+        name: AppRoutes.stockMoreDetail,
+        page: () => const StockMoreDetailScene(),
+        binding: StockMoreDetailBinding()),
+    GetPage(
+        name: AppRoutes.selectStock,
+        page: () => const SelectStockScene(),
+        binding: SelectStockBinding()),
   ];
 }

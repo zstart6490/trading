@@ -9,7 +9,7 @@ import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_use_case.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
-class MarketController extends BaseController
+class SelectStockController extends BaseController
     with StateMixin<List<StockModel>> {
   final StockUseCase _stockUseCase = Get.find<StockUseCase>();
   final nameHolder = TextEditingController();
@@ -81,7 +81,7 @@ class MarketController extends BaseController
         }).listen((event) {
       if (event.data != null) {
         final RealTimeStock stockInfo =
-            RealTimeStock.fromJson(jsonDecode(event.data.toString()));
+        RealTimeStock.fromJson(jsonDecode(event.data.toString()));
         updateListStock(stockInfo);
       }
     });

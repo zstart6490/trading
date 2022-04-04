@@ -38,8 +38,11 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   pull_to_refresh: ^2.0.0
   shimmer: ^2.0.0
-  #sse: ^4.1.0
+  simple_tooltip: ^1.0.0
+
   universal_html: ^2.0.8
+  candlesticks: ^2.1.0
+
   #flutter_client_sse: ^1.0.0
   flutter_client_sse:
     git:

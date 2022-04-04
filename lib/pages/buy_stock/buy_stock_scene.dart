@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:simple_tooltip/simple_tooltip.dart';
 import 'package:trading_module/pages/buy_stock/buy_stock_controller.dart';
 import 'package:trading_module/pages/deposit/input_money/money_text_field.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
@@ -64,7 +65,7 @@ class BuyStockScene extends GetView<BuyStockController> {
                               ],
                             ),
                           ),
-                           Text(
+                          Text(
                             stock?.lastPrice?.getPriceStock() ?? "0.0",
                             style: const TextStyle(
                               color: Color(0xFF333333),
@@ -151,7 +152,7 @@ class BuyStockScene extends GetView<BuyStockController> {
                     padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
                     child: Row(children: [
                       const Text(
-                        "Số tiền dự tính",
+                        "Số tiền dự tính ",
                         style: TextStyle(
                           color: Color(0xFFADADAD),
                           fontSize: 14,
@@ -160,24 +161,51 @@ class BuyStockScene extends GetView<BuyStockController> {
                           decoration: TextDecoration.none,
                         ),
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: IconButton(
-                            icon: Icon(Icons.info),
-                            color: Color(0xFF9AA0A5),
-                            onPressed: () => controller.showGuide(),
+                      Obx(
+                        () => Expanded(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: InkWell(
+                              onTap: () => controller.showToolTip(),
+                              child: SimpleTooltip(
+                                  arrowBaseWidth: 18,
+                                  //minWidth: MediaQuery.of(context).size.width - 150,
+                                  arrowLength: 11,
+                                  ballonPadding: const EdgeInsets.symmetric(
+                                      horizontal: 2, vertical: 1),
+                                  borderRadius: 2,
+                                  borderColor: Color(0xFF606060),
+                                  backgroundColor: Color(0xFF606060),
+                                  minimumOutSidePadding: 32.0,
+                                  animationDuration:
+                                      const Duration(milliseconds: 250),
+                                  show: controller.isShowToolTip.value,
+                                  hideOnTooltipTap: true,
+                                  tooltipDirection: TooltipDirection.down,
+                                  content: Text(
+                                    "Là số tiền dự kiến bạn sẽ nhận được khi thực hiện bán cổ phiếu.\nChưa bao gồm:\n0,1% thuế thu nhập cá nhân.\n0,1% phí bán",
+                                    style: context.textSize14
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                  child: Icon(Icons.info,
+                                      color: Color(0xFF9AA0A5))),
+                            ),
                           ),
                         ),
                       ),
-                      const Text(
-                        "150.000.000đ",
-                        style: TextStyle(
-                          color: Color(0xFF333333),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'iCielHelveticaNowText',
-                          decoration: TextDecoration.none,
+                      Obx(
+                        () => Text(
+                          "150.000.000đ",
+                          style: TextStyle(
+                            color: (controller.overBuy.value ==
+                                    ConditionState.none)
+                                ? Color(0xFF333333)
+                                : Color(0xFFF46666),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            fontFamily: 'iCielHelveticaNowText',
+                            decoration: TextDecoration.none,
+                          ),
                         ),
                       ),
                     ]),
@@ -187,16 +215,18 @@ class BuyStockScene extends GetView<BuyStockController> {
               ),
             ),
             Padding(
-              padding: PAD_SYM_H16,
-              child: CustomButton.trailingStyle(
-                  title: "Mua",
-                  textStyle: context.textSize18light,
-                  trailing: Icon(
-                    Icons.keyboard_arrow_right,
-                    color: context.backgroundColor,
-                  ),
-                  onPressed: () => controller.next()),
-            ),
+                padding: PAD_SYM_H16,
+                child: CustomButton.trailingStyle(
+                    title: "Mua",
+                    textStyle: context.textSize18light,
+                    trailing: Icon(
+                      Icons.keyboard_arrow_right,
+                      color: context.backgroundColor,
+                    ),
+                    onPressed: () =>
+                        controller.overBuy.value == ConditionState.none ? () => controller.next() : null),
+              ),
+
           ],
         ));
   }

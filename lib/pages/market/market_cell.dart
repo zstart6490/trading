@@ -102,7 +102,7 @@ class MarketCell extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        stock.lastPrice!.getPriceStock(),
+                        stock.lastPrice.getPriceStock(),
                         style: mediumStyle,
                         overflow: TextOverflow.ellipsis,
                       ),

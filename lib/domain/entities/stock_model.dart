@@ -8,11 +8,11 @@ class StockModel {
   final String stockName;
   final String? imageUrl;
   final int? stockType;
-  final double? lastPrice;
+  late final double lastPrice;
   final double? change;
-  final double ratioChange;
+  late final double ratioChange;
 
-  String get fullLink => "${Environment().maketUrl}/resource/v1/stock-image/${this.imageUrl}";
+  String get fullLink => "${Environment().maketUrl}/resource/v1/stock-image/$imageUrl";
 
   StockModel(this.symbol, this.stockName, this.imageUrl, this.stockType , this.lastPrice  , this.change  , this.ratioChange);
 

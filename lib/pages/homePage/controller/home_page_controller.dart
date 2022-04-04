@@ -97,6 +97,10 @@ class HomePageController extends BaseController
     }
   }
 
+  void selectStock(){
+    Get.toNamed(AppRoutes.selectStock);
+  }
+
   void selTab(int index) {
     tabController.animateTo(index);
   }
@@ -130,6 +134,8 @@ class HomePageController extends BaseController
       print('Event: ' + event.event!);
       print('Data: ' + event.data!);
     });
+
+    SSEClient.unsubscribeFromSSE();
   }
 
 

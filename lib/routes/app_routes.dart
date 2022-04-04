@@ -25,4 +25,7 @@ abstract class AppRoutes {
   static const tdDepositTutorial = "/td_depositTutorial";
 
   static const tdBuyStock = "/td_buyStock";
+  static const stockDetail = "/stock_detail";
+  static const stockMoreDetail = "/stock_more_detail";
+  static const selectStock = "/select_stock";
 }
