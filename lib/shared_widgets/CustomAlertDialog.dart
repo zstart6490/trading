@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,77 @@ class AlertAction {
   factory AlertAction.ok(VoidCallback onPressed) {
     return AlertAction(
         text: "Đồng ý", isDefaultAction: true, onPressed: onPressed);
+  }
+}
+class CustomAlertType2tDialog extends StatelessWidget {
+  const CustomAlertType2tDialog({
+    Key? key,
+    this.title,
+    this.desc,
+    required this.actions,
+    this.titleWidget,
+    this.descWidget,
+  }) : super(key: key);
+  final String? title;
+  final String? desc;
+  final Widget? titleWidget;
+  final Widget? descWidget;
+  final List<Widget> actions;
+  @override
+  Widget build(BuildContext context) {
+    final maxWidth = min(350.0, context.screenSize.width * 0.96);
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          textScaleFactor: 1,
+        ),
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(maxWidth: maxWidth),
+            decoration: BoxDecoration(
+                borderRadius: BOR_RAD8, color: context.backgroundColor),
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) =>
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (title != null || titleWidget != null)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+                          child: titleWidget ??
+                              Text(
+                                title!,
+                                style: context.textSize16,
+                                textAlign: TextAlign.center,
+                              ),
+                        ),
+                      if (desc != null || descWidget != null)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+                          child: descWidget ??
+                              Text(
+                                desc!,
+                                style: context.textSize14,
+                                textAlign: TextAlign.center,
+                              ),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(12.0, 16.0, 12.0, 16.0),
+                        child: Column(
+                          children: List.generate(actions.length * 2 - 1, (index) {
+                            if (index.isEven) {
+                              final action = actions[index ~/ 2];
+                              return action;
+                            } else {
+                              return SIZED_BOX_W08;
+                            }
+                          }),
+                        ),
+                      )
+                    ],
+                  ),
+            ),
+          ),
+        ));
   }
 }
 

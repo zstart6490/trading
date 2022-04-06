@@ -82,6 +82,11 @@ enum NinePayType {
   keep,
 }
 
+enum StockTransactionType {
+  buy,
+  sell,
+}
+
 enum TransactionType {
   @JsonValue("DEPOSIT")
   deposit,
@@ -93,6 +98,17 @@ enum TransactionType {
   limited,
   @JsonValue("UNLIMITED")
   unlimited,
+}
+
+enum StockTransactionState {
+  @JsonValue(0)
+  pending,
+  @JsonValue(1)
+  success,
+  @JsonValue(-1)
+  failed,
+  @JsonValue(-2)
+  block,
 }
 
 enum TransactionState {

@@ -1,4 +1,5 @@
 import 'package:get/instance_manager.dart';
+import 'package:trading_module/cores/socket_stock.dart';
 import 'package:trading_module/data/repos/home_trading_repo_imp.dart';
 import 'package:trading_module/data/repos/stock_repo_impl.dart';
 import 'package:trading_module/data/repos/withdraw_repos_impl.dart';
@@ -26,5 +27,6 @@ class MainTabBinding extends Bindings {
     Get.lazyPut(() => OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
     Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
     Get.lazyPut(() => HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl())));
+    Get.lazyPut(() => StockPriceSocket());
   }
 }

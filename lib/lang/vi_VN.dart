@@ -1,6 +1,10 @@
 // ignore_for_file: file_names
 
 const Map<String, String> vi_VN = {
+  'btn_buy':'Mua',
+  'btn_sell':'Bán',
+  'buy_stock':'Mua cổ phiếu',
+  'sell_stock':'Bán cổ phiếu',
   'withdraw_continue':'Tiếp tục',
   'withdraw_title':'Rút tiền',
   'withdraw_confirm':'Xác nhận giao dịch',

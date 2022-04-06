@@ -124,9 +124,13 @@ extension CustomStringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }
-
 extension CustomIntExtension on int {
   String toCurrency({String symbol = "đ"}) {
+    final oCcy = NumberFormat.decimalPattern("vi");
+    return "${oCcy.format(this)}$symbol";
+  }
+
+  String toStock({String symbol = "cp"}) {
     final oCcy = NumberFormat.decimalPattern("vi");
     return "${oCcy.format(this)}$symbol";
   }
@@ -162,6 +166,11 @@ extension CustomDoubleExtension on double {
     final oCcy = NumberFormat.decimalPattern("vi");
     return "${oCcy.format(this)}$symbol";
   }
+  String toStockCurrency({String symbol = "đ"}) {
+    final oCcy = NumberFormat.decimalPattern("vi");
+    return "${oCcy.format(this)}$symbol";
+  }
+
 
   Color getStockColor() {
     if (this == 0) {

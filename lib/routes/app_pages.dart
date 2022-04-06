@@ -13,11 +13,14 @@ import 'package:trading_module/pages/deposit/transfer_type/transfer_type_binding
 import 'package:trading_module/pages/deposit/transfer_type/transfer_type_scene.dart';
 import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tutorial_binding.dart';
 import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tutorial_scene.dart';
+import 'package:trading_module/pages/exchange/buy/buy_stock_binding.dart';
+import 'package:trading_module/pages/exchange/buy/buy_stock_scene.dart';
+import 'package:trading_module/pages/exchange/sell/sell_stock_binding.dart';
+import 'package:trading_module/pages/exchange/sell/sell_stock_scene.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_binding.dart';
 import 'package:trading_module/pages/market/market_binding.dart';
 import 'package:trading_module/pages/market/market_scene.dart';
-
 import 'package:trading_module/pages/on_boarding/intro/intro_binding.dart';
 import 'package:trading_module/pages/on_boarding/intro/intro_product_view.dart';
 import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_binding.dart';
@@ -38,6 +41,8 @@ import 'package:trading_module/pages/stock_more_detail/stock_more_binding.dart';
 import 'package:trading_module/pages/stock_more_detail/stock_more_detail_scene.dart';
 import 'package:trading_module/pages/transaction/transaction_detail_binding.dart';
 import 'package:trading_module/pages/transaction/transaction_detail_scene.dart';
+import 'package:trading_module/pages/transaction_stock/stock_transaction_detail_binding.dart';
+import 'package:trading_module/pages/transaction_stock/transaction_stock_detail_scene.dart';
 import 'package:trading_module/pages/withdraw/choose_money/choose_money_binding.dart';
 import 'package:trading_module/pages/withdraw/choose_money/withdraw_money_scene.dart';
 import 'package:trading_module/pages/withdraw/confirm/withdraw_binding.dart';
@@ -140,9 +145,13 @@ class AppPages {
         name: AppRoutes.transactionDetail,
         page: () => const TransactionDetailScene(),
         binding: TransactionBinding()),
+    // GetPage(
+    //     name: AppRoutes.tdBuyStock,
+    //     page: () => const BuyStockScene(),
+    //     binding: BuyStockBinding()),
     GetPage(
-        name: AppRoutes.tdBuyStock,
-        page: () => const BuyStockScene(),
+        name: AppRoutes.buyStock,
+        page: () => BuyStockScene(),
         binding: BuyStockBinding()),
     GetPage(
         name: AppRoutes.stockDetail,
@@ -156,5 +165,13 @@ class AppPages {
         name: AppRoutes.selectStock,
         page: () => const SelectStockScene(),
         binding: SelectStockBinding()),
+    GetPage(
+        name: AppRoutes.sellStock,
+        page: () => const SellStockScene(),
+        binding: SellStockBinding()),
+    GetPage(
+        name: AppRoutes.stTransactionDetail,
+        page: () => TransactionStockDetailScene(),
+        binding: TransactionStockDetailBinding()),
   ];
 }

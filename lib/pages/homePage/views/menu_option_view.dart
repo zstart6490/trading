@@ -61,6 +61,8 @@ class BoardItemCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
+      child: Container(
         padding: const EdgeInsets.fromLTRB(12, 18, 12, 18),
         margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
         decoration: BoxDecoration(
@@ -127,8 +129,8 @@ class BoardItemCell extends StatelessWidget {
             ),
           ],
         ),
-      );
-
+      ),
+    );
   }
 }
 
@@ -282,7 +284,9 @@ class MenuOptionView<T extends HomePageController> extends StatelessWidget {
                 title: 'sell'.tr,
                 icon: Image.asset("assets/images/png/ic_sell.png",
                     package: "trading_module"),
-                onPressed: () {}),
+                onPressed: () {
+                  controller.openSellStock();
+                }),
           ],
         ),
       ),
