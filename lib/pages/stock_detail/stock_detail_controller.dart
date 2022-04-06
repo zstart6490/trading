@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/routes/app_routes.dart';

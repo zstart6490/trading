@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:trading_module/configs/constants.dart';
 
 extension DurationExtension on Duration {
   String formatHHMMSS() {
@@ -174,12 +175,32 @@ extension CustomDoubleExtension on double {
 
   Color getStockColor() {
     if (this == 0) {
-      return const Color(0xFFFF9500);
+      return refColor;
     }
     if (this  > 0) {
-      return const Color(0xFF33CC7F);
+      return increaseColor;
     }
-    return const Color(0xFFF46666);
+    return decreaseColor;
+  }
+
+  Color getStockColorWith(double ref, double floor, double ceil) {
+    if (this  > ref && this < ceil) {
+      return increaseColor;
+    }
+
+    if (this  < ref && this > floor) {
+      return decreaseColor;
+    }
+
+    if (this == floor) {
+      return floorColor;
+    }
+
+    if (this == ceil) {
+      return ceilColor;
+    }
+
+    return refColor;
   }
 
   String getRatioChange(){

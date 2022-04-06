@@ -187,3 +187,10 @@ const PAD_SYM_H16_V12 = EdgeInsets.symmetric(horizontal: 16, vertical: 12);
 const CODE_SUCCESS = -1;
 const CODE_ERROR_SERVER_INTERNAL = 500;
 const CODE_ERROR_APP_INTERNAL = 0;
+
+//Stock color state
+const refColor = Color(0xFFFFBE40);
+const ceilColor = Color(0xFFA500A8);
+const floorColor = Color(0xFF2F80ED);
+const increaseColor = Color(0xFF00B14F);
+const decreaseColor = Color(0xFFF46666);

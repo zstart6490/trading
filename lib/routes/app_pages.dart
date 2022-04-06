@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:trading_module/pages/buy_stock/buy_stock_binding.dart';
-import 'package:trading_module/pages/buy_stock/buy_stock_scene.dart';
 import 'package:trading_module/pages/contract/contract_binding.dart';
 import 'package:trading_module/pages/contract/contract_scene.dart';
 import 'package:trading_module/pages/deposit/input_money/input_money_local/input_money_local_binding.dart';
@@ -145,10 +143,6 @@ class AppPages {
         name: AppRoutes.transactionDetail,
         page: () => const TransactionDetailScene(),
         binding: TransactionBinding()),
-    // GetPage(
-    //     name: AppRoutes.tdBuyStock,
-    //     page: () => const BuyStockScene(),
-    //     binding: BuyStockBinding()),
     GetPage(
         name: AppRoutes.buyStock,
         page: () => BuyStockScene(),

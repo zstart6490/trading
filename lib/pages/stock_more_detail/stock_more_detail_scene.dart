@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
 import 'package:trading_module/pages/stock_more_detail/stock_more_detail_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
+import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/utils/util.dart';
 
 class StockMoreDetailScene extends GetView<StockMoreDetailController> {
@@ -20,473 +21,505 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
       backgroundColor: Colors.white,
       title: "FLC".tr,
       body: Column(
-        children: <Widget>[
-          SIZED_BOX_H08,
-          StockMenuView(controller: controller),
-          SIZED_BOX_H06,
-          Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    controller.stock.fullLink,
-                    width: 43,
-                    height: 43,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                SIZED_BOX_W10,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.only(top: 30),
+              children: <Widget>[
+                SIZED_BOX_H08,
+                StockMenuView(controller: controller),
+                SIZED_BOX_H06,
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                  child: Row(
                     children: [
-                      Text(
-                        controller.stock.stockName,
-                        style: const TextStyle(
-                          color: Color(0xFF333333),
-                          fontSize: 14,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w400,
-                          decoration: TextDecoration.none,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          controller.stock.fullLink,
+                          width: 43,
+                          height: 43,
+                          fit: BoxFit.contain,
                         ),
                       ),
-                      SIZED_BOX_H02,
+                      SIZED_BOX_W10,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              controller.stock.stockName,
+                              style: const TextStyle(
+                                color: Color(0xFF333333),
+                                fontSize: 14,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w400,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            SIZED_BOX_H02,
+                            Row(
+                              children: [
+                                Text(
+                                  controller.stock.lastPrice
+                                      .toCurrency(symbol: ""),
+                                  style: const TextStyle(
+                                    color: Color(0xFF333333),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'iCielHelveticaNowText',
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                                const Text(
+                                  "/CP",
+                                  style: TextStyle(
+                                    color: Color(0xFF858585),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'iCielHelveticaNowText',
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SIZED_BOX_H16,
+                //const ChartView(),
+                const SpaceWithCustom(
+                  height: 8,
+                  bgColor: Color(0xFFF5F6FA),
+                ),
+                SIZED_BOX_H16,
+                Container(
+                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      Text(
+                        "KL mua",
+                        style: headerTitleStyle,
+                      ),
+                      Text(
+                        "Giá mua",
+                        style: headerTitleStyle,
+                      ),
+                      SizedBox(
+                        width: 1,
+                        height: 1,
+                      ),
+                      Text(
+                        "Giá bán",
+                        style: headerTitleStyle,
+                      ),
+                      Text(
+                        "KL bán",
+                        style: headerTitleStyle,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(12, 18, 12, 18),
+                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: const Color(0xFFF5F6FA)),
+                  child: Column(
+                    children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            controller.stock.lastPrice.toCurrency(symbol: ""),
-                            style: const TextStyle(
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
                               color: Color(0xFF333333),
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 12,
                               fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
                               decoration: TextDecoration.none,
                             ),
                           ),
                           const Text(
-                            "/CP",
+                            "34,70",
                             style: TextStyle(
-                              color: Color(0xFF858585),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF333333),
+                              fontSize: 12,
                               fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          Container(
+                            width: 1,
+                            height: 40,
+                            color: Color(0xFFDADADA),
+                          ),
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF00B14F),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF00B14F),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
                               decoration: TextDecoration.none,
                             ),
                           ),
                         ],
-                      )
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF333333),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF333333),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          Container(
+                            width: 1,
+                            height: 40,
+                            color: Color(0xFFDADADA),
+                          ),
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF00B14F),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF00B14F),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF333333),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF333333),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          Container(
+                            width: 1,
+                            height: 40,
+                            color: Color(0xFFDADADA),
+                          ),
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF00B14F),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          const Text(
+                            "34,70",
+                            style: TextStyle(
+                              color: Color(0xFF00B14F),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SIZED_BOX_H08,
+                const SpaceWithCustom(
+                  height: 8,
+                  bgColor: Color(0xFFF5F6FA),
+                ),
+
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Sàn",
+                          style: headerTitleStyle,
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      Text(
+                        "Tham chiếu",
+                        style: headerTitleStyle,
+                      ),
+                      Text(
+                        "Trần  ",
+                        style: headerTitleStyle,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
+                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: const Color(0xFFF5F6FA)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      Text(
+                        "34,70",
+                        style: TextStyle(
+                          color: Color(0xFF333333),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      Text(
+                        "34,70",
+                        style: TextStyle(
+                          color: Color(0xFF00B14F),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      Text(
+                        "34,70",
+                        style: TextStyle(
+                          color: Color(0xFF00B14F),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Thấp",
+                          style: headerTitleStyle,
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      Text(
+                        "Trung bình",
+                        style: headerTitleStyle,
+                      ),
+                      Text(
+                        "Cao  ",
+                        style: headerTitleStyle,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
+                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: const Color(0xFFF5F6FA)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      Text(
+                        "34,70",
+                        style: TextStyle(
+                          color: Color(0xFF333333),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      Text(
+                        "34,70",
+                        style: TextStyle(
+                          color: Color(0xFF00B14F),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      Text(
+                        "34,70",
+                        style: TextStyle(
+                          color: Color(0xFF00B14F),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                Container(
+                  padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Tổng KL",
+                          style: headerTitleStyle,
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      Text(
+                        "Tổng giá trị",
+                        style: headerTitleStyle,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(32, 18, 32, 18),
+                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: const Color(0xFFF5F6FA)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        "34,70",
+                        style: TextStyle(
+                          color: Color(0xFF333333),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      Text(
+                        "10.480.630",
+                        style: TextStyle(
+                          color: Color(0xFF333333),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          SIZED_BOX_H16,
-          //const ChartView(),
-          const SpaceWithCustom(
-            height: 8,
-            bgColor: Color(0xFFF5F6FA),
-          ),
-          SIZED_BOX_H16,
-          Container(
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-            margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
+
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Text(
-                  "KL mua",
-                  style: headerTitleStyle,
-                ),
-                Text(
-                  "Giá mua",
-                  style: headerTitleStyle,
-                ),
-                SizedBox(
-                  width: 1,
-                  height: 1,
-                ),
-                Text(
-                  "Giá bán",
-                  style: headerTitleStyle,
-                ),
-                Text(
-                  "KL bán",
-                  style: headerTitleStyle,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(12, 18, 12, 18),
-            margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: const Color(0xFFF5F6FA)),
-            child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF333333),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
+                Expanded(
+                  child: CustomButton.trailingStyle(
+                    title: "Mua",
+                    textStyle: context.textSize18light,
+                    trailing: const Icon(
+                      null,
                     ),
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF333333),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    Container(
-                      width: 1,
-                      height: 40,
-                      color: Color(0xFFDADADA),
-                    ),
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF00B14F),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF00B14F),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ],
+                    onPressed: () {
+                      //controller.onTapped();
+                    },
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF333333),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF333333),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    Container(
-                      width: 1,
-                      height: 40,
-                      color: Color(0xFFDADADA),
-                    ),
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF00B14F),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF00B14F),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF333333),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF333333),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    Container(
-                      width: 1,
-                      height: 40,
-                      color: Color(0xFFDADADA),
-                    ),
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF00B14F),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    Text(
-                      "34,70",
-                      style: const TextStyle(
-                        color: Color(0xFF00B14F),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ],
+                SIZED_BOX_W16,
+                const Expanded(
+                  child: CustomButton(bgColor: Colors.black, title: "Bán"),
                 ),
               ],
             ),
           ),
-          SIZED_BOX_H08,
-          const SpaceWithCustom(
-            height: 8,
-            bgColor: Color(0xFFF5F6FA),
-          ),
-
-          Container(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-            margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Sàn",
-                    style: headerTitleStyle,
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-                Text(
-                  "Tham chiếu",
-                  style: headerTitleStyle,
-                ),
-                Text(
-                  "Trần  ",
-                  style: headerTitleStyle,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
-            margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: const Color(0xFFF5F6FA)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Text(
-                  "34,70",
-                  style: TextStyle(
-                    color: Color(0xFF333333),
-                    fontSize: 12,
-                    fontFamily: 'iCielHelveticaNowText',
-                    fontWeight: FontWeight.w700,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                Text(
-                  "34,70",
-                  style: TextStyle(
-                    color: Color(0xFF00B14F),
-                    fontSize: 12,
-                    fontFamily: 'iCielHelveticaNowText',
-                    fontWeight: FontWeight.w700,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                Text(
-                  "34,70",
-                  style: TextStyle(
-                    color: Color(0xFF00B14F),
-                    fontSize: 12,
-                    fontFamily: 'iCielHelveticaNowText',
-                    fontWeight: FontWeight.w700,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          Container(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-            margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Thấp",
-                    style: headerTitleStyle,
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-                Text(
-                  "Trung bình",
-                  style: headerTitleStyle,
-                ),
-                Text(
-                  "Cao  ",
-                  style: headerTitleStyle,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
-            margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: const Color(0xFFF5F6FA)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Text(
-                  "34,70",
-                  style: TextStyle(
-                    color: Color(0xFF333333),
-                    fontSize: 12,
-                    fontFamily: 'iCielHelveticaNowText',
-                    fontWeight: FontWeight.w700,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                Text(
-                  "34,70",
-                  style: TextStyle(
-                    color: Color(0xFF00B14F),
-                    fontSize: 12,
-                    fontFamily: 'iCielHelveticaNowText',
-                    fontWeight: FontWeight.w700,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                Text(
-                  "34,70",
-                  style: TextStyle(
-                    color: Color(0xFF00B14F),
-                    fontSize: 12,
-                    fontFamily: 'iCielHelveticaNowText',
-                    fontWeight: FontWeight.w700,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          Container(
-            padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
-            margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Tổng KL",
-                    style: headerTitleStyle,
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-                Text(
-                  "Tổng giá trị",
-                  style: headerTitleStyle,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(32, 18, 32, 18),
-            margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: const Color(0xFFF5F6FA)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  "34,70",
-                  style: TextStyle(
-                    color: Color(0xFF333333),
-                    fontSize: 12,
-                    fontFamily: 'iCielHelveticaNowText',
-                    fontWeight: FontWeight.w700,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-                Text(
-                  "10.480.630",
-                  style: TextStyle(
-                    color: Color(0xFF333333),
-                    fontSize: 12,
-                    fontFamily: 'iCielHelveticaNowText',
-                    fontWeight: FontWeight.w700,
-                    decoration: TextDecoration.none,
-                  ),
-                ),
-              ],
-            ),
-          )
         ],
       ),
     );
