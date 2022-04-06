@@ -67,7 +67,7 @@ class MarketController extends BaseController
   }
 
   void onTapped(StockModel stock) {
-    Get.toNamed(AppRoutes.stockDetail, arguments: stock);
+    Get.toNamed(AppRoutes.stockMoreDetail, arguments: stock);
   }
 
   void subscribe() {

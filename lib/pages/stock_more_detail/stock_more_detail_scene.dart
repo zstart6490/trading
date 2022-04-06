@@ -19,7 +19,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
 
     return BaseScaffoldAppBar<StockMoreDetailController>(
       backgroundColor: Colors.white,
-      title: "FLC".tr,
+      title: controller.stock.symbol,
       body: Column(
         children: [
           Expanded(

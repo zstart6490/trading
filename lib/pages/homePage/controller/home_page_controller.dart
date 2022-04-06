@@ -96,6 +96,10 @@ class HomePageController extends BaseController
     }
   }
 
+  void stockDetail(){
+    //Get.toNamed(AppRoutes.stockMoreDetail, arguments: stock);
+  }
+
   void selectStock(){
     Get.toNamed(AppRoutes.selectStock);
   }

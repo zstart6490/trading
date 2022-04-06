@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/domain/entities/model.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
+import 'package:trading_module/pages/stock_detail/Views/chart_demo_view.dart';
+import 'package:trading_module/pages/stock_detail/Views/chart_view.dart';
 import 'package:trading_module/pages/stock_detail/Views/invest_info_view.dart';
 import 'package:trading_module/pages/stock_detail/stock_detail_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
@@ -16,8 +18,7 @@ class StockDetailScene extends GetView<StockDetailController> {
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<StockDetailController>(
       backgroundColor: Colors.white,
-      title: "FLC".tr,
-      //body: _buildChild(),
+      title: "Chi tiết cổ phiếu".tr,
       body: Column(
         children: [
           Expanded(
@@ -91,7 +92,7 @@ class HeaderStockDetailView<T extends StockDetailController>
       children: <Widget>[
         SIZED_BOX_H08,
         Padding(
-          padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
           child: Row(
             children: [
               ClipRRect(
@@ -109,40 +110,25 @@ class HeaderStockDetailView<T extends StockDetailController>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      controller.stock.symbol,
+                      style: const TextStyle(
+                        color: Color(0xFF333333),
+                        fontSize: 20,
+                        fontFamily: 'iCielHelveticaNowText',
+                        fontWeight: FontWeight.w700,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    Text(
                       controller.stock.stockName,
                       style: const TextStyle(
                         color: Color(0xFF333333),
                         fontSize: 14,
-                        fontFamily: 'iCielHelveticaNowText',
                         fontWeight: FontWeight.w400,
+                        fontFamily: 'iCielHelveticaNowText',
                         decoration: TextDecoration.none,
                       ),
                     ),
-                    SIZED_BOX_H02,
-                    Row(
-                      children: [
-                        Text(
-                          controller.stock.lastPrice.toCurrency(symbol: ""),
-                          style: const TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'iCielHelveticaNowText',
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        const Text(
-                          "/CP",
-                          style: TextStyle(
-                            color: Color(0xFF858585),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'iCielHelveticaNowText',
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),
@@ -151,7 +137,8 @@ class HeaderStockDetailView<T extends StockDetailController>
         ),
 
         SIZED_BOX_H16,
-        //const ChartView(),
+
+        ChartDemoView(),
 
         const SpaceWithCustom(
           height: 8,
