@@ -42,9 +42,7 @@ dependencies:
 
   universal_html: ^2.0.8
   #flutter_client_sse: ^1.0.0
-  flutter_client_sse:
-    git:
-      url: https://github.com/pratikbaid3/flutter_client_sse
+  flutter_client_sse: ^1.0.0
 
 dev_dependencies:
   flutter_test:

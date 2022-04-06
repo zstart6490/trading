@@ -277,12 +277,16 @@ class MenuOptionView<T extends HomePageController> extends StatelessWidget {
                 title: 'buy'.tr,
                 icon: Image.asset("assets/images/png/ic_buy.png",
                     package: "trading_module"),
-                onPressed: () {}),
+                onPressed: () {
+                  controller.openBuyStock();
+                }),
             ButtonWithIconAndText(
                 title: 'sell'.tr,
                 icon: Image.asset("assets/images/png/ic_sell.png",
                     package: "trading_module"),
-                onPressed: () {}),
+                onPressed: () {
+                  controller.openSellStock();
+                }),
           ],
         ),
       ),

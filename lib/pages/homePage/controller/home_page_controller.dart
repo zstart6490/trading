@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_client_sse/flutter_client_sse.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
@@ -27,11 +26,11 @@ class HomePageController extends BaseController
 
   @override
   void onInit() {
-    super.onInit();
     tabController = TabController(length: timeRange.length, vsync: this);
     tabController.addListener(() {});
     refreshController = RefreshController();
     subscribe();
+    super.onInit();
   }
 
   Future openCashOut() async {
@@ -119,19 +118,31 @@ class HomePageController extends BaseController
 
   void subscribe() {
     print("Start subscribe");
-    SSEClient.subscribeToSSE(
-        url:
-        'http://104.199.179.48:8910/stock/v1/subscribe/AAA-AAT-ABS',
-        header: {
-          "Authorization": mainProvider.accessToken??"",
-          "Cache-Control": "no-cache",
-        }).listen((event) {
-      print('Id: ' + event.id!);
-      print('Event: ' + event.event!);
-      print('Data: ' + event.data!);
-    });
+    // SSEClient.subscribeToSSE(
+    //     url:
+    //     'http://104.199.179.48:8910/stock/v1/subscribe/AAA-AAT-ABS',
+    //     header: {
+    //       "Authorization": mainProvider.accessToken??"",
+    //       "Cache-Control": "no-cache",
+    //     }).listen((event) {
+    //   print('Id: ' + event.id!);
+    //   print('Event: ' + event.event!);
+    //   print('Data: ' + event.data!);
+    // });
+    //
+    // SSEClient.unsubscribeFromSSE();
+  }
 
-    SSEClient.unsubscribeFromSSE();
+  void openBuyStock() {
+    Get.toNamed(AppRoutes.buyStock,arguments: [
+      "AAA","Công ty AAA",32.0
+    ]);
+  }
+
+  void openSellStock() {
+    Get.toNamed(AppRoutes.sellStock,arguments: [
+      "AAA","Công ty AAA",32.0
+    ]);
   }
 
 
