@@ -7,6 +7,8 @@ class StockTransactionDetail {
   double amount;
   double amountWithoutFee;
   double fee;
+  double feePartner;
+  double feePartnerPercent;
   String transactionCode;
   DateTime requestTime;
   StockTransactionState status;
@@ -19,6 +21,8 @@ class StockTransactionDetail {
       required this.amount,
       required this.amountWithoutFee,
       required this.fee,
+      required this.feePartner,
+      required this.feePartnerPercent,
       required this.transactionCode,
       required this.requestTime,
       required this.status});

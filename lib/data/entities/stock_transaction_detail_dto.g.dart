@@ -15,6 +15,8 @@ StockTransactionDetailDto _$StockTransactionDetailDtoFromJson(
       amount: (json['amount'] as num?)?.toDouble(),
       amountWithoutFee: (json['amountWithoutFee'] as num?)?.toDouble(),
       fee: (json['fee'] as num?)?.toDouble(),
+      feePartner: (json['feePartner'] as num?)?.toDouble(),
+      feePartnerPercent: (json['feePartnerPercent'] as num?)?.toDouble(),
       transactionCode: json['transactionCode'] as String?,
       requestTime: json['requestTime'] == null
           ? null

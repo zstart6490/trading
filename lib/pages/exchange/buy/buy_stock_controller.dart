@@ -2,11 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
-import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/navigate_stock_trans_detail.dart';
+import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/entities/stock_order_info.dart';
 import 'package:trading_module/domain/entities/stock_transaction_detail.dart';
-import 'package:trading_module/domain/use_cases/stock_exchange_usecase.dart';
 import 'package:trading_module/pages/exchange/exchange_stock_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
@@ -25,12 +24,12 @@ class BuyStockController extends ExchangeStockController {
   Rx<bool> isShowToolTip = false.obs;
   Rx<ConditionState> overBuy = ConditionState.none.obs;
 
-  BuyStockController(String symbol, String symbolDesc, double price)
-      : super(symbol, symbolDesc, price);
+  BuyStockController(StockModel stockModel)
+      : super(stockModel);
 
   @override
   void onInit() {
-    priceStock.value = price;
+    priceStock.value = stockModel.lastPrice;
     focusNode = FocusNode();
 
     focusNode.addListener(() {
@@ -76,7 +75,7 @@ class BuyStockController extends ExchangeStockController {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.getBuyOrderInfo(
-        symbol: symbol, price: price, quantity: requestAmount);
+        symbol: stockModel.symbol, price: stockModel.lastPrice, quantity: requestAmount);
     if (result.data != null) {
       stockOrderInfo = result.data;
       if (stockOrderInfo != null) {
@@ -108,7 +107,7 @@ class BuyStockController extends ExchangeStockController {
                       ),
                     ),
                     TextSpan(
-                      text: " mã $symbol với giá dự tính ",
+                      text: " mã ${stockModel.symbol} với giá dự tính ",
                     ),
                     TextSpan(
                       text: (priceStock.value).toCurrency(),
@@ -158,7 +157,7 @@ class BuyStockController extends ExchangeStockController {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.confirmBuyOrderInfo(
-        symbol: symbol, price: price, quantity: requestAmount);
+        symbol: stockModel.symbol, price: stockModel.lastPrice, quantity: requestAmount);
     hideDialog();
     if (result.data != null) {
 

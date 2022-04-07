@@ -7,8 +7,10 @@ import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
 import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
 import 'package:trading_module/domain/use_cases/stock_use_case.dart';
 import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
+import 'package:trading_module/routes/app_navigate.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class HomePageController extends BaseController
@@ -97,7 +99,7 @@ class HomePageController extends BaseController
   }
 
   void selectStock(){
-    Get.toNamed(AppRoutes.selectStock);
+    navToSelectStock(StockType.market);
   }
 
   void selTab(int index) {
@@ -116,9 +118,7 @@ class HomePageController extends BaseController
   }
 
 
-  void buyStock(){
-    Get.toNamed(AppRoutes.tdBuyStock, arguments: null);
-  }
+
 
   void subscribe() {
     print("Start subscribe");
@@ -138,15 +138,11 @@ class HomePageController extends BaseController
   }
 
   void openBuyStock() {
-    Get.toNamed(AppRoutes.buyStock,arguments: [
-      "AAA","Công ty AAA",32.0
-    ]);
+    navToSelectStock(StockType.market);
   }
 
   void openSellStock() {
-    Get.toNamed(AppRoutes.sellStock,arguments: [
-      "AAA","Công ty AAA",32.0
-    ]);
+    navToSelectStock(StockType.owner);
   }
 
 

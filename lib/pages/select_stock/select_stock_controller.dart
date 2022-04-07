@@ -1,21 +1,35 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_client_sse/flutter_client_sse.dart';
 import 'package:get/get.dart';
-import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
-import 'package:trading_module/domain/entities/real_time_stock.dart';
+import 'package:trading_module/cores/stock_price_socket.dart';
+import 'package:trading_module/data/entities/socket_stock_event.dart';
+import 'package:trading_module/data/entities/stock_price.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_use_case.dart';
-import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/routes/app_navigate.dart';
+import 'package:trading_module/utils/enums.dart';
 
 class SelectStockController extends BaseController
     with StateMixin<List<StockModel>> {
   final StockUseCase _stockUseCase = Get.find<StockUseCase>();
+  final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
   final nameHolder = TextEditingController();
   List<StockModel> listStock = <StockModel>[];
-
   Rx<bool> hiddenRemoveSearch = true.obs;
+  final StockType stockType;
+
+  SelectStockController(this.stockType);
+
+  String getTitleScreen() {
+    if (stockType == StockType.market) {
+      return "Chọn mã CP muốn mua";
+    }
+    if (stockType == StockType.owner) {
+      return "Đang sở hữu";
+    }
+    return "Chọn mã CP muốn mua";
+  }
 
   @override
   void onInit() {
@@ -29,7 +43,7 @@ class SelectStockController extends BaseController
   }
 
   @override
-  void onClose(){
+  void onClose() {
     SSEClient.unsubscribeFromSSE();
   }
 
@@ -67,38 +81,39 @@ class SelectStockController extends BaseController
   }
 
   void onTapped(StockModel stock) {
-    Get.toNamed(AppRoutes.stockDetail, arguments: stock);
+    if (stockType == StockType.market) {
+      navToBuyStock(stock);
+    }
+    if (stockType == StockType.owner) {
+      navToSellStock(stock);
+    }
   }
 
   void subscribe() {
     final symbols = listStock.map((e) => e.symbol).toList();
-    final stock = symbols.join('-');
-    SSEClient.subscribeToSSE(
-        url: '${Environment().maketUrl}/stock/v1/subscribe/$stock',
-        header: {
-          "Authorization": mainProvider.accessToken ?? "",
-          "Cache-Control": "no-cache",
-        }).listen((event) {
-      if (event.data != null) {
-        final RealTimeStock stockInfo =
-        RealTimeStock.fromJson(jsonDecode(event.data.toString()));
-        updateListStock(stockInfo);
-      }
-    });
-
-    SSEClient.unsubscribeFromSSE();
+    stockPriceSocket.subscribeStock(
+      symbols,
+      (p0) {
+        updateListStock(p0);
+      },
+    );
   }
 
-  void updateListStock(RealTimeStock stock){
-    for (var i = 0; i < listStock.length; i++){
-      if (listStock[i].symbol == stock.sym){
-        print("KKKKKKKK");
-        listStock[i].lastPrice = stock.prc;
-        listStock[i].ratioChange = stock.chg;
+  void updateListStock(SocketStockEvent stock) {
+    for (var i = 0; i < listStock.length; i++) {
+      final StockPrice stockPrice = stock.stockPrice;
+      if (listStock[i].symbol == stockPrice.symbol) {
+        listStock[i].lastPrice = stockPrice.price ?? 0;
+        listStock[i].ratioChange = stockPrice.chg ?? 0;
         change(listStock, status: RxStatus.success());
-
         break;
       }
     }
+  }
+
+  @override
+  Future<bool> onWillPop() {
+    stockPriceSocket.unSubscribeStock();
+    return super.onWillPop();
   }
 }

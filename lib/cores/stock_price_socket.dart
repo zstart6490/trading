@@ -11,17 +11,12 @@ class StockPriceSocket {
       List<String> symbols, Function(SocketStockEvent) eventStock) {
     final MainTradingProvider mainTradingProvider =
         Get.find<MainTradingProvider>();
-    final buffer = StringBuffer();
-    for (final value in symbols) {
-      buffer.write('$value-');
-    }
-
-    if (buffer.isEmpty) return;
-    final String symbolsListen =
-        buffer.toString().removeAllWhitespace.substring(0, buffer.length - 1);
+    final stockSymbols = symbols.join('-');
+    if (stockSymbols.isEmpty) return;
+    unSubscribeStock();
     // print("SubscribeStock: $symbolsListen");
     SSEClient.subscribeToSSE(
-        url: 'http://104.199.179.48:8910/stock/v1/subscribe/$symbolsListen',
+        url: 'http://104.199.179.48:8910/stock/v1/subscribe/$stockSymbols',
         header: {
           "Authorization": mainTradingProvider.accessToken ?? "",
           "Cache-Control": "no-cache",

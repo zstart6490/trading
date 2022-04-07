@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/market/market_cell.dart';
 import 'package:trading_module/pages/select_stock/select_stock_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
+import 'package:trading_module/utils/enums.dart';
 
 class SelectStockScene extends GetView<SelectStockController> {
   const SelectStockScene({Key? key}) : super(key: key);
@@ -12,7 +14,7 @@ class SelectStockScene extends GetView<SelectStockController> {
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<SelectStockController>(
       backgroundColor: Colors.white,
-      title: "Chọn mã CP muốn mua".tr,
+      title: controller.getTitleScreen(),
       body: Column(
         children: <Widget>[
           Padding(
@@ -24,7 +26,7 @@ class SelectStockScene extends GetView<SelectStockController> {
                 color: const Color(0xFFF5F6FA),
               ),
               child: Obx(
-                    () => TextField(
+                () => TextField(
                   textAlignVertical: TextAlignVertical.center,
                   controller: controller.nameHolder,
                   decoration: InputDecoration(
@@ -56,29 +58,37 @@ class SelectStockScene extends GetView<SelectStockController> {
             ),
           ),
           controller.obx(
-                (stocks) => Expanded(
+            (stocks) => Expanded(
               child: CustomScrollView(slivers: <Widget>[
                 SliverList(
                   delegate: SliverChildListDelegate(
                       List.generate(stocks!.length, (index) {
-                        final stock = stocks[index];
-                        return MarketCell(
-                          stock: stock,
-                          onPressed: () => controller.onTapped(stock),
-                        );
-                      })),
+                    final stock = stocks[index];
+                    return MarketCell(
+                      stock: stock,
+                      onPressed: () => controller.onTapped(stock),
+                    );
+                  })),
                 ),
               ]),
             ),
             onLoading: const SizedBox(),
             onError: (error) => Text(error ?? "Load Content Error!"),
-            onEmpty: ListNoDataBackground(
-              pngPath: "assets/images/png/banner_search_not_found.png",
-              title: "Không tìm thấy kết quả".tr,
-              desc: "Kiểm tra từ khóa và thử lại".tr,
-              padding: const EdgeInsets.only(top: 180),
-              btnTitle: null,
-            ),
+            onEmpty: controller.stockType == StockType.market
+                ? ListNoDataBackground(
+                    pngPath: "assets/images/png/banner_search_not_found.png",
+                    title: "Không tìm thấy kết quả".tr,
+                    desc: "Kiểm tra từ khóa và thử lại".tr,
+                    padding: const EdgeInsets.only(top: 180),
+                  )
+                : ListNoDataBackground(
+                pngPath: "assets/images/png/banner_empty_data.png",
+                desc: "Bạn chưa sở hữu CP nào",
+                padding: PAD_SYM_H40,
+                btnTitle: "Thêm mã",
+                onPressed: () {
+                  //controller.buyStock();
+                }),
           ),
         ],
       ),

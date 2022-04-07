@@ -1,6 +1,6 @@
 import 'dart:convert';
+
 import 'package:candlesticks/candlesticks.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:trading_module/cores/states/base_controller.dart';

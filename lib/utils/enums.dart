@@ -87,6 +87,10 @@ enum StockTransactionType {
   sell,
 }
 
+enum StockType{
+  market,owner
+}
+
 enum TransactionType {
   @JsonValue("DEPOSIT")
   deposit,

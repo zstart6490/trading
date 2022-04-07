@@ -8,7 +8,6 @@ import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 
 class TransactionStockDetailScene extends GetView<TransactionStockController> {
-
   @override
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<TransactionStockController>(
@@ -16,8 +15,12 @@ class TransactionStockDetailScene extends GetView<TransactionStockController> {
       elevation: 0,
       backgroundColor: Colors.white,
       body: Column(children: [
-        StockTransactionStateComponent(controller.navigateStockTranDetail.transaction),
-        StockTransactionDetailInfo(controller.navigateStockTranDetail.transaction),
+        Expanded(child: Column( children: [
+          StockTransactionStateComponent(
+              controller.navigateStockTranDetail.transaction),
+          StockTransactionDetailInfo(
+              controller.navigateStockTranDetail.transaction),
+        ],)),
         Padding(
           padding: PAD_BOTTOM_16,
           child: CustomButton.defaultStyle(

@@ -41,7 +41,13 @@ class StockModelDTO {
 
 extension StockModelMapper on StockModelDTO {
   StockModel toModel() {
-    return StockModel(symbol ?? "", stockName ?? "", imageUrl, stockType,
-        lastPrice ?? 0, change, ratioChange ?? 0);
+    return StockModel(
+        symbol: symbol??"",
+        stockName: stockName??"",
+        imageUrl: imageUrl??"",
+        stockType: stockType??0,
+        lastPrice: lastPrice??0,
+        change: change??0,
+        ratioChange: ratioChange??0);
   }
 }
