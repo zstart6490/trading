@@ -2,7 +2,6 @@ import 'package:trading_module/cores/resources/data_state.dart';
 import 'package:trading_module/data/entities/my_stock_model_dto.dart';
 import 'package:trading_module/data/entities/stock_order_info_dto.dart';
 import 'package:trading_module/data/entities/stock_transaction_detail_dto.dart';
-import 'package:trading_module/data/services/stock_exchange_service.dart';
 import 'package:trading_module/domain/entities/my_stock_model.dart';
 import 'package:trading_module/data/services/stock_order_service.dart';
 import 'package:trading_module/domain/entities/stock_order_info.dart';

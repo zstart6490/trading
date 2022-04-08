@@ -10,14 +10,8 @@ class StockModel {
   late double ratioChange;
 
   String get fullLink => "${Environment().maketUrl}/resource/v1/stock-image/$imageUrl";
-  final String imageUrl;
-  final int stockType;
-  double lastPrice;
-  double change;
-  double ratioChange;
 
-  String get fullLink =>
-      "${Environment().maketUrl}/resource/v1/stock-image/$imageUrl";
+
 
   StockModel(
       {required this.symbol,

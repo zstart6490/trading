@@ -91,11 +91,6 @@ class SelectStockController extends BaseController
       if (listStock[i].symbol == stockPrice.symbol) {
         listStock[i].lastPrice = stockPrice.price ?? 0;
         listStock[i].ratioChange = stockPrice.chg ?? 0;
-  void updateListStock(RealTimeStock stock){
-    for (var i = 0; i < listStock.length; i++){
-      if (listStock[i].symbol == stock.sym){
-        listStock[i].lastPrice = stock.prc;
-        listStock[i].ratioChange = stock.chg;
         change(listStock, status: RxStatus.success());
         break;
       }

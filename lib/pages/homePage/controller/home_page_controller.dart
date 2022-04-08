@@ -30,7 +30,7 @@ class HomePageController extends BaseController
     tabController = TabController(length: timeRange.length, vsync: this);
     tabController.addListener(() {});
     refreshController = RefreshController();
-    subscribe();
+    //subscribe();
     super.onInit();
   }
 
@@ -101,8 +101,7 @@ class HomePageController extends BaseController
     //Get.toNamed(AppRoutes.stockMoreDetail, arguments: stock);
   }
 
-  void selectStock(){
-    Get.toNamed(AppRoutes.selectStock);
+
   void selectStock() {
     navToSelectStock();
   }
