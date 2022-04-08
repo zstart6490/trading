@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
+import 'package:trading_module/pages/stock_detail/Views/chart_view.dart';
 import 'package:trading_module/pages/stock_more_detail/stock_more_detail_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
@@ -20,507 +21,524 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
     return BaseScaffoldAppBar<StockMoreDetailController>(
       backgroundColor: Colors.white,
       title: controller.stock.symbol,
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.only(top: 30),
-              children: <Widget>[
-                SIZED_BOX_H08,
-                StockMenuView(controller: controller),
-                SIZED_BOX_H06,
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.network(
-                          controller.stock.fullLink,
-                          width: 43,
-                          height: 43,
-                          fit: BoxFit.contain,
+      actions: <Widget>[
+        Obx(
+          () => IconButton(
+            icon: Image.asset(
+                controller.isFollow.value
+                    ? "assets/images/png/ic_follow.png"
+                    : "assets/images/png/ic_unfollow.png",
+                package: "trading_module"),
+            tooltip: 'Thông tin',
+            onPressed: () {
+              controller.follow();
+            },
+          ),
+        ),
+      ],
+      body: controller.obx(
+        (stock) => Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.only(top: 30),
+                children: <Widget>[
+                  SIZED_BOX_H08,
+                  StockMenuView(controller: controller),
+                  SIZED_BOX_H06,
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            controller.stock.fullLink,
+                            width: 43,
+                            height: 43,
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                      ),
-                      SIZED_BOX_W10,
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        SIZED_BOX_W10,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                controller.stock.stockName,
+                                style: const TextStyle(
+                                  color: Color(0xFF333333),
+                                  fontSize: 14,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w400,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                              SIZED_BOX_H02,
+                              Row(
+                                children: [
+                                  Text(
+                                    controller.stock.lastPrice
+                                        .toCurrency(symbol: ""),
+                                    style: const TextStyle(
+                                      color: Color(0xFF333333),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'iCielHelveticaNowText',
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                  const Text(
+                                    "/CP",
+                                    style: TextStyle(
+                                      color: Color(0xFF858585),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'iCielHelveticaNowText',
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 340,
+                    margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                    child: ChartView(),
+                  ),
+                  SIZED_BOX_H12,
+                  const SpaceWithCustom(
+                    height: 8,
+                    bgColor: Color(0xFFF5F6FA),
+                  ),
+                  SIZED_BOX_H16,
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                    margin: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: const [
+                        Text(
+                          "KL mua",
+                          style: headerTitleStyle,
+                        ),
+                        Text(
+                          "Giá mua",
+                          style: headerTitleStyle,
+                        ),
+                        SizedBox(
+                          width: 1,
+                          height: 1,
+                        ),
+                        Text(
+                          "Giá bán",
+                          style: headerTitleStyle,
+                        ),
+                        Text(
+                          "KL bán",
+                          style: headerTitleStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(12, 18, 12, 18),
+                    margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: const Color(0xFFF5F6FA)),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
-                              controller.stock.stockName,
+                              (stock?.askVol1 ?? 0).getPriceStock(),
                               style: const TextStyle(
                                 color: Color(0xFF333333),
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w700,
                                 decoration: TextDecoration.none,
                               ),
                             ),
-                            SIZED_BOX_H02,
-                            Row(
-                              children: [
-                                Text(
-                                  controller.stock.lastPrice
-                                      .toCurrency(symbol: ""),
-                                  style: const TextStyle(
-                                    color: Color(0xFF333333),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'iCielHelveticaNowText',
-                                    decoration: TextDecoration.none,
-                                  ),
-                                ),
-                                const Text(
-                                  "/CP",
-                                  style: TextStyle(
-                                    color: Color(0xFF858585),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'iCielHelveticaNowText',
-                                    decoration: TextDecoration.none,
-                                  ),
-                                ),
-                              ],
-                            )
+                            Text(
+                              (stock?.askPrice1 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF333333),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            Container(
+                              width: 1,
+                              height: 40,
+                              color: Color(0xFFDADADA),
+                            ),
+                            Text(
+                              (stock?.bidVol1 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF00B14F),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            Text(
+                              (stock?.bidPrice1 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF00B14F),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                SIZED_BOX_H16,
-                //const ChartView(),
-                const SpaceWithCustom(
-                  height: 8,
-                  bgColor: Color(0xFFF5F6FA),
-                ),
-                SIZED_BOX_H16,
-                Container(
-                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Text(
-                        "KL mua",
-                        style: headerTitleStyle,
-                      ),
-                      Text(
-                        "Giá mua",
-                        style: headerTitleStyle,
-                      ),
-                      SizedBox(
-                        width: 1,
-                        height: 1,
-                      ),
-                      Text(
-                        "Giá bán",
-                        style: headerTitleStyle,
-                      ),
-                      Text(
-                        "KL bán",
-                        style: headerTitleStyle,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(12, 18, 12, 18),
-                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: const Color(0xFFF5F6FA)),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF333333),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              (stock?.askVol2 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF333333),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
                             ),
-                          ),
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF333333),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
+                            Text(
+                              (stock?.askPrice2 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF333333),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: 1,
-                            height: 40,
-                            color: Color(0xFFDADADA),
-                          ),
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF00B14F),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
+                            Container(
+                              width: 1,
+                              height: 40,
+                              color: Color(0xFFDADADA),
                             ),
-                          ),
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF00B14F),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
+                            Text(
+                              (stock?.bidVol2 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF00B14F),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF333333),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
+                            Text(
+                              (stock?.bidPrice2 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF00B14F),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
                             ),
-                          ),
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF333333),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                          Container(
-                            width: 1,
-                            height: 40,
-                            color: Color(0xFFDADADA),
-                          ),
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF00B14F),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF00B14F),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF333333),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF333333),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                          Container(
-                            width: 1,
-                            height: 40,
-                            color: Color(0xFFDADADA),
-                          ),
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF00B14F),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                          const Text(
-                            "34,70",
-                            style: TextStyle(
-                              color: Color(0xFF00B14F),
-                              fontSize: 12,
-                              fontFamily: 'iCielHelveticaNowText',
-                              fontWeight: FontWeight.w700,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SIZED_BOX_H08,
-                const SpaceWithCustom(
-                  height: 8,
-                  bgColor: Color(0xFFF5F6FA),
-                ),
-
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Sàn",
-                          style: headerTitleStyle,
-                          textAlign: TextAlign.right,
+                          ],
                         ),
-                      ),
-                      Text(
-                        "Tham chiếu",
-                        style: headerTitleStyle,
-                      ),
-                      Text(
-                        "Trần  ",
-                        style: headerTitleStyle,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
-                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: const Color(0xFFF5F6FA)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Text(
-                        "34,70",
-                        style: TextStyle(
-                          color: Color(0xFF333333),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              (stock?.askVol3 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF333333),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            Text(
+                              (stock?.askPrice3 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF333333),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            Container(
+                              width: 1,
+                              height: 40,
+                              color: Color(0xFFDADADA),
+                            ),
+                            Text(
+                              (stock?.bidVol3 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF00B14F),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            Text(
+                              (stock?.bidPrice3 ?? 0).getPriceStock(),
+                              style: const TextStyle(
+                                color: Color(0xFF00B14F),
+                                fontSize: 12,
+                                fontFamily: 'iCielHelveticaNowText',
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Text(
-                        "34,70",
-                        style: TextStyle(
-                          color: Color(0xFF00B14F),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      Text(
-                        "34,70",
-                        style: TextStyle(
-                          color: Color(0xFF00B14F),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Thấp",
-                          style: headerTitleStyle,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      Text(
-                        "Trung bình",
-                        style: headerTitleStyle,
-                      ),
-                      Text(
-                        "Cao  ",
-                        style: headerTitleStyle,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
-                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: const Color(0xFFF5F6FA)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Text(
-                        "34,70",
-                        style: TextStyle(
-                          color: Color(0xFF333333),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      Text(
-                        "34,70",
-                        style: TextStyle(
-                          color: Color(0xFF00B14F),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      Text(
-                        "34,70",
-                        style: TextStyle(
-                          color: Color(0xFF00B14F),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                Container(
-                  padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
-                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Tổng KL",
-                          style: headerTitleStyle,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      Text(
-                        "Tổng giá trị",
-                        style: headerTitleStyle,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(32, 18, 32, 18),
-                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: const Color(0xFFF5F6FA)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "34,70",
-                        style: TextStyle(
-                          color: Color(0xFF333333),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      Text(
-                        "10.480.630",
-                        style: TextStyle(
-                          color: Color(0xFF333333),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: CustomButton.trailingStyle(
-                    title: "Mua",
-                    textStyle: context.textSize18light,
-                    trailing: const Icon(
-                      null,
+                      ],
                     ),
-                    onPressed: () {
-                      //controller.onTapped();
-                    },
                   ),
-                ),
-                SIZED_BOX_W16,
-                const Expanded(
-                  child: CustomButton(bgColor: Colors.black, title: "Bán"),
-                ),
-              ],
+                  SIZED_BOX_H08,
+                  const SpaceWithCustom(
+                    height: 8,
+                    bgColor: Color(0xFFF5F6FA),
+                  ),
+                  SIZED_BOX_H16,
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: const [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Sàn",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        Text(
+                          "Tham chiếu",
+                          style: headerTitleStyle,
+                        ),
+                        Text(
+                          "Trần  ",
+                          style: headerTitleStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
+                    margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: const Color(0xFFF5F6FA)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          (stock?.floor ?? 0).getPriceStock(),
+                          style: const TextStyle(
+                            color: Color(0xFF333333),
+                            fontSize: 12,
+                            fontFamily: 'iCielHelveticaNowText',
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        Text(
+                          (stock?.refPrice ?? 0).getPriceStock(),
+                          style: const TextStyle(
+                            color: Color(0xFF00B14F),
+                            fontSize: 12,
+                            fontFamily: 'iCielHelveticaNowText',
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        Text(
+                          (stock?.ceiling ?? 0).getPriceStock(),
+                          style: const TextStyle(
+                            color: Color(0xFF00B14F),
+                            fontSize: 12,
+                            fontFamily: 'iCielHelveticaNowText',
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: const [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Thấp",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        Text(
+                          "Trung bình",
+                          style: headerTitleStyle,
+                        ),
+                        Text(
+                          "Cao  ",
+                          style: headerTitleStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
+                    margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: const Color(0xFFF5F6FA)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          (stock?.low ?? 0).getPriceStock(),
+                          style: const TextStyle(
+                            color: Color(0xFF333333),
+                            fontSize: 12,
+                            fontFamily: 'iCielHelveticaNowText',
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        Text(
+                          (stock?.avg ?? 0).getPriceStock(),
+                          style: const TextStyle(
+                            color: Color(0xFF00B14F),
+                            fontSize: 12,
+                            fontFamily: 'iCielHelveticaNowText',
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        Text(
+                          (stock?.high ?? 0).getPriceStock(),
+                          style: const TextStyle(
+                            color: Color(0xFF00B14F),
+                            fontSize: 12,
+                            fontFamily: 'iCielHelveticaNowText',
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
+                    margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Tổng KL",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        Text(
+                          "Tổng giá trị",
+                          style: headerTitleStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(32, 18, 32, 18),
+                    margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: const Color(0xFFF5F6FA)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          (stock?.totalVol ?? 0).getPriceStock(),
+                          style: const TextStyle(
+                            color: Color(0xFF333333),
+                            fontSize: 12,
+                            fontFamily: 'iCielHelveticaNowText',
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                        Text(
+                          (stock?.totalVal ?? 0).getPriceStock(),
+                          style: const TextStyle(
+                            color: Color(0xFF333333),
+                            fontSize: 12,
+                            fontFamily: 'iCielHelveticaNowText',
+                            fontWeight: FontWeight.w700,
+                            decoration: TextDecoration.none,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CustomButton.trailingStyle(
+                      title: "Mua",
+                      textStyle: context.textSize18light,
+                      trailing: const Icon(
+                        null,
+                      ),
+                      onPressed: () {
+                        controller.buyTapped();
+                      },
+                    ),
+                  ),
+                  SIZED_BOX_W16,
+                  const Expanded(
+                    child: CustomButton(bgColor: Colors.black, title: "Bán"),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

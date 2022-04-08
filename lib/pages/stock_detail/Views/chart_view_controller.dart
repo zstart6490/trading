@@ -1,28 +1,58 @@
 import 'dart:convert';
 import 'package:candlesticks/candlesticks.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:get/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/domain/entities/stock_model.dart';
+import 'package:trading_module/domain/use_cases/stock_use_case.dart';
 
-class ChartController extends BaseController with StateMixin<List<Candle>> {
+class ChartController extends BaseController with StateMixin<List<Candle>>, GetSingleTickerProviderStateMixin {
   List<Candle> candles = [];
   Rx<bool> themeIsDark = false.obs;
+  final StockModel stock;
+  final StockUseCase _stockUseCase = Get.find<StockUseCase>();
+
+  final timeRange = ["1W".tr, "1M".tr, "3M".tr, "6M".tr, "1Y".tr];
+  late TabController tabController;
+
+  ChartController(this.stock);
 
   @override
   void onInit() {
+    tabController = TabController(length: timeRange.length, vsync: this);
+    tabController.addListener(() {
+      if (!tabController.indexIsChanging) onTabChange(tabController.index);
+    });
     super.onInit();
   }
 
   @override
   void onReady() {
     super.onReady();
-    print("FFFFFFF");
-    fetchCandles().then((value) {
-      print(value);
+    fetchCandles().then((value) {;
       candles = value;
       change(candles, status: RxStatus.success());
     });
+  }
+
+  void onTabChange(int index) {
+    debugPrint("TabChange :${tabController.index}");
+    final time = timeRange[index];
+    getHistoryStockPrice(time);
+  }
+
+  Future<void> getHistoryStockPrice(String time) async {
+    final result = await _stockUseCase.getHistoryStockPrice(symbol: stock.symbol, type: time);
+    if (result.data != null) {
+      //change(result.data, status: RxStatus.success());
+    } else if (result.error != null) {
+      //change(null, status: RxStatus.error());
+      showSnackBar(result.error!.message);
+    }
   }
 
   void changeThem(){
@@ -33,8 +63,6 @@ class ChartController extends BaseController with StateMixin<List<Candle>> {
     final uri = Uri.parse(
         "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h");
     final res = await http.get(uri);
-    print("AAAAAA");
-    print(res.body);
     return (jsonDecode(res.body) as List<dynamic>)
         .map((e) => Candle.fromJson(e as List<dynamic>))
         .toList()

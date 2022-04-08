@@ -19,11 +19,9 @@ class _ChartDemoViewState extends State<ChartDemoView> {
 
   @override
   void initState() {
-    print("chart initttttttttt");
     fetchCandles().then((value) {
       setState(() {
         candles = value;
-        print("chart initttttttttt1111");
       });
     });
     super.initState();
@@ -34,7 +32,7 @@ class _ChartDemoViewState extends State<ChartDemoView> {
         "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h");
     final res = await http.get(uri);
     return (jsonDecode(res.body) as List<dynamic>)
-        .map((e) => Candle.fromJson(e))
+        .map((e) => Candle.fromJson(e as List<dynamic>))
         .toList()
         .reversed
         .toList();

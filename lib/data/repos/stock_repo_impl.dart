@@ -1,9 +1,12 @@
 import 'package:trading_module/cores/resources/data_state.dart';
+import 'package:trading_module/data/entities/stock_current_price_model_dto.dart';
+import 'package:trading_module/data/entities/stock_history_price_model_dto.dart';
 import 'package:trading_module/data/entities/stock_model_dto.dart';
 import 'package:trading_module/data/services/stock_service.dart';
+import 'package:trading_module/domain/entities/stock_current_price_model.dart';
+import 'package:trading_module/domain/entities/stock_history_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/repos/stock_repo.dart';
-
 
 
 class StockRepoImpl extends StockRepo {
@@ -27,13 +30,27 @@ class StockRepoImpl extends StockRepo {
   }
 
   @override
-  Future<DataState<StockModel>> subscribe({required List<String> stocks}) async{
-    final result = await _services.subscribe(stocks);
+  Future<DataState<StockCurrentPriceModel>> getCurrentStockPrice({required String symbol}) async{
+    final result = await _services.getCurrentStockPrice(symbol);
     if (result.success) {
-      final model = StockModelDTO.fromJson(result as Map<String, dynamic>).toModel();
+      final model = result.modelDTO.toModel();
       return DataSuccess(model);
     }
     return DataFailed(result.error);
   }
+
+  @override
+  Future<DataState<StockHistoryPriceModel>> getHistoryStockPrice({required String symbol, required String type}) async{
+    final result = await _services.getHistoryStockPrice(symbol, type);
+    if (result.success) {
+      final model = result.modelDTO.toModel();
+      return DataSuccess(model);
+    }
+    return DataFailed(result.error);
+  }
+
+
+
+
 
 }

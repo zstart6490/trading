@@ -8,9 +8,9 @@ class StockModel {
   final String stockName;
   final String? imageUrl;
   final int? stockType;
-  late final double lastPrice;
+  late double lastPrice;
   final double? change;
-  late final double ratioChange;
+  late double ratioChange;
 
   String get fullLink => "${Environment().maketUrl}/resource/v1/stock-image/$imageUrl";
 

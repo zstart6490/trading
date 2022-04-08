@@ -1,4 +1,6 @@
 import 'package:trading_module/cores/resources/data_state.dart';
+import 'package:trading_module/domain/entities/stock_current_price_model.dart';
+import 'package:trading_module/domain/entities/stock_history_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/repos/stock_repo.dart';
 
@@ -13,10 +15,14 @@ class StockUseCase {
     return otp;
   }
 
-  Future<DataState<StockModel>> subscribe(List<String> stocks) async {
-    final otp = await _stockRepo.subscribe(stocks: stocks);
-    return otp;
+  Future<DataState<StockCurrentPriceModel>> getCurrentStockPrice({required String symbol}) async {
+    final result = await _stockRepo.getCurrentStockPrice(symbol: symbol);
+    return result;
   }
 
+  Future<DataState<StockHistoryPriceModel>> getHistoryStockPrice({required String symbol, required String type}) async {
+    final result = await _stockRepo.getHistoryStockPrice(symbol: symbol, type: type);
+    return result;
+  }
 
 }

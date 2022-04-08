@@ -1,12 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:trading_module/domain/entities/my_stock_model.dart';
 import 'package:trading_module/pages/stock_detail/stock_detail_controller.dart';
 
 
 import 'package:trading_module/utils/util.dart';
 
 class InvestInfoView extends GetView<StockDetailController> {
-  const InvestInfoView({Key? key}) : super(key: key);
+  final MyStockModel? stock;
+  const InvestInfoView(this.stock, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +30,15 @@ class InvestInfoView extends GetView<StockDetailController> {
         ),
         SIZED_BOX_H16,
         Row(
-          children: const [
+          children: [
             Expanded(
                 child: InvestInfoItem(
                     title: "TB giá mua  (đ)",
-                    desc: "17.500",
+                    desc: (stock?.priceAvg ?? 0).toCurrency(symbol: ""),
                     imgUrl: "assets/images/png/ic_avg_bought_price.png",
                     descColor: Color(0xFF333333))),
             SIZED_BOX_W45,
-            Expanded(
+            const Expanded(
                 child: InvestInfoItem(
                     title: "Tiền vốn (đ)",
                     desc: "17.000.000",

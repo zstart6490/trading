@@ -1,6 +1,8 @@
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/market_api_services.dart';
 import 'package:trading_module/cores/networking/decoder.dart';
+import 'package:trading_module/data/entities/stock_current_price_model_dto.dart';
+import 'package:trading_module/data/entities/stock_history_price_model_dto.dart';
 import 'package:trading_module/data/entities/stock_model_dto.dart';
 
 
@@ -8,7 +10,8 @@ abstract class StockService extends MarketApiServices {
   StockService() : super();
 
   Future<BaseDecoder<List<StockModelDTO>>> getList();
-  Future<BaseDecoder<StockModelDTO>> subscribe(List<String> stocks);
+  Future<BaseDecoder<StockCurrentPriceModelDTO>> getCurrentStockPrice(String symbol);
+  Future<BaseDecoder<StockHistoryPriceModelDTO>> getHistoryStockPrice(String symbol, String type);
 }
 
 class StockServiceImpl extends StockService {
@@ -18,20 +21,26 @@ class StockServiceImpl extends StockService {
   Future<BaseDecoder<List<StockModelDTO>>> getList() async{
     return  BaseDecoder(await api.getData(
         endPoint: "/stock/v1/list",
-        params: {
-        },
         timeOut: AppConstants.TIME_OUT),
     decoder: StockModelDTO.getList);
   }
 
   @override
-  Future<BaseDecoder<StockModelDTO>> subscribe(List<String> stocks) async{
+  Future<BaseDecoder<StockCurrentPriceModelDTO>> getCurrentStockPrice(String symbol) async{
+    return  BaseDecoder(await api.getData(
+        endPoint: "/stock-price/v1/current/$symbol",
+        timeOut: AppConstants.TIME_OUT),
+        decoder: StockCurrentPriceModelDTO.fromJson);
+  }
+
+  @override
+  Future<BaseDecoder<StockHistoryPriceModelDTO>> getHistoryStockPrice(String symbol, String type) async{
     return  BaseDecoder(await api.postData(
-        endPoint: "/stock/v1/subscribe",
+        endPoint: "/stock-price/v1/history/$symbol",
         params: {
-          "topics":stocks,
+          'type':type,
         },
         timeOut: AppConstants.TIME_OUT),
-    decoder: StockModelDTO.getList);
+        decoder: StockHistoryPriceModelDTO.fromJson);
   }
 }

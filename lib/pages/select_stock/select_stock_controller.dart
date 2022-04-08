@@ -41,7 +41,7 @@ class SelectStockController extends BaseController
     if (result.data != null) {
       listStock = result.data!;
       change(listStock, status: RxStatus.success());
-      subscribe();
+      //subscribe();
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
       change(null, status: RxStatus.error());
@@ -92,11 +92,9 @@ class SelectStockController extends BaseController
   void updateListStock(RealTimeStock stock){
     for (var i = 0; i < listStock.length; i++){
       if (listStock[i].symbol == stock.sym){
-        print("KKKKKKKK");
         listStock[i].lastPrice = stock.prc;
         listStock[i].ratioChange = stock.chg;
         change(listStock, status: RxStatus.success());
-
         break;
       }
     }

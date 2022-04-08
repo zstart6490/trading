@@ -30,6 +30,7 @@ Map<String, dynamic> _$StockTransactionDetailDtoToJson(
       'quantity': instance.quantity,
       'price': instance.price,
       'amount': instance.amount,
+      'amountWithoutFee': instance.amountWithoutFee,
       'fee': instance.fee,
       'transactionCode': instance.transactionCode,
       'requestTime': instance.requestTime?.toIso8601String(),
@@ -38,7 +39,7 @@ Map<String, dynamic> _$StockTransactionDetailDtoToJson(
 
 const _$StockTransactionStateEnumMap = {
   StockTransactionState.pending: 0,
-  StockTransactionState.success:1,
+  StockTransactionState.success: 1,
   StockTransactionState.failed: -1,
   StockTransactionState.block: -2,
 };
