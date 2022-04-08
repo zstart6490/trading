@@ -12,7 +12,7 @@ class SelectStockScene extends GetView<SelectStockController> {
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<SelectStockController>(
       backgroundColor: Colors.white,
-      title: "Chọn mã CP muốn mua".tr,
+      title: controller.getTitleScreen(),
       body: Column(
         children: <Widget>[
           Padding(
@@ -24,7 +24,7 @@ class SelectStockScene extends GetView<SelectStockController> {
                 color: const Color(0xFFF5F6FA),
               ),
               child: Obx(
-                    () => TextField(
+                () => TextField(
                   textAlignVertical: TextAlignVertical.center,
                   controller: controller.nameHolder,
                   decoration: InputDecoration(
@@ -56,17 +56,17 @@ class SelectStockScene extends GetView<SelectStockController> {
             ),
           ),
           controller.obx(
-                (stocks) => Expanded(
+            (stocks) => Expanded(
               child: CustomScrollView(slivers: <Widget>[
                 SliverList(
                   delegate: SliverChildListDelegate(
                       List.generate(stocks!.length, (index) {
-                        final stock = stocks[index];
-                        return MarketCell(
-                          stock: stock,
-                          onPressed: () => controller.onTapped(stock),
-                        );
-                      })),
+                    final stock = stocks[index];
+                    return MarketCell(
+                      stock: stock,
+                      onPressed: () => controller.onTapped(stock),
+                    );
+                  })),
                 ),
               ]),
             ),
@@ -77,7 +77,6 @@ class SelectStockScene extends GetView<SelectStockController> {
               title: "Không tìm thấy kết quả".tr,
               desc: "Kiểm tra từ khóa và thử lại".tr,
               padding: const EdgeInsets.only(top: 180),
-              btnTitle: null,
             ),
           ),
         ],

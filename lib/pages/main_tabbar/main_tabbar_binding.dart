@@ -1,5 +1,5 @@
 import 'package:get/instance_manager.dart';
-import 'package:trading_module/cores/socket_stock.dart';
+import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/repos/home_trading_repo_imp.dart';
 import 'package:trading_module/data/repos/stock_repo_impl.dart';
 import 'package:trading_module/data/repos/withdraw_repos_impl.dart';

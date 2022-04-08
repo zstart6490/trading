@@ -25,6 +25,8 @@ import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_bin
 import 'package:trading_module/pages/on_boarding/verify_policy/verify_policy_view.dart';
 import 'package:trading_module/pages/pdf_reader/pdf_binddings.dart';
 import 'package:trading_module/pages/pdf_reader/pdf_reader_page.dart';
+import 'package:trading_module/pages/product_owner/product_owner_binding.dart';
+import 'package:trading_module/pages/product_owner/product_owner_scene.dart';
 import 'package:trading_module/pages/select_stock/select_stock_binding.dart';
 import 'package:trading_module/pages/select_stock/select_stock_scene.dart';
 import 'package:trading_module/pages/smart_otp/generate_otp/generate_otp_binding.dart';
@@ -39,6 +41,8 @@ import 'package:trading_module/pages/stock_more_detail/stock_more_binding.dart';
 import 'package:trading_module/pages/stock_more_detail/stock_more_detail_scene.dart';
 import 'package:trading_module/pages/transaction/transaction_detail_binding.dart';
 import 'package:trading_module/pages/transaction/transaction_detail_scene.dart';
+import 'package:trading_module/pages/transaction_history/trans_st_history_bindding.dart';
+import 'package:trading_module/pages/transaction_history/transaction_stock_history_scene.dart';
 import 'package:trading_module/pages/transaction_stock/stock_transaction_detail_binding.dart';
 import 'package:trading_module/pages/transaction_stock/transaction_stock_detail_scene.dart';
 import 'package:trading_module/pages/withdraw/choose_money/choose_money_binding.dart';
@@ -167,5 +171,13 @@ class AppPages {
         name: AppRoutes.stTransactionDetail,
         page: () => TransactionStockDetailScene(),
         binding: TransactionStockDetailBinding()),
+    GetPage(
+        name: AppRoutes.historyStock,
+        page: () => TransactionStockHistoryScene(),
+        binding: TransStockHistoryBinding()),
+    GetPage(
+        name: AppRoutes.productOwner,
+        page: () => const ProductOwnerScene(),
+        binding: ProductOwnerBinding()),
   ];
 }

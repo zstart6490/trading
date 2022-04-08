@@ -1,6 +1,6 @@
+import 'package:trading_module/cores/resources/data_state.dart';
+import 'package:trading_module/domain/entities/product_own.dart';
 import 'package:trading_module/domain/entities/user_contract.dart';
-
-import '../../cores/resources/data_state.dart';
 
 
 abstract class UserRepo {
@@ -8,4 +8,5 @@ abstract class UserRepo {
     required String? url
   });
 
+  Future<DataState<List<ProductOwn>>> getListProductOwn();
 }

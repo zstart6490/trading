@@ -26,4 +26,5 @@ abstract class StockExchangeRepo {
     required String stock,
     required String type,
   });
+
 }

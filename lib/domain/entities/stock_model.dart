@@ -1,7 +1,4 @@
-
-
 import 'package:trading_module/configs/service_api_config.dart';
-
 
 class StockModel {
   final String symbol;
@@ -13,9 +10,21 @@ class StockModel {
   late double ratioChange;
 
   String get fullLink => "${Environment().maketUrl}/resource/v1/stock-image/$imageUrl";
+  final String imageUrl;
+  final int stockType;
+  double lastPrice;
+  double change;
+  double ratioChange;
 
-  StockModel(this.symbol, this.stockName, this.imageUrl, this.stockType , this.lastPrice  , this.change  , this.ratioChange);
+  String get fullLink =>
+      "${Environment().maketUrl}/resource/v1/stock-image/$imageUrl";
 
-
+  StockModel(
+      {required this.symbol,
+      required this.stockName,
+      required this.imageUrl,
+      required this.stockType,
+      required this.lastPrice,
+      required this.change,
+      required this.ratioChange});
 }
-

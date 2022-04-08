@@ -5,8 +5,8 @@ import 'package:trading_module/shared_widgets/TableView/CustomTableHeader.dart';
 import 'package:trading_module/utils/date_utils.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-class StockTransactionDetailInfo extends StatelessWidget {
-  const StockTransactionDetailInfo(
+class StockSellTransactionDetailInfo extends StatelessWidget {
+  const StockSellTransactionDetailInfo(
     this.transaction, {
     Key? key,
   }) : super(key: key);
@@ -51,17 +51,18 @@ class StockTransactionDetailInfo extends StatelessWidget {
           ),
           CustomTableCell(
             title: "Phí bán",
-            detail: transaction.fee.toStockCurrency(),
+            detail: transaction.feePartner.toCurrency(),
           ),  CustomTableCell(
-            title: "Thuế TNCN (5.0%)",
-            detail: transaction.fee.toStockCurrency(),
+            title: "Thuế TNCN (${transaction.vatPercent}%)",
+            detail: transaction.fee.toCurrency(),
           ), CustomTableCell(
             title: "Phí giao dịch",
-            detail: transaction.fee.toStockCurrency(),
+            detail: transaction.fee.toCurrency(),
           ),
           CustomTableCell(
             title: "Số tiền dự tính nhận",
-            detail: transaction.amount.toStockCurrency(),
+            detail: transaction.amount.toCurrency(),
+            detailStyle: context.textSize14.copyWith(color: context.primaryColor,fontWeight: FontWeight.bold),
           ),
         ],
       ),

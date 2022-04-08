@@ -49,8 +49,18 @@ class StockRepoImpl extends StockRepo {
     return DataFailed(result.error);
   }
 
-
-
-
+  @override
+  Future<DataState<List<StockModel>>> getInfoListStock({required List<String> stocks})async {
+    final result = await _services.getInfoListStock(stocks);
+    if (result.success) {
+      final model = result.modelDTO;
+      final List<StockModel> list =[];
+      for (final value in model) {
+        list.add(value.toModel());
+      }
+      return DataSuccess<List<StockModel>>(list);
+    }
+    return DataFailed(result.error);
+  }
 
 }

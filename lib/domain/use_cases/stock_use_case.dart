@@ -18,6 +18,14 @@ class StockUseCase {
   Future<DataState<StockCurrentPriceModel>> getCurrentStockPrice({required String symbol}) async {
     final result = await _stockRepo.getCurrentStockPrice(symbol: symbol);
     return result;
+  Future<DataState<List<StockModel>>> getInfoListStock(List<String> stocks) async {
+    final otp = await _stockRepo.getInfoListStock(stocks: stocks);
+    return otp;
+  }
+
+  Future<DataState<StockModel>> subscribe(List<String> stocks) async {
+    final otp = await _stockRepo.subscribe(stocks: stocks);
+    return otp;
   }
 
   Future<DataState<StockHistoryPriceModel>> getHistoryStockPrice({required String symbol, required String type}) async {

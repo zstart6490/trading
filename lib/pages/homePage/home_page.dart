@@ -4,6 +4,7 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/domain/entities/model.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
+import 'package:trading_module/routes/app_navigate.dart';
 import 'package:trading_module/shared_widgets/CustomRefresher.dart';
 import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
 import 'package:trading_module/utils/extensions.dart';
@@ -41,8 +42,7 @@ class HomePageView extends GetView<HomePageController> {
                   package: "trading_module"),
               tooltip: 'Lịch sử',
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('This is a snackbar')));
+                navToHistoryStock();
               },
             ),
           ],

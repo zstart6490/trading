@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/data/entities/navigate_stock_trans_detail.dart';
+import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/entities/stock_order_info.dart';
 import 'package:trading_module/domain/entities/stock_transaction_detail.dart';
 import 'package:trading_module/pages/exchange/exchange_stock_controller.dart';
@@ -19,8 +20,8 @@ class SellStockController extends ExchangeStockController {
   RxDouble amountWithoutFeeTax = 0.0.obs;
   late FocusNode focusNode;
 
-  SellStockController(String symbol, String symbolDesc, double price)
-      : super(symbol, symbolDesc, price);
+  SellStockController(StockModel stockModel)
+      : super(stockModel);
 
   @override
   void onInit() {
@@ -58,7 +59,7 @@ class SellStockController extends ExchangeStockController {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.getSellOrderInfo(
-        symbol: symbol, price: price, quantity: requestAmount);
+        symbol: stockModel.symbol, price: stockModel.lastPrice, quantity: requestAmount);
     if (result.data != null) {
       stockOrderInfo = result.data;
       if (stockOrderInfo != null) {
@@ -94,7 +95,7 @@ class SellStockController extends ExchangeStockController {
                       ),
                     ),
                     TextSpan(
-                      text: " mã $symbol với giá dự tính ",
+                      text: " mã ${stockModel.symbol} với giá dự tính ",
                     ),
                     TextSpan(
                       text: (priceStock.value).toCurrency(),
@@ -107,7 +108,7 @@ class SellStockController extends ExchangeStockController {
                       text: "/cp? Tổng giá trị dự tính ",
                     ),
                     TextSpan(
-                      text: amountWithoutFeeTax.value.toStockCurrency(),
+                      text: amountWithoutFeeTax.value.toCurrency(),
                       style: Get.context!.textSize14.copyWith(
                         color: Get.context!.primaryColor,
                         fontWeight: FontWeight.w500,
@@ -140,7 +141,7 @@ class SellStockController extends ExchangeStockController {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.confirmSellOrderInfo(
-        symbol: symbol, price: price, quantity: requestAmount);
+        symbol: stockModel.symbol, price: stockModel.lastPrice, quantity: requestAmount);
     if (result.data != null) {
       final StockTransactionDetail stockTransactionDetail = result.data!;
 

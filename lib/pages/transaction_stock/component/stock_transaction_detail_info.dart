@@ -46,18 +46,19 @@ class StockTransactionDetailInfo extends StatelessWidget {
             detail: transaction.quantity.toString(),
           ), CustomTableCell(
             title: "Số tiền dự tính khớp",
-            detail: transaction.quantity.toString(),
+            detail: transaction.amountWithoutFee.toCurrency(),
           ),
           CustomTableCell(
             title: "Phí mua",
-            detail: transaction.fee.toStockCurrency(),
+            detail: transaction.feePartner.toCurrency(),
           ),CustomTableCell(
             title: "Phí giao dịch",
-            detail: transaction.fee.toStockCurrency(),
+            detail: transaction.fee.toCurrency(),
           ),
           CustomTableCell(
             title: "Số tiền dự tính trả",
-            detail: transaction.amount.toStockCurrency(),
+            detail: transaction.amount.toCurrency(),
+            detailStyle: context.textSize14.copyWith(color: context.primaryColor),
           ),
         ],
       ),
