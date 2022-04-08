@@ -40,14 +40,14 @@ class Api extends GetConnect {
   void onInit() {
     httpClient.timeout = AppConstants.TIME_OUT;
     final mainProvider = GetInstance().find<MainTradingProvider>();
+    // print("addRequestModifier");
     httpClient.addRequestModifier<void>((request) async {
-      // request.headers.remove('user-agent');
       request.headers["Parent-App"] = "TIKOP";
       request.headers["Lang"] = "vi";
       request.headers["App-Ver"] = mainProvider.appVersion;
       request.headers["Trading-Ver"] = mainProvider.appTradingVersion;
       request.headers["Device-ID"] = mainProvider.deviceId;
-      request.headers['Authorization'] = mainProvider.accessToken??"";
+      request.headers['Authorization'] = mainProvider.accessToken ?? "";
       request.headers['X-Request-ID'] = generateMd5(
           "$userId${DateTime.now().millisecond.toString()}${4.genRandom()}");
       if (kDebugMode) {
@@ -55,7 +55,6 @@ class Api extends GetConnect {
       }
       return request;
     });
-
     super.onInit();
   }
 
@@ -66,7 +65,7 @@ class Api extends GetConnect {
     Map<String, dynamic>? params,
     required Duration timeOut,
   }) async {
-    onInit();
+    // onInit();
     Response? res;
     try {
       res = await get(endPoint, query: params).timeout(timeOut);
@@ -114,7 +113,7 @@ class Api extends GetConnect {
     dynamic params,
     required Duration timeOut,
   }) async {
-    onInit();
+    // onInit();
     Response? res;
     try {
       if (params == null) {
@@ -168,7 +167,7 @@ class Api extends GetConnect {
     required Duration timeOut,
     Map<String, dynamic>? params,
   }) async {
-    onInit();
+    // onInit();
 
     Response? res;
     try {

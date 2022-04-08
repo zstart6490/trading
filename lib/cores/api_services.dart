@@ -16,6 +16,7 @@ class ApiServices {
         backendUrl: Environment().backendUrl,
         fullToken: mainProvider.accessToken ?? "",
         userId: mainProvider.userData?.id.toString() ?? "");
+    api.onInit();
     //api = Api(backendUrl: Environment().backendUrl, fullToken: tokenTest);
   }
 

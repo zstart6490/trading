@@ -167,10 +167,6 @@ extension CustomDoubleExtension on double {
     final oCcy = NumberFormat.decimalPattern("vi");
     return "${oCcy.format(this)}$symbol";
   }
-  String toStockCurrency({String symbol = "đ"}) {
-    final oCcy = NumberFormat.decimalPattern("vi");
-    return "${oCcy.format(this)}$symbol";
-  }
 
 
   Color getStockColor() {

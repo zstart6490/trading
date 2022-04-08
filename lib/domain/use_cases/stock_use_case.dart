@@ -13,6 +13,11 @@ class StockUseCase {
     return otp;
   }
 
+  Future<DataState<List<StockModel>>> getInfoListStock(List<String> stocks) async {
+    final otp = await _stockRepo.getInfoListStock(stocks: stocks);
+    return otp;
+  }
+
   Future<DataState<StockModel>> subscribe(List<String> stocks) async {
     final otp = await _stockRepo.subscribe(stocks: stocks);
     return otp;

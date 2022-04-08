@@ -1,10 +1,14 @@
 import 'package:get/get.dart';
+import 'package:trading_module/data/entities/navigate_stock_trans_detail.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/routes/app_routes.dart';
-import 'package:trading_module/utils/enums.dart';
 
-void navToSelectStock(StockType stockType) {
-  Get.toNamed(AppRoutes.selectStock, arguments: stockType);
+void navToSelectStock() {
+  Get.toNamed(AppRoutes.selectStock);
+}
+
+void navToProductOwner() {
+  Get.toNamed(AppRoutes.productOwner);
 }
 
 void navToBuyStock(StockModel stock){
@@ -13,4 +17,13 @@ void navToBuyStock(StockModel stock){
 
 void navToSellStock(StockModel stock){
   Get.toNamed(AppRoutes.sellStock,arguments:stock);
+}
+
+void navToHistoryStock(){
+  Get.toNamed(AppRoutes.historyStock);
+}
+
+void navToStockTransactionDetail(NavigateStockTranDetail navigateStockTranDetail){
+  Get.toNamed(AppRoutes.stTransactionDetail,
+      arguments: navigateStockTranDetail);
 }

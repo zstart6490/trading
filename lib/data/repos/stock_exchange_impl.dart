@@ -1,13 +1,13 @@
 import 'package:trading_module/cores/resources/data_state.dart';
 import 'package:trading_module/data/entities/stock_order_info_dto.dart';
 import 'package:trading_module/data/entities/stock_transaction_detail_dto.dart';
-import 'package:trading_module/data/services/stock_exchange_service.dart';
+import 'package:trading_module/data/services/stock_order_service.dart';
 import 'package:trading_module/domain/entities/stock_order_info.dart';
 import 'package:trading_module/domain/entities/stock_transaction_detail.dart';
 import 'package:trading_module/domain/repos/stock_exchange_repo.dart';
 
 class StockExchangeRepoImpl extends StockExchangeRepo {
-  final StockExchangeService _services;
+  final StockOrderService _services;
 
   StockExchangeRepoImpl(this._services);
 
@@ -59,4 +59,5 @@ class StockExchangeRepoImpl extends StockExchangeRepo {
     }
     return DataFailed(result.error);
   }
+
 }

@@ -10,7 +10,6 @@ import 'package:trading_module/pages/homePage/views/PropertyView/property_contro
 import 'package:trading_module/routes/app_navigate.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
-import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class HomePageController extends BaseController
@@ -98,8 +97,8 @@ class HomePageController extends BaseController
     }
   }
 
-  void selectStock(){
-    navToSelectStock(StockType.market);
+  void selectStock() {
+    navToSelectStock();
   }
 
   void selTab(int index) {
@@ -116,9 +115,6 @@ class HomePageController extends BaseController
     ]).then((_) => refreshController.refreshCompleted());
     //refreshListTransaction();
   }
-
-
-
 
   void subscribe() {
     print("Start subscribe");
@@ -138,12 +134,10 @@ class HomePageController extends BaseController
   }
 
   void openBuyStock() {
-    navToSelectStock(StockType.market);
+    navToSelectStock();
   }
 
   void openSellStock() {
-    navToSelectStock(StockType.owner);
+    navToProductOwner();
   }
-
-
 }

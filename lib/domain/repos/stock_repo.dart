@@ -10,5 +10,9 @@ abstract class StockRepo {
     required List<String> stocks,
   });
 
+  Future<DataState<List<StockModel>>> getInfoListStock({
+    required List<String> stocks,
+  });
+
 
 }

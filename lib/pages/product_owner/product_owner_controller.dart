@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
-import 'package:trading_module/cores/stock_price_socket.dart';
-import 'package:trading_module/data/entities/socket_stock_event.dart';
-import 'package:trading_module/data/entities/stock_price.dart';
+import 'package:trading_module/domain/entities/product_own.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_use_case.dart';
+import 'package:trading_module/domain/use_cases/user_stock_usecase.dart';
 import 'package:trading_module/routes/app_navigate.dart';
 
-class SelectStockController extends BaseController
-    with StateMixin<List<StockModel>> {
+class ProductOwnerController extends BaseController
+    with StateMixin<List<ProductOwn>> {
+  final UserStockUseCase _userStockUseCase = Get.find<UserStockUseCase>();
   final StockUseCase _stockUseCase = Get.find<StockUseCase>();
-  final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
   final nameHolder = TextEditingController();
-  List<StockModel> listStock = <StockModel>[];
+  List<ProductOwn> listStock = <ProductOwn>[];
   Rx<bool> hiddenRemoveSearch = true.obs;
 
-  SelectStockController();
+
+  ProductOwnerController();
 
   String getTitleScreen() {
-    return "Chọn mã CP muốn mua";
+    return "Đang sở hữu";
   }
 
   @override
@@ -38,15 +38,14 @@ class SelectStockController extends BaseController
     // SSEClient.unsubscribeFromSSE();
   }
 
-  void getListStock() async {
+  Future getListStock() async {
     showProgressingDialog();
-    final result = await _stockUseCase.getList();
+    final result = await _userStockUseCase.getListProductOwn();
     hideDialog();
 
     if (result.data != null) {
       listStock = result.data!;
       change(listStock, status: RxStatus.success());
-      subscribe();
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
       change(null, status: RxStatus.error());
@@ -62,7 +61,7 @@ class SelectStockController extends BaseController
   void onChangeSearchStock(String name) {
     hiddenRemoveSearch.value = name.isEmpty;
     final stocks = listStock
-        .where((e) => e.symbol.toUpperCase().startsWith(name.toUpperCase()))
+        .where((e) => e.productKey.toUpperCase().startsWith(name.toUpperCase()))
         .toList();
     if (stocks.isNotEmpty) {
       change(stocks, status: RxStatus.success());
@@ -72,34 +71,12 @@ class SelectStockController extends BaseController
   }
 
   void onTapped(StockModel stock) {
-    navToBuyStock(stock);
-  }
-
-  void subscribe() {
-    final symbols = listStock.map((e) => e.symbol).toList();
-    stockPriceSocket.subscribeStock(
-      symbols,
-      (p0) {
-        updateListStock(p0);
-      },
-    );
-  }
-
-  void updateListStock(SocketStockEvent stock) {
-    for (var i = 0; i < listStock.length; i++) {
-      final StockPrice stockPrice = stock.stockPrice;
-      if (listStock[i].symbol == stockPrice.symbol) {
-        listStock[i].lastPrice = stockPrice.price ?? 0;
-        listStock[i].ratioChange = stockPrice.chg ?? 0;
-        change(listStock, status: RxStatus.success());
-        break;
-      }
-    }
+    navToSellStock(stock);
   }
 
   @override
   Future<bool> onWillPop() {
-    stockPriceSocket.unSubscribeStock();
+
     return super.onWillPop();
   }
 }

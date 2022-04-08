@@ -120,7 +120,7 @@ class BuyStockController extends ExchangeStockController {
                       text: "/cp? Tổng giá trị dự tính ",
                     ),
                     TextSpan(
-                      text: amount.value.toStockCurrency(),
+                      text: amount.value.toCurrency(),
                       style: Get.context!.textSize14.copyWith(
                         color: Get.context!.primaryColor,
                         fontWeight: FontWeight.w500,

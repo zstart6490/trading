@@ -87,8 +87,8 @@ enum StockTransactionType {
   sell,
 }
 
-enum StockType{
-  market,owner
+enum ProductType{
+  stock
 }
 
 enum TransactionType {

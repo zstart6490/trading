@@ -108,7 +108,7 @@ class SellStockController extends ExchangeStockController {
                       text: "/cp? Tổng giá trị dự tính ",
                     ),
                     TextSpan(
-                      text: amountWithoutFeeTax.value.toStockCurrency(),
+                      text: amountWithoutFeeTax.value.toCurrency(),
                       style: Get.context!.textSize14.copyWith(
                         color: Get.context!.primaryColor,
                         fontWeight: FontWeight.w500,

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
+import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/pages/market/market_cell.dart';
-import 'package:trading_module/pages/select_stock/select_stock_controller.dart';
+import 'package:trading_module/pages/product_owner/product_owner_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
 
-class SelectStockScene extends GetView<SelectStockController> {
-  const SelectStockScene({Key? key}) : super(key: key);
+class ProductOwnerScene extends GetView<ProductOwnerController> {
+  const ProductOwnerScene({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffoldAppBar<SelectStockController>(
+    return BaseScaffoldAppBar<ProductOwnerController>(
       backgroundColor: Colors.white,
       title: controller.getTitleScreen(),
       body: Column(
@@ -44,7 +46,7 @@ class SelectStockScene extends GetView<SelectStockController> {
                           controller.hiddenRemoveSearch.value
                               ? null
                               : Icons.clear,
-                          color: Color(0xFFADADAD)),
+                          color: const Color(0xFFADADAD)),
                       onPressed: () {
                         controller.cleanSearch();
                       },
@@ -62,9 +64,17 @@ class SelectStockScene extends GetView<SelectStockController> {
                   delegate: SliverChildListDelegate(
                       List.generate(stocks!.length, (index) {
                     final stock = stocks[index];
+                   final stockM= StockModel(
+                        symbol: stock.productKey,
+                        stockName: stock.catName,
+                        imageUrl: stock.imageUrl,
+                        stockType: 0,
+                        lastPrice: stock.priceAvg,
+                        change: 0,
+                        ratioChange: 0);
                     return MarketCell(
-                      stock: stock,
-                      onPressed: () => controller.onTapped(stock),
+                      stock: stockM,
+                      onPressed: () => controller.onTapped(stockM),
                     );
                   })),
                 ),
@@ -73,11 +83,13 @@ class SelectStockScene extends GetView<SelectStockController> {
             onLoading: const SizedBox(),
             onError: (error) => Text(error ?? "Load Content Error!"),
             onEmpty: ListNoDataBackground(
-              pngPath: "assets/images/png/banner_search_not_found.png",
-              title: "Không tìm thấy kết quả".tr,
-              desc: "Kiểm tra từ khóa và thử lại".tr,
-              padding: const EdgeInsets.only(top: 180),
-            ),
+                pngPath: "assets/images/png/banner_empty_data.png",
+                desc: "Bạn chưa sở hữu CP nào",
+                padding: PAD_SYM_H40,
+                btnTitle: "Thêm mã",
+                onPressed: () {
+                  //controller.buyStock();
+                }),
           ),
         ],
       ),

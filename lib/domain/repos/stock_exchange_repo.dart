@@ -14,4 +14,5 @@ abstract class StockExchangeRepo {
 
   Future<DataState<StockOrderInfo>> getSellOrderInfo(
       {required String symbol, required double price, required int quantity});
+
 }

@@ -9,6 +9,8 @@ class StockTransactionDetail {
   double fee;
   double feePartner;
   double feePartnerPercent;
+  double feePercent;
+  double vatPercent;
   String transactionCode;
   DateTime requestTime;
   StockTransactionState status;
@@ -22,6 +24,8 @@ class StockTransactionDetail {
       required this.amountWithoutFee,
       required this.fee,
       required this.feePartner,
+      required this.feePercent,
+      required this.vatPercent,
       required this.feePartnerPercent,
       required this.transactionCode,
       required this.requestTime,
