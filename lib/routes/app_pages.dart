@@ -13,6 +13,8 @@ import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tut
 import 'package:trading_module/pages/deposit/tutorial/deposit_normal/deposit_tutorial_scene.dart';
 import 'package:trading_module/pages/exchange/buy/buy_stock_binding.dart';
 import 'package:trading_module/pages/exchange/buy/buy_stock_scene.dart';
+import 'package:trading_module/pages/exchange/select_stock/select_stock_binding.dart';
+import 'package:trading_module/pages/exchange/select_stock/select_stock_scene.dart';
 import 'package:trading_module/pages/exchange/sell/sell_stock_binding.dart';
 import 'package:trading_module/pages/exchange/sell/sell_stock_scene.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar.dart';
@@ -27,8 +29,6 @@ import 'package:trading_module/pages/pdf_reader/pdf_binddings.dart';
 import 'package:trading_module/pages/pdf_reader/pdf_reader_page.dart';
 import 'package:trading_module/pages/product_owner/product_owner_binding.dart';
 import 'package:trading_module/pages/product_owner/product_owner_scene.dart';
-import 'package:trading_module/pages/select_stock/select_stock_binding.dart';
-import 'package:trading_module/pages/select_stock/select_stock_scene.dart';
 import 'package:trading_module/pages/smart_otp/generate_otp/generate_otp_binding.dart';
 import 'package:trading_module/pages/smart_otp/generate_otp/generate_otp_scene.dart';
 import 'package:trading_module/pages/smart_otp/input_smart_otp/input_smart_otp_binding.dart';
