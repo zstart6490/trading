@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
@@ -11,7 +8,7 @@ import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_use_case.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
-import 'package:trading_module/sse/flutter_client_sse.dart';
+
 
 class MarketController extends BaseController
     with StateMixin<List<StockModel>> {
@@ -21,18 +18,33 @@ class MarketController extends BaseController
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
   Rx<bool> hiddenRemoveSearch = true.obs;
 
-
   @override
   void onReady() {
     getListStock();
     super.onReady();
   }
 
+  @override
+  void onClose() {
+    stockPriceSocket.unSubscribeStock();
+  }
+
+  @override
+  Future<bool> onWillPop() {
+    stockPriceSocket.unSubscribeStock();
+    final TDMainTabController tdMainTabController = Get.find();
+    if (tdMainTabController.tabIndex != 0) {
+      backToTabHome();
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
   void subscribe() {
     final symbols = listStock.map((e) => e.symbol).toList();
     stockPriceSocket.subscribeStock(
       symbols,
-          (p0) {
+      (p0) {
         updateListStock(p0);
       },
     );
@@ -48,25 +60,6 @@ class MarketController extends BaseController
         break;
       }
     }
-  }
-
-
-  @override
-  void onClose(){
-    SSEClient.unsubscribeFromSSE();
-  void onClose() {
-    stockPriceSocket.unSubscribeStock();
-  }
-
-  @override
-  Future<bool> onWillPop() {
-    stockPriceSocket.unSubscribeStock();
-    final TDMainTabController tdMainTabController = Get.find();
-    if (tdMainTabController.tabIndex != 0){
-      backToTabHome();
-      return Future.value(false);
-    }
-    return Future.value(true);
   }
 
   Future getListStock() async {
@@ -105,29 +98,8 @@ class MarketController extends BaseController
     Get.toNamed(AppRoutes.stockDetail, arguments: stock);
   }
 
-  void subscribe() {
-    final symbols = listStock.map((e) => e.symbol).toList();
-    final stock = symbols.join('-');
-    SSEClient.subscribeToSSE(
-        url: '${Environment().maketUrl}/stock/v1/subscribe/$stock',
-        header: {
-          "Authorization": mainProvider.accessToken ?? "",
-          "Cache-Control": "no-cache",
-        }).listen((event) {
-      if (event.data != null) {
-        final RealTimeStock stockInfo =
-            RealTimeStock.fromJson(jsonDecode(event.data.toString()));
-        updateListStock(stockInfo);
-      }
-    });
-
-    SSEClient.unsubscribeFromSSE();
-  }
-
-
   void backToTabHome() {
     final TDMainTabController tdMainTabController = Get.find();
     if (tdMainTabController.tabIndex != 0) tdMainTabController.tabIndex = 0;
-
   }
 }
