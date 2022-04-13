@@ -4,7 +4,7 @@ import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_exchange_usecase.dart';
-import 'package:trading_module/domain/use_cases/stock_use_case.dart';
+import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
 

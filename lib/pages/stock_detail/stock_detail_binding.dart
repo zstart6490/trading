@@ -13,7 +13,7 @@ class StockDetailBinding extends Bindings {
     final arg = Get.arguments;
     if (arg is StockModel) {
       Get.lazyPut(() => StockExchangeUseCase(
-          StockExchangeRepoImpl(StockOrderServiceImpl())));
+          StockExchangeRepoImpl(StockOrderServiceImpl()),),);
       Get.lazyPut(() => ChartController(arg));
       Get.lazyPut(() => StockDetailController(arg));
       Get.lazyPut(() => StockPriceSocket());

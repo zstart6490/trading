@@ -7,21 +7,17 @@ part 'account_model_dto.g.dart';
 
 @JsonSerializable()
 class AccountInfoModelDTO {
-  @JsonKey(name: "total")
-  final double? total;
-  @JsonKey(name: "stockBalance")
-  final double? stockBalance;
+  @JsonKey(name: "stockList")
+  final double? stockList;
+  @JsonKey(name: "pendingTransactions")
+  final List<PendingTransactionModelDTO>? pendingTransactions;
+  @JsonKey(name: "productWatchingVOList")
+  final List<PendingTransactionModelDTO>? productWatchingVOList;
   @JsonKey(name: "cashBalance")
   final double? cashBalance;
-  @JsonKey(name: "interest")
-  final double? interest;
-  @JsonKey(name: "pendingCashIn")
-  final double? pendingCashIn;
-  @JsonKey(name: "pendingCashOut")
-  final double? pendingCashOut;
 
 
-  AccountInfoModelDTO(this.total,this.stockBalance,this.cashBalance,this.interest,this.pendingCashIn,this.pendingCashOut);
+  AccountInfoModelDTO(this.stockList,this.pendingTransactions,this.productWatchingVOList,this.cashBalance);
 
   static AccountInfoModelDTO fromResult(dynamic data) =>
       AccountInfoModelDTO.fromJson(data as Map<String, dynamic>);
@@ -30,11 +26,64 @@ class AccountInfoModelDTO {
       _$AccountInfoModelDTOFromJson(json as Map<String,dynamic>);
 
   Map<String, dynamic> toJson() => _$AccountInfoModelDTOToJson(this);
+
+  List<PendingTransactionModel> getListPortfolio(){
+    final items = <PendingTransactionModel>[];
+    if (pendingTransactions != null) {
+      for (final item in pendingTransactions!) {
+        items.add(item.toModel());
+      }
+    }
+    return items;
+  }
+
+  List<PendingTransactionModel> getListProductWatching(){
+    final items = <PendingTransactionModel>[];
+    if (pendingTransactions != null) {
+      for (final item in pendingTransactions!) {
+        items.add(item.toModel());
+      }
+    }
+    return items;
+  }
 }
 
 
 extension AccountInfoModelMapper on AccountInfoModelDTO {
   AccountInfoModel toModel() {
-    return AccountInfoModel(total:total ?? 0,stockBalance: stockBalance ?? 0, cashBalance: cashBalance ?? 0, interest: interest ?? 0, pendingCashIn: pendingCashIn ?? 0, pendingCashOut: pendingCashOut ?? 0);
+    return AccountInfoModel(stockList: stockList, pendingTransactions: getListPortfolio(), productWatchingVOList: getListProductWatching(), cashBalance: cashBalance);
+  }
+}
+
+
+@JsonSerializable()
+class PendingTransactionModelDTO {
+  @JsonKey(name: "modifyTime")
+  final String? modifyTime;
+  @JsonKey(name: "productType")
+  final String? productType;
+  @JsonKey(name: "orderType")
+  final double? orderType;
+  @JsonKey(name: "amount")
+  final double? amount;
+  @JsonKey(name: "actualAmount")
+  final double? actualAmount;
+
+
+  PendingTransactionModelDTO(this.modifyTime,this.productType,this.orderType,this.amount,this.actualAmount);
+
+  static PendingTransactionModelDTO fromResult(dynamic data) =>
+      PendingTransactionModelDTO.fromJson(data as Map<String, dynamic>);
+
+  factory PendingTransactionModelDTO.fromJson(dynamic json) =>
+      _$PendingTransactionModelDTOFromJson(json as Map<String,dynamic>);
+
+  Map<String, dynamic> toJson() => _$PendingTransactionModelDTOToJson(this);
+}
+
+
+extension PendingTransactionModelDTOMapper on PendingTransactionModelDTO {
+  PendingTransactionModel toModel() {
+    return PendingTransactionModel(modifyTime: modifyTime, productType: productType, orderType: orderType, amount: amount, actualAmount: actualAmount);
   }
 }

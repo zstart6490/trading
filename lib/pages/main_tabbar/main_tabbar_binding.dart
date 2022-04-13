@@ -8,7 +8,7 @@ import 'package:trading_module/data/services/stock_service.dart';
 import 'package:trading_module/data/services/withdraw_service.dart';
 import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
 import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
-import 'package:trading_module/domain/use_cases/stock_use_case.dart';
+import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';

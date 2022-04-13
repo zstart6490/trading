@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/navigate_trans_detail.dart';
-import 'package:trading_module/domain/use_cases/otp_use_case.dart';
+import 'package:trading_module/domain/use_cases/otp_usecase.dart';
 import 'package:trading_module/domain/use_cases/withdraw_usecase.dart';
 import 'package:trading_module/pages/withdraw/confirm/withdraw_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';

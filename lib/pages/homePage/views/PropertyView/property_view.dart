@@ -53,7 +53,7 @@ class PropertyView extends GetView<HomePropertyController> {
                               ),
                               SIZED_BOX_H02,
                               Text(
-                                property?.total.toCurrency() ?? "",
+                                property?.cashBalance?.toCurrency() ?? "",
                                 style: const TextStyle(
                                   color: Color(0xFF333333),
                                   fontSize: 20,
@@ -96,7 +96,7 @@ class PropertyView extends GetView<HomePropertyController> {
                             ),
                           )),
                           Text(
-                            property?.stockBalance.toCurrency() ?? "",
+                            property?.cashBalance?.toCurrency() ?? "",
                             style: const TextStyle(
                               color: Color(0xFF333333),
                               fontSize: 14,
@@ -123,7 +123,7 @@ class PropertyView extends GetView<HomePropertyController> {
                             ),
                           ),
                           Text(
-                            property?.interest.toCurrency() ?? "",
+                            property?.cashBalance?.toCurrency() ?? "",
                             style: const TextStyle(
                               color: Color(0xFF00B14F),
                               fontSize: 12,
@@ -150,7 +150,7 @@ class PropertyView extends GetView<HomePropertyController> {
                             ),
                           ),
                           Text(
-                            property?.cashBalance.toCurrency() ?? "",
+                            property?.cashBalance?.toCurrency() ?? "",
                             style: const TextStyle(
                               color: Color(0xFF333333),
                               fontSize: 14,
@@ -177,7 +177,7 @@ class PropertyView extends GetView<HomePropertyController> {
                             ),
                           ),
                           Text(
-                            property?.pendingCashIn.toCurrency() ?? "",
+                            property?.cashBalance?.toCurrency() ?? "",
                             style: const TextStyle(
                               color: Color(0xFFFF9500),
                               fontSize: 12,
@@ -204,7 +204,7 @@ class PropertyView extends GetView<HomePropertyController> {
                             ),
                           ),
                           Text(
-                            property?.pendingCashOut.toCurrency() ?? "",
+                            property?.cashBalance?.toCurrency() ?? "",
                             style: const TextStyle(
                               color: Color(0xFFF46666),
                               fontSize: 12,

@@ -26,9 +26,4 @@ class StockUseCase {
   }
 
 
-  Future<DataState<List<StockHistoryPriceModel>>> getHistoryStockPrice({required String symbol, required String type}) async {
-    final result = await _stockRepo.getHistoryStockPrice(symbol: symbol, type: type);
-    return result;
-  }
-
 }

@@ -1,11 +1,27 @@
 class AccountInfoModel {
-  final double total;
-  final double stockBalance;
-  final double cashBalance;
-  final double interest;
-  final double pendingCashIn;
-  final double pendingCashOut;
-  AccountInfoModel(
-      {required this.total, required this.stockBalance, required this.cashBalance, required this.interest, required this.pendingCashIn, required this.pendingCashOut});
+  final double? stockList;
+  final List<PendingTransactionModel>? pendingTransactions;
+  final List<PendingTransactionModel>? productWatchingVOList;
+  final double? cashBalance;
 
+  AccountInfoModel(
+      {required this.stockList,
+      required this.pendingTransactions,
+      required this.productWatchingVOList,
+      required this.cashBalance});
+}
+
+class PendingTransactionModel {
+  final String? modifyTime;
+  final String? productType;
+  final double? orderType;
+  final double? amount;
+  final double? actualAmount;
+
+  PendingTransactionModel(
+      {required this.modifyTime,
+      required this.productType,
+      required this.orderType,
+      required this.amount,
+      required this.actualAmount});
 }

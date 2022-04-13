@@ -5,7 +5,7 @@ import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
 import 'package:trading_module/data/entities/stock_price.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
-import 'package:trading_module/domain/use_cases/stock_use_case.dart';
+import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/routes/app_navigate.dart';
 
 class SelectStockController extends BaseController

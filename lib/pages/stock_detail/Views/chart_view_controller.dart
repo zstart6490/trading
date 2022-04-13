@@ -6,14 +6,15 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
-import 'package:trading_module/domain/use_cases/stock_use_case.dart';
+import 'package:trading_module/domain/use_cases/stock_maket_usecase.dart';
+import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/utils/date_utils.dart';
 
 class ChartController extends BaseController with StateMixin<List<Candle>>, GetSingleTickerProviderStateMixin {
   List<Candle> candles = [];
   Rx<bool> themeIsDark = false.obs;
   final StockModel stock;
-  final StockUseCase _stockUseCase = Get.find<StockUseCase>();
+  final StockMarketUseCase _stockMarketUseCase = Get.find<StockMarketUseCase>();
 
   final timeRange = ["1W".tr, "1M".tr, "3M".tr, "6M".tr, "1Y".tr];
   late TabController tabController;
@@ -48,12 +49,14 @@ class ChartController extends BaseController with StateMixin<List<Candle>>, GetS
   }
 
   Future<void> getHistoryStockPrice(String time) async {
-    final result = await _stockUseCase.getHistoryStockPrice(symbol: stock.symbol, type: time);
+    final result = await _stockMarketUseCase.getHistoryStockPrice(symbol: stock.symbol, type: time);
     if (result.data != null) {
       final length = result.data?.length ?? 0;
       final data = result.data!;
+      candles.clear();
       for (var i = 0; i < length; i++){
-        final candle = Candle(date: DateFormat(DateFormater.ddMMYYYY).parse(data[i].tradingDate!), high: data[i].high, low: data[i].low, open: data[i].open, close: data[i].close, volume: data[i].volume);
+        //final candle = Candle(date:  DateTime.now(), high: data[i].high, low: data[i].low, open: data[i].open, close: data[i].close, volume: data[i].volume);
+        final candle =  Candle(date: DateTime.now(), open: 1780.36, high: 1873.93, low: 1755.34, close: 1848.56, volume: 1);
         candles.add(candle);
         candles.add(candle);
         candles.add(candle);

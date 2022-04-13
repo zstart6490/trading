@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_common_widget.dart';
 import 'package:trading_module/data/entities/otp_status.dart';
-import 'package:trading_module/domain/use_cases/otp_use_case.dart';
+import 'package:trading_module/domain/use_cases/otp_usecase.dart';
 import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';

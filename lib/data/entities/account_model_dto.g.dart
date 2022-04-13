@@ -8,21 +8,41 @@ part of 'account_model_dto.dart';
 
 AccountInfoModelDTO _$AccountInfoModelDTOFromJson(Map<String, dynamic> json) =>
     AccountInfoModelDTO(
-      (json['total'] as num?)?.toDouble(),
-      (json['stockBalance'] as num?)?.toDouble(),
+      (json['stockList'] as num?)?.toDouble(),
+      (json['pendingTransactions'] as List<dynamic>?)
+          ?.map((e) => PendingTransactionModelDTO.fromJson(e))
+          .toList(),
+      (json['productWatchingVOList'] as List<dynamic>?)
+          ?.map((e) => PendingTransactionModelDTO.fromJson(e))
+          .toList(),
       (json['cashBalance'] as num?)?.toDouble(),
-      (json['interest'] as num?)?.toDouble(),
-      (json['pendingCashIn'] as num?)?.toDouble(),
-      (json['pendingCashOut'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$AccountInfoModelDTOToJson(
         AccountInfoModelDTO instance) =>
     <String, dynamic>{
-      'total': instance.total,
-      'stockBalance': instance.stockBalance,
+      'stockList': instance.stockList,
+      'pendingTransactions': instance.pendingTransactions,
+      'productWatchingVOList': instance.productWatchingVOList,
       'cashBalance': instance.cashBalance,
-      'interest': instance.interest,
-      'pendingCashIn': instance.pendingCashIn,
-      'pendingCashOut': instance.pendingCashOut,
+    };
+
+PendingTransactionModelDTO _$PendingTransactionModelDTOFromJson(
+        Map<String, dynamic> json) =>
+    PendingTransactionModelDTO(
+      json['modifyTime'] as String?,
+      json['productType'] as String?,
+      (json['orderType'] as num?)?.toDouble(),
+      (json['amount'] as num?)?.toDouble(),
+      (json['actualAmount'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$PendingTransactionModelDTOToJson(
+        PendingTransactionModelDTO instance) =>
+    <String, dynamic>{
+      'modifyTime': instance.modifyTime,
+      'productType': instance.productType,
+      'orderType': instance.orderType,
+      'amount': instance.amount,
+      'actualAmount': instance.actualAmount,
     };
