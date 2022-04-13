@@ -53,6 +53,7 @@ class BaseScaffoldAppBar<T extends BaseController> extends StatelessWidget {
         child: WillPopScope(
           onWillPop: controller.onWillPop,
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             floatingActionButton: fab,
             floatingActionButtonLocation:
             fabLocation ?? FloatingActionButtonLocation.endFloat,

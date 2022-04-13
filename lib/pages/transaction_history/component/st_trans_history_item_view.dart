@@ -15,7 +15,7 @@ class StockTransHistoryItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TransStockHistoryController transStockHistoryController =Get.find();
+    final TransStockHistoryController transStockHistoryController =Get.find();
     return Column(
       children: [
         Row(children: [

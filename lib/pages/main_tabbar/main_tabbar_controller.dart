@@ -13,13 +13,11 @@ class TDMainTabController extends BaseController
     tabController = TabController(length: 2, vsync: this);
     tabController.addListener(onTabChange);
 
-    //super.onInit();
+    super.onInit();
   }
 
   @override
-  void onReady() {
-
-  }
+  void onReady() {}
 
   @override
   void onClose() {
@@ -31,26 +29,18 @@ class TDMainTabController extends BaseController
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     log("MainTabController $state", name: 'AppLifecycle');
-
   }
 
   void onTabChange() {
     debugPrint("TabChange :${tabController.index}");
-    if (tabController.index == 0) {
-    } else if (tabController.index == 1) {
-
-    } else if (tabController.index == 2) {
-
-    }
+    if (tabIndex == 0) {
+    } else if (tabIndex == 1) {
+    } else if (tabIndex == 2) {}
   }
 
-  void onTabSelected(int index) {
-    tabController.index = index;
+  int get tabIndex => tabController.index;
+
+  set tabIndex(int value) {
+    tabController.index = value;
   }
-
-  void selTab(int index) {
-    tabController.animateTo(index);
-  }
-
-
 }

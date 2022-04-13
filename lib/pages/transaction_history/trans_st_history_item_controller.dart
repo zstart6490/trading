@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -31,12 +33,10 @@ class TransStockHistoryController extends BaseController
         if (tabController.index == 0) {
           orderType = "BUY";
           page = 1;
-          print("tab_change${tabController.index}");
           getListOrder();
         } else {
           orderType = "SELL";
           page = 1;
-          print("tab_change${tabController.index}");
           getListOrder();
         }
       }

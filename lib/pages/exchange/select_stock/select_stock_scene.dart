@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/pages/exchange/select_stock/select_stock_controller.dart';
 import 'package:trading_module/pages/market/market_cell.dart';
-import 'package:trading_module/pages/select_stock/select_stock_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
 
@@ -16,7 +16,7 @@ class SelectStockScene extends GetView<SelectStockController> {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0),
             child: Container(
               height: 40,
               decoration: BoxDecoration(
@@ -44,7 +44,7 @@ class SelectStockScene extends GetView<SelectStockController> {
                           controller.hiddenRemoveSearch.value
                               ? null
                               : Icons.clear,
-                          color: Color(0xFFADADAD)),
+                          color: const Color(0xFFADADAD)),
                       onPressed: () {
                         controller.cleanSearch();
                       },
@@ -55,30 +55,28 @@ class SelectStockScene extends GetView<SelectStockController> {
               ),
             ),
           ),
-          controller.obx(
-            (stocks) => Expanded(
-              child: CustomScrollView(slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                      List.generate(stocks!.length, (index) {
-                    final stock = stocks[index];
-                    return MarketCell(
-                      stock: stock,
-                      onPressed: () => controller.onTapped(stock),
-                    );
-                  })),
-                ),
-              ]),
+          Expanded(
+              child: controller.obx(
+            (stocks) => ListView.builder(
+              itemBuilder: (context, index) {
+                final stock = stocks![index];
+                return MarketCell(
+                  stock: stock,
+                  onPressed: () => controller.onTapped(stock),
+                );
+              },
+              itemCount: stocks!.length,
             ),
             onLoading: const SizedBox(),
             onError: (error) => Text(error ?? "Load Content Error!"),
-            onEmpty: ListNoDataBackground(
-              pngPath: "assets/images/png/banner_search_not_found.png",
-              title: "Không tìm thấy kết quả".tr,
-              desc: "Kiểm tra từ khóa và thử lại".tr,
-              padding: const EdgeInsets.only(top: 180),
-            ),
-          ),
+            onEmpty: Container(
+                margin: const EdgeInsets.only(bottom: 180),
+                child: const ListNoDataBackground(
+                  pngPath: "assets/images/png/banner_search_not_found.png",
+                  title: "Không tìm thấy kết quả",
+                  desc: "Kiểm tra từ khóa và thử lại",
+                )),
+          )),
         ],
       ),
     );

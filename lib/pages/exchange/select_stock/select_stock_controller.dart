@@ -35,10 +35,10 @@ class SelectStockController extends BaseController
 
   @override
   void onClose() {
-    // SSEClient.unsubscribeFromSSE();
+    stockPriceSocket.unSubscribeStock();
   }
 
-  void getListStock() async {
+  Future getListStock() async {
     showProgressingDialog();
     final result = await _stockUseCase.getList();
     hideDialog();
@@ -102,4 +102,6 @@ class SelectStockController extends BaseController
     stockPriceSocket.unSubscribeStock();
     return super.onWillPop();
   }
+
+
 }
