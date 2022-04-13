@@ -3,11 +3,11 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:trading_module/domain/entities/my_stock_model.dart';
 import 'package:trading_module/pages/stock_detail/stock_detail_controller.dart';
 
-
 import 'package:trading_module/utils/util.dart';
 
 class InvestInfoView extends GetView<StockDetailController> {
   final MyStockModel? stock;
+
   const InvestInfoView(this.stock, {Key? key}) : super(key: key);
 
   @override
@@ -29,41 +29,48 @@ class InvestInfoView extends GetView<StockDetailController> {
           ),
         ),
         SIZED_BOX_H16,
-        Row(
-          children: [
-            Expanded(
-                child: InvestInfoItem(
+        Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Expanded(
+            flex: 4,
+            child: Column(
+              children: [
+                InvestInfoItem(
                     title: "TB giá mua  (đ)",
                     desc: (stock?.priceAvg ?? 0).toCurrency(symbol: ""),
                     imgUrl: "assets/images/png/ic_avg_bought_price.png",
-                    descColor: Color(0xFF333333))),
-            SIZED_BOX_W45,
-            const Expanded(
-                child: InvestInfoItem(
-                    title: "Tiền vốn (đ)",
-                    desc: "17.000.000",
-                    imgUrl: "assets/images/png/ic_funds.png",
-                    descColor: Color(0xFF333333))),
-          ],
-        ),
-        SIZED_BOX_H16,
-        Row(
-          children: const [
-            Expanded(
-                child: InvestInfoItem(
+                    descColor: Color(0xFF333333)),
+                SIZED_BOX_H12,
+                Obx(() => InvestInfoItem(
                     title: "Giá hiện tại (đ)",
-                    desc: "18.500",
+                    desc: controller.priceStock.value.toCurrency(symbol: ""),
                     imgUrl: "assets/images/png/ic_current_price.png",
-                    descColor: Color(0xFF333333))),
-            SIZED_BOX_W45,
-            Expanded(
-                child: InvestInfoItem(
-                    title: "Lãi lỗ (đ)",
-                    desc: "-1.000.000.000.000(-0,15%)",
-                    imgUrl: "assets/images/png/ic_profit_loss.png",
-                    descColor: Color(0xFFF46666))),
-          ],
-        ),
+                    descColor: const Color(0xFF333333))
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: Column(
+              children: [
+                InvestInfoItem(
+                    title: "Tiền vốn (đ)",
+                    desc: (stock?.amount ?? 0).toCurrency(symbol: ""),
+                    imgUrl: "assets/images/png/ic_funds.png",
+                    descColor: const Color(0xFF333333)),
+                SIZED_BOX_H12,
+                InvestInfoItem(
+                  title: "Lãi lỗ (đ)",
+                  desc: stock?.getPercentPrice(controller.priceStock.value) ?? "",
+                  imgUrl: "assets/images/png/ic_profit_loss.png",
+                  descColor: stock?.priceAvg.getStockColorWithCurrentPrice(
+                          controller.priceStock.value) ??
+                      const Color(0xFF333333),
+                ),
+              ],
+            ),
+          ),
+        ]),
       ]),
     );
   }

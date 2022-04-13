@@ -12,7 +12,6 @@ class StockModel {
   String get fullLink => "${Environment().maketUrl}/resource/v1/stock-image/$imageUrl";
 
 
-
   StockModel(
       {required this.symbol,
       required this.stockName,

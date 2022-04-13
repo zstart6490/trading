@@ -179,6 +179,16 @@ extension CustomDoubleExtension on double {
     return decreaseColor;
   }
 
+  Color getStockColorWithCurrentPrice(double currentPrice) {
+    if (this == currentPrice) {
+      return refColor;
+    }
+    if (this  > currentPrice) {
+      return increaseColor;
+    }
+    return decreaseColor;
+  }
+
   Color getStockColorWith(double ref, double floor, double ceil) {
     if (this  > ref && this < ceil) {
       return increaseColor;
@@ -216,7 +226,13 @@ extension CustomDoubleExtension on double {
     return summary;
   }
 
-
+  String getPriceStockComma() {
+    final oCcy = NumberFormat.decimalPattern("vi");
+    final value = oCcy.format(this);
+    final summary = oCcy.format(this).replaceRange(value.length - 1, value.length, "").replaceAll(".", ",");
+    return summary;
+  }
+  
 }
 
 extension BuildContextExtension on BuildContext {

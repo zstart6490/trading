@@ -12,7 +12,7 @@ abstract class StockRepo {
     required String symbol,
   });
 
-  Future<DataState<StockHistoryPriceModel>> getHistoryStockPrice({
+  Future<DataState<List<StockHistoryPriceModel>>> getHistoryStockPrice({
     required String symbol,
     required String type,
   });

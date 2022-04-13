@@ -87,7 +87,7 @@ class PortfolioModelDTO {
 
 extension PortfolioModelDTOMapper on PortfolioModelDTO {
   PortfolioModel toModel() {
-    return PortfolioModel(id: id, productKey: productKey, price: price, quantity: quantity);
+    return PortfolioModel(id: id, productKey: productKey, price: price ?? 0, quantity: quantity);
   }
 }
 

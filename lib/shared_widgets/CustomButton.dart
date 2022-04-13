@@ -89,6 +89,34 @@ class CustomButton extends StatelessWidget {
       child: child,
     );
   }
+
+  factory CustomButton.trailingStyleBgColor({
+    required String title,
+    required TextStyle textStyle,
+    required VoidCallback? onPressed,
+    required Widget trailing,
+    required Color bgColor,
+  }) {
+    final child = SizedBox(
+        width: double.infinity,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Text(title, textScaleFactor: 1, style: textStyle),
+            Positioned(
+              right: 8,
+              child: trailing,
+            )
+          ],
+        ));
+    return CustomButton(
+      title: title,
+      bgColor: bgColor,
+      onPressed: onPressed,
+      child: child,
+    );
+  }
+
   factory CustomButton.smallButton({
     required String title,
     required VoidCallback? onPressed,
@@ -102,6 +130,7 @@ class CustomButton extends StatelessWidget {
     );
     return CustomButton(
       title: title,
+      bgColor: Colors.red,
       onPressed: onPressed,
       height: null,
       width: width ?? 148,
@@ -111,8 +140,10 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("XXXXXXXX");
     print(bgColor);
-    print(Theme.of(context).primaryColor);
+    print("XXXXXXXX");
+    //print(Theme.of(context).primaryColor);
     return SizedBox(
       height: height,
       width: width ?? double.infinity,
