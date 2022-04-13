@@ -77,6 +77,7 @@ class HomePageView extends GetView<HomePageController> {
 
   Widget _buildChild() {
     return ListView.builder(
+      padding: const EdgeInsets.only(bottom: 16),
         itemCount: controller.countItem,
         itemBuilder: (context, index) {
           if (index == 0) {
@@ -92,7 +93,7 @@ class HomePageView extends GetView<HomePageController> {
           } else {
             return ListNoDataBackground(
                 pngPath: "assets/images/png/banner_empty_data.png",
-                desc: "Chưa có mã nào trong mục này".tr,
+                desc: "Chưa có mã nào trong mục này",
                 padding: PAD_SYM_H40,
                 btnTitle: "Thêm mã",
                 onPressed: () {

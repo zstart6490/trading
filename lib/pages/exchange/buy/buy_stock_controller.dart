@@ -18,14 +18,13 @@ class BuyStockController extends ExchangeStockController {
   RxBool isEmptyText = true.obs;
   RxBool canConfirm = false.obs;
   late FocusNode focusNode;
-  RxBool autoFocus =true.obs;
+  RxBool autoFocus = true.obs;
   RxDouble amountMaximum = 0.0.obs;
   RxDouble amount = 0.0.obs;
   Rx<bool> isShowToolTip = false.obs;
   Rx<ConditionState> overBuy = ConditionState.none.obs;
 
-  BuyStockController(StockModel stockModel)
-      : super(stockModel);
+  BuyStockController(StockModel stockModel) : super(stockModel);
 
   @override
   void onInit() {
@@ -40,7 +39,6 @@ class BuyStockController extends ExchangeStockController {
 
   @override
   void onReady() {
-
     getDataStockOrder();
     super.onReady();
   }
@@ -75,7 +73,9 @@ class BuyStockController extends ExchangeStockController {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.getBuyOrderInfo(
-        symbol: stockModel.symbol, price: stockModel.lastPrice, quantity: requestAmount);
+        symbol: stockModel.symbol,
+        price: stockModel.lastPrice,
+        quantity: requestAmount);
     if (result.data != null) {
       stockOrderInfo = result.data;
       if (stockOrderInfo != null) {
@@ -145,7 +145,7 @@ class BuyStockController extends ExchangeStockController {
                   onPressed: () {
                     hideDialog();
                     focusNode.unfocus();
-                    autoFocus.value =false;
+                    autoFocus.value = false;
                     confirmBuyStock();
                   }),
             ]),
@@ -157,10 +157,11 @@ class BuyStockController extends ExchangeStockController {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.confirmBuyOrderInfo(
-        symbol: stockModel.symbol, price: stockModel.lastPrice, quantity: requestAmount);
+        symbol: stockModel.symbol,
+        price: stockModel.lastPrice,
+        quantity: requestAmount);
     hideDialog();
     if (result.data != null) {
-
       final StockTransactionDetail stockTransactionDetail = result.data!;
       //order success
       showDialogConfirm(stockTransactionDetail);
@@ -219,7 +220,7 @@ class BuyStockController extends ExchangeStockController {
                   elevation: 0,
                 ),
                 onPressed: () {
-                  Get.until((route)=>Get.currentRoute== AppRoutes.mainView);
+                  Get.until((route) => Get.currentRoute == AppRoutes.mainView);
                 },
                 child: AutoSizeText(
                   'Đồng ý',
@@ -236,12 +237,14 @@ class BuyStockController extends ExchangeStockController {
             child: InkWell(
               child: Text(
                 "Chi tiết lệnh",
-                style: Get.context!.textSize14
-                    .copyWith(color: Get.context!.primaryColor,fontWeight: FontWeight.bold),
+                style: Get.context!.textSize14.copyWith(
+                    color: Get.context!.primaryColor,
+                    fontWeight: FontWeight.bold),
               ),
               onTap: () => {
                 Get.toNamed(AppRoutes.stTransactionDetail,
-                    arguments: NavigateStockTranDetail(stockTransactionDetail,StockTransactionType.buy))
+                    arguments: NavigateStockTranDetail(
+                        stockTransactionDetail, StockTransactionType.buy))
               },
             ),
           )
@@ -253,5 +256,6 @@ class BuyStockController extends ExchangeStockController {
 
   void showToolTip() {
     isShowToolTip.value = !isShowToolTip.value;
+    if (isShowToolTip.value) focusNode.unfocus();
   }
 }

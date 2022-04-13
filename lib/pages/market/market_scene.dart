@@ -12,6 +12,13 @@ class MarketScene extends GetView<MarketController> {
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<MarketController>(
       backgroundColor: Colors.white,
+      leading: IconButton(
+        icon: Image.asset("assets/images/png/ic_back_white.png",
+            color: Colors.black,
+            package: "trading_module"),
+        onPressed: () =>controller.backToTabHome(),
+      ),
+      showBackBtn: true,
       title: "Thị trường".tr,
       body: Column(
         children: <Widget>[
@@ -44,7 +51,7 @@ class MarketScene extends GetView<MarketController> {
                           controller.hiddenRemoveSearch.value
                               ? null
                               : Icons.clear,
-                          color: Color(0xFFADADAD)),
+                          color: const Color(0xFFADADAD)),
                       onPressed: () {
                         controller.cleanSearch();
                       },
@@ -55,31 +62,28 @@ class MarketScene extends GetView<MarketController> {
               ),
             ),
           ),
-          controller.obx(
-            (stocks) => Expanded(
-              child: CustomScrollView(slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                      List.generate(stocks!.length, (index) {
-                    final stock = stocks[index];
+          Expanded(
+              child: controller.obx(
+                    (stocks) => ListView.builder(
+                  itemBuilder: (context, index) {
+                    final stock = stocks![index];
                     return MarketCell(
                       stock: stock,
                       onPressed: () => controller.onTapped(stock),
                     );
-                  })),
+                  },
+                  itemCount: stocks!.length,
                 ),
-              ]),
-            ),
-            onLoading: const SizedBox(),
-            onError: (error) => Text(error ?? "Load Content Error!"),
-            onEmpty: ListNoDataBackground(
-              pngPath: "assets/images/png/banner_search_not_found.png",
-              title: "Không tìm thấy kết quả".tr,
-              desc: "Kiểm tra từ khóa và thử lại".tr,
-              padding: const EdgeInsets.only(top: 180),
-              btnTitle: null,
-            ),
-          ),
+                onLoading: const SizedBox(),
+                onError: (error) => Text(error ?? "Load Content Error!"),
+                onEmpty: Container(
+                    margin: const EdgeInsets.only(bottom: 180),
+                    child: const ListNoDataBackground(
+                      pngPath: "assets/images/png/banner_search_not_found.png",
+                      title: "Không tìm thấy kết quả",
+                      desc: "Kiểm tra từ khóa và thử lại",
+                    )),
+              )),
         ],
       ),
     );

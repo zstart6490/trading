@@ -26,6 +26,9 @@ class SellStockController extends ExchangeStockController {
   @override
   void onInit() {
     focusNode = FocusNode();
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) isShowToolTip.value = false;
+    });
     super.onInit();
   }
 
@@ -158,6 +161,7 @@ class SellStockController extends ExchangeStockController {
 
   void showToolTip() {
     isShowToolTip.value = !isShowToolTip.value;
+    if (isShowToolTip.value) focusNode.unfocus();
   }
 
   void onChangeMoney(String val) {

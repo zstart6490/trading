@@ -38,7 +38,7 @@ class MainTabBar extends GetView<TDMainTabController> {
       color: const Color(0xFFADADAD),
       selectedColor: context.primaryColor,
       notchedShape: const CircularNotchedRectangle(),
-      onTabSelected: (int index) => controller.onTabSelected(index),
+      onTabSelected: (int index) => controller.tabIndex =index,
       activeStyle: context.textSize11.copyWith(fontWeight: FontWeight.w500),
       inActiveStyle:
       context.textSize11.copyWith(color: const Color(0xFFADADAD)),

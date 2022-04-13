@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/pages/market/market_cell.dart';
 import 'package:trading_module/pages/product_owner/product_owner_controller.dart';
@@ -64,7 +63,7 @@ class ProductOwnerScene extends GetView<ProductOwnerController> {
                   delegate: SliverChildListDelegate(
                       List.generate(stocks!.length, (index) {
                     final stock = stocks[index];
-                   final stockM= StockModel(
+                    final stockM = StockModel(
                         symbol: stock.productKey,
                         stockName: stock.catName,
                         imageUrl: stock.imageUrl,
@@ -82,14 +81,21 @@ class ProductOwnerScene extends GetView<ProductOwnerController> {
             ),
             onLoading: const SizedBox(),
             onError: (error) => Text(error ?? "Load Content Error!"),
-            onEmpty: ListNoDataBackground(
-                pngPath: "assets/images/png/banner_empty_data.png",
-                desc: "Bạn chưa sở hữu CP nào",
-                padding: PAD_SYM_H40,
-                btnTitle: "Thêm mã",
-                onPressed: () {
-                  //controller.buyStock();
-                }),
+            onEmpty: Obx(() => controller.textSearch.value.isNotEmpty
+                ? const ListNoDataBackground(
+                    pngPath: "assets/images/png/banner_search_not_found.png",
+                    title: "Không tìm thấy kết quả",
+                    desc: "Kiểm tra từ khóa và thử lại",
+                    padding: EdgeInsets.only(top: 80),
+                  )
+                : ListNoDataBackground(
+                    pngPath: "assets/images/png/banner_empty_data.png",
+                    desc: "Bạn chưa sở hữu CP nào",
+                    padding: const EdgeInsets.only(top: 80),
+                    btnTitle: "Thêm mã",
+                    onPressed: () {
+                      controller.buyStock();
+                    })),
           ),
         ],
       ),

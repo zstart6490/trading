@@ -274,14 +274,14 @@ class MenuOptionView<T extends HomePageController> extends StatelessWidget {
                   controller.openCashOut();
                 }),
             ButtonWithIconAndText(
-                title: 'buy'.tr,
+                title: 'Mua',
                 icon: Image.asset("assets/images/png/ic_buy.png",
                     package: "trading_module"),
                 onPressed: () {
                   controller.selectStock();
                 }),
             ButtonWithIconAndText(
-                title: 'sell'.tr,
+                title: 'Bán',
                 icon: Image.asset("assets/images/png/ic_sell.png",
                     package: "trading_module"),
                 onPressed: () {
