@@ -31,11 +31,18 @@ class StockHistoryPriceModelDTO {
       _$StockHistoryPriceModelDTOFromJson(json as Map<String,dynamic>);
 
   Map<String, dynamic> toJson() => _$StockHistoryPriceModelDTOToJson(this);
+
+  static List<StockHistoryPriceModelDTO> getList(dynamic data) {
+    final list = data as List;
+    return list
+        .map((e) => StockHistoryPriceModelDTO.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
 }
 
 
 extension StockHistoryPriceModelDTOMapper on StockHistoryPriceModelDTO {
   StockHistoryPriceModel toModel() {
-    return StockHistoryPriceModel(tradingDate,open,close,high,low,volume,value);
+    return StockHistoryPriceModel(tradingDate,open ?? 0,close?? 0,high?? 0,low?? 0,volume?? 0,value?? 0);
   }
 }

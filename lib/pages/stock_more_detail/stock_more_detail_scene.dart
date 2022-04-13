@@ -47,7 +47,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                   StockMenuView(controller: controller),
                   SIZED_BOX_H06,
                   Padding(
-                    padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
                     child: Row(
                       children: [
                         ClipRRect(
@@ -110,7 +110,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                     width: double.infinity,
                     height: 340,
                     margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                    child: ChartView(),
+                    child: const ChartView(),
                   ),
                   SIZED_BOX_H12,
                   const SpaceWithCustom(
@@ -127,186 +127,249 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: const [
-                        Text(
-                          "KL mua",
-                          style: headerTitleStyle,
+                        Expanded(
+                          child: Text(
+                            "KL mua",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        Text(
-                          "Giá mua",
-                          style: headerTitleStyle,
+                        Expanded(
+                          child: Text(
+                            "Giá mua",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         SizedBox(
                           width: 1,
-                          height: 1,
                         ),
-                        Text(
-                          "Giá bán",
-                          style: headerTitleStyle,
+                        Expanded(
+                          child: Text(
+                            "Giá bán",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        Text(
-                          "KL bán",
-                          style: headerTitleStyle,
+                        Expanded(
+                          child: Text(
+                            "KL bán",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Container(
+                    height: 130,
                     padding: const EdgeInsets.fromLTRB(12, 18, 12, 18),
                     margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         color: const Color(0xFFF5F6FA)),
-                    child: Column(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              (stock?.askVol1 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF333333),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                (stock?.askVol1 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.askPrice1 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            Text(
-                              (stock?.askPrice1 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF333333),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                              Text(
+                                (stock?.askVol2 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.askPrice2 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            Container(
-                              width: 1,
-                              height: 40,
-                              color: Color(0xFFDADADA),
-                            ),
-                            Text(
-                              (stock?.bidVol1 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF00B14F),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                              Text(
+                                (stock?.askVol3 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.askPrice3 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            Text(
-                              (stock?.bidPrice1 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF00B14F),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              (stock?.askVol2 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF333333),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                (stock?.askPrice1 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.askPrice1 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            Text(
-                              (stock?.askPrice2 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF333333),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                              Text(
+                                (stock?.askPrice2 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.askPrice2 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            Container(
-                              width: 1,
-                              height: 40,
-                              color: Color(0xFFDADADA),
-                            ),
-                            Text(
-                              (stock?.bidVol2 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF00B14F),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                              Text(
+                                (stock?.askPrice3 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.askPrice3 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            Text(
-                              (stock?.bidPrice2 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF00B14F),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              (stock?.askVol3 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF333333),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                        Container(
+                          width: 1,
+                          color: const Color(0xFFDADADA),
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                (stock?.bidPrice1 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.bidPrice1 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            Text(
-                              (stock?.askPrice3 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF333333),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                              Text(
+                                (stock?.bidPrice2 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.bidPrice2 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            Container(
-                              width: 1,
-                              height: 40,
-                              color: Color(0xFFDADADA),
-                            ),
-                            Text(
-                              (stock?.bidVol3 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF00B14F),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                              Text(
+                                (stock?.bidPrice3 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.bidPrice3 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                            Text(
-                              (stock?.bidPrice3 ?? 0).getPriceStock(),
-                              style: const TextStyle(
-                                color: Color(0xFF00B14F),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w700,
-                                decoration: TextDecoration.none,
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                (stock?.bidVol1 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.bidPrice1 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
                               ),
-                            ),
-                          ],
+                              Text(
+                                (stock?.bidVol2 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.bidPrice2 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                              Text(
+                                (stock?.bidVol3 ?? 0).getPriceStock(),
+                                style: TextStyle(
+                                  color: (stock?.bidPrice3 ?? 0)
+                                      .getStockColorWith(
+                                          stock?.refPrice ?? 0,
+                                          stock?.floor ?? 0,
+                                          stock?.ceiling ?? 0),
+                                  fontSize: 12,
+                                  fontFamily: 'iCielHelveticaNowText',
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -323,23 +386,28 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Align(
-                          alignment: Alignment.center,
+                        Expanded(
                           child: Text(
                             "Sàn",
                             style: headerTitleStyle,
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(
-                          "Tham chiếu",
-                          style: headerTitleStyle,
+                        Expanded(
+                          child: Text(
+                            "Tham chiếu",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        Text(
-                          "Trần  ",
-                          style: headerTitleStyle,
+                        Expanded(
+                          child: Text(
+                            "Trần  ",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ],
                     ),
@@ -351,36 +419,45 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                         borderRadius: BorderRadius.circular(10.0),
                         color: const Color(0xFFF5F6FA)),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          (stock?.floor ?? 0).getPriceStock(),
-                          style: const TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 12,
-                            fontFamily: 'iCielHelveticaNowText',
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                            (stock?.floor ?? 0).getPriceStock(),
+                            style: const TextStyle(
+                              color: floorColor,
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(
-                          (stock?.refPrice ?? 0).getPriceStock(),
-                          style: const TextStyle(
-                            color: Color(0xFF00B14F),
-                            fontSize: 12,
-                            fontFamily: 'iCielHelveticaNowText',
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                            (stock?.refPrice ?? 0).getPriceStock(),
+                            style: const TextStyle(
+                              color: refColor,
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(
-                          (stock?.ceiling ?? 0).getPriceStock(),
-                          style: const TextStyle(
-                            color: Color(0xFF00B14F),
-                            fontSize: 12,
-                            fontFamily: 'iCielHelveticaNowText',
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                            (stock?.ceiling ?? 0).getPriceStock(),
+                            style: const TextStyle(
+                              color: ceilColor,
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
@@ -392,23 +469,28 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Align(
-                          alignment: Alignment.center,
+                        Expanded(
                           child: Text(
                             "Thấp",
                             style: headerTitleStyle,
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(
-                          "Trung bình",
-                          style: headerTitleStyle,
+                        Expanded(
+                          child: Text(
+                            "Trung bình",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        Text(
-                          "Cao  ",
-                          style: headerTitleStyle,
+                        Expanded(
+                          child: Text(
+                            "Cao  ",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ],
                     ),
@@ -420,43 +502,60 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                         borderRadius: BorderRadius.circular(10.0),
                         color: const Color(0xFFF5F6FA)),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          (stock?.low ?? 0).getPriceStock(),
-                          style: const TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 12,
-                            fontFamily: 'iCielHelveticaNowText',
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                            (stock?.low ?? 0).getPriceStock(),
+                            style: TextStyle(
+                              color: (stock?.low ?? 0).getStockColorWith(
+                                  stock?.refPrice ?? 0,
+                                  stock?.floor ?? 0,
+                                  stock?.ceiling ?? 0),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(
-                          (stock?.avg ?? 0).getPriceStock(),
-                          style: const TextStyle(
-                            color: Color(0xFF00B14F),
-                            fontSize: 12,
-                            fontFamily: 'iCielHelveticaNowText',
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                            (stock?.avg ?? 0).getPriceStock(),
+                            style: TextStyle(
+                              color: (stock?.avg ?? 0).getStockColorWith(
+                                  stock?.refPrice ?? 0,
+                                  stock?.floor ?? 0,
+                                  stock?.ceiling ?? 0),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(
-                          (stock?.high ?? 0).getPriceStock(),
-                          style: const TextStyle(
-                            color: Color(0xFF00B14F),
-                            fontSize: 12,
-                            fontFamily: 'iCielHelveticaNowText',
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                            (stock?.high ?? 0).getPriceStock(),
+                            style: TextStyle(
+                              color: (stock?.high ?? 0).getStockColorWith(
+                                  stock?.refPrice ?? 0,
+                                  stock?.floor ?? 0,
+                                  stock?.ceiling ?? 0),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
                     margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
@@ -464,23 +563,32 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Align(
-                          alignment: Alignment.center,
+                        Expanded(
                           child: Text(
                             "Tổng KL",
                             style: headerTitleStyle,
-                            textAlign: TextAlign.right,
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(
-                          "Tổng giá trị",
-                          style: headerTitleStyle,
+                        Expanded(
+                          child: Text(
+                            "",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "Tổng giá trị",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(32, 18, 32, 18),
+                    padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
                     margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
@@ -488,24 +596,37 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          (stock?.totalVol ?? 0).getPriceStock(),
-                          style: const TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 12,
-                            fontFamily: 'iCielHelveticaNowText',
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                            (stock?.totalVol ?? 0).getPriceStock(),
+                            style: const TextStyle(
+                              color: Color(0xFF333333),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(
-                          (stock?.totalVal ?? 0).getPriceStock(),
-                          style: const TextStyle(
-                            color: Color(0xFF333333),
-                            fontSize: 12,
-                            fontFamily: 'iCielHelveticaNowText',
-                            fontWeight: FontWeight.w700,
-                            decoration: TextDecoration.none,
+                        const Expanded(
+                          child: Text(
+                            "",
+                            style: headerTitleStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            (stock?.totalVal ?? 0).getPriceStock(),
+                            style: const TextStyle(
+                              color: Color(0xFF333333),
+                              fontSize: 12,
+                              fontFamily: 'iCielHelveticaNowText',
+                              fontWeight: FontWeight.w700,
+                              decoration: TextDecoration.none,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
@@ -531,8 +652,18 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                     ),
                   ),
                   SIZED_BOX_W16,
-                  const Expanded(
-                    child: CustomButton(bgColor: Colors.black, title: "Bán"),
+                  Expanded(
+                    child: CustomButton.trailingStyleBgColor(
+                      title: "Bán",
+                      bgColor: const Color(0xFFF46666),
+                      textStyle: context.textSize18light,
+                      trailing: const Icon(
+                        null,
+                      ),
+                      onPressed: () {
+                        controller.sellTapped();
+                      },
+                    ),
                   ),
                 ],
               ),

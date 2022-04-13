@@ -11,7 +11,7 @@ abstract class StockService extends MarketApiServices {
 
   Future<BaseDecoder<List<StockModelDTO>>> getList();
   Future<BaseDecoder<StockCurrentPriceModelDTO>> getCurrentStockPrice(String symbol);
-  Future<BaseDecoder<StockHistoryPriceModelDTO>> getHistoryStockPrice(String symbol, String type);
+  Future<BaseDecoder<List<StockHistoryPriceModelDTO>>> getHistoryStockPrice(String symbol, String type);
 
   Future<BaseDecoder<List<StockModelDTO>>> getInfoListStock(List<String> stocks);
 }
@@ -36,14 +36,14 @@ class StockServiceImpl extends StockService {
   }
 
   @override
-  Future<BaseDecoder<StockHistoryPriceModelDTO>> getHistoryStockPrice(String symbol, String type) async{
+  Future<BaseDecoder<List<StockHistoryPriceModelDTO>>> getHistoryStockPrice(String symbol, String type) async{
     return  BaseDecoder(await api.postData(
         endPoint: "/stock-price/v1/history/$symbol",
         params: {
           'type':type,
         },
         timeOut: AppConstants.TIME_OUT),
-        decoder: StockHistoryPriceModelDTO.fromJson);
+        decoder: StockHistoryPriceModelDTO.getList);
   }
 
   @override

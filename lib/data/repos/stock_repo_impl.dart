@@ -40,11 +40,15 @@ class StockRepoImpl extends StockRepo {
   }
 
   @override
-  Future<DataState<StockHistoryPriceModel>> getHistoryStockPrice({required String symbol, required String type}) async{
+  Future<DataState<List<StockHistoryPriceModel>>> getHistoryStockPrice({required String symbol, required String type}) async{
     final result = await _services.getHistoryStockPrice(symbol, type);
     if (result.success) {
-      final model = result.modelDTO.toModel();
-      return DataSuccess(model);
+      final model = result.modelDTO;
+      final List<StockHistoryPriceModel> list =[];
+      for (final value in model) {
+        list.add(value.toModel());
+      }
+      return DataSuccess<List<StockHistoryPriceModel>>(list);
     }
     return DataFailed(result.error);
   }

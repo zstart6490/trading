@@ -69,6 +69,10 @@ class StockMoreDetailController extends  BaseController
     Get.toNamed(AppRoutes.buyStock, arguments: stock);
   }
 
+  void sellTapped() {
+    Get.toNamed(AppRoutes.sellStock, arguments: stock);
+  }
+
   void follow() async{
     final isFlow =  !isFollow.value;
     final result = await _stockExchangeUseCase.addFollowing(stock: stock.symbol, type: "0", isFlow: isFlow);

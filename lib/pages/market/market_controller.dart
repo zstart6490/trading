@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/real_time_stock.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_use_case.dart';
 import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/sse/flutter_client_sse.dart';
 
 class MarketController extends BaseController
     with StateMixin<List<StockModel>> {
@@ -27,7 +31,7 @@ class MarketController extends BaseController
 
   @override
   void onClose(){
-    // SSEClient.unsubscribeFromSSE();
+    SSEClient.unsubscribeFromSSE();
   }
 
   void getListStock() async {
@@ -64,26 +68,26 @@ class MarketController extends BaseController
   }
 
   void onTapped(StockModel stock) {
-    Get.toNamed(AppRoutes.stockMoreDetail, arguments: stock);
+    Get.toNamed(AppRoutes.stockDetail, arguments: stock);
   }
 
   void subscribe() {
-    // final symbols = listStock.map((e) => e.symbol).toList();
-    // final stock = symbols.join('-');
-    // SSEClient.subscribeToSSE(
-    //     url: '${Environment().maketUrl}/stock/v1/subscribe/$stock',
-    //     header: {
-    //       "Authorization": mainProvider.accessToken ?? "",
-    //       "Cache-Control": "no-cache",
-    //     }).listen((event) {
-    //   if (event.data != null) {
-    //     final RealTimeStock stockInfo =
-    //         RealTimeStock.fromJson(jsonDecode(event.data.toString()));
-    //     updateListStock(stockInfo);
-    //   }
-    // });
-    //
-    // SSEClient.unsubscribeFromSSE();
+    final symbols = listStock.map((e) => e.symbol).toList();
+    final stock = symbols.join('-');
+    SSEClient.subscribeToSSE(
+        url: '${Environment().maketUrl}/stock/v1/subscribe/$stock',
+        header: {
+          "Authorization": mainProvider.accessToken ?? "",
+          "Cache-Control": "no-cache",
+        }).listen((event) {
+      if (event.data != null) {
+        final RealTimeStock stockInfo =
+            RealTimeStock.fromJson(jsonDecode(event.data.toString()));
+        updateListStock(stockInfo);
+      }
+    });
+
+    SSEClient.unsubscribeFromSSE();
   }
 
   void updateListStock(RealTimeStock stock){
