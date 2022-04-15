@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/pages/exchange/select_stock/select_stock_controller.dart';
 import 'package:trading_module/pages/market/market_cell.dart';
@@ -28,6 +29,9 @@ class SelectStockScene extends GetView<SelectStockController> {
                 () => TextField(
                   textAlignVertical: TextAlignVertical.center,
                   controller: controller.nameHolder,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(5), /// here char limit is 5
+                  ],
                   decoration: InputDecoration(
                     isCollapsed: true,
                     border: InputBorder.none,

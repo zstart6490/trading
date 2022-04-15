@@ -140,66 +140,110 @@ class HeaderBoardView<T extends HomePageController> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Obx(
+      () => Container(
         color: Colors.white,
         child: Container(
-            height: 50.0,
-            padding: const EdgeInsets.all(5.0),
-            margin: MAR_SIDE_16,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                HeaderBoardItem(
-                    title: "Mã CP".tr,
-                    imgUp: "ic_arrow_up".pngImage(),
-                    imgDown: "ic_arrow_down_selected".pngImage()),
-                HeaderBoardItem(
-                    title: "Khối lượng".tr,
-                    imgUp: "ic_arrow_up".pngImage(),
-                    imgDown: "ic_arrow_down_selected".pngImage()),
-                HeaderBoardItem(
-                    title: "Giá hiện tại".tr,
-                    imgUp: "ic_arrow_up".pngImage(),
-                    imgDown: "ic_arrow_down_selected".pngImage()),
-                HeaderBoardItem(
-                    title: "+/-".tr,
-                    imgUp: "ic_arrow_up".pngImage(),
-                    imgDown: "ic_arrow_down_selected".pngImage())
-              ],
-            )));
+          height: 50.0,
+          padding: const EdgeInsets.all(5.0),
+          margin: MAR_SIDE_16,
+          color: Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HeaderBoardItem(
+                title: "Mã CP",
+                imgUp: controller.sortAlphabet.value
+                    ? "ic_arrow_up_selected".pngImage()
+                    : "ic_arrow_up".pngImage(),
+                imgDown: controller.sortAlphabet.value
+                    ? "ic_arrow_down".pngImage()
+                    : "ic_arrow_down_selected".pngImage(),
+                onPressed: () {
+                  controller.tapOnSortAlphabet();
+                },
+              ),
+              HeaderBoardItem(
+                title: "Khối lượng",
+                imgUp: controller.sortVolume.value
+                    ? "ic_arrow_up_selected".pngImage()
+                    : "ic_arrow_up".pngImage(),
+                imgDown: controller.sortVolume.value
+                    ? "ic_arrow_down".pngImage()
+                    : "ic_arrow_down_selected".pngImage(),
+                onPressed: () {
+                  controller.tapOnSortVolume();
+                },
+              ),
+              HeaderBoardItem(
+                title: "Giá hiện tại",
+                imgUp: controller.sortCurrentPrice.value
+                    ? "ic_arrow_up_selected".pngImage()
+                    : "ic_arrow_up".pngImage(),
+                imgDown: controller.sortCurrentPrice.value
+                    ? "ic_arrow_down".pngImage()
+                    : "ic_arrow_down_selected".pngImage(),
+                onPressed: () {
+                  controller.tapOnSortCurrentPrice();
+                },
+              ),
+              HeaderBoardItem(
+                title: "+/-",
+                imgUp: controller.sortProfitAndLoss.value
+                    ? "ic_arrow_up_selected".pngImage()
+                    : "ic_arrow_up".pngImage(),
+                imgDown: controller.sortProfitAndLoss.value
+                    ? "ic_arrow_down".pngImage()
+                    : "ic_arrow_down_selected".pngImage(),
+                onPressed: () {
+                  controller.tapOnSortProfitAndLoss();
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
 class HeaderBoardItem extends StatelessWidget {
   const HeaderBoardItem({
+    Key? key,
     required this.title,
     required this.imgUp,
     required this.imgDown,
-    Key? key,
+    required this.onPressed,
   }) : super(key: key);
+
+  final VoidCallback onPressed;
   final String title;
   final Image imgUp;
   final Image imgDown;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(title,
-            style: const TextStyle(
-              color: Color(0xFF858585),
-              fontSize: 12,
-              fontFamily: 'iCielHelveticaNowText',
-              fontWeight: FontWeight.w400,
-              decoration: TextDecoration.none,
-            )),
-        SIZED_BOX_W06,
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [imgUp, imgDown],
-        ),
-      ],
+    return GestureDetector(
+      onTap: () {
+        onPressed();
+      },
+      child: Row(
+        children: [
+          Text(title,
+              style: const TextStyle(
+                color: Color(0xFF858585),
+                fontSize: 12,
+                fontFamily: 'iCielHelveticaNowText',
+                fontWeight: FontWeight.w400,
+                decoration: TextDecoration.none,
+              )),
+          SIZED_BOX_W06,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [imgUp, imgDown],
+          ),
+        ],
+      ),
     );
   }
 }

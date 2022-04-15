@@ -25,6 +25,12 @@ class HomePageController extends BaseController
 
   final int countItem = 2;
 
+  RxBool sortAlphabet = false.obs;
+  RxBool sortVolume = false.obs;
+  RxBool sortCurrentPrice = false.obs;
+  RxBool sortProfitAndLoss = false.obs;
+
+
   @override
   void onInit() {
     tabController = TabController(length: timeRange.length, vsync: this);
@@ -97,10 +103,9 @@ class HomePageController extends BaseController
     }
   }
 
-  void stockDetail(){
+  void stockDetail() {
     //Get.toNamed(AppRoutes.stockMoreDetail, arguments: stock);
   }
-
 
   void selectStock() {
     navToSelectStock();
@@ -144,5 +149,25 @@ class HomePageController extends BaseController
 
   void openSellStock() {
     navToProductOwner();
+  }
+
+  void tapOnSortAlphabet() {
+    sortAlphabet.value = !sortAlphabet.value;
+    print("softAlphabet");
+  }
+
+  void tapOnSortVolume() {
+    sortVolume.value = !sortVolume.value;
+    print("softVolume");
+  }
+
+  void tapOnSortCurrentPrice() {
+    sortCurrentPrice.value = !sortCurrentPrice.value;
+    print("softCurrentPrice");
+  }
+
+  void tapOnSortProfitAndLoss() {
+    sortProfitAndLoss.value = !sortProfitAndLoss.value;
+    print("softProfitAndLoss");
   }
 }

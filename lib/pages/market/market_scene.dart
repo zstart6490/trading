@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/pages/market/market_cell.dart';
 import 'package:trading_module/pages/market/market_controller.dart';
@@ -34,6 +35,9 @@ class MarketScene extends GetView<MarketController> {
                 () => TextField(
                   textAlignVertical: TextAlignVertical.center,
                   controller: controller.nameHolder,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(5), /// here char limit is 5
+                  ],
                   decoration: InputDecoration(
                     isCollapsed: true,
                     border: InputBorder.none,
@@ -54,6 +58,7 @@ class MarketScene extends GetView<MarketController> {
                             : Icons.clear,
                         color: const Color(0xFFADADAD),
                       ),
+
                       onPressed: () {
                         controller.cleanSearch();
                       },

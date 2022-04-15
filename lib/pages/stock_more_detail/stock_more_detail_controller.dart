@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_exchange_usecase.dart';
 import 'package:trading_module/domain/use_cases/stock_usecase.dart';
+import 'package:trading_module/pages/stock_more_detail/overlayView/overlay_balance.dart';
 import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/shared_widgets/CustomOverlay.dart';
 
 
 class StockMoreDetailController extends  BaseController
@@ -20,7 +24,8 @@ class StockMoreDetailController extends  BaseController
 
   final timeRange = ["Tổng quan".tr, "Tài chính".tr, "Tin tức".tr];
   late TabController tabController;
-
+  late Offset totalAmountOffset;
+  late GlobalKey followKey;
   final int countItem = 12;
 
   RxBool isFollow = false.obs;
@@ -35,6 +40,10 @@ class StockMoreDetailController extends  BaseController
   @override
   void onReady() {
     getCurrentStockPrice();
+    //checkPopup();
+    //showOnBoarding();
+    print("BBBBBB");
+    showOnBoarding();
     super.onReady();
   }
 
@@ -47,6 +56,55 @@ class StockMoreDetailController extends  BaseController
       change(null, status: RxStatus.error());
       showSnackBar(result.error!.message);
     }
+  }
+
+  void onPressUnderstoodGuide() {
+    final box = GetStorage();
+    box.write(APP_VER3_OPENED, true);
+    Get.back();
+  }
+
+  Future<void> checkPopup() async {
+    if (shouldShowOnBoarding()) {
+      showOnBoarding();
+    }
+  }
+
+  void showOnBoarding() {
+    DUR_400.delay().then((_) => getPositionWidget());
+  }
+
+  void showGuide() {
+    print("AAAAAAAAAA");
+    Navigator.of(Get.context!).push(
+      CustomOverlay(
+        child: InkWell(
+          onTap: onPressUnderstoodGuide,
+          child: OverlayBalance(
+            totalAmountOffset: totalAmountOffset,
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool shouldShowOnBoarding() {
+    final box = GetStorage();
+    return !(box.read<bool>(APP_VER3_OPENED) ?? false);
+  }
+
+  void getPositionWidget() {
+    print("AAAAAAAAAA11");
+    totalAmountOffset = getOffsetWidget(followKey);
+    print("AAAAAAAAAA22");
+    showGuide();
+
+  }
+
+  Offset getOffsetWidget(GlobalKey globalKey) {
+    final RenderBox? renderBox =
+    globalKey.currentContext?.findRenderObject() as RenderBox?;
+    return renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
   }
 
   void onTabChange() {

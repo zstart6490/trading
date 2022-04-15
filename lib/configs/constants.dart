@@ -48,6 +48,7 @@ const PROGRESSING_DIALOG = 'ProgressingDialog';
 /// String Const
 const AUTH_TOKEN_KEY = "trading_auth";
 const TD_DEPOSIT_FIRST_SUFFIX = "_TD_DEPOSIT_FIRST";
+const APP_VER3_OPENED = "_appVer3Opened";
 
 /// TEXT
 const SESSION_TIMEOUT_CODE = 1200;
@@ -119,7 +120,9 @@ const SIZED_BOX_W16 = SizedBox(width: 16);
 const SIZED_BOX_W20 = SizedBox(width: 20);
 const SIZED_BOX_W30 = SizedBox(width: 30);
 const SIZED_BOX_W40 = SizedBox(width: 40);
+const SIZED_BOX_W42 = SizedBox(width: 42);
 const SIZED_BOX_W45 = SizedBox(width: 45);
+
 
 /// SizedBox Height
 const SIZED_BOX_H02 = SizedBox(height: 2);
@@ -149,6 +152,11 @@ const PAD_ONLY_R20 = EdgeInsets.only(right: 20);
 const PAD_TOP_16 = EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0);
 const PAD_SYM_H16_B24 = EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0);
 
+const PAD_SYM_H16_V12 = EdgeInsets.symmetric(horizontal: 16, vertical: 12);
+const PAD_SYM_H16_V08 = EdgeInsets.symmetric(horizontal: 16, vertical: 8);
+const PAD_SYM_H16_V24 = EdgeInsets.symmetric(horizontal: 16, vertical: 24);
+const PAD_SYM_H12_V16 = EdgeInsets.symmetric(horizontal: 12, vertical: 16);
+const PAD_SYM_H08_V06 = EdgeInsets.symmetric(horizontal: 8, vertical: 6);
 
 /// MARGIN
 const MAR_ZERO = EdgeInsets.zero;
@@ -180,8 +188,6 @@ const PAD_SYM_V10 = EdgeInsets.symmetric(vertical: 10);
 const PAD_SYM_V12 = EdgeInsets.symmetric(vertical: 12);
 const PAD_SYM_V20 = EdgeInsets.symmetric(vertical: 20);
 
-///
-const PAD_SYM_H16_V12 = EdgeInsets.symmetric(horizontal: 16, vertical: 12);
 
 /// Error Code
 const CODE_SUCCESS = -1;

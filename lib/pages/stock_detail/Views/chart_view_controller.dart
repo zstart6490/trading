@@ -49,38 +49,38 @@ class ChartController extends BaseController with StateMixin<List<Candle>>, GetS
   }
 
   Future<void> getHistoryStockPrice(String time) async {
-    final result = await _stockMarketUseCase.getHistoryStockPrice(symbol: stock.symbol, type: time);
+    final result = await _stockMarketUseCase.getHistoryStockPrice(symbol: "HNXIndex", type: time);
     if (result.data != null) {
       final length = result.data?.length ?? 0;
       final data = result.data!;
       candles.clear();
       for (var i = 0; i < length; i++){
-        //final candle = Candle(date:  DateTime.now(), high: data[i].high, low: data[i].low, open: data[i].open, close: data[i].close, volume: data[i].volume);
-        final candle =  Candle(date: DateTime.now(), open: 1780.36, high: 1873.93, low: 1755.34, close: 1848.56, volume: 1);
+        final candle = Candle(date:  DateTime.now(), high: data[i].high, low: data[i].low, open: data[i].open, close: data[i].close, volume: data[i].volume);
+        //final candle =  Candle(date: DateTime.now(), open: 1780.36, high: 1873.93, low: 1755.34, close: 1848.56, volume: 1);
         candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
-        candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
+        // candles.add(candle);
       }
       change(candles, status: RxStatus.success());
     } else if (result.error != null) {

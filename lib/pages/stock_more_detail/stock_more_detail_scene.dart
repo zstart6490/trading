@@ -22,20 +22,8 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
     return BaseScaffoldAppBar<StockMoreDetailController>(
       backgroundColor: Colors.white,
       title: controller.stock.symbol,
-      actions: <Widget>[
-        Obx(
-          () => IconButton(
-            icon: Image.asset(
-                controller.isFollow.value
-                    ? "assets/images/png/ic_follow.png"
-                    : "assets/images/png/ic_unfollow.png",
-                package: "trading_module"),
-            tooltip: 'Thông tin',
-            onPressed: () {
-              controller.follow();
-            },
-          ),
-        ),
+      actions: const <Widget>[
+        FollowStockComponent(),
       ],
       body: controller.obx(
         (stock) => Column(
@@ -57,9 +45,11 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                             imageUrl: controller.stock.fullLink,
                             width: 43,
                             height: 43,
-                            placeholder: (context, url) => const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>   Image.asset(
-                                    "assets/images/png/ic_follow.png", package: "trading_module"),
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/png/ic_follow.png",
+                                package: "trading_module"),
                           ),
                         ),
                         SIZED_BOX_W10,
@@ -716,5 +706,31 @@ class StockMenuView<T extends StockMoreDetailController>
                 );
               })),
         ));
+  }
+}
+
+class FollowStockComponent extends GetView<StockMoreDetailController> {
+  const FollowStockComponent({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final key = GlobalKey();
+    controller.followKey = key;
+    return Obx(
+      () => IconButton(
+        key: key,
+        icon: Image.asset(
+            controller.isFollow.value
+                ? "assets/images/png/ic_follow.png"
+                : "assets/images/png/ic_unfollow.png",
+            package: "trading_module"),
+        tooltip: 'Thông tin',
+        onPressed: () {
+          controller.follow();
+        },
+      ),
+    );
   }
 }
