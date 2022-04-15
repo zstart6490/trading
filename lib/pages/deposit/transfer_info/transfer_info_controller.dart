@@ -110,8 +110,8 @@ class TDTransferInfoController extends BaseController
   }
 
   void getPositionWidget() {
-    // final key = (mainProvider.dataInputApp.phone ?? "") + TD_DEPOSIT_FIRST_SUFFIX;
-    // if (box.read(key) ?? false) return;
+    final key = (mainProvider.dataInputApp.phone ?? "") + TD_DEPOSIT_FIRST_SUFFIX;
+    if (box.read(key) ?? false) return;
 
     bankOffset = getOffsetWidget(bankKey);
     accountNumberOffset = getOffsetWidget(accountNumberKey);

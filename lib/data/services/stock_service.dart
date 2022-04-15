@@ -29,7 +29,7 @@ class StockServiceImpl extends StockService {
   @override
   Future<BaseDecoder<StockCurrentPriceModelDTO>> getCurrentStockPrice(String symbol) async{
     return  BaseDecoder(await api.getData(
-        endPoint: "/stock-price/v1/current/$symbol",
+        endPoint: "/stock/v1/current/$symbol",
         timeOut: AppConstants.TIME_OUT),
         decoder: StockCurrentPriceModelDTO.fromJson);
   }
