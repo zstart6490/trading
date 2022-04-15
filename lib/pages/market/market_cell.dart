@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
@@ -51,8 +52,8 @@ class MarketCell extends StatelessWidget {
                         )),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        stock.fullLink,
+                      child: CachedNetworkImage(
+                        imageUrl: stock.fullLink,
                         fit: BoxFit.contain,
                       ),
                     ),

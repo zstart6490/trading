@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
@@ -52,11 +53,13 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            controller.stock.fullLink,
+                          child: CachedNetworkImage(
+                            imageUrl: controller.stock.fullLink,
                             width: 43,
                             height: 43,
-                            fit: BoxFit.contain,
+                            placeholder: (context, url) => const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>   Image.asset(
+                                    "assets/images/png/ic_follow.png", package: "trading_module"),
                           ),
                         ),
                         SIZED_BOX_W10,
@@ -176,7 +179,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                (stock?.askVol1 ?? 0).getPriceStock(),
+                                (stock?.askVol1 ?? 0).getVolumeStock(),
                                 style: TextStyle(
                                   color: (stock?.askPrice1 ?? 0)
                                       .getStockColorWith(
@@ -190,7 +193,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                                 ),
                               ),
                               Text(
-                                (stock?.askVol2 ?? 0).getPriceStock(),
+                                (stock?.askVol2 ?? 0).getVolumeStock(),
                                 style: TextStyle(
                                   color: (stock?.askPrice2 ?? 0)
                                       .getStockColorWith(
@@ -204,7 +207,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                                 ),
                               ),
                               Text(
-                                (stock?.askVol3 ?? 0).getPriceStock(),
+                                (stock?.askVol3 ?? 0).getVolumeStock(),
                                 style: TextStyle(
                                   color: (stock?.askPrice3 ?? 0)
                                       .getStockColorWith(
@@ -327,7 +330,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                (stock?.bidVol1 ?? 0).getPriceStock(),
+                                (stock?.bidVol1 ?? 0).getVolumeStock(),
                                 style: TextStyle(
                                   color: (stock?.bidPrice1 ?? 0)
                                       .getStockColorWith(
@@ -341,7 +344,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                                 ),
                               ),
                               Text(
-                                (stock?.bidVol2 ?? 0).getPriceStock(),
+                                (stock?.bidVol2 ?? 0).getVolumeStock(),
                                 style: TextStyle(
                                   color: (stock?.bidPrice2 ?? 0)
                                       .getStockColorWith(
@@ -355,7 +358,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                                 ),
                               ),
                               Text(
-                                (stock?.bidVol3 ?? 0).getPriceStock(),
+                                (stock?.bidVol3 ?? 0).getVolumeStock(),
                                 style: TextStyle(
                                   color: (stock?.bidPrice3 ?? 0)
                                       .getStockColorWith(
@@ -598,7 +601,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                       children: [
                         Expanded(
                           child: Text(
-                            (stock?.totalVol ?? 0).getPriceStock(),
+                            (stock?.totalVol ?? 0).getVolumeStock(),
                             style: const TextStyle(
                               color: Color(0xFF333333),
                               fontSize: 12,

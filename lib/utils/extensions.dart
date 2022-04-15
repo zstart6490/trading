@@ -211,28 +211,29 @@ extension CustomDoubleExtension on double {
 
   String getRatioChange(){
     if (this == 0) {
-      return "0.0%";
+      return "0,0%";
     }
     if (this  > 0) {
-      return "+${this}%";
+      return "+${this}%".replaceAll(".", ",");
     }
-    return "${this}%";
+    return "${this}%".replaceAll(".", ",");
   }
+
 
   String getPriceStock() {
+    final value = this / 1000;
     final oCcy = NumberFormat.decimalPattern("vi");
-    final value = oCcy.format(this);
-    final summary = oCcy.format(this).replaceRange(value.length - 1, value.length, "");
+    final summary = oCcy.format(value);
     return summary;
   }
 
-  String getPriceStockComma() {
+  String getVolumeStock() {
+    final value = this / 10;
     final oCcy = NumberFormat.decimalPattern("vi");
-    final value = oCcy.format(this);
-    final summary = oCcy.format(this).replaceRange(value.length - 1, value.length, "").replaceAll(".", ",");
+    final summary = oCcy.format(value).replaceAll(",", ".");
     return summary;
   }
-  
+
 }
 
 extension BuildContextExtension on BuildContext {
