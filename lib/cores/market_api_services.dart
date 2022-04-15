@@ -11,7 +11,7 @@ class MarketApiServices {
   MarketApiServices() {
     final MainTradingProvider mainProvider = Get.find<MainTradingProvider>();
     api = Api(
-        backendUrl: Environment().maketUrl,
+        backendUrl: Environment().marketUrl,
         fullToken: mainProvider.accessToken ?? "",
         userId: mainProvider.userData?.id.toString() ?? "");
   }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/pages/market/market_cell.dart';
 import 'package:trading_module/pages/market/market_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
+import 'package:trading_module/shared_widgets/CustomRefresher.dart';
 import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
 
 class MarketScene extends GetView<MarketController> {
@@ -14,9 +15,8 @@ class MarketScene extends GetView<MarketController> {
       backgroundColor: Colors.white,
       leading: IconButton(
         icon: Image.asset("assets/images/png/ic_back_white.png",
-            color: Colors.black,
-            package: "trading_module"),
-        onPressed: () =>controller.backToTabHome(),
+            color: Colors.black, package: "trading_module"),
+        onPressed: () => controller.backToTabHome(),
       ),
       showBackBtn: true,
       title: "Thị trường".tr,
@@ -64,26 +64,35 @@ class MarketScene extends GetView<MarketController> {
           ),
           Expanded(
               child: controller.obx(
-                    (stocks) => ListView.builder(
-                  itemBuilder: (context, index) {
-                    final stock = stocks![index];
-                    return MarketCell(
-                      stock: stock,
-                      onPressed: () => controller.onTapped(stock),
-                    );
-                  },
-                  itemCount: stocks!.length,
-                ),
-                onLoading: const SizedBox(),
-                onError: (error) => Text(error ?? "Load Content Error!"),
-                onEmpty: Container(
-                    margin: const EdgeInsets.only(bottom: 180),
-                    child: const ListNoDataBackground(
-                      pngPath: "assets/images/png/banner_search_not_found.png",
-                      title: "Không tìm thấy kết quả",
-                      desc: "Kiểm tra từ khóa và thử lại",
-                    )),
-              )),
+                  (stocks) => CustomRefresher(
+                      controller: controller.refreshController,
+                      onRefresh: controller.onRefresh,
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          final stock = stocks![index];
+                          return MarketCell(
+                            stock: stock,
+                            onPressed: () => controller.onTapped(stock),
+                          );
+                        },
+                        itemCount: stocks!.length,
+                      )),
+                  onLoading: const SizedBox(),
+                  onError: (error) => Center(
+                        child: Text(
+                          error ?? "Load Content Error!",
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ),
+                  onEmpty: Container(
+                      margin: const EdgeInsets.only(bottom: 180),
+                      child: const ListNoDataBackground(
+                        pngPath:
+                            "assets/images/png/banner_search_not_found.png",
+                        title: "Không tìm thấy kết quả",
+                        desc: "Kiểm tra từ khóa và thử lại",
+                      )))),
         ],
       ),
     );

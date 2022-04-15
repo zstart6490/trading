@@ -22,7 +22,7 @@ class DevConfig implements BaseConfig {
   @override
   String get protocol => "http://";
   @override
-  String get marketHost => "104.199.179.48:8910";
+  String get marketHost => "104.199.179.48:8501";
   @override
   String get marketProtocol => "http://";
   @override
@@ -94,6 +94,6 @@ class Environment {
 
 
   String get backendUrl => '${config.protocol}${config.host}';
-  String get maketUrl => '${config.marketProtocol}${config.marketHost}';
+  String get marketUrl => '${config.marketProtocol}${config.marketHost}';
   bool get isProduct => config.environment == EnvironmentConfiguration.product;
 }

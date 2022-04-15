@@ -55,7 +55,8 @@ Map<String, dynamic> _$StockTransactionDetailDtoToJson(
 
 const _$StockTransactionStateEnumMap = {
   StockTransactionState.pending: 0,
-  StockTransactionState.success: 1,
+  StockTransactionState.partiallyProcessed: 1,
+  StockTransactionState.processed: 2,
   StockTransactionState.failed: -1,
   StockTransactionState.block: -2,
 };

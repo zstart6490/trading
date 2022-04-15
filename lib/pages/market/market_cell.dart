@@ -42,7 +42,7 @@ class MarketCell extends StatelessWidget {
                 width: 40,
                 height: 40,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 0.0),
+                  padding: const EdgeInsets.only(top: 0.0),
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),

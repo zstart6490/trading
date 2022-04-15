@@ -22,7 +22,8 @@ class StockTransactionStateComponent extends StatelessWidget {
     switch (navTransaction.transaction.status) {
       case StockTransactionState.pending:
         return StTransactionProgressingState(transaction: navTransaction.transaction);
-      case StockTransactionState.success:
+      case StockTransactionState.partiallyProcessed:
+      case StockTransactionState.processed:
         return StSuccessTransactionState(transaction: navTransaction.transaction,stockTransactionType: navTransaction.stockTransactionType);
       case StockTransactionState.failed:
         return StFailTransactionState(transaction: navTransaction.transaction,stockTransactionType: navTransaction.stockTransactionType,);
