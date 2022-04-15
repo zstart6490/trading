@@ -108,7 +108,9 @@ enum StockTransactionState {
   @JsonValue(0)
   pending,
   @JsonValue(1)
-  success,
+  partiallyProcessed,
+  @JsonValue(2)
+  processed,
   @JsonValue(-1)
   failed,
   @JsonValue(-2)

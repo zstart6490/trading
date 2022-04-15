@@ -94,6 +94,6 @@ class Environment {
 
 
   String get backendUrl => '${config.protocol}${config.host}';
-  String get maketUrl => '${config.marketProtocol}${config.marketHost}';
+  String get marketUrl => '${config.marketProtocol}${config.marketHost}';
   bool get isProduct => config.environment == EnvironmentConfiguration.product;
 }

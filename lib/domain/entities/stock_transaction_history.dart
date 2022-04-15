@@ -26,7 +26,7 @@ class StockTransactionHistory {
     if (status == StockTransactionState.pending) {
       return "Chờ khớp";
     }
-    if (status == StockTransactionState.success) {
+    if (status == StockTransactionState.processed || status == StockTransactionState.partiallyProcessed) {
       return "Thành công";
     }
     if (status == StockTransactionState.failed) {
