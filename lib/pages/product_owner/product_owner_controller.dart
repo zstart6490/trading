@@ -43,7 +43,11 @@ class ProductOwnerController extends BaseController
 
     if (result.data != null) {
       listStock = result.data!;
-      change(listStock, status: RxStatus.success());
+      if(result.data!.isNotEmpty) {
+        change(listStock, status: RxStatus.success());
+      }else{
+        change(listStock, status: RxStatus.empty());
+      }
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
       change(null, status: RxStatus.error());
@@ -76,7 +80,7 @@ class ProductOwnerController extends BaseController
   }
 
   void buyStock(){
-
+    navToSelectStock();
   }
 
   @override

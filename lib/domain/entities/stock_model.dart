@@ -9,7 +9,7 @@ class StockModel {
   final double? change;
   late double ratioChange;
 
-  String get fullLink => "${Environment().maketUrl}/resource/v1/stock-image/$imageUrl";
+  String get fullLink => "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
 
 
   StockModel(

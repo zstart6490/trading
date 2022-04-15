@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
@@ -9,7 +10,6 @@ import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 
-
 class MarketController extends BaseController
     with StateMixin<List<StockModel>> {
   final StockUseCase _stockUseCase = Get.find<StockUseCase>();
@@ -17,6 +17,8 @@ class MarketController extends BaseController
   List<StockModel> listStock = <StockModel>[];
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
   Rx<bool> hiddenRemoveSearch = true.obs;
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
   @override
   void onReady() {
@@ -71,7 +73,7 @@ class MarketController extends BaseController
       change(listStock, status: RxStatus.success());
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
-      change(null, status: RxStatus.error());
+      change(null, status: RxStatus.error(result.error!.message));
     }
     subscribe();
   }
@@ -101,5 +103,10 @@ class MarketController extends BaseController
   void backToTabHome() {
     final TDMainTabController tdMainTabController = Get.find();
     if (tdMainTabController.tabIndex != 0) tdMainTabController.tabIndex = 0;
+  }
+
+  Future onRefresh() async {
+    await getListStock();
+    refreshController.refreshCompleted();
   }
 }

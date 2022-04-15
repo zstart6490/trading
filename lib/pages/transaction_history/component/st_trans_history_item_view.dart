@@ -120,7 +120,7 @@ class StockTransHistoryItemView extends StatelessWidget {
     if (status == StockTransactionState.pending) {
       return Colors.orange;
     }
-    if (status == StockTransactionState.success) {
+    if (status == StockTransactionState.processed) {
       return Colors.green;
     }
     if (status == StockTransactionState.failed) {

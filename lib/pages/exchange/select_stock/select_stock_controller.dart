@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
@@ -15,7 +16,8 @@ class SelectStockController extends BaseController
   final nameHolder = TextEditingController();
   List<StockModel> listStock = <StockModel>[];
   Rx<bool> hiddenRemoveSearch = true.obs;
-
+  RefreshController refreshController =
+  RefreshController(initialRefresh: false);
   SelectStockController();
 
   String getTitleScreen() {
@@ -46,10 +48,10 @@ class SelectStockController extends BaseController
     if (result.data != null) {
       listStock = result.data!;
       change(listStock, status: RxStatus.success());
-      //subscribe();
+      subscribe();
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
-      change(null, status: RxStatus.error());
+      change(null, status: RxStatus.error(result.error!.message));
     }
   }
 
@@ -104,4 +106,9 @@ class SelectStockController extends BaseController
   }
 
 
+
+  Future onRefresh() async{
+    await getListStock();
+    refreshController.refreshCompleted();
+  }
 }
