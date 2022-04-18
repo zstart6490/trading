@@ -87,7 +87,7 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                             ),
                           )),
                           Text(
-                            "${controller.quantityMaximum.value.toString()} CP",
+                            "${controller.quantityMaximum.value.toCurrency(symbol: "")} CP",
                             style: context.textSize14.copyWith(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700),
