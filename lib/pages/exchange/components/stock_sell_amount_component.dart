@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:simple_tooltip/simple_tooltip.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_view_model.dart';
@@ -53,19 +52,6 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                                     multipleOf: 9,
                                     state: controller.overBuy.value,
                                   ))),
-                          Visibility(
-                            visible: !controller.isEmptyText.value,
-                            child: InkWell(
-                              onTap: () {
-                                controller.clearText();
-                              },
-                              child: SvgPicture.asset(
-                                "assets/images/svg/ic_close.svg",
-                                width: 16,
-                                height: 16,
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                       SIZED_BOX_H16,

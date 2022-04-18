@@ -20,6 +20,7 @@ class MainTabBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => TDMainTabController());
     Get.lazyPut(() => HomePageController());
+    Get.lazyPut(() => StockPriceSocket());
     Get.lazyPut(() => MarketController());
     Get.lazyPut(() => HomePropertyController());
 
@@ -27,6 +28,5 @@ class MainTabBinding extends Bindings {
     Get.lazyPut(() => OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
     Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
     Get.lazyPut(() => HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl())));
-    Get.lazyPut(() => StockPriceSocket());
   }
 }

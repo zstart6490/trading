@@ -5,7 +5,6 @@ import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 import 'package:trading_module/utils/util.dart';
 
-
 class MoneyTextField extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType? textInputType;
@@ -81,10 +80,11 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
     controller.dispose();
     focusNode.dispose();
   }
+
 // change textStyle color
   @override
   Widget build(BuildContext context) {
-    switch(widget.state){
+    switch (widget.state) {
       case ConditionState.error:
         style = const TextStyle(
             fontFamily: 'iCielHelveticaNowText',
@@ -191,13 +191,15 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
                 controller.clear();
                 widget.onChanged?.call("");
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Icon(
-                  Icons.close,
-                  color: context.disabledColor,
-                ),
-              ),
+              child: Visibility(
+                  visible: content.isNotEmpty,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Icon(
+                      Icons.close,
+                      color: context.disabledColor,
+                    ),
+                  )),
             ),
         ],
       ),
