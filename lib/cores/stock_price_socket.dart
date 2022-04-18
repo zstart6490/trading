@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
 import 'package:trading_module/data/entities/stock_price.dart';
 import 'package:trading_module/pages/main_provider.dart';
@@ -16,7 +17,7 @@ class StockPriceSocket {
     unSubscribeStock();
     print("SubscribeStock: $stockSymbols");
     SSEClient.subscribeToSSE(
-        url: 'http://104.199.179.48:8910/stock/v1/subscribe/$stockSymbols',
+        url: '${Environment().marketUrl}/stock/v1/subscribe/$stockSymbols',
         header: {
           "Authorization": mainTradingProvider.accessToken ?? "",
           "Cache-Control": "no-cache",
