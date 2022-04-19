@@ -26,24 +26,23 @@ class StockMoreDetailController extends  BaseController
   late TabController tabController;
   late Offset totalAmountOffset;
   late GlobalKey followKey;
-  final int countItem = 12;
+
 
   RxBool isFollow = false.obs;
 
   @override
   void onInit() {
     tabController = TabController(length: timeRange.length, vsync: this);
-    tabController.addListener(onTabChange);
+    tabController.addListener(() {
+      if (!tabController.indexIsChanging) onTabChange(tabController.index);
+    });
     super.onInit();
   }
 
   @override
   void onReady() {
     getCurrentStockPrice();
-    //checkPopup();
-    //showOnBoarding();
-    print("BBBBBB");
-    showOnBoarding();
+    checkShowGuidePopup();
     super.onReady();
   }
 
@@ -51,6 +50,7 @@ class StockMoreDetailController extends  BaseController
   Future<void> getCurrentStockPrice() async {
     final result = await _stockUseCase.getCurrentStockPrice(symbol: stock.symbol);
     if (result.data != null) {
+      isFollow.value = result.data?.isProductWatching ?? false;
       change(result.data, status: RxStatus.success());
     } else if (result.error != null) {
       change(null, status: RxStatus.error());
@@ -60,11 +60,11 @@ class StockMoreDetailController extends  BaseController
 
   void onPressUnderstoodGuide() {
     final box = GetStorage();
-    box.write(APP_VER3_OPENED, true);
+    box.write(APP_FOLLOW_STOCK_OPENED, true);
     Get.back();
   }
 
-  Future<void> checkPopup() async {
+  Future<void> checkShowGuidePopup() async {
     if (shouldShowOnBoarding()) {
       showOnBoarding();
     }
@@ -75,7 +75,6 @@ class StockMoreDetailController extends  BaseController
   }
 
   void showGuide() {
-    print("AAAAAAAAAA");
     Navigator.of(Get.context!).push(
       CustomOverlay(
         child: InkWell(
@@ -90,15 +89,12 @@ class StockMoreDetailController extends  BaseController
 
   bool shouldShowOnBoarding() {
     final box = GetStorage();
-    return !(box.read<bool>(APP_VER3_OPENED) ?? false);
+    return !(box.read<bool>(APP_FOLLOW_STOCK_OPENED) ?? false);
   }
 
   void getPositionWidget() {
-    print("AAAAAAAAAA11");
     totalAmountOffset = getOffsetWidget(followKey);
-    print("AAAAAAAAAA22");
     showGuide();
-
   }
 
   Offset getOffsetWidget(GlobalKey globalKey) {
@@ -107,7 +103,7 @@ class StockMoreDetailController extends  BaseController
     return renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
   }
 
-  void onTabChange() {
+  void onTabChange(int index) {
     debugPrint("TabChange :${tabController.index}");
     if (tabController.index == 0) {
 
@@ -120,7 +116,6 @@ class StockMoreDetailController extends  BaseController
 
   void selTab(int index) {
     tabController.animateTo(index);
-    print(index);
   }
 
   void buyTapped() {
@@ -131,7 +126,7 @@ class StockMoreDetailController extends  BaseController
     Get.toNamed(AppRoutes.sellStock, arguments: stock);
   }
 
-  void follow() async{
+  Future<void> follow() async{
     final isFlow =  !isFollow.value;
     final result = await _stockExchangeUseCase.addFollowing(stock: stock.symbol, type: "0", isFlow: isFlow);
     if (result.data != null){

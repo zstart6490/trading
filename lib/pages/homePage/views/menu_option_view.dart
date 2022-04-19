@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
-import 'package:trading_module/domain/entities/model.dart';
+import 'package:trading_module/domain/entities/account_info_model.dart';
+import 'package:trading_module/domain/entities/my_stock_model.dart';
+import 'package:trading_module/domain/entities/property_model.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/PropertyView/property_view.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class HeaderHomeView<T extends HomePageController> extends StatelessWidget {
-  const HeaderHomeView({Key? key, required this.controller}) : super(key: key);
+  const HeaderHomeView(
+      {Key? key, required this.controller, required this.accountInfo})
+      : super(key: key);
   final T controller;
+  final AccountInfoModel accountInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -48,86 +53,107 @@ class HeaderHomeView<T extends HomePageController> extends StatelessWidget {
   }
 }
 
-class BoardItemCell extends StatelessWidget {
-  final Model item;
+class BoardItemCell<T extends HomePageController> extends StatelessWidget {
+  final PropertyModel? item;
   final VoidCallback onPressed;
+  final T controller;
 
   const BoardItemCell({
     required this.item,
     required this.onPressed,
+    required this.controller,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        onPressed();
+      },
       child: Container(
-        padding: const EdgeInsets.fromLTRB(12, 18, 12, 18),
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: const Color(0xFFF5F6FA)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              item.gstId,
-              style: const TextStyle(
-                color: Color(0xFF333333),
-                fontSize: 12,
-                fontFamily: 'iCielHelveticaNowText',
-                fontWeight: FontWeight.w700,
-                decoration: TextDecoration.none,
-              ),
-            ),
-            Text(
-              item.gstId,
-              style: const TextStyle(
-                color: Color(0xFF333333),
-                fontSize: 12,
-                fontFamily: 'iCielHelveticaNowText',
-                fontWeight: FontWeight.w700,
-                decoration: TextDecoration.none,
-              ),
-            ),
-            Text(
-              item.gstId,
-              style: const TextStyle(
-                color: Color(0xFF00B14F),
-                fontSize: 12,
-                fontFamily: 'iCielHelveticaNowText',
-                fontWeight: FontWeight.w700,
-                decoration: TextDecoration.none,
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  item.gstId,
+        color: Colors.white,
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+          margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: const Color(0xFFF5F6FA)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  item?.productKey ?? "",
                   style: const TextStyle(
-                    color: Color(0xFFF46666),
+                    color: Color(0xFF333333),
                     fontSize: 12,
                     fontFamily: 'iCielHelveticaNowText',
                     fontWeight: FontWeight.w700,
                     decoration: TextDecoration.none,
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                SIZED_BOX_H04,
-                Text(
-                  item.gstId,
+              ),
+              if (controller.tabController.index == 0)
+                Expanded(
+                  child: Text(
+                    (item?.quantity ?? 0).toCurrency(symbol: ""),
+                    style: const TextStyle(
+                      color: Color(0xFF333333),
+                      fontSize: 12,
+                      fontFamily: 'iCielHelveticaNowText',
+                      fontWeight: FontWeight.w700,
+                      decoration: TextDecoration.none,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              Expanded(
+                child: Text(
+                  (item?.priceAvg ?? 0).toCurrency(symbol: ""),
                   style: const TextStyle(
-                    color: Color(0xFFF46666),
+                    color: Color(0xFF333333),
                     fontSize: 12,
                     fontFamily: 'iCielHelveticaNowText',
                     fontWeight: FontWeight.w700,
                     decoration: TextDecoration.none,
                   ),
+                  textAlign: TextAlign.center,
                 ),
-              ],
-            ),
-          ],
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      (item?.priceAvg ?? 0).toCurrency(symbol: ""),
+                      style: const TextStyle(
+                        color: Color(0xFFF46666),
+                        fontSize: 12,
+                        fontFamily: 'iCielHelveticaNowText',
+                        fontWeight: FontWeight.w700,
+                        decoration: TextDecoration.none,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SIZED_BOX_H04,
+                    Text(
+                      (item?.priceAvg ?? 0).toCurrency(symbol: ""),
+                      style: const TextStyle(
+                        color: Color(0xFFF46666),
+                        fontSize: 12,
+                        fontFamily: 'iCielHelveticaNowText',
+                        fontWeight: FontWeight.w700,
+                        decoration: TextDecoration.none,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -144,60 +170,67 @@ class HeaderBoardView<T extends HomePageController> extends StatelessWidget {
       () => Container(
         color: Colors.white,
         child: Container(
-          height: 50.0,
-          padding: const EdgeInsets.all(5.0),
-          margin: MAR_SIDE_16,
-          color: Colors.white,
+          height: 40.0,
+          margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              HeaderBoardItem(
-                title: "Mã CP",
-                imgUp: controller.sortAlphabet.value
-                    ? "ic_arrow_up_selected".pngImage()
-                    : "ic_arrow_up".pngImage(),
-                imgDown: controller.sortAlphabet.value
-                    ? "ic_arrow_down".pngImage()
-                    : "ic_arrow_down_selected".pngImage(),
-                onPressed: () {
-                  controller.tapOnSortAlphabet();
-                },
+              Expanded(
+                child: HeaderBoardItem(
+                  title: "Mã CP",
+                  imgUp: controller.sortAlphabet.value
+                      ? "ic_arrow_up_selected".pngImage()
+                      : "ic_arrow_up".pngImage(),
+                  imgDown: controller.sortAlphabet.value
+                      ? "ic_arrow_down".pngImage()
+                      : "ic_arrow_down_selected".pngImage(),
+                  onPressed: () {
+                    controller.tapOnSortAlphabet();
+                  },
+                ),
               ),
-              HeaderBoardItem(
-                title: "Khối lượng",
-                imgUp: controller.sortVolume.value
-                    ? "ic_arrow_up_selected".pngImage()
-                    : "ic_arrow_up".pngImage(),
-                imgDown: controller.sortVolume.value
-                    ? "ic_arrow_down".pngImage()
-                    : "ic_arrow_down_selected".pngImage(),
-                onPressed: () {
-                  controller.tapOnSortVolume();
-                },
+              if (controller.tabController.index == 0)
+                Expanded(
+                  child: HeaderBoardItem(
+                    title: "Khối lượng",
+                    imgUp: controller.sortVolume.value
+                        ? "ic_arrow_up_selected".pngImage()
+                        : "ic_arrow_up".pngImage(),
+                    imgDown: controller.sortVolume.value
+                        ? "ic_arrow_down".pngImage()
+                        : "ic_arrow_down_selected".pngImage(),
+                    onPressed: () {
+                      controller.tapOnSortVolume();
+                    },
+                  ),
+                ),
+              Expanded(
+                child: HeaderBoardItem(
+                  title: "Giá hiện tại",
+                  imgUp: controller.sortCurrentPrice.value
+                      ? "ic_arrow_up_selected".pngImage()
+                      : "ic_arrow_up".pngImage(),
+                  imgDown: controller.sortCurrentPrice.value
+                      ? "ic_arrow_down".pngImage()
+                      : "ic_arrow_down_selected".pngImage(),
+                  onPressed: () {
+                    controller.tapOnSortCurrentPrice();
+                  },
+                ),
               ),
-              HeaderBoardItem(
-                title: "Giá hiện tại",
-                imgUp: controller.sortCurrentPrice.value
-                    ? "ic_arrow_up_selected".pngImage()
-                    : "ic_arrow_up".pngImage(),
-                imgDown: controller.sortCurrentPrice.value
-                    ? "ic_arrow_down".pngImage()
-                    : "ic_arrow_down_selected".pngImage(),
-                onPressed: () {
-                  controller.tapOnSortCurrentPrice();
-                },
-              ),
-              HeaderBoardItem(
-                title: "+/-",
-                imgUp: controller.sortProfitAndLoss.value
-                    ? "ic_arrow_up_selected".pngImage()
-                    : "ic_arrow_up".pngImage(),
-                imgDown: controller.sortProfitAndLoss.value
-                    ? "ic_arrow_down".pngImage()
-                    : "ic_arrow_down_selected".pngImage(),
-                onPressed: () {
-                  controller.tapOnSortProfitAndLoss();
-                },
+              Expanded(
+                child: HeaderBoardItem(
+                  title: "+/-",
+                  imgUp: controller.sortProfitAndLoss.value
+                      ? "ic_arrow_up_selected".pngImage()
+                      : "ic_arrow_up".pngImage(),
+                  imgDown: controller.sortProfitAndLoss.value
+                      ? "ic_arrow_down".pngImage()
+                      : "ic_arrow_down_selected".pngImage(),
+                  onPressed: () {
+                    controller.tapOnSortProfitAndLoss();
+                  },
+                ),
               )
             ],
           ),
@@ -228,15 +261,19 @@ class HeaderBoardItem extends StatelessWidget {
         onPressed();
       },
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title,
-              style: const TextStyle(
-                color: Color(0xFF858585),
-                fontSize: 12,
-                fontFamily: 'iCielHelveticaNowText',
-                fontWeight: FontWeight.w400,
-                decoration: TextDecoration.none,
-              )),
+          Text(
+            title,
+            style: const TextStyle(
+              color: Color(0xFF858585),
+              fontSize: 12,
+              fontFamily: 'iCielHelveticaNowText',
+              fontWeight: FontWeight.w400,
+              decoration: TextDecoration.none,
+            ),
+            textAlign: TextAlign.center,
+          ),
           SIZED_BOX_W06,
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

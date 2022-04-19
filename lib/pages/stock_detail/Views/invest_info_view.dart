@@ -55,7 +55,7 @@ class InvestInfoView extends GetView<StockDetailController> {
               children: [
                 InvestInfoItem(
                     title: "Tiền vốn (đ)",
-                    desc: (stock?.amount ?? 0).toCurrency(symbol: ""),
+                    desc: (stock?.priceAvg ?? 0).toCurrency(symbol: ""),
                     imgUrl: "assets/images/png/ic_funds.png",
                     descColor: const Color(0xFF333333)),
                 SIZED_BOX_H12,
@@ -63,7 +63,7 @@ class InvestInfoView extends GetView<StockDetailController> {
                   title: "Lãi lỗ (đ)",
                   desc: stock?.getPercentPrice(controller.priceStock.value) ?? "",
                   imgUrl: "assets/images/png/ic_profit_loss.png",
-                  descColor: stock?.priceAvg.getStockColorWithCurrentPrice(
+                  descColor: stock?.priceAvg?.getStockColorWithCurrentPrice(
                           controller.priceStock.value) ??
                       const Color(0xFF333333),
                 ),

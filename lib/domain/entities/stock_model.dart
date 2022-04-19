@@ -9,6 +9,7 @@ class StockModel {
   final double? change;
   late double ratioChange;
 
+
   String get fullLink => "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
 
 
@@ -21,3 +22,4 @@ class StockModel {
       required this.change,
       required this.ratioChange});
 }
+

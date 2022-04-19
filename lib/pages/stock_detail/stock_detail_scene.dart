@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/domain/entities/my_stock_model.dart';
@@ -54,9 +55,9 @@ class StockDetailScene extends GetView<StockDetailController> {
                   Expanded(
                     child: CustomButton.trailingStyleBgColor(
                       title: "Bán",
-                      bgColor:const Color(0xFFF46666),
+                      bgColor: const Color(0xFFF46666),
                       textStyle: context.textSize18light,
-                      trailing:const Icon(
+                      trailing: const Icon(
                         null,
                       ),
                       onPressed: () {
@@ -121,11 +122,15 @@ class HeaderStockDetailView<T extends StockDetailController>
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  controller.stock.fullLink,
+                child: CachedNetworkImage(
+                  imageUrl: controller.stock.fullLink,
                   width: 43,
                   height: 43,
-                  fit: BoxFit.contain,
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Image.asset(
+                      "assets/images/png/ic_follow.png",
+                      package: "trading_module"),
                 ),
               ),
               SIZED_BOX_W10,

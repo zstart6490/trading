@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:trading_module/configs/constants.dart';
-import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/shared_widgets/BaseShimmer.dart';
 import 'package:trading_module/shared_widgets/CustomShadow.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-class PropertyView extends GetView<HomePropertyController> {
+class PropertyView extends GetView<HomePageController> {
   const PropertyView({Key? key}) : super(key: key);
 
   @override
@@ -53,7 +53,7 @@ class PropertyView extends GetView<HomePropertyController> {
                               ),
                               SIZED_BOX_H02,
                               Text(
-                                property?.cashBalance?.toCurrency() ?? "",
+                                property?.geTotalProperty().toCurrency() ?? "",
                                 style: const TextStyle(
                                   color: Color(0xFF333333),
                                   fontSize: 20,
@@ -70,33 +70,25 @@ class PropertyView extends GetView<HomePropertyController> {
                       Row(
                         children: [
                           const Expanded(
-                              child: Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Giá trị cổ  ',
-                                  style: TextStyle(
-                                    color: Color(0xFF333333),
-                                    fontSize: 14,
-                                    fontFamily: 'iCielHelveticaNowText',
-                                    fontWeight: FontWeight.w700,
-                                    decoration: TextDecoration.none,
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Giá trị cổ  ',
+                                    style: TextStyle(
+                                      color: Color(0xFF333333),
+                                      fontSize: 14,
+                                      fontFamily: 'iCielHelveticaNowText',
+                                      fontWeight: FontWeight.w700,
+                                      decoration: TextDecoration.none,
+                                    ),
                                   ),
-                                ),
-                                WidgetSpan(
-                                  child: Image(
-                                    width: 16,
-                                    height: 16,
-                                    image: AssetImage(
-                                        "assets/images/png/ic_property_up.png",
-                                        package: "trading_module"),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          )),
+                          ),
                           Text(
-                            property?.cashBalance?.toCurrency() ?? "",
+                            property?.gePriceStock().toCurrency() ?? "",
                             style: const TextStyle(
                               color: Color(0xFF333333),
                               fontSize: 14,
@@ -111,14 +103,29 @@ class PropertyView extends GetView<HomePropertyController> {
                       Row(
                         children: [
                           const Expanded(
-                            child: Text(
-                              "   Tăng trưởng ",
-                              style: TextStyle(
-                                color: Color(0xFF858585),
-                                fontSize: 12,
-                                fontFamily: 'iCielHelveticaNowText',
-                                fontWeight: FontWeight.w400,
-                                decoration: TextDecoration.none,
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '  Tăng trưởng ',
+                                    style: TextStyle(
+                                      color: Color(0xFF858585),
+                                      fontSize: 12,
+                                      fontFamily: 'iCielHelveticaNowText',
+                                      fontWeight: FontWeight.w400,
+                                      decoration: TextDecoration.none,
+                                    ),
+                                  ),
+                                  WidgetSpan(
+                                    child: Image(
+                                      width: 16,
+                                      height: 16,
+                                      image: AssetImage(
+                                          "assets/images/png/ic_property_up.png",
+                                          package: "trading_module"),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -177,7 +184,7 @@ class PropertyView extends GetView<HomePropertyController> {
                             ),
                           ),
                           Text(
-                            property?.cashBalance?.toCurrency() ?? "",
+                            property?.balanceWaitingReturn?.toCurrency() ?? "",
                             style: const TextStyle(
                               color: Color(0xFFFF9500),
                               fontSize: 12,
@@ -204,7 +211,7 @@ class PropertyView extends GetView<HomePropertyController> {
                             ),
                           ),
                           Text(
-                            property?.cashBalance?.toCurrency() ?? "",
+                            property?.balancePay?.toCurrency() ?? "",
                             style: const TextStyle(
                               color: Color(0xFFF46666),
                               fontSize: 12,

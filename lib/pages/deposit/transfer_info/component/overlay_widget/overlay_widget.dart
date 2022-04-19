@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/pages/deposit/transfer_info/component/overlay_widget/view_account_number.dart';
+import 'package:trading_module/pages/deposit/transfer_info/component/overlay_widget/view_choice_bank.dart';
+import 'package:trading_module/pages/deposit/transfer_info/component/overlay_widget/view_payment_content.dart';
+import 'package:trading_module/pages/deposit/transfer_info/transfer_info_controller.dart';
 import 'package:trading_module/utils/enums.dart';
-
-import '../../transfer_info_controller.dart';
-import 'view_account_number.dart';
-import 'view_choice_bank.dart';
-import 'view_payment_content.dart';
 
 class OverlayWidget extends GetView<TDTransferInfoController> {
   const OverlayWidget({

@@ -49,7 +49,7 @@ class ChartController extends BaseController with StateMixin<List<Candle>>, GetS
   }
 
   Future<void> getHistoryStockPrice(String time) async {
-    final result = await _stockMarketUseCase.getHistoryStockPrice(symbol: "HNXIndex", type: time);
+    final result = await _stockMarketUseCase.getHistoryStockPrice(symbol: stock.symbol, type: time);
     if (result.data != null) {
       final length = result.data?.length ?? 0;
       final data = result.data!;

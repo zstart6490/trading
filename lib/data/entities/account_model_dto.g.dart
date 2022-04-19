@@ -8,14 +8,18 @@ part of 'account_model_dto.dart';
 
 AccountInfoModelDTO _$AccountInfoModelDTOFromJson(Map<String, dynamic> json) =>
     AccountInfoModelDTO(
-      (json['stockList'] as num?)?.toDouble(),
+      (json['stockList'] as List<dynamic>?)
+          ?.map((e) => PropertyModelDTO.fromJson(e))
+          .toList(),
       (json['pendingTransactions'] as List<dynamic>?)
           ?.map((e) => PendingTransactionModelDTO.fromJson(e))
           .toList(),
       (json['productWatchingVOList'] as List<dynamic>?)
-          ?.map((e) => PendingTransactionModelDTO.fromJson(e))
+          ?.map((e) => PropertyModelDTO.fromJson(e))
           .toList(),
       (json['cashBalance'] as num?)?.toDouble(),
+      (json['balanceWaitingReturn'] as num?)?.toDouble(),
+      (json['balancePay'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$AccountInfoModelDTOToJson(
@@ -25,6 +29,8 @@ Map<String, dynamic> _$AccountInfoModelDTOToJson(
       'pendingTransactions': instance.pendingTransactions,
       'productWatchingVOList': instance.productWatchingVOList,
       'cashBalance': instance.cashBalance,
+      'balanceWaitingReturn': instance.balanceWaitingReturn,
+      'balancePay': instance.balancePay,
     };
 
 PendingTransactionModelDTO _$PendingTransactionModelDTOFromJson(

@@ -9,6 +9,7 @@ part of 'stock_current_price_model_dto.dart';
 StockCurrentPriceModelDTO _$StockCurrentPriceModelDTOFromJson(
         Map<String, dynamic> json) =>
     StockCurrentPriceModelDTO(
+      json['isProductWatching'] as bool?,
       json['symbol'] as String?,
       json['TradingDate'] as String?,
       json['TradingTime'] as String?,
@@ -45,6 +46,7 @@ StockCurrentPriceModelDTO _$StockCurrentPriceModelDTOFromJson(
 Map<String, dynamic> _$StockCurrentPriceModelDTOToJson(
         StockCurrentPriceModelDTO instance) =>
     <String, dynamic>{
+      'isProductWatching': instance.isProductWatching,
       'symbol': instance.symbol,
       'TradingDate': instance.tradingDate,
       'TradingTime': instance.tradingTime,

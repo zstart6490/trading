@@ -6,6 +6,8 @@ part 'stock_current_price_model_dto.g.dart';
 
 @JsonSerializable()
 class StockCurrentPriceModelDTO {
+  @JsonKey(name: "isProductWatching")
+  final bool? isProductWatching;
   @JsonKey(name: "symbol")
   final String? symbol;
   @JsonKey(name: "TradingDate")
@@ -72,6 +74,7 @@ class StockCurrentPriceModelDTO {
   final double? askVol3;
 
   StockCurrentPriceModelDTO(
+      this.isProductWatching,
       this.symbol,
       this.tradingDate,
       this.tradingTime,
@@ -116,6 +119,7 @@ class StockCurrentPriceModelDTO {
 extension StockCurrentPriceModelDTOMapper on StockCurrentPriceModelDTO {
   StockCurrentPriceModel toModel() {
     return StockCurrentPriceModel(
+        isProductWatching,
         symbol,
         tradingDate,
         tradingTime,

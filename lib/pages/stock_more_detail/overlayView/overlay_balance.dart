@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/pages/stock_more_detail/stock_more_detail_scene.dart';
 import 'package:trading_module/theme/app_color.dart';
 
-import '../../../utils/util.dart';
+import 'package:trading_module/utils/util.dart';
 
 class OverlayBalance extends StatelessWidget {
   const OverlayBalance({
@@ -25,23 +25,31 @@ class OverlayBalance extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          left: totalAmountOffset.dx,
-          top: totalAmountOffset.dy,
+          left: 0,
+          top: 0,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                color: COLOR_WHITE,
-                width: Get.width,
-                child: const AbsorbPointer(
-                  child: FollowStockComponent(),
-                ),
+              SIZED_BOX_H20,
+              Row(
+                children: [
+                  SizedBox(width: Get.width - 60),
+
+                  Container(
+                    decoration: const BoxDecoration(
+                        color: COLOR_WHITE, shape: BoxShape.circle),
+                    child: const AbsorbPointer(
+                      child: FollowStockComponent(),
+                    ),
+                  ),
+
+                ],
               ),
               SIZED_BOX_H08,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(width: 42),
+                  SizedBox(width: Get.width - 46),
                   SvgPicture.asset("assets/images/svg/ic_polygon.svg",
                       package: "trading_module"),
                 ],

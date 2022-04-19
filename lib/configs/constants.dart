@@ -48,7 +48,7 @@ const PROGRESSING_DIALOG = 'ProgressingDialog';
 /// String Const
 const AUTH_TOKEN_KEY = "trading_auth";
 const TD_DEPOSIT_FIRST_SUFFIX = "_TD_DEPOSIT_FIRST";
-const APP_VER3_OPENED = "_appVer3Opened";
+const APP_FOLLOW_STOCK_OPENED = "_trading_Follow_Stock_Opened";
 
 /// TEXT
 const SESSION_TIMEOUT_CODE = 1200;

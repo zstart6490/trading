@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
-import 'package:trading_module/domain/entities/model.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/menu_option_view.dart';
 import 'package:trading_module/routes/app_navigate.dart';
@@ -27,13 +26,14 @@ class HomePageView extends GetView<HomePageController> {
             style: TextStyle(
                 fontSize: context.textSize18.fontSize, color: Colors.white),
           ),
-          automaticallyImplyLeading: true,
           elevation: 0.0,
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.white,
           leading: IconButton(
-            icon: Image.asset("assets/images/png/ic_back_white.png",
-                package: "trading_module"),
+            icon: Image.asset(
+              "assets/images/png/ic_back_white.png",
+              package: "trading_module",
+            ),
             onPressed: () => Get.back(),
           ),
           actions: <Widget>[
@@ -66,7 +66,58 @@ class HomePageView extends GetView<HomePageController> {
               child: CustomRefresher(
                 controller: controller.refreshController,
                 onRefresh: controller.onRefresh,
-                child: _buildChild(),
+                child: controller.obx(
+                  (property) => ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    itemCount: controller.tabController.index == 0
+                        ? property?.stockList?.length ?? 0
+                        : property?.productWatchingVOList?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      if ((controller.tabController.index == 0 &&
+                              (property?.stockList?.length ?? 0) == 1) ||
+                          (controller.tabController.index == 1 &&
+                              (property?.productWatchingVOList?.length ?? 0) ==
+                                  1)) {
+                        return Column(
+                          children: [
+                            HeaderHomeView(
+                              controller: controller,
+                              accountInfo: property!,
+                            ),
+                            ListNoDataBackground(
+                              pngPath:
+                                  "assets/images/png/banner_empty_data.png",
+                              desc: "Chưa có mã nào trong mục này",
+                              padding: PAD_SYM_H40,
+                              btnTitle: "Thêm mã",
+                              onPressed: () {
+                                controller.selectStock();
+                              },
+                            ),
+                          ],
+                        );
+                      } else {
+                        if (index == 0) {
+                          return HeaderHomeView(
+                            controller: controller,
+                            accountInfo: property!,
+                          );
+                        }
+
+                        return BoardItemCell(
+                          item: controller.tabController.index == 0
+                              ? (property?.stockList?[index])
+                              : (property?.productWatchingVOList?[index]),
+                          //item: property?.stockList?[index],
+                          onPressed: () {
+                            controller.stockDetail(property?.stockList?[index]);
+                          },
+                          controller: controller,
+                        );
+                      }
+                    },
+                  ),
+                ),
               ),
             ),
           ],
@@ -75,33 +126,35 @@ class HomePageView extends GetView<HomePageController> {
     );
   }
 
-  Widget _buildChild() {
-    return ListView.builder(
-      padding: const EdgeInsets.only(bottom: 16),
-        itemCount: controller.countItem,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return HeaderHomeView(
-              controller: controller,
-            );
-          }
-          if (controller.countItem > 2) {
-            return BoardItemCell(
-              item: Model(gstId: "SSI", startTime: DateTime.now()),
-              onPressed: () {},
-            );
-          } else {
-            return ListNoDataBackground(
-                pngPath: "assets/images/png/banner_empty_data.png",
-                desc: "Chưa có mã nào trong mục này",
-                padding: PAD_SYM_H40,
-                btnTitle: "Thêm mã",
-                onPressed: () {
-                  controller.selectStock();
-                });
-          }
-        });
-  }
+//   Widget _buildChild() {
+//     return ListView.builder(
+//         padding: const EdgeInsets.only(bottom: 16),
+//         itemCount: controller.countItem,
+//         itemBuilder: (context, index) {
+//           if (index == 0) {
+//             return HeaderHomeView(
+//               controller: controller,
+//             );
+//           }
+//           if (controller.countItem > 2) {
+//             return BoardItemCell(
+//               item: Model(gstId: "SSI", startTime: DateTime.now()),
+//               onPressed: () {},
+//             );
+//           } else {
+//             return ListNoDataBackground(
+//                 pngPath: "assets/images/png/banner_empty_data.png",
+//                 desc: "Chưa có mã nào trong mục này",
+//                 padding: PAD_SYM_H40,
+//                 btnTitle: "Thêm mã",
+//                 onPressed: () {
+//                   controller.selectStock();
+//                 });
+//           }
+//         });
+//   }
+// }
+
 }
 
 class CustomShape extends CustomClipper<Path> {
