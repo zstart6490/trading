@@ -90,7 +90,7 @@ class StockOrderServiceImpl extends StockOrderService {
     return  BaseDecoder(await api.postData(
         endPoint: "/account/v1/stock/watching/update",
         params: {
-          "isDelete": isFlow,
+          "isFollowed": isFlow,
           "productKey":stock,
           "productType":type,
         },

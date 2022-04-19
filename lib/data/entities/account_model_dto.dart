@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:trading_module/data/entities/my_stock_model_dto.dart';
 import 'package:trading_module/domain/entities/account_info_model.dart';
+import 'package:trading_module/domain/entities/my_stock_model.dart';
 
 
 part 'account_model_dto.g.dart';
@@ -8,7 +10,7 @@ part 'account_model_dto.g.dart';
 @JsonSerializable()
 class AccountInfoModelDTO {
   @JsonKey(name: "stockList")
-  final double? stockList;
+  final List<MyStockModelDTO>? stockList;
   @JsonKey(name: "pendingTransactions")
   final List<PendingTransactionModelDTO>? pendingTransactions;
   @JsonKey(name: "productWatchingVOList")
@@ -46,12 +48,22 @@ class AccountInfoModelDTO {
     }
     return items;
   }
+
+  List<MyStockModel> getStockList(){
+    final items = <MyStockModel>[];
+    if (pendingTransactions != null) {
+      for (final item in stockList!) {
+        items.add(item.toModel());
+      }
+    }
+    return items;
+  }
 }
 
 
 extension AccountInfoModelMapper on AccountInfoModelDTO {
   AccountInfoModel toModel() {
-    return AccountInfoModel(stockList: stockList, pendingTransactions: getListPortfolio(), productWatchingVOList: getListProductWatching(), cashBalance: cashBalance);
+    return AccountInfoModel(stockList: getStockList(), pendingTransactions: getListPortfolio(), productWatchingVOList: getListProductWatching(), cashBalance: cashBalance);
   }
 }
 

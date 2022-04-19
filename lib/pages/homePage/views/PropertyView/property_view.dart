@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:trading_module/configs/constants.dart';
-import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/shared_widgets/BaseShimmer.dart';
 import 'package:trading_module/shared_widgets/CustomShadow.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-class PropertyView extends GetView<HomePropertyController> {
+class PropertyView extends GetView<HomePageController> {
   const PropertyView({Key? key}) : super(key: key);
 
   @override

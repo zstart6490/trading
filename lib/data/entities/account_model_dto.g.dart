@@ -8,7 +8,9 @@ part of 'account_model_dto.dart';
 
 AccountInfoModelDTO _$AccountInfoModelDTOFromJson(Map<String, dynamic> json) =>
     AccountInfoModelDTO(
-      (json['stockList'] as num?)?.toDouble(),
+      (json['stockList'] as List<dynamic>?)
+          ?.map((e) => MyStockModelDTO.fromJson(e))
+          .toList(),
       (json['pendingTransactions'] as List<dynamic>?)
           ?.map((e) => PendingTransactionModelDTO.fromJson(e))
           .toList(),

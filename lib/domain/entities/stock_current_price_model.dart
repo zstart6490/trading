@@ -1,4 +1,5 @@
 class StockCurrentPriceModel {
+  final bool? isProductWatching;
   final String? symbol;
   final String? tradingDate;
   final String? tradingTime;
@@ -34,6 +35,7 @@ class StockCurrentPriceModel {
   final double? askVol3;
 
   StockCurrentPriceModel(
+      this.isProductWatching,
       this.symbol,
       this.tradingDate,
       this.tradingTime,

@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/navigate_trans_detail.dart';
 import 'package:trading_module/data/entities/transaction.dart';
-import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 
 class TransactionDetailController extends BaseController {
   NavigateTranDetail mData;
@@ -42,10 +42,10 @@ class TransactionDetailController extends BaseController {
   }
 
   void goToHomeTrading() {
-    if (Get.isRegistered<HomePropertyController>()) {
-      final HomePropertyController homePropertyController =
-      Get.find<HomePropertyController>();
-      homePropertyController.getAccountInfo();
+    if (Get.isRegistered<HomePageController>()) {
+      final HomePageController homeController =
+      Get.find<HomePageController>();
+      homeController.getAccountInfo();
     }
     Get.back();
   }

@@ -492,8 +492,9 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                     padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
                     margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: const Color(0xFFF5F6FA)),
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: const Color(0xFFF5F6FA),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

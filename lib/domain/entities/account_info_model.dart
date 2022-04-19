@@ -1,5 +1,7 @@
+import 'package:trading_module/domain/entities/my_stock_model.dart';
+
 class AccountInfoModel {
-  final double? stockList;
+  final List<MyStockModel>? stockList;
   final List<PendingTransactionModel>? pendingTransactions;
   final List<PendingTransactionModel>? productWatchingVOList;
   final double? cashBalance;

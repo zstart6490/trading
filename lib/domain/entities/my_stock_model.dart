@@ -10,6 +10,7 @@ class MyStockModel {
   final double dividendsWaitingReturn;
   final List<PortfolioModel>? portfolioHistoryList;
 
+
   MyStockModel({
     this.id,
     this.productKey,

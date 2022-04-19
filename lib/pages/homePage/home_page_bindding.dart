@@ -10,14 +10,12 @@ import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
 import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
 import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
-import 'package:trading_module/pages/homePage/views/PropertyView/property_controller.dart';
 
 
 class HomePageBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<HomeTradingRepo>(() => HomeTradingRepoImpl(HomeTradingServiceImpl()));
-    Get.lazyPut(() => HomePropertyController());
 
     Get.lazyPut(() =>  OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
     Get.lazyPut<StockUseCase>(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
