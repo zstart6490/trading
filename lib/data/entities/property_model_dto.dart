@@ -9,16 +9,31 @@ class PropertyModelDTO {
   final int? id;
   @JsonKey(name: "productKey")
   final String? productKey;
+  @JsonKey(name: "productType")
+  final int? productType;
   @JsonKey(name: "quantity")
   final double? quantity;
   @JsonKey(name: "priceAvg")
   final double? priceAvg;
+  @JsonKey(name: "ceiling")
+  final double? ceiling;
+  @JsonKey(name: "floor")
+  final double? floor;
+  @JsonKey(name: "refPrice")
+  final double? refPrice;
+  @JsonKey(name: "lastPrice")
+  final double? lastPrice;
 
   PropertyModelDTO(
     this.id,
     this.productKey,
+    this.productType,
     this.quantity,
     this.priceAvg,
+    this.ceiling,
+    this.floor,
+    this.refPrice,
+    this.lastPrice,
   );
 
   static PropertyModelDTO fromResult(dynamic data) =>
@@ -35,8 +50,13 @@ extension AccountInfoModelMapper on PropertyModelDTO {
     return PropertyModel(
       id,
       productKey,
+      productType,
       quantity,
       priceAvg,
+      ceiling,
+      floor,
+      refPrice,
+      lastPrice,
     );
   }
 }

@@ -111,7 +111,7 @@ class BoardItemCell<T extends HomePageController> extends StatelessWidget {
                 ),
               Expanded(
                 child: Text(
-                  (item?.priceAvg ?? 0).toCurrency(symbol: ""),
+                  (item?.lastPrice ?? 0).toCurrency(symbol: ""),
                   style: const TextStyle(
                     color: Color(0xFF333333),
                     fontSize: 12,
@@ -127,9 +127,16 @@ class BoardItemCell<T extends HomePageController> extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      (item?.priceAvg ?? 0).toCurrency(symbol: ""),
-                      style: const TextStyle(
-                        color: Color(0xFFF46666),
+                      controller.tabController.index == 0
+                          ? item?.getValuePriceDifference() ?? ""
+                          : item?.getValuePriceDifferenceFollow() ?? "",
+                      style: TextStyle(
+                        color: controller.tabController.index == 0
+                            ? item?.getPriceDifference().getStockColor()
+                            : item?.lastPrice?.getStockColorWith(
+                                item?.refPrice ?? 0,
+                                item?.floor ?? 0,
+                                item?.ceiling ?? 0),
                         fontSize: 12,
                         fontFamily: 'iCielHelveticaNowText',
                         fontWeight: FontWeight.w700,
@@ -139,9 +146,16 @@ class BoardItemCell<T extends HomePageController> extends StatelessWidget {
                     ),
                     SIZED_BOX_H04,
                     Text(
-                      (item?.priceAvg ?? 0).toCurrency(symbol: ""),
-                      style: const TextStyle(
-                        color: Color(0xFFF46666),
+                      controller.tabController.index == 0
+                          ? item?.getPercentage() ?? ""
+                          : item?.getPercentageFollow() ?? "",
+                      style: TextStyle(
+                        color: controller.tabController.index == 0
+                            ? item?.getPriceDifference().getStockColor()
+                            : item?.lastPrice?.getStockColorWith(
+                                item?.refPrice ?? 0,
+                                item?.floor ?? 0,
+                                item?.ceiling ?? 0),
                         fontSize: 12,
                         fontFamily: 'iCielHelveticaNowText',
                         fontWeight: FontWeight.w700,
@@ -178,10 +192,11 @@ class HeaderBoardView<T extends HomePageController> extends StatelessWidget {
               Expanded(
                 child: HeaderBoardItem(
                   title: "Mã CP",
-                  imgUp: controller.sortAlphabet.value
+                  imgUp: controller.sortAlphabet.value == SortEnum.up
                       ? "ic_arrow_up_selected".pngImage()
                       : "ic_arrow_up".pngImage(),
-                  imgDown: controller.sortAlphabet.value
+                  imgDown: (controller.sortAlphabet.value == SortEnum.up ||
+                          controller.sortAlphabet.value == SortEnum.normal)
                       ? "ic_arrow_down".pngImage()
                       : "ic_arrow_down_selected".pngImage(),
                   onPressed: () {
@@ -193,10 +208,11 @@ class HeaderBoardView<T extends HomePageController> extends StatelessWidget {
                 Expanded(
                   child: HeaderBoardItem(
                     title: "Khối lượng",
-                    imgUp: controller.sortVolume.value
+                    imgUp: controller.sortVolume.value == SortEnum.up
                         ? "ic_arrow_up_selected".pngImage()
                         : "ic_arrow_up".pngImage(),
-                    imgDown: controller.sortVolume.value
+                    imgDown: (controller.sortVolume.value == SortEnum.up ||
+                            controller.sortVolume.value == SortEnum.normal)
                         ? "ic_arrow_down".pngImage()
                         : "ic_arrow_down_selected".pngImage(),
                     onPressed: () {
@@ -207,10 +223,11 @@ class HeaderBoardView<T extends HomePageController> extends StatelessWidget {
               Expanded(
                 child: HeaderBoardItem(
                   title: "Giá hiện tại",
-                  imgUp: controller.sortCurrentPrice.value
+                  imgUp: controller.sortCurrentPrice.value == SortEnum.up
                       ? "ic_arrow_up_selected".pngImage()
                       : "ic_arrow_up".pngImage(),
-                  imgDown: controller.sortCurrentPrice.value
+                  imgDown: (controller.sortCurrentPrice.value == SortEnum.up ||
+                          controller.sortCurrentPrice.value == SortEnum.normal)
                       ? "ic_arrow_down".pngImage()
                       : "ic_arrow_down_selected".pngImage(),
                   onPressed: () {
@@ -221,10 +238,11 @@ class HeaderBoardView<T extends HomePageController> extends StatelessWidget {
               Expanded(
                 child: HeaderBoardItem(
                   title: "+/-",
-                  imgUp: controller.sortProfitAndLoss.value
+                  imgUp: controller.sortProfitAndLoss.value == SortEnum.up
                       ? "ic_arrow_up_selected".pngImage()
                       : "ic_arrow_up".pngImage(),
-                  imgDown: controller.sortProfitAndLoss.value
+                  imgDown: (controller.sortProfitAndLoss.value == SortEnum.up ||
+                          controller.sortProfitAndLoss.value == SortEnum.normal)
                       ? "ic_arrow_down".pngImage()
                       : "ic_arrow_down_selected".pngImage(),
                   onPressed: () {

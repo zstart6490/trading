@@ -1,4 +1,6 @@
+import 'package:get/get.dart';
 import 'package:trading_module/domain/entities/property_model.dart';
+import 'package:trading_module/utils/extensions.dart';
 
 class AccountInfoModel {
   late final List<PropertyModel>? stockList;
@@ -17,19 +19,49 @@ class AccountInfoModel {
     required this.balancePay,
   });
 
-  double gePriceStock() {
-    double totalPrice = 0;
+  double getStateProfitLoss() {
+    double totalGrowth = 0;
     if (stockList != null) {
       for (final item in stockList!) {
-        totalPrice += ((item.priceAvg ?? 0) - currentPrice) * (item.quantity ?? 0);
+        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0))  * (item.quantity ?? 0);
       }
     }
-    return totalPrice;
+    return totalGrowth;
   }
 
-  double geTotalProperty() {
-    final double totalPrice = gePriceStock();
+  double getTotalProperty() {
+    final double totalPrice = getTotalPropertyStock();
     return totalPrice + (cashBalance ?? 0) + (balanceWaitingReturn ?? 0) + (balancePay ?? 0);
+  }
+
+  double getTotalPropertyStock() {
+    double totalGrowth = 0;
+    double totalOrigin = 0;
+    if (stockList != null) {
+      for (final item in stockList!) {
+        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0))  * (item.quantity ?? 0);
+        totalOrigin += (item.priceAvg ?? 0)  * (item.quantity ?? 0);
+      }
+    }
+
+    return totalOrigin + totalGrowth;
+  }
+
+  String getTotalGrowth() {
+    double totalGrowth = 0;
+    double totalOrigin = 0;
+    if (stockList != null) {
+      for (final item in stockList!) {
+        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0))  * (item.quantity ?? 0);
+        totalOrigin += (item.priceAvg ?? 0)  * (item.quantity ?? 0);
+      }
+    }
+    final percent = ((totalGrowth / totalOrigin)*100).toPrecision(2);
+    final sPercent = percent > 0 ? "+$percent%" : "$percent%";
+
+    final sTotalGrowth = totalGrowth > 0 ? "+${totalGrowth.toCurrency()}" : totalGrowth.toCurrency();
+
+    return "$sTotalGrowth ($sPercent)";
   }
 }
 

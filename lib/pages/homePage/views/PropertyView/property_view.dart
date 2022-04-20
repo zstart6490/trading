@@ -53,7 +53,7 @@ class PropertyView extends GetView<HomePageController> {
                               ),
                               SIZED_BOX_H02,
                               Text(
-                                property?.geTotalProperty().toCurrency() ?? "",
+                                property?.getTotalProperty().toCurrency() ?? "",
                                 style: const TextStyle(
                                   color: Color(0xFF333333),
                                   fontSize: 20,
@@ -88,7 +88,7 @@ class PropertyView extends GetView<HomePageController> {
                             ),
                           ),
                           Text(
-                            property?.gePriceStock().toCurrency() ?? "",
+                            property?.getTotalPropertyStock().toCurrency() ?? "",
                             style: const TextStyle(
                               color: Color(0xFF333333),
                               fontSize: 14,
@@ -130,9 +130,9 @@ class PropertyView extends GetView<HomePageController> {
                             ),
                           ),
                           Text(
-                            property?.cashBalance?.toCurrency() ?? "",
-                            style: const TextStyle(
-                              color: Color(0xFF00B14F),
+                            property?.getTotalGrowth() ?? "",
+                            style: TextStyle(
+                              color: property?.getStateProfitLoss().getStockColor(),
                               fontSize: 12,
                               fontFamily: 'iCielHelveticaNowText',
                               fontWeight: FontWeight.w500,

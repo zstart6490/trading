@@ -13,6 +13,8 @@ import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/extensions.dart';
 
+enum SortEnum {normal, up, down }
+
 class HomePageController extends BaseController
     with StateMixin<AccountInfoModel>, GetSingleTickerProviderStateMixin {
   final timeRange = ["Đang đầu tư".tr, "Đang theo dõi".tr];
@@ -24,10 +26,11 @@ class HomePageController extends BaseController
 
   late Stream myStream;
 
-  RxBool sortAlphabet = false.obs;
-  RxBool sortVolume = false.obs;
-  RxBool sortCurrentPrice = false.obs;
-  RxBool sortProfitAndLoss = false.obs;
+  Rx<SortEnum> sortAlphabet = Rx<SortEnum>(SortEnum.normal);
+  Rx<SortEnum> sortVolume = Rx<SortEnum>(SortEnum.normal);
+  Rx<SortEnum> sortCurrentPrice = Rx<SortEnum>(SortEnum.normal);
+  Rx<SortEnum> sortProfitAndLoss = Rx<SortEnum>(SortEnum.normal);
+
 
   AccountInfoModel? accountInfoModel;
 
@@ -138,10 +141,11 @@ class HomePageController extends BaseController
     final result = await _homeTradingUseCase.getAccountInfo();
     if (result.data != null) {
       accountInfoModel = result.data;
-      accountInfoModel?.stockList
-          ?.insert(0, PropertyModel(null, null, null, null));
-      accountInfoModel?.productWatchingVOList
-          ?.insert(0, PropertyModel(null, null, null, null));
+      //Add item fake Header section view1
+      accountInfoModel?.stockList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
+      accountInfoModel?.productWatchingVOList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
     } else {
       change(null, status: RxStatus.empty());
@@ -157,68 +161,126 @@ class HomePageController extends BaseController
   }
 
   void tapOnSortAlphabet() {
-    sortAlphabet.value = !sortAlphabet.value;
+    if  (sortAlphabet.value != SortEnum.down){
+      sortAlphabet.value = SortEnum.down;
+    }else{
+      sortAlphabet.value = SortEnum.up;
+    }
+
     if (tabController.index == 0) {
+      //Remove item fake Header section view
       accountInfoModel?.stockList?.removeAt(0);
-      if (sortAlphabet.value == true) {
+      if (sortAlphabet.value == SortEnum.down) {
         accountInfoModel?.stockList
             ?.sort((a, b) => b.productKey!.compareTo(a.productKey!));
       } else {
         accountInfoModel?.stockList
             ?.sort((a, b) => a.productKey!.compareTo(b.productKey!));
       }
-      accountInfoModel?.stockList
-          ?.insert(0, PropertyModel(null, null, null, null));
+      accountInfoModel?.stockList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
     } else if (tabController.index == 1) {
       accountInfoModel?.productWatchingVOList?.removeAt(0);
-      if (sortAlphabet.value == true) {
+      if (sortAlphabet.value == SortEnum.down) {
         accountInfoModel!.productWatchingVOList!
             .sort((a, b) => b.productKey!.compareTo(a.productKey!));
       } else {
         accountInfoModel!.productWatchingVOList!
             .sort((a, b) => a.productKey!.compareTo(b.productKey!));
       }
-      accountInfoModel?.productWatchingVOList
-          ?.insert(0, PropertyModel(null, null, null, null));
+      accountInfoModel?.productWatchingVOList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
     }
     change(accountInfoModel, status: RxStatus.success());
   }
 
   void tapOnSortVolume() {
-    sortVolume.value = !sortVolume.value;
+    if  (sortVolume.value != SortEnum.down){
+      sortVolume.value = SortEnum.down;
+    }else{
+      sortVolume.value = SortEnum.up;
+    }
     if (tabController.index == 0) {
       accountInfoModel?.stockList?.removeAt(0);
-      if (sortVolume.value == true) {
+      if (sortVolume.value == SortEnum.down) {
+        accountInfoModel?.stockList
+            ?.sort((a, b) => b.quantity!.compareTo(a.quantity!));
+      } else {
+        accountInfoModel?.stockList
+            ?.sort((a, b) => a.quantity!.compareTo(b.quantity!));
+      }
+      accountInfoModel?.stockList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
+    }
+    change(accountInfoModel, status: RxStatus.success());
+  }
+
+  void tapOnSortCurrentPrice() {
+    if (sortCurrentPrice.value != SortEnum.down){
+      sortCurrentPrice.value = SortEnum.down;
+    }else{
+      sortCurrentPrice.value = SortEnum.up;
+    }
+
+    if (tabController.index == 0) {
+      accountInfoModel?.stockList?.removeAt(0);
+      if (sortCurrentPrice.value == SortEnum.down) {
         accountInfoModel?.stockList
             ?.sort((a, b) => b.priceAvg!.compareTo(a.priceAvg!));
       } else {
         accountInfoModel?.stockList
             ?.sort((a, b) => a.priceAvg!.compareTo(b.priceAvg!));
       }
-      accountInfoModel?.stockList
-          ?.insert(0, PropertyModel(null, null, null, null));
+      accountInfoModel?.stockList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
     } else if (tabController.index == 1) {
       accountInfoModel?.productWatchingVOList?.removeAt(0);
-      if (sortVolume.value == true) {
+      if (sortCurrentPrice.value == SortEnum.down) {
         accountInfoModel!.productWatchingVOList!
-            .sort((a, b) => b.priceAvg!.compareTo(a.priceAvg!));
+            .sort((a, b) => b.lastPrice!.compareTo(a.lastPrice!));
       } else {
         accountInfoModel!.productWatchingVOList!
-            .sort((a, b) => a.priceAvg!.compareTo(b.priceAvg!));
+            .sort((a, b) => a.lastPrice!.compareTo(b.lastPrice!));
       }
-      accountInfoModel?.productWatchingVOList
-          ?.insert(0, PropertyModel(null, null, null, null));
+      accountInfoModel?.productWatchingVOList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
     }
     change(accountInfoModel, status: RxStatus.success());
   }
 
-  void tapOnSortCurrentPrice() {
-    sortCurrentPrice.value = !sortCurrentPrice.value;
-    print("softCurrentPrice");
-  }
-
   void tapOnSortProfitAndLoss() {
-    sortProfitAndLoss.value = !sortProfitAndLoss.value;
-    print("softProfitAndLoss");
+    if (sortProfitAndLoss.value != SortEnum.down){
+      sortProfitAndLoss.value = SortEnum.down;
+    }else{
+      sortProfitAndLoss.value = SortEnum.up;
+    }
+    if (tabController.index == 0) {
+      accountInfoModel?.stockList?.removeAt(0);
+      if (sortProfitAndLoss.value == SortEnum.down) {
+        accountInfoModel?.stockList?.sort((a, b) => b
+            .getNumberPriceDifference()
+            .compareTo(a.getNumberPriceDifference()));
+      } else {
+        accountInfoModel?.stockList?.sort((a, b) => a
+            .getNumberPriceDifference()
+            .compareTo(b.getNumberPriceDifference()));
+      }
+      accountInfoModel?.stockList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
+    } else if (tabController.index == 1) {
+      accountInfoModel?.productWatchingVOList?.removeAt(0);
+      if (sortProfitAndLoss.value == SortEnum.down) {
+        accountInfoModel!.productWatchingVOList!.sort((a, b) => b
+            .getNumberPercentageFollow()
+            .compareTo(a.getNumberPercentageFollow()));
+      } else {
+        accountInfoModel!.productWatchingVOList!.sort((a, b) => a
+            .getNumberPercentageFollow()
+            .compareTo(b.getNumberPercentageFollow()));
+      }
+      accountInfoModel?.productWatchingVOList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
+    }
+    change(accountInfoModel, status: RxStatus.success());
   }
 }

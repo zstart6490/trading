@@ -56,8 +56,13 @@ extension MyStockModelMapper on MyStockModelDTO {
     return MyStockModel(
         id,
         productKey,
+        null,
         quantity ?? 0,
         priceAvg ?? 0,
+        null,
+        null,
+        null,
+        null,
         quantityWaitingReturn ?? 0,
         dividendsWaitingReturn ?? 0,
         getListPortfolio());

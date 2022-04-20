@@ -10,17 +10,21 @@ class MyStockModel extends PropertyModel {
   MyStockModel(
     int? id,
     String? productKey,
-    double quantity,
-    double priceAvg,
+    int? productType,
+    double? quantity,
+    double? priceAvg,
+    double? ceiling,
+    double? floor,
+    double? refPrice,
+    double? lastPrice,
     this.quantityWaitingReturn,
     this.dividendsWaitingReturn,
     this.portfolioHistoryList,
-  ) : super(id, productKey, quantity, priceAvg);
-
-
+  ) : super(id, productKey,productType, quantity, priceAvg, ceiling, floor, refPrice, lastPrice);
 
   String getPercentPrice(double currentPrice) {
-    final priceDifference = (quantity! * priceAvg!) - (quantity! * currentPrice);
+    final priceDifference =
+        (quantity! * priceAvg!) - (quantity! * currentPrice);
     final priceDifferenceValue = priceDifference > 0
         ? "+${priceDifference.toCurrency(symbol: "")}"
         : priceDifference.toCurrency(symbol: "");
@@ -32,7 +36,6 @@ class MyStockModel extends PropertyModel {
             .replaceAll(".", ",");
     return "$priceDifferenceValue ($num%)";
   }
-
 }
 
 extension MyStockModelMapper on MyStockModel {
