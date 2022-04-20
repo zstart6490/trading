@@ -21,7 +21,7 @@ class AccountInfoModel {
     double totalPrice = 0;
     if (stockList != null) {
       for (final item in stockList!) {
-        totalPrice += ((item.priceAvg ?? 0) - currentPrice) * (item.quantity ?? 0);
+        totalPrice += (item.priceAvg ?? 0)  * (item.quantity ?? 0);
       }
     }
     return totalPrice;
