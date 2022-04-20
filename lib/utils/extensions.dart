@@ -157,6 +157,10 @@ extension CustomNumExtension on num {
     return (this * p).floor() / p;
   }
 
+  String toStockQuantity() {
+    return floorWithFractionDigits(1).toString();
+  }
+
   String formatWithSeparator({String separator = ","}) {
     return toString().replaceAll(RegExp(r'\.'), separator);
   }
@@ -167,6 +171,7 @@ extension CustomDoubleExtension on double {
     final oCcy = NumberFormat.decimalPattern("vi");
     return "${oCcy.format(this)}$symbol";
   }
+
 
 
   Color getStockColor() {

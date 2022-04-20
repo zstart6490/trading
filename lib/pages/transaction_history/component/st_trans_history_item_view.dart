@@ -86,16 +86,16 @@ class StockTransHistoryItemView extends StatelessWidget {
                             color: COLOR_333333, fontWeight: FontWeight.w700),
                       ),
                       Text(
-                        stHistory.quantity.toString(),
-                        textAlign: TextAlign.center,
+                        stHistory.quantity.toStockQuantity(),
+                        textAlign: TextAlign.right,
                         style: context.textSize12.copyWith(
                             color: COLOR_333333, fontWeight: FontWeight.w700),
                       ),
                       Text(
                         (stHistory.priceMatch > 0)
-                            ? stHistory.priceMatch.toString()
+                            ? stHistory.priceMatch.getPriceStock()
                             : "----",
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.right,
                         style: context.textSize12.copyWith(
                             color: getStateColor(stHistory.status),
                             fontWeight: FontWeight.w700),
