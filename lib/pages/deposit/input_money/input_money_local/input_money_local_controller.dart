@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
@@ -11,7 +12,6 @@ class TDInputMoneyLocalController extends BaseController {
 
   late FocusNode focusNode;
   int inputAmount = 0;
-  bool showMoneySuggess = false;
 
   Rx<ConditionState> pasMinAmount = ConditionState.none.obs;
   Rx<ConditionState> pasMaxAmount = ConditionState.none.obs;

@@ -8,7 +8,7 @@ import 'package:trading_module/utils/extensions.dart';
 
 class StSuccessTransactionState extends StatelessWidget {
   final StockTransactionDetail transaction;
-  final StockTransactionType stockTransactionType;
+  final StockOrderType stockTransactionType;
 
   const StSuccessTransactionState({
     Key? key,
@@ -25,8 +25,8 @@ class StSuccessTransactionState extends StatelessWidget {
         SIZED_BOX_H26,
         SvgPicture.asset("assets/images/svg/ic_saving_success.svg"),
         SIZED_BOX_H16,
-        Text("Lệnh ${stockTransactionType==StockTransactionType.buy?"mua":"bán"} thành công", style: fontStyle),
-        Text("${transaction.quantity.toString()} CP", style: fontStyle),
+        Text("Lệnh ${stockTransactionType==StockOrderType.buy?"mua":"bán"} thành công", style: fontStyle),
+        Text("+${transaction.quantityMatch.toStockQuantity()} CP", style: fontStyle),
       ],
     );
   }

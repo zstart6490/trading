@@ -9,7 +9,7 @@ class ProductOwn {
   final String symbol;
   final double lastPrice;
   final double changePrice;
-  final double changePricePercent;
+  final double ratioChange;
   final int stockType;
 
   ProductOwn({
@@ -23,7 +23,7 @@ class ProductOwn {
     required this.symbol,
     required this.lastPrice,
     required this.changePrice,
-    required this.changePricePercent,
+    required this.ratioChange,
     required this.stockType,
   });
 }

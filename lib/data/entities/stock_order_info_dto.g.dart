@@ -17,6 +17,7 @@ StockOrderInfoDto _$StockOrderInfoDtoFromJson(Map<String, dynamic> json) =>
       amountWithoutFee: (json['amountWithoutFee'] as num?)?.toDouble(),
       fee: (json['fee'] as num?)?.toDouble(),
       feePercent: (json['feePercent'] as num?)?.toDouble(),
+      feePartnerPercent: (json['feePartnerPercent'] as num?)?.toDouble(),
       amountWithoutFeeTax: (json['amountWithoutFeeTax'] as num?)?.toDouble(),
       vat: (json['vat'] as num?)?.toDouble(),
       vatPercent: (json['vatPercent'] as num?)?.toDouble(),

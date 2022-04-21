@@ -11,7 +11,7 @@ class SellStockBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => StockExchangeUseCase(
         StockExchangeRepoImpl(StockOrderServiceImpl())));
-    Get.lazyPut(() => StockPriceSocket());
+    // Get.lazyPut(() => StockPriceSocket());
     if (Get.arguments is StockModel) {
       StockModel stockModel =Get.arguments as StockModel;
       Get.lazyPut(() => SellStockController(stockModel));

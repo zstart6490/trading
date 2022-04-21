@@ -158,7 +158,7 @@ extension CustomNumExtension on num {
   }
 
   String toStockQuantity() {
-    return floorWithFractionDigits(1).toString();
+    return round().toString();
   }
 
   String formatWithSeparator({String separator = ","}) {

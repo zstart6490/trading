@@ -8,6 +8,7 @@ class StockOrderInfo {
   final double amountWithoutFee;
   final double fee;
   final double feePercent;
+  final double feePartnerPercent;
   final double amountWithoutFeeTax;
   final double vat;
   final double vatPercent;
@@ -22,6 +23,7 @@ class StockOrderInfo {
     required this.amountWithoutFee,
     required this.fee,
     required this.feePercent,
+    required this.feePartnerPercent,
     required this.amountWithoutFeeTax,
     required this.vat,
     required this.vatPercent,

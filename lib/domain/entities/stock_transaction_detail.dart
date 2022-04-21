@@ -3,9 +3,11 @@ import 'package:trading_module/utils/enums.dart';
 class StockTransactionDetail {
   String symbol;
   double quantity;
+  double quantityMatch;
   double price;
+  double priceMatch;
   double amount;
-  double amountWithoutFee;
+  double amountWithoutFeeVat;
   double fee;
   double feePartner;
   double feePartnerPercent;
@@ -19,9 +21,11 @@ class StockTransactionDetail {
   StockTransactionDetail(
       {required this.symbol,
       required this.quantity,
+      required this.quantityMatch,
       required this.price,
+      required this.priceMatch,
       required this.amount,
-      required this.amountWithoutFee,
+      required this.amountWithoutFeeVat,
       required this.fee,
       required this.feePartner,
       required this.feePercent,

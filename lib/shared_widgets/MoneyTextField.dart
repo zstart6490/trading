@@ -191,15 +191,13 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
                 controller.clear();
                 widget.onChanged?.call("");
               },
-              child: Visibility(
-                  visible: content.isNotEmpty,
-                  child: Padding(
+              child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Icon(
                       Icons.close,
                       color: context.disabledColor,
                     ),
-                  )),
+                  ),
             ),
         ],
       ),

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/repos/stock_exchange_impl.dart';
 import 'package:trading_module/data/repos/stock_market_repo_impl.dart';
 import 'package:trading_module/data/services/stock_market_service.dart';
@@ -22,7 +21,7 @@ class StockDetailBinding extends Bindings {
       );
       Get.lazyPut(() => ChartController(arg));
       Get.lazyPut(() => StockDetailController(arg));
-      Get.lazyPut(() => StockPriceSocket());
+      // Get.lazyPut(() => StockPriceSocket());
       Get.lazyPut(
         () => StockMarketUseCase(
           StockMarketRepoImpl(StockMarketServiceImpl()),

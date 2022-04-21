@@ -48,60 +48,58 @@ class HomePageController extends BaseController
   }
 
   Future openCashOut() async {
-    if (accountInfoModel == null) {
-      return;
-    }
     final double balance = accountInfoModel?.cashBalance ?? 0;
-    if (balance <= 0) {
-      final subtitleStyle = Get.context!.textSize14;
-      showAlertDialog(CustomAlertDialog(
-          title: "Thông báo",
-          descWidget: Expanded(
-              child: RichText(
-            textAlign: TextAlign.center,
-            maxLines: 3,
-            text: TextSpan(
-              text:
-                  "Số dư tiền mặt của bạn không đủ để thực hiện hành động này\n",
-              style: subtitleStyle,
-              children: <TextSpan>[
-                TextSpan(
-                    text: "(Số tiền tối thiểu là 50.000đ)",
-                    style: subtitleStyle.copyWith(color: Colors.red)),
-              ],
-            ),
-          )),
-          actions: [
-            AlertAction(
-                text: "Đã hiểu",
-                isDefaultAction: true,
-                onPressed: () => hideDialog())
-          ]));
-      return;
-    }
-    final bool userHasAddBank = dataAppParent.hasAddBank ?? false;
-    if (userHasAddBank) {
-      showProgressingDialog();
-      final result = await _withdrawUseCase.listReason();
-      hideDialog();
-      if (result.data != null) {
-        Get.toNamed(AppRoutes.withdrawReasonScene,
-            arguments: NavigateWithdrawData(
-                listReason: result.data!,
-                listUserBank: [],
-                totalMoneyUser: balance));
+      if (balance <= 0) {
+        final subtitleStyle = Get.context!.textSize14;
+        showAlertDialog(CustomAlertDialog(
+            title: "Thông báo",
+            descWidget: Expanded(
+                child: RichText(
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              text: TextSpan(
+                text:
+                    "Số dư tiền mặt của bạn không đủ để thực hiện hành động này\n",
+                style: subtitleStyle,
+                children: <TextSpan>[
+                  TextSpan(
+                      text: "(Số tiền tối thiểu là 50.000đ)",
+                      style: subtitleStyle.copyWith(color: Colors.red)),
+                ],
+              ),
+            )),
+            actions: [
+              AlertAction(
+                  text: "Đã hiểu",
+                  isDefaultAction: true,
+                  onPressed: () => hideDialog())
+            ]));
+        return;
       }
-      if (result.error != null) {
-        showSnackBar(result.error!.message);
+      final bool userHasAddBank = dataAppParent.hasAddBank ?? false;
+      if (userHasAddBank) {
+        showProgressingDialog();
+        final result = await _withdrawUseCase.listReason();
+        hideDialog();
+        if (result.data != null) {
+          Get.toNamed(AppRoutes.withdrawReasonScene,
+              arguments: NavigateWithdrawData(
+                  listReason: result.data!,
+                  listUserBank: [],
+                  totalMoneyUser: balance));
+        }
+        if (result.error != null) {
+          showSnackBar(result.error!.message);
+        }
+      } else {
+        //to add bank
+        mainProvider.callToAddBank?.call(
+          () {
+            dataAppParent.hasAddBank = true;
+            openCashOut();
+          },
+        );
       }
-    } else {
-      //to add bank
-      mainProvider.callToAddBank?.call(
-        () {
-          dataAppParent.hasAddBank = true;
-          openCashOut();
-        },
-      );
     }
   }
 

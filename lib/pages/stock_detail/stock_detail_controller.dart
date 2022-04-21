@@ -26,7 +26,9 @@ class StockDetailController extends BaseController
   void onInit() {
     priceStock.value = stock.lastPrice;
     tabController = TabController(length: timeRange.length, vsync: this);
-    tabController.addListener(() {});
+    tabController.addListener(() {
+
+    });
     super.onInit();
   }
 

@@ -27,6 +27,8 @@ class StockMoreDetailController extends  BaseController
   late Offset totalAmountOffset;
   late GlobalKey followKey;
 
+  final int countItem = 12;
+  RxInt indexTab =0.obs;
 
   RxBool isFollow = false.obs;
 
@@ -105,6 +107,7 @@ class StockMoreDetailController extends  BaseController
 
   void onTabChange(int index) {
     debugPrint("TabChange :${tabController.index}");
+    indexTab.value =tabController.index;
     if (tabController.index == 0) {
 
     } else if (tabController.index == 1) {

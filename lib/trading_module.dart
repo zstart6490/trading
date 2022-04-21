@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/configs/service_api_config.dart';
+import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/data_input_app.dart';
 import 'package:trading_module/data/entities/kyc_status.dart';
 import 'package:trading_module/data/entities/otp_status.dart';
@@ -71,6 +72,7 @@ class TradingModule {
     }
     Get.lazyPut(() =>
         UserOnBoardingUseCase(OnBoardingReposImpl(OnBoardingServiceImpl())));
+    Get.put(StockPriceSocket());
     Get.lazyPut(() => MainController());
     await Get.find<MainTradingProvider>().loadDataDeviceInfo();
     await Get.find<MainController>().getDataLogin();
