@@ -34,6 +34,7 @@ Map<String, dynamic> _$StockOrderInfoDtoToJson(StockOrderInfoDto instance) =>
       'amountWithoutFee': instance.amountWithoutFee,
       'fee': instance.fee,
       'feePercent': instance.feePercent,
+      'feePartnerPercent': instance.feePartnerPercent,
       'amountWithoutFeeTax': instance.amountWithoutFeeTax,
       'vat': instance.vat,
       'vatPercent': instance.vatPercent,

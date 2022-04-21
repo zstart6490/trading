@@ -101,7 +101,7 @@ class HomePageController extends BaseController
         );
       }
     }
-  }
+
 
   void onTabChange(int index) {
     debugPrint("TabChange :${tabController.index}");
