@@ -1,6 +1,6 @@
 import 'package:trading_module/cores/resources/data_state.dart';
+import 'package:trading_module/domain/entities/company_news_model.dart';
 import 'package:trading_module/domain/entities/stock_current_price_model.dart';
-import 'package:trading_module/domain/entities/stock_history_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/repos/stock_repo.dart';
 
@@ -25,5 +25,9 @@ class StockUseCase {
     return otp;
   }
 
-
+  Future<DataState<CompanyNewsData>> getCompanyNewsList(
+      String symbol, int page, int limit) async {
+    final result = await _stockRepo.getCompanyNewsList(symbol,page,limit);
+    return result;
+  }
 }
