@@ -73,7 +73,7 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                             ),
                           )),
                           Text(
-                            "${controller.quantityMaximum.value.toCurrency(symbol: "")} CP",
+                            "${controller.quantityMaximum.value.toStockQuantity()} CP",
                             style: context.textSize14.copyWith(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700),
@@ -115,7 +115,8 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                                       "Là số tiền dự kiến bạn sẽ nhận được khi thực hiện bán cổ phiếu.\n"
                                       "Chưa bao gồm:\n"
                                       "${controller.stockOrderInfo?.feePercent}% phí bán\n"
-                                      "${controller.stockOrderInfo?.vatPercent}% thuế thu nhập cá nhân",
+                                      "${controller.stockOrderInfo?.vatPercent}% thuế thu nhập cá nhân\n"
+                                      "${controller.feeTransaction.value.toCurrency()} phí giao dịch",
                                       style: context.textSize14
                                           .copyWith(color: Colors.white),
                                     ),

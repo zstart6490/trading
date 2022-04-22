@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:trading_module/pages/deposit/components/money_helper_component.dart';
 import 'package:trading_module/pages/deposit/input_money/money_text_field.dart';
 import 'package:trading_module/pages/support_fab/support_fab.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
-
 import 'package:trading_module/shared_widgets/ValidateComponent.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/util.dart';
@@ -72,7 +70,11 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
               ),
             ),
             Padding(
-              padding: PAD_SYM_H16,
+              padding: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  bottom: (MediaQuery.of(context).viewInsets.bottom) + 16,
+                  top: 16),
               child: Obx(
                 () => CustomButton.trailingStyle(
                   title: "Tiếp tục",
@@ -86,23 +88,6 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: GetBuilder<TDInputMoneyLocalController>(
-                builder: (controller) {
-                  if (controller.showMoneySuggess) {
-                    return MoneyHelperComponent(
-                      onTappedMoney: (money) => controller.setMoney(money),
-                      amount: controller.inputAmount,
-                      minAmount: int.parse(controller.mainProvider.configMap?.minMoneyUser ?? "500000"),
-                      maxAmount: int.parse(controller.mainProvider.configMap?.maxMoneyUser ?? "999999999999"),
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                },
-              ),
-            )
           ],
         ));
   }

@@ -15,7 +15,7 @@ class StockTransHistoryItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TransStockHistoryController transStockHistoryController =Get.find();
+    final TransStockHistoryController transStockHistoryController = Get.find();
     return Column(
       children: [
         Row(children: [
@@ -69,7 +69,8 @@ class StockTransHistoryItemView extends StatelessWidget {
           itemBuilder: (_, index) {
             final StockTransactionHistory stHistory = orderRecord.data[index];
             return InkWell(
-              onTap: () => transStockHistoryController.onClickStock(orderRecord.data[index]),
+              onTap: () => transStockHistoryController
+                  .onClickStock(orderRecord.data[index]),
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 22),
@@ -77,35 +78,41 @@ class StockTransHistoryItemView extends StatelessWidget {
                     color: SCAFFOLD_COLOR,
                     borderRadius: BorderRadius.all(Radius.circular(8.0))),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
+                      Expanded(
+                          child: Text(
                         stHistory.symbol,
+                        textAlign: TextAlign.left,
+                        style: context.textSize12.copyWith(
+                            color: COLOR_333333, fontWeight: FontWeight.w700),
+                      )),
+                      Expanded(
+                          child: Text(
+                        stHistory.quantity.toStockQuantity(),
                         textAlign: TextAlign.center,
                         style: context.textSize12.copyWith(
                             color: COLOR_333333, fontWeight: FontWeight.w700),
+                      )),
+                      Expanded(
+                        child: Text(
+                          (stHistory.priceMatch > 0)
+                              ? stHistory.priceMatch.getPriceStock()
+                              : "----",
+                          textAlign: TextAlign.center,
+                          style: context.textSize12.copyWith(
+                              color: getStateColor(stHistory.status),
+                              fontWeight: FontWeight.w700),
+                        ),
                       ),
-                      Text(
-                        stHistory.quantity.toStockQuantity(),
-                        textAlign: TextAlign.right,
-                        style: context.textSize12.copyWith(
-                            color: COLOR_333333, fontWeight: FontWeight.w700),
-                      ),
-                      Text(
-                        (stHistory.priceMatch > 0)
-                            ? stHistory.priceMatch.getPriceStock()
-                            : "----",
-                        textAlign: TextAlign.right,
-                        style: context.textSize12.copyWith(
-                            color: getStateColor(stHistory.status),
-                            fontWeight: FontWeight.w700),
-                      ),
-                      Text(
+                      Expanded(
+                          child: Text(
                         stHistory.getStateContent(),
+                        textAlign: TextAlign.right,
                         style: context.textSize12.copyWith(
                             color: getStateColor(stHistory.status),
                             fontWeight: FontWeight.w700),
-                      )
+                      ))
                     ]),
               ),
             );

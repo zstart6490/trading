@@ -3,7 +3,7 @@ import 'package:trading_module/utils/enums.dart';
 
 class NavigateStockTranDetail {
   StockTransactionDetail transaction;
-  StockTransactionType stockTransactionType;
+  StockOrderType stockTransactionType;
 
   NavigateStockTranDetail(this.transaction, this.stockTransactionType);
 }

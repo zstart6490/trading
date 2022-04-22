@@ -34,7 +34,7 @@ class MainTradingProvider with BaseCommonWidgets {
   //   this.dataInputApp =dataInputApp;
   // }
 
-  Future loadDataDeviceInfo() async{
+  Future loadDataDeviceInfo() async {
     final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     appVersion = packageInfo.version;
@@ -69,19 +69,12 @@ class MainTradingProvider with BaseCommonWidgets {
   String appVersion = "";
   String appTradingVersion = "";
   String osVersion = "";
+  String? accessToken;
 
-  String? _accessToken;
-
-  String? get accessToken => _accessToken;
-
-  set accessToken(String? accessToken) => _setAccessToken(accessToken);
-
-  _setAccessToken(String? accessToken) {
-    _accessToken = accessToken;
-  }
+  // set accessToken(String? accessToken) => _accessToken;
 
   void clearAccessToken() {
-    _accessToken = null;
+    accessToken = null;
     userData = null;
     configMap = null;
     // box.remove(AUTH_TOKEN_KEY);

@@ -44,6 +44,7 @@ class StockExchangeView<T extends ExchangeStockController>
               ))
             ],
           )),
+          SIZED_BOX_W08,
           Text(
             controller.priceStock.value.getPriceStock(),
             style: const TextStyle(

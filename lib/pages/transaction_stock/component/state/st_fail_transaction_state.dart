@@ -9,7 +9,7 @@ import 'package:trading_module/utils/extensions.dart';
  class StFailTransactionState extends StatelessWidget {
 
    final StockTransactionDetail transaction;
-   final StockTransactionType stockTransactionType;
+   final StockOrderType stockTransactionType;
 
    const StFailTransactionState({
      Key? key,
@@ -26,7 +26,7 @@ import 'package:trading_module/utils/extensions.dart';
         SIZED_BOX_H26,
         SvgPicture.asset("assets/images/svg/ic_saving_failed.svg"),
         SIZED_BOX_H16,
-        Text("Lệnh ${stockTransactionType==StockTransactionType.buy?"mua":"bán"} thất bại", style: fontStyle),
+        Text("Lệnh ${stockTransactionType==StockOrderType.buy?"mua":"bán"} thất bại", style: fontStyle),
       ],
     );
   }

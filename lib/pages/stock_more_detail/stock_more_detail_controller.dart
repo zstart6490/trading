@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/domain/entities/company_news_model.dart';
 import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_exchange_usecase.dart';
@@ -11,22 +12,23 @@ import 'package:trading_module/pages/stock_more_detail/overlayView/overlay_balan
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomOverlay.dart';
 
-
-class StockMoreDetailController extends  BaseController
-    with StateMixin<StockCurrentPriceModel>, GetSingleTickerProviderStateMixin{
-
+class StockMoreDetailController extends BaseController
+    with StateMixin<StockCurrentPriceModel>, GetSingleTickerProviderStateMixin {
   final StockModel stock;
+
   StockMoreDetailController(this.stock);
 
   final StockUseCase _stockUseCase = Get.find<StockUseCase>();
-  final StockExchangeUseCase _stockExchangeUseCase = Get.find<StockExchangeUseCase>();
-
+  final StockExchangeUseCase _stockExchangeUseCase =
+      Get.find<StockExchangeUseCase>();
 
   final timeRange = ["Tổng quan".tr, "Tài chính".tr, "Tin tức".tr];
   late TabController tabController;
   late Offset totalAmountOffset;
   late GlobalKey followKey;
 
+  final int countItem = 12;
+  RxInt indexTab = 0.obs;
 
   RxBool isFollow = false.obs;
 
@@ -46,9 +48,22 @@ class StockMoreDetailController extends  BaseController
     super.onReady();
   }
 
+  RxList<CompanyNewsModel> listNews = <CompanyNewsModel>[].obs;
+
+  Future getCompanyNewsList(String symbol, int page, int limit) async {
+    final result = await _stockUseCase.getCompanyNewsList(symbol, page, limit);
+    if (result.data != null) {
+      listNews.value = result.data!.records;
+    }
+    if (result.error != null) {
+      showSnackBar(
+          result.error!.message ?? "Lỗi dữ liệu news. Vui lòng thử lại sau");
+    }
+  }
 
   Future<void> getCurrentStockPrice() async {
-    final result = await _stockUseCase.getCurrentStockPrice(symbol: stock.symbol);
+    final result =
+        await _stockUseCase.getCurrentStockPrice(symbol: stock.symbol);
     if (result.data != null) {
       isFollow.value = result.data?.isProductWatching ?? false;
       change(result.data, status: RxStatus.success());
@@ -99,18 +114,17 @@ class StockMoreDetailController extends  BaseController
 
   Offset getOffsetWidget(GlobalKey globalKey) {
     final RenderBox? renderBox =
-    globalKey.currentContext?.findRenderObject() as RenderBox?;
+        globalKey.currentContext?.findRenderObject() as RenderBox?;
     return renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
   }
 
   void onTabChange(int index) {
     debugPrint("TabChange :${tabController.index}");
+    indexTab.value = tabController.index;
     if (tabController.index == 0) {
-
     } else if (tabController.index == 1) {
-
     } else if (tabController.index == 2) {
-
+      getCompanyNewsList(stock.symbol, 0, 100);
     }
   }
 
@@ -126,11 +140,12 @@ class StockMoreDetailController extends  BaseController
     Get.toNamed(AppRoutes.sellStock, arguments: stock);
   }
 
-  Future<void> follow() async{
-    final isFlow =  !isFollow.value;
-    final result = await _stockExchangeUseCase.addFollowing(stock: stock.symbol, type: "0", isFlow: isFlow);
-    if (result.data != null){
-      isFollow.value =  isFlow;
+  Future<void> follow() async {
+    final isFlow = !isFollow.value;
+    final result = await _stockExchangeUseCase.addFollowing(
+        stock: stock.symbol, type: "0", isFlow: isFlow);
+    if (result.data != null) {
+      isFollow.value = isFlow;
     }
   }
 }

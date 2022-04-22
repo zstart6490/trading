@@ -33,4 +33,5 @@ abstract class AppRoutes {
   static const selectStock = "/select_stock";
   static const productOwner = "/product_owner";
   static const historyStock = "/history_stock";
+
 }

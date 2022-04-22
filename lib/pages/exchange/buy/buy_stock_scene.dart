@@ -9,35 +9,40 @@ import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class BuyStockScene extends GetView<BuyStockController> {
-
-
   @override
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<BuyStockController>(
       title: "buy_stock".tr,
+      elevation: 0.3,
       backgroundColor: context.scaffoldBackgroundColor,
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              physics: const ScrollPhysics(),
-              children: [
+              child: CustomScrollView(
+            slivers: [
+              SliverList(
+                  delegate: SliverChildListDelegate([
                 StockExchangeView<BuyStockController>(),
-                SIZED_BOX_H16,
-                const StockBuyAmountComponent(),
                 SIZED_BOX_H08,
-              ],
-            ),
-          ),
+                const StockBuyAmountComponent(),
+              ])),
+            ],
+          )),
           Padding(
-            padding: PAD_BOTTOM_16,
-            child: Obx(() => CustomButton(
-                title: "btn_buy".tr,
-                bgColor: controller.canConfirm.value?Colors.green:Colors.grey,
-                onPressed: controller.canConfirm.value
-                    ? () => controller.onConfirmAmount()
-                    : null
-            ),),
+            padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                bottom: (MediaQuery.of(context).viewInsets.bottom) + 16,
+                top: 16),
+            child: Obx(
+              () => CustomButton(
+                  title: "btn_buy".tr,
+                  bgColor:
+                      controller.canConfirm.value ? Colors.green : Colors.grey,
+                  onPressed: controller.canConfirm.value
+                      ? () => controller.onConfirmAmount()
+                      : null),
+            ),
           )
         ],
       ),

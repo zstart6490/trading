@@ -40,7 +40,7 @@ class TransactionStockDetailScene extends GetView<TransactionStockController> {
   }
 
   Widget switchInfoType(NavigateStockTranDetail trans) {
-    if (trans.stockTransactionType == StockTransactionType.buy) {
+    if (trans.stockTransactionType == StockOrderType.buy) {
       return StockTransactionDetailInfo(
           controller.navigateStockTranDetail.transaction);
     } else {

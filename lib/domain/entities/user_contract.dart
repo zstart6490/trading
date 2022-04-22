@@ -1,4 +1,0 @@
-class UserContractModel {
-
-  UserContractModel();
-}

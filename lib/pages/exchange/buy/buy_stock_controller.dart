@@ -23,6 +23,7 @@ class BuyStockController extends ExchangeStockController {
   RxDouble amount = 0.0.obs;
   Rx<bool> isShowToolTip = false.obs;
   Rx<ConditionState> overBuy = ConditionState.none.obs;
+  RxDouble feeTransaction = 0.0.obs;
 
   BuyStockController(StockModel stockModel) : super(stockModel);
 
@@ -61,8 +62,11 @@ class BuyStockController extends ExchangeStockController {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final double finalAmount = priceStock.value * requestAmount;
-    final double fee = stockOrderInfo?.fee ?? 0;
-    amount.value = finalAmount + fee;
+    final double fee = (stockOrderInfo?.feePercent ?? 0) * finalAmount;
+    feeTransaction.value = fee;
+    final double feePartner =
+        (stockOrderInfo?.feePartnerPercent ?? 0) * finalAmount;
+    amount.value = finalAmount + fee + feePartner;
     print("abc=${amount.value}");
     checkRequestAmount();
   }
@@ -87,6 +91,7 @@ class BuyStockController extends ExchangeStockController {
   }
 
   Future onConfirmAmount() async {
+    isShowToolTip.value = false;
     showProgressingDialog();
     await getDataStockOrder();
     hideDialog();
@@ -128,7 +133,7 @@ class BuyStockController extends ExchangeStockController {
                     ),
                     TextSpan(
                       text:
-                          " đã bao gồm ${stockOrderInfo?.feePercent ?? 0}% phí mua.",
+                          " đã bao gồm ${stockOrderInfo?.feePartnerPercent ?? 0}% phí mua và ${feeTransaction.value.toCurrency()} phí giao dịch",
                     ),
                   ]),
             ),
@@ -244,7 +249,7 @@ class BuyStockController extends ExchangeStockController {
               onTap: () => {
                 Get.toNamed(AppRoutes.stTransactionDetail,
                     arguments: NavigateStockTranDetail(
-                        stockTransactionDetail, StockTransactionType.buy))
+                        stockTransactionDetail, StockOrderType.buy))
               },
             ),
           )

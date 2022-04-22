@@ -18,6 +18,7 @@ class SellStockController extends ExchangeStockController {
   Rx<ConditionState> overBuy = ConditionState.none.obs;
   RxDouble quantityMaximum = 0.0.obs;
   RxDouble amountWithoutFeeTax = 0.0.obs;
+  RxDouble feeTransaction = 0.0.obs;
   late FocusNode focusNode;
 
   SellStockController(StockModel stockModel)
@@ -79,6 +80,7 @@ class SellStockController extends ExchangeStockController {
   }
 
   Future onConfirmAmount() async {
+    isShowToolTip.value =false;
     final result = await getDataStockOrder();
     if (!result) return;
     showAlertDialog(
@@ -141,6 +143,7 @@ class SellStockController extends ExchangeStockController {
   }
 
   Future confirmSellStock() async {
+    isShowToolTip.value =false;
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.confirmSellOrderInfo(
@@ -152,7 +155,7 @@ class SellStockController extends ExchangeStockController {
       Get.offNamedUntil(AppRoutes.stTransactionDetail,
           ModalRoute.withName(AppRoutes.mainView),
           arguments: NavigateStockTranDetail(
-              stockTransactionDetail, StockTransactionType.sell));
+              stockTransactionDetail, StockOrderType.sell));
     }
     if (result.error != null) {
       showSnackBar(result.error!.message);
@@ -168,7 +171,8 @@ class SellStockController extends ExchangeStockController {
     isEmptyText.value = val.isEmpty;
     final requestAmount = int.tryParse(val.numericOnly()) ?? 0;
     final double finalAmount = (stockOrderInfo?.price ?? 0) * requestAmount;
-    // final double fee = stockOrderInfo?.fee ?? 0;
+    final double fee = (stockOrderInfo?.feePercent ?? 0) * finalAmount;
+    feeTransaction.value = fee;
     amountWithoutFeeTax.value = finalAmount;
     checkRequestAmount();
   }

@@ -6,7 +6,7 @@ import 'package:trading_module/pages/exchange/select_stock/select_stock_controll
 class SelectStockBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => StockPriceSocket());
+    // Get.lazyPut(() => StockPriceSocket());
     Get.lazyPut(() => SelectStockController());
   }
 }

@@ -179,5 +179,6 @@ class AppPages {
         name: AppRoutes.productOwner,
         page: () => const ProductOwnerScene(),
         binding: ProductOwnerBinding()),
+
   ];
 }

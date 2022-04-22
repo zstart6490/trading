@@ -95,11 +95,11 @@ class TransStockHistoryController extends BaseController
     final result = await _stockHistoryOrderUseCase.getOrderDetail(id: data.id);
     hideDialog();
     if (result.data != null) {
-      StockTransactionType stockTransactionType = StockTransactionType.buy;
+      StockOrderType stockTransactionType = StockOrderType.buy;
       if (orderType == "BUY") {
-        stockTransactionType = StockTransactionType.buy;
+        stockTransactionType = StockOrderType.buy;
       } else {
-        stockTransactionType = StockTransactionType.sell;
+        stockTransactionType = StockOrderType.sell;
       }
       final NavigateStockTranDetail navigateStockTranDetail =
           NavigateStockTranDetail(result.data!, stockTransactionType);

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/repos/stock_exchange_impl.dart';
 import 'package:trading_module/data/services/stock_order_service.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
@@ -11,7 +10,7 @@ class BuyStockBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => StockExchangeUseCase(
         StockExchangeRepoImpl(StockOrderServiceImpl())));
-    Get.lazyPut(() => StockPriceSocket());
+    // Get.lazyPut(() => StockPriceSocket());
     if (Get.arguments is StockModel) {
       final StockModel stockModel = Get.arguments as StockModel;
       Get.lazyPut(() => BuyStockController(stockModel));

@@ -112,7 +112,9 @@ class StockBuyAmountComponent extends BaseViewModel<BuyStockController> {
                                   tooltipDirection: TooltipDirection.down,
                                   content: Text(
                                     "Tikop đã dự tính số tiền lớn nhất để có thể thực hiện giao dịch này. Trong trường hợp số tiền cần trả nhỏ hơn, bạn sẽ nhận lại tiền thừa khi giao dịch hoàn tất.\n"
-                                    "Đã bao gồm: ${controller.stockOrderInfo?.feePercent}% phí mua",
+                                        "Đã bao gồm: \n"
+                                        "${controller.stockOrderInfo?.feePartnerPercent}% phí mua\n"
+                                        "${controller.feeTransaction.value.toCurrency()} phí giao dịch",
                                     style: context.textSize14
                                         .copyWith(color: Colors.white),
                                   ),

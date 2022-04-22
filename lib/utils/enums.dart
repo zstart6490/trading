@@ -82,8 +82,10 @@ enum NinePayType {
   keep,
 }
 
-enum StockTransactionType {
+enum StockOrderType {
+  @JsonValue(0)
   buy,
+  @JsonValue(1)
   sell,
 }
 

@@ -12,7 +12,7 @@ class StockTransactionDetailDto {
   double? quantity;
   double? price;
   double? amount;
-  double? amountWithoutFee;
+  double? amountWithoutFeeVat;
   double? fee;
   double? feePartner;
   double? feePartnerPercent;
@@ -31,7 +31,7 @@ class StockTransactionDetailDto {
       this.quantity,
       this.price,
       this.amount,
-      this.amountWithoutFee,
+      this.amountWithoutFeeVat,
       this.fee,
       this.feePartner,
       this.feePartnerPercent,
@@ -55,9 +55,11 @@ extension StockTransactionDetailMapper on StockTransactionDetailDto {
     return StockTransactionDetail(
         symbol: symbol ?? "",
         quantity: quantity ?? 0,
+        quantityMatch: quantityMatch ?? 0,
+        priceMatch: priceMatch ?? 0,
         price: price ?? 0,
         amount: amount ?? 0,
-        amountWithoutFee: amountWithoutFee ?? 0,
+        amountWithoutFeeVat: amountWithoutFeeVat ?? 0,
         fee: fee ?? 0,
         feePartner: feePartner ?? 0,
         feePartnerPercent: feePartnerPercent ?? 0,

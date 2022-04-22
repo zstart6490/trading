@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/lang/translation_service.dart';
-import 'package:trading_module/pages/main_binding.dart';
 import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/shared/logger/logger_utils.dart';
 import 'package:trading_module/theme/app_theme.dart';
+
+import 'pages/main_tabbar/main_tabbar_binding.dart';
 
 
 
@@ -57,7 +58,7 @@ class _MyAppState extends State<MyApp> {
       logWriterCallback: Logger.write,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.tradingRoutes,
-      initialBinding: MainBinding(),
+      initialBinding: MainTabBinding(),
       locale: TranslationService.locale,
       fallbackLocale: TranslationService.fallbackLocale,
       translations: TranslationService(),

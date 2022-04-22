@@ -15,6 +15,7 @@ class SellStockScene extends GetView<SellStockController> {
   Widget build(BuildContext context) {
     return BaseScaffoldAppBar<SellStockController>(
       title: "sell_stock".tr,
+      elevation: 0.3,
       backgroundColor: context.scaffoldBackgroundColor,
       body: Column(
         children: [
@@ -23,21 +24,26 @@ class SellStockScene extends GetView<SellStockController> {
               physics: const ScrollPhysics(),
               children: [
                 StockExchangeView<SellStockController>(),
-                SIZED_BOX_H16,
-                const StockSellAmountComponent(),
                 SIZED_BOX_H08,
+                const StockSellAmountComponent(),
               ],
             ),
           ),
           Padding(
-            padding: PAD_BOTTOM_16,
-            child: Obx(() => CustomButton(
-                title: "btn_sell".tr,
-                bgColor: controller.canConfirm.value?Colors.green:Colors.grey,
-                onPressed: controller.canConfirm.value
-                    ? () => controller.onConfirmAmount()
-                    : null
-            ),),
+            padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                bottom: (MediaQuery.of(context).viewInsets.bottom) + 16,
+                top: 8),
+            child: Obx(
+              () => CustomButton(
+                  title: "btn_sell".tr,
+                  bgColor:
+                      controller.canConfirm.value ? Colors.green : Colors.grey,
+                  onPressed: controller.canConfirm.value
+                      ? () => controller.onConfirmAmount()
+                      : null),
+            ),
           )
         ],
       ),

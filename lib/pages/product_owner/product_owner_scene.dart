@@ -68,9 +68,9 @@ class ProductOwnerScene extends GetView<ProductOwnerController> {
                         stockName: stock.stockName,
                         imageUrl: stock.imageUrl,
                         stockType: stock.stockType,
-                        lastPrice: stock.priceAvg,
+                        lastPrice: stock.lastPrice,
                         change: stock.changePrice,
-                        ratioChange: stock.changePricePercent);
+                        ratioChange: stock.ratioChange);
                     return MarketCell(
                       stock: stockM,
                       onPressed: () => controller.onTapped(stockM),

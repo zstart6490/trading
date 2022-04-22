@@ -15,7 +15,7 @@ class ProductOwnDto {
   final String? symbol;
   final double? lastPrice;
   final double? changePrice;
-  final double? changePricePercent;
+  final double? ratioChange;
   final int? stockType;
 
   ProductOwnDto({
@@ -29,7 +29,7 @@ class ProductOwnDto {
     this.symbol,
     this.lastPrice,
     this.changePrice,
-    this.changePricePercent,
+    this.ratioChange,
     this.stockType,
   });
 
@@ -58,7 +58,7 @@ extension ProductOwnMapper on ProductOwnDto {
         stockName: stockName ?? "",
         symbol: symbol ?? "",
         changePrice: changePrice ?? 0,
-        changePricePercent: changePricePercent ?? 0,
+        ratioChange: ratioChange ?? 0,
         lastPrice: lastPrice ?? 0,
         stockType: stockType ?? 0);
   }

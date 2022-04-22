@@ -47,7 +47,7 @@ class StockSellTransactionDetailInfo extends StatelessWidget {
           ),
           CustomTableCell(
             title: "Số tiền dự tính khớp",
-            detail: transaction.amountWithoutFee.toString(),
+            detail: transaction.amountWithoutFeeVat.toCurrency(),
           ),
           CustomTableCell(
             title: "Phí bán",
