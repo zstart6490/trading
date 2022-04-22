@@ -56,8 +56,7 @@ class StockMoreDetailController extends BaseController
       listNews.value = result.data!.records;
     }
     if (result.error != null) {
-      showSnackBar(
-          result.error!.message ?? "Lỗi dữ liệu news. Vui lòng thử lại sau");
+      showSnackBar(result.error!.message);
     }
   }
 
