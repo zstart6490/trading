@@ -1,4 +1,3 @@
-
 class ProductOwn {
   final int id;
   final String productKey;
@@ -7,13 +6,24 @@ class ProductOwn {
   final String imageUrl;
   final String catName;
   final String stockName;
+  final String symbol;
+  final double lastPrice;
+  final double changePrice;
+  final double changePricePercent;
+  final int stockType;
 
-  ProductOwn(
-      {required this.id,
-      required this.productKey,
-      required this.quantity,
-      required this.priceAvg,
-      required this.imageUrl,
-      required this.catName,
-      required this.stockName});
+  ProductOwn({
+    required this.id,
+    required this.productKey,
+    required this.quantity,
+    required this.priceAvg,
+    required this.imageUrl,
+    required this.catName,
+    required this.stockName,
+    required this.symbol,
+    required this.lastPrice,
+    required this.changePrice,
+    required this.changePricePercent,
+    required this.stockType,
+  });
 }

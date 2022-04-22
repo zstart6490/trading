@@ -12,15 +12,26 @@ class ProductOwnDto {
   final String? imageUrl;
   final String? catName;
   final String? stockName;
+  final String? symbol;
+  final double? lastPrice;
+  final double? changePrice;
+  final double? changePricePercent;
+  final int? stockType;
 
-  ProductOwnDto(
-      {this.id,
-      this.productKey,
-      this.quantity,
-      this.priceAvg,
-      this.imageUrl,
-      this.catName,
-      this.stockName});
+  ProductOwnDto({
+    this.id,
+    this.productKey,
+    this.quantity,
+    this.priceAvg,
+    this.imageUrl,
+    this.catName,
+    this.stockName,
+    this.symbol,
+    this.lastPrice,
+    this.changePrice,
+    this.changePricePercent,
+    this.stockType,
+  });
 
   static List<ProductOwnDto> getList(dynamic data) {
     final list = data as List;
@@ -44,6 +55,11 @@ extension ProductOwnMapper on ProductOwnDto {
         priceAvg: priceAvg ?? 0,
         imageUrl: imageUrl ?? "",
         catName: catName ?? "",
-        stockName: stockName ?? "");
+        stockName: stockName ?? "",
+        symbol: symbol ?? "",
+        changePrice: changePrice ?? 0,
+        changePricePercent: changePricePercent ?? 0,
+        lastPrice: lastPrice ?? 0,
+        stockType: stockType ?? 0);
   }
 }

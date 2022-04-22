@@ -64,13 +64,13 @@ class ProductOwnerScene extends GetView<ProductOwnerController> {
                       List.generate(stocks!.length, (index) {
                     final stock = stocks[index];
                     final stockM = StockModel(
-                        symbol: stock.productKey,
-                        stockName: stock.catName,
+                        symbol: stock.symbol,
+                        stockName: stock.stockName,
                         imageUrl: stock.imageUrl,
-                        stockType: 0,
+                        stockType: stock.stockType,
                         lastPrice: stock.priceAvg,
-                        change: 0,
-                        ratioChange: 0);
+                        change: stock.changePrice,
+                        ratioChange: stock.changePricePercent);
                     return MarketCell(
                       stock: stockM,
                       onPressed: () => controller.onTapped(stockM),
