@@ -15,6 +15,10 @@ class MyStockModelDTO {
   final double? priceAvg;
   @JsonKey(name: "amount")
   final double? amount;
+  @JsonKey(name: "stockName")
+  final String? stockName;
+  @JsonKey(name: "imageUrl")
+  final String? imageUrl;
   @JsonKey(name: "quantityWaitingReturn")
   final double? quantityWaitingReturn;
   @JsonKey(name: "dividendsWaitingReturn")
@@ -28,6 +32,8 @@ class MyStockModelDTO {
       this.quantity,
       this.priceAvg,
       this.amount,
+      this.stockName,
+      this.imageUrl,
       this.quantityWaitingReturn,
       this.dividendsWaitingReturn,
       this.portfolioHistoryList);
@@ -54,18 +60,21 @@ class MyStockModelDTO {
 extension MyStockModelMapper on MyStockModelDTO {
   MyStockModel toModel() {
     return MyStockModel(
-        id,
-        productKey,
-        null,
-        quantity ?? 0,
-        priceAvg ?? 0,
-        null,
-        null,
-        null,
-        null,
-        quantityWaitingReturn ?? 0,
-        dividendsWaitingReturn ?? 0,
-        getListPortfolio());
+      id,
+      productKey,
+      null,
+      quantity ?? 0,
+      priceAvg ?? 0,
+      null,
+      null,
+      null,
+      null,
+      stockName,
+      imageUrl,
+      quantityWaitingReturn ?? 0,
+      dividendsWaitingReturn ?? 0,
+      getListPortfolio(),
+    );
   }
 }
 

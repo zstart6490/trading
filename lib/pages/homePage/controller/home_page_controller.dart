@@ -112,8 +112,12 @@ class HomePageController extends BaseController
   }
 
   void stockDetail(PropertyModel? stock) {
-    print("softAlphabet");
-    Get.toNamed(AppRoutes.stockDetail, arguments: stock?.toStockModel());
+    if (tabController.index == 0){
+      Get.toNamed(AppRoutes.stockDetail, arguments: stock?.toStockModel());
+    }else if (tabController.index == 1){
+      Get.toNamed(AppRoutes.stockMoreDetail, arguments: stock?.toStockModel());
+    }
+
   }
 
   void selectStock() {

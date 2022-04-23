@@ -1,11 +1,17 @@
+import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/domain/entities/property_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class MyStockModel extends PropertyModel {
+  final String? stockName;
+  final String? imageUrl;
   final double quantityWaitingReturn;
   final double dividendsWaitingReturn;
   final List<PortfolioModel>? portfolioHistoryList;
+
+
+  String get fullLink => "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
 
   MyStockModel(
     int? id,
@@ -17,10 +23,13 @@ class MyStockModel extends PropertyModel {
     double? floor,
     double? refPrice,
     double? lastPrice,
+    this.stockName,
+    this.imageUrl,
     this.quantityWaitingReturn,
     this.dividendsWaitingReturn,
     this.portfolioHistoryList,
-  ) : super(id, productKey,productType, quantity, priceAvg, ceiling, floor, refPrice, lastPrice);
+  ) : super(id, productKey, productType, quantity, priceAvg, ceiling, floor,
+            refPrice, lastPrice);
 
   String getPercentPrice(double currentPrice) {
     final priceDifference =

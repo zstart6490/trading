@@ -1,7 +1,7 @@
 name: trading_module
 description: A new Flutter package project.
 version: 0.0.1
-
+publish_to: 'none'
 
 environment:
   sdk: ">=2.16.1 <3.0.0"
@@ -41,9 +41,12 @@ dependencies:
   simple_tooltip: ^1.0.0
 
   universal_html: ^2.0.8
-  candlesticks: ^2.1.0
+#  candlesticks: ^2.1.0
   http: ^0.13.4
-
+  candlesticks:
+    git:
+      url: https://github.com/zstart6490/candlesticks.git
+      ref: develop
   #flutter_client_sse: ^1.0.0
 #  flutter_client_sse: ^1.0.0
 

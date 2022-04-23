@@ -123,7 +123,7 @@ class HeaderStockDetailView<T extends StockDetailController>
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: CachedNetworkImage(
-                  imageUrl: controller.stock.fullLink,
+                  imageUrl: stock?.fullLink ?? "",
                   width: 43,
                   height: 43,
                   placeholder: (context, url) =>
@@ -139,7 +139,7 @@ class HeaderStockDetailView<T extends StockDetailController>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      controller.stock.symbol,
+                      stock?.productKey ?? "",
                       style: const TextStyle(
                         color: Color(0xFF333333),
                         fontSize: 20,
@@ -149,7 +149,7 @@ class HeaderStockDetailView<T extends StockDetailController>
                       ),
                     ),
                     Text(
-                      controller.stock.stockName,
+                      stock?.stockName ?? "",
                       style: const TextStyle(
                         color: Color(0xFF333333),
                         fontSize: 14,

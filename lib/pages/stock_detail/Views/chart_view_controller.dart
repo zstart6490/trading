@@ -55,33 +55,14 @@ class ChartController extends BaseController with StateMixin<List<Candle>>, GetS
       final data = result.data!;
       candles.clear();
       for (var i = 0; i < length; i++){
-        final candle = Candle(date:  DateTime.now(), high: data[i].high, low: data[i].low, open: data[i].open, close: data[i].close, volume: data[i].volume);
-        //final candle =  Candle(date: DateTime.now(), open: 1780.36, high: 1873.93, low: 1755.34, close: 1848.56, volume: 1);
+        final candle = Candle(date: DateFormat(DateFormater.ddMMYYYY).parse(data[i].tradingDate ?? ""), high: data[i].high, low: data[i].low, open: data[i].open, close: data[i].close, volume: data[i].volume);
         candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
-        // candles.add(candle);
       }
+
+      for (var i = 0; i < length; i++) {
+        print(candles[i].date.toString());
+      }
+
       change(candles, status: RxStatus.success());
     } else if (result.error != null) {
       change(null, status: RxStatus.error());

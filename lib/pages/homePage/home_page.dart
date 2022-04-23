@@ -108,9 +108,11 @@ class HomePageView extends GetView<HomePageController> {
                           item: controller.tabController.index == 0
                               ? (property?.stockList?[index])
                               : (property?.productWatchingVOList?[index]),
-                          //item: property?.stockList?[index],
+
                           onPressed: () {
-                            controller.stockDetail(property?.stockList?[index]);
+                            controller.tabController.index == 0
+                                ? controller.stockDetail(property?.stockList?[index])
+                                : controller.stockDetail(property?.productWatchingVOList?[index]);
                           },
                           controller: controller,
                         );
