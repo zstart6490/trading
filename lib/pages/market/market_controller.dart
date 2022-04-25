@@ -18,7 +18,7 @@ class MarketController extends BaseController
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
   Rx<bool> hiddenRemoveSearch = true.obs;
   RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController();
 
   @override
   void onReady() {

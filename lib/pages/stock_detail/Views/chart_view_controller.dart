@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_maket_usecase.dart';
-import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/utils/date_utils.dart';
 
 class ChartController extends BaseController with StateMixin<List<Candle>>, GetSingleTickerProviderStateMixin {

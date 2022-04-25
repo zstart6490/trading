@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/domain/entities/account_info_model.dart';
 import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/domain/entities/property_model.dart';
+import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
 import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
-import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/routes/app_navigate.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-enum SortEnum {normal, up, down }
+enum SortEnum { normal, up, down }
 
 class HomePageController extends BaseController
     with StateMixin<AccountInfoModel>, GetSingleTickerProviderStateMixin {
@@ -21,7 +22,8 @@ class HomePageController extends BaseController
   late TabController tabController;
   final OpenWithdrawUseCase _withdrawUseCase = Get.find<OpenWithdrawUseCase>();
   final HomeTradingUseCase _homeTradingUseCase = Get.find<HomeTradingUseCase>();
-  final StockUseCase _stockUseCase = Get.find<StockUseCase>();
+  List<StockModel> listStock = <StockModel>[];
+  final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
   late RefreshController refreshController;
 
   late Stream myStream;
@@ -30,7 +32,6 @@ class HomePageController extends BaseController
   Rx<SortEnum> sortVolume = Rx<SortEnum>(SortEnum.normal);
   Rx<SortEnum> sortCurrentPrice = Rx<SortEnum>(SortEnum.normal);
   Rx<SortEnum> sortProfitAndLoss = Rx<SortEnum>(SortEnum.normal);
-
 
   AccountInfoModel? accountInfoModel;
 
@@ -50,61 +51,71 @@ class HomePageController extends BaseController
     getAccountInfo();
   }
 
+  @override
+  void onClose() {
+    stockPriceSocket.unSubscribeStock();
+  }
+
+  @override
+  Future<bool> onWillPop() {
+    stockPriceSocket.unSubscribeStock();
+    return Future.value(true);
+  }
+
   Future openCashOut() async {
     final double balance = accountInfoModel?.cashBalance ?? 0;
-      if (balance <= 0) {
-        final subtitleStyle = Get.context!.textSize14;
-        showAlertDialog(CustomAlertDialog(
-            title: "Thông báo",
-            descWidget: Expanded(
-                child: RichText(
-              textAlign: TextAlign.center,
-              maxLines: 3,
-              text: TextSpan(
-                text:
-                    "Số dư tiền mặt của bạn không đủ để thực hiện hành động này\n",
-                style: subtitleStyle,
-                children: <TextSpan>[
-                  TextSpan(
-                      text: "(Số tiền tối thiểu là 50.000đ)",
-                      style: subtitleStyle.copyWith(color: Colors.red)),
-                ],
-              ),
-            )),
-            actions: [
-              AlertAction(
-                  text: "Đã hiểu",
-                  isDefaultAction: true,
-                  onPressed: () => hideDialog())
-            ]));
-        return;
-      }
-      final bool userHasAddBank = dataAppParent.hasAddBank ?? false;
-      if (userHasAddBank) {
-        showProgressingDialog();
-        final result = await _withdrawUseCase.listReason();
-        hideDialog();
-        if (result.data != null) {
-          Get.toNamed(AppRoutes.withdrawReasonScene,
-              arguments: NavigateWithdrawData(
-                  listReason: result.data!,
-                  listUserBank: [],
-                  totalMoneyUser: balance));
-        }
-        if (result.error != null) {
-          showSnackBar(result.error!.message);
-        }
-      } else {
-        //to add bank
-        mainProvider.callToAddBank?.call(
-          () {
-            dataAppParent.hasAddBank = true;
-            openCashOut();
-          },
-        );
-      }
+    if (balance <= 0) {
+      final subtitleStyle = Get.context!.textSize14;
+      showAlertDialog(CustomAlertDialog(
+          title: "Thông báo",
+          descWidget: Expanded(
+              child: RichText(
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            text: TextSpan(
+              text:
+                  "Số dư tiền mặt của bạn không đủ để thực hiện hành động này\n",
+              style: subtitleStyle,
+              children: <TextSpan>[
+                TextSpan(
+                    text: "(Số tiền tối thiểu là 50.000đ)",
+                    style: subtitleStyle.copyWith(color: Colors.red)),
+              ],
+            ),
+          )),
+          actions: [
+            AlertAction(
+                text: "Đã hiểu",
+                isDefaultAction: true,
+                onPressed: () => hideDialog())
+          ]));
+      return;
     }
-
+    final bool userHasAddBank = dataAppParent.hasAddBank ?? false;
+    if (userHasAddBank) {
+      showProgressingDialog();
+      final result = await _withdrawUseCase.listReason();
+      hideDialog();
+      if (result.data != null) {
+        Get.toNamed(AppRoutes.withdrawReasonScene,
+            arguments: NavigateWithdrawData(
+                listReason: result.data!,
+                listUserBank: [],
+                totalMoneyUser: balance));
+      }
+      if (result.error != null) {
+        showSnackBar(result.error!.message);
+      }
+    } else {
+      //to add bank
+      mainProvider.callToAddBank?.call(
+        () {
+          dataAppParent.hasAddBank = true;
+          openCashOut();
+        },
+      );
+    }
+  }
 
   void onTabChange(int index) {
     debugPrint("TabChange :${tabController.index}");
@@ -112,12 +123,11 @@ class HomePageController extends BaseController
   }
 
   void stockDetail(PropertyModel? stock) {
-    if (tabController.index == 0){
+    if (tabController.index == 0) {
       Get.toNamed(AppRoutes.stockDetail, arguments: stock?.toStockModel());
-    }else if (tabController.index == 1){
+    } else if (tabController.index == 1) {
       Get.toNamed(AppRoutes.stockMoreDetail, arguments: stock?.toStockModel());
     }
-
   }
 
   void selectStock() {
@@ -139,6 +149,37 @@ class HomePageController extends BaseController
     //refreshListTransaction();
   }
 
+  void subscribe() {
+    final List<String> symbols;
+    if (tabController.index == 0) {
+      symbols = accountInfoModel?.stockList
+              ?.where((e) => e.productKey != null)
+              .map((e) => e.productKey!)
+              .toList() ??
+          [""];
+    } else {
+      symbols = accountInfoModel?.productWatchingVOList
+              ?.where((e) => e.productKey != null)
+              .map((e) => e.productKey!)
+              .toList() ??
+          [""];
+    }
+
+    stockPriceSocket.subscribeStock(
+      symbols,
+      (stock) {
+        accountInfoModel?.stockList
+            ?.firstWhere((e) => e.productKey == stock.stockPrice.symbol)
+            .lastPrice = stock.stockPrice.price;
+        accountInfoModel?.productWatchingVOList
+            ?.firstWhere((e) => e.productKey == stock.stockPrice.symbol)
+            .lastPrice = stock.stockPrice.price;
+        change(accountInfoModel, status: RxStatus.success());
+      },
+    );
+  }
+
+
   Future<void> getAccountInfo() async {
     final result = await _homeTradingUseCase.getAccountInfo();
     if (result.data != null) {
@@ -149,6 +190,7 @@ class HomePageController extends BaseController
       accountInfoModel?.productWatchingVOList?.insert(0,
           PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
+      subscribe();
     } else {
       change(null, status: RxStatus.empty());
     }
@@ -163,9 +205,9 @@ class HomePageController extends BaseController
   }
 
   void tapOnSortAlphabet() {
-    if  (sortAlphabet.value != SortEnum.down){
+    if (sortAlphabet.value != SortEnum.down) {
       sortAlphabet.value = SortEnum.down;
-    }else{
+    } else {
       sortAlphabet.value = SortEnum.up;
     }
 
@@ -197,9 +239,9 @@ class HomePageController extends BaseController
   }
 
   void tapOnSortVolume() {
-    if  (sortVolume.value != SortEnum.down){
+    if (sortVolume.value != SortEnum.down) {
       sortVolume.value = SortEnum.down;
-    }else{
+    } else {
       sortVolume.value = SortEnum.up;
     }
     if (tabController.index == 0) {
@@ -218,9 +260,9 @@ class HomePageController extends BaseController
   }
 
   void tapOnSortCurrentPrice() {
-    if (sortCurrentPrice.value != SortEnum.down){
+    if (sortCurrentPrice.value != SortEnum.down) {
       sortCurrentPrice.value = SortEnum.down;
-    }else{
+    } else {
       sortCurrentPrice.value = SortEnum.up;
     }
 
@@ -251,9 +293,9 @@ class HomePageController extends BaseController
   }
 
   void tapOnSortProfitAndLoss() {
-    if (sortProfitAndLoss.value != SortEnum.down){
+    if (sortProfitAndLoss.value != SortEnum.down) {
       sortProfitAndLoss.value = SortEnum.down;
-    }else{
+    } else {
       sortProfitAndLoss.value = SortEnum.up;
     }
     if (tabController.index == 0) {

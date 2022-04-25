@@ -11,7 +11,7 @@ class PropertyModel {
   final double? ceiling;
   final double? floor;
   final double? refPrice;
-  final double? lastPrice;
+  late double? lastPrice;
 
   PropertyModel(
     this.id,
@@ -44,7 +44,7 @@ class PropertyModel {
 
   String getPercentage() {
     final value = ((priceAvg ?? 0) - (lastPrice ?? 0)) / (priceAvg ?? 0);
-    if (!value.isNaN) {
+    if (!value.isNaN && !value.isInfinite) {
       return value > 0 ? "+${value.toPrecision(2)}%" : "${value.toPrecision(2)}%";
     }
     return "0%";
@@ -52,7 +52,7 @@ class PropertyModel {
 
   String getPercentageFollow() {
     final value = ((lastPrice ?? 0) - (refPrice ?? 0)) / (refPrice ?? 0);
-    if (!value.isNaN) {
+    if (!value.isNaN && !value.isInfinite) {
       return value > 0 ? "+${value.toPrecision(2)}%" : "${value.toPrecision(2)}%";
     }
     return "0%";
