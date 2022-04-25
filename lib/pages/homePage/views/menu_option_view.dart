@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/domain/entities/account_info_model.dart';
-import 'package:trading_module/domain/entities/my_stock_model.dart';
 import 'package:trading_module/domain/entities/property_model.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/homePage/views/PropertyView/property_view.dart';

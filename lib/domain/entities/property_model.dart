@@ -43,13 +43,19 @@ class PropertyModel {
   }
 
   String getPercentage() {
-    final value = (((priceAvg ?? 0) - (lastPrice ?? 0)) / (priceAvg ?? 0)).toPrecision(2);
-    return value > 0 ? "+$value%" : "$value%";
+    final value = ((priceAvg ?? 0) - (lastPrice ?? 0)) / (priceAvg ?? 0);
+    if (!value.isNaN) {
+      return value > 0 ? "+${value.toPrecision(2)}%" : "${value.toPrecision(2)}%";
+    }
+    return "0%";
   }
 
   String getPercentageFollow() {
-    final value = (((lastPrice ?? 0) - (refPrice ?? 0)) / (refPrice ?? 0)).toPrecision(2);
-    return value > 0 ? "+$value%" : "$value%";
+    final value = ((lastPrice ?? 0) - (refPrice ?? 0)) / (refPrice ?? 0);
+    if (!value.isNaN) {
+      return value > 0 ? "+${value.toPrecision(2)}%" : "${value.toPrecision(2)}%";
+    }
+    return "0%";
   }
 
   String getValuePriceDifferenceFollow() {
