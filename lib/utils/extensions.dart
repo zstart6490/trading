@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trading_module/configs/constants.dart';
@@ -125,6 +126,7 @@ extension CustomStringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }
+
 extension CustomIntExtension on int {
   String toCurrency({String symbol = "đ"}) {
     final oCcy = NumberFormat.decimalPattern("vi");
@@ -172,13 +174,11 @@ extension CustomDoubleExtension on double {
     return "${oCcy.format(this)}$symbol";
   }
 
-
-
   Color getStockColor() {
     if (this == 0) {
       return refColor;
     }
-    if (this  > 0) {
+    if (this > 0) {
       return increaseColor;
     }
     return decreaseColor;
@@ -188,18 +188,18 @@ extension CustomDoubleExtension on double {
     if (this == currentPrice) {
       return refColor;
     }
-    if (this  > currentPrice) {
+    if (this > currentPrice) {
       return increaseColor;
     }
     return decreaseColor;
   }
 
   Color getStockColorWith(double ref, double floor, double ceil) {
-    if (this  > ref && this < ceil) {
+    if (this > ref && this < ceil) {
       return increaseColor;
     }
 
-    if (this  < ref && this > floor) {
+    if (this < ref && this > floor) {
       return decreaseColor;
     }
 
@@ -214,16 +214,15 @@ extension CustomDoubleExtension on double {
     return refColor;
   }
 
-  String getRatioChange(){
+  String getRatioChange() {
     if (this == 0) {
       return "0,0%";
     }
-    if (this  > 0) {
+    if (this > 0) {
       return "+${this}%".replaceAll(".", ",");
     }
     return "${this}%".replaceAll(".", ",");
   }
-
 
   String getPriceStock() {
     final value = this / 1000;
@@ -238,7 +237,6 @@ extension CustomDoubleExtension on double {
     final summary = oCcy.format(value).replaceAll(",", ".");
     return summary;
   }
-
 }
 
 extension BuildContextExtension on BuildContext {
@@ -296,6 +294,14 @@ extension ImageExtension on String {
       width: mWidth,
       height: mHeight,
       package: 'trading_module',
+    );
+  }
+
+  CachedNetworkImage loadCacheImg({double? mWidth, double? mHeight}) {
+    return CachedNetworkImage(
+      imageUrl: this,
+      width: mWidth,
+      height: mHeight,
     );
   }
 }

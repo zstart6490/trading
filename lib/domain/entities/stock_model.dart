@@ -1,6 +1,7 @@
 import 'package:trading_module/configs/service_api_config.dart';
 
 class StockModel {
+
   final String symbol;
   final String stockName;
   final String? imageUrl;

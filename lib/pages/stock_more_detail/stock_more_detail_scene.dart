@@ -11,6 +11,7 @@ import 'package:trading_module/pages/stock_detail/Views/cp_news_item_view.dart';
 import 'package:trading_module/pages/stock_more_detail/stock_more_detail_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
+import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
 import 'package:trading_module/utils/util.dart';
 
 class StockMoreDetailScene extends GetView<StockMoreDetailController> {
@@ -769,7 +770,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
               ),
             ]),
           ),
-          CellHeaderFinanceInfo(
+          const CellHeaderFinanceInfo(
               title: "Chỉ số tài chính",
               contentRow1: "2020",
               contentRow2: "2021"),
@@ -805,12 +806,22 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
         ],
       );
     } else {
-      return ListView.builder(
-        itemBuilder: (context, index) => CompanyNewsItemView(news: controller.listNews[index]),
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
-        itemCount: controller.listNews.length,
-      );
+      if (controller.listNews.isNotEmpty) {
+        return ListView.builder(
+          itemBuilder: (context, index) =>
+              CompanyNewsItemView(news: controller.listNews[index]),
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          itemCount: controller.listNews.length,
+        );
+      } else {
+        return const ListNoDataBackground(
+          padding: EdgeInsets.only(top: 100),
+          pngPath: "assets/images/png/trans_empty.png",
+          title: "Chưa có dữ liệu ",
+          desc: "",
+        );
+      }
     }
   }
 }
