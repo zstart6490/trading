@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/domain/entities/company_news_model.dart';
 import 'package:trading_module/shared_widgets/Dot.dart';
@@ -13,50 +14,86 @@ class CompanyNewsItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Column(
-        children: [
-          Row(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: InkWell(
+          onTap: () {
+            _launchURL(context, news.url);
+          },
+          child: Column(
             children: [
-              Text(
-                news.source.sourceName,
-                style: context.textSize14,
+              Row(
+                children: [
+                  Text(
+                    news.source.sourceName,
+                    style: context.textSize14,
+                  ),
+                  SIZED_BOX_W08,
+                  const Dot(
+                    size: 3,
+                    color: Colors.grey,
+                  ),
+                  SIZED_BOX_W08,
+                  Text(
+                    "15/2/2022",
+                    style: context.textSize14.copyWith(color: Colors.grey),
+                  )
+                ],
               ),
-              SIZED_BOX_W08,
-              const Dot(
-                size: 3,
-                color: Colors.grey,
-              ),
-              SIZED_BOX_W08,
-              Text(
-                "15/2/2022",
-                style: context.textSize14.copyWith(color: Colors.grey),
+              SIZED_BOX_H12,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          "https://vnn-imgs-f.vgcloud.vn/2022/01/04/15/1-1.jpg",
+                      width: 114,
+                      height: 80,
+                    ),
+                  ),
+                  SIZED_BOX_W12,
+                  Expanded(
+                      child: Text(
+                    news.title,
+                    style: context.textSize16
+                        .copyWith(fontWeight: FontWeight.w700),
+                  )),
+                ],
               )
             ],
           ),
-          SIZED_BOX_H12,
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      "https://vnn-imgs-f.vgcloud.vn/2022/01/04/15/1-1.jpg",
-                  width: 114,
-                  height: 80,
-                ),
-              ),
-              SIZED_BOX_W12,
-              Expanded(
-                  child: Text(
-                news.title,
-                style: context.textSize16.copyWith(fontWeight: FontWeight.w700),
-              )),
-            ],
-          )
-        ],
-      ),
-    );
+        ));
+  }
+
+  Future _launchURL(BuildContext context,String url) async {
+    try {
+      await launch(
+        url,
+        customTabsOption: CustomTabsOption(
+          toolbarColor: Theme.of(context).primaryColor,
+          enableDefaultShare: true,
+          enableUrlBarHiding: true,
+          showPageTitle: true,
+          animation: CustomTabsSystemAnimation.slideIn(),
+          extraCustomTabs: const <String>[
+            // ref. https://play.google.com/store/apps/details?id=org.mozilla.firefox
+            'org.mozilla.firefox',
+            // ref. https://play.google.com/store/apps/details?id=com.microsoft.emmx
+            'com.microsoft.emmx',
+          ],
+        ),
+        safariVCOption: SafariViewControllerOption(
+          preferredBarTintColor: Theme.of(context).primaryColor,
+          preferredControlTintColor: Colors.white,
+          barCollapsingEnabled: true,
+          entersReaderIfAvailable: false,
+          dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
+        ),
+      );
+    } catch (e) {
+      // An exception is thrown if browser app is not installed on Android device.
+      debugPrint(e.toString());
+    }
   }
 }

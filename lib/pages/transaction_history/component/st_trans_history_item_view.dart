@@ -36,28 +36,35 @@ class StockTransHistoryItemView extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 25, right: 25, top: 16, bottom: 8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
+              Expanded(
+                  child: Text(
                 "Mã CP",
                 style: context.textSize12.copyWith(
                     color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
-              ),
-              Text(
+              )),
+              Expanded(
+                  child: Text(
                 "Khối lượng",
+                    textAlign: TextAlign.center,
                 style: context.textSize12.copyWith(
                     color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
-              ),
-              Text(
+              )),
+              Expanded(
+                  child: Text(
                 "Giá khớp",
+                    textAlign: TextAlign.center,
                 style: context.textSize12.copyWith(
                     color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
-              ),
-              Text(
+              )),
+              Expanded(
+                  child: Text(
                 "Trạng thái",
+                    textAlign: TextAlign.right,
                 style: context.textSize12.copyWith(
                     color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
-              )
+              ))
             ],
           ),
         ),
