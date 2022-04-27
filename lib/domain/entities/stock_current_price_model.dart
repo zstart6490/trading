@@ -1,6 +1,10 @@
+import 'package:trading_module/configs/service_api_config.dart';
+
 class StockCurrentPriceModel {
   final bool? isProductWatching;
   final String? symbol;
+  final String? imageUrl;
+  final String? stockName;
   final String? tradingDate;
   final String? tradingTime;
   final double? ceiling;
@@ -34,9 +38,14 @@ class StockCurrentPriceModel {
   final double? askPrice3;
   final double? askVol3;
 
+
+  String get fullLink => "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
+
   StockCurrentPriceModel(
       this.isProductWatching,
       this.symbol,
+      this.imageUrl,
+      this.stockName,
       this.tradingDate,
       this.tradingTime,
       this.ceiling,

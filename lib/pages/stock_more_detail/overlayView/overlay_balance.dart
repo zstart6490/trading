@@ -26,7 +26,7 @@ class OverlayBalance extends StatelessWidget {
       children: [
         Positioned(
           left: 0,
-          top: 0,
+          top: 23,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

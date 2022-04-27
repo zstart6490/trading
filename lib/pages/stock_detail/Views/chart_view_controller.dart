@@ -1,15 +1,15 @@
-import 'dart:convert';
 import 'package:candlesticks/candlesticks.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_maket_usecase.dart';
 import 'package:trading_module/utils/date_utils.dart';
+import 'package:trading_module/utils/util.dart';
 
-class ChartController extends BaseController with StateMixin<List<Candle>>, GetSingleTickerProviderStateMixin {
+class ChartController extends BaseController
+    with StateMixin<List<Candle>>, GetSingleTickerProviderStateMixin {
   List<Candle> candles = [];
   Rx<bool> themeIsDark = false.obs;
   final StockModel stock;
@@ -33,55 +33,49 @@ class ChartController extends BaseController with StateMixin<List<Candle>>, GetS
   void onReady() {
     onTabChange(0);
     super.onReady();
-    // fetchCandles().then((value) {
-    //   candles = value;
-    //   print("AAAAAA");
-    //   print(value);
-    //   change(candles, status: RxStatus.success());
-    // });
   }
 
   void onTabChange(int index) {
-    debugPrint("TabChange :${tabController.index}");
+    print("onTabChange:  $index");
     final time = timeRange[index];
     getHistoryStockPrice(time);
   }
 
   Future<void> getHistoryStockPrice(String time) async {
-    final result = await _stockMarketUseCase.getHistoryStockPrice(symbol: stock.symbol, type: time);
+    final result = await _stockMarketUseCase.getHistoryStockPrice(
+        symbol: stock.symbol, type: time);
     if (result.data != null) {
       final length = result.data?.length ?? 0;
       final data = result.data!;
       candles.clear();
-      for (var i = 0; i < length; i++){
-        final candle = Candle(date: DateFormat(DateFormater.ddMMYYYY).parse(data[i].tradingDate ?? ""), high: data[i].high, low: data[i].low, open: data[i].open, close: data[i].close, volume: data[i].volume);
+      for (var i = 0; i < length; i++) {
+        final candle = Candle(
+          date: DateFormat(DateFormater.ddMMYYYY)
+              .parse(data[i].tradingDate ?? ""),
+          high: data[i].high,
+          low: data[i].low,
+          open: data[i].open,
+          close: data[i].close,
+          volume: data[i].volume,
+        );
         candles.add(candle);
       }
+      print("AAAA:  ${candles.length}");
 
-      for (var i = 0; i < length; i++) {
-        print(candles[i].date.toString());
+      if (candles.length > 1) {
+        //DUR_400.delay().then((_) => change(candles, status: RxStatus.success()));
+        change(candles, status: RxStatus.success());
+      } else {
+        change(null, status: RxStatus.empty());
       }
-
-      change(candles, status: RxStatus.success());
     } else if (result.error != null) {
       change(null, status: RxStatus.error());
       showSnackBar(result.error!.message);
     }
   }
 
-  void changeThem(){
+  void changeThem() {
     themeIsDark.value = !themeIsDark.value;
   }
 
-  Future<List<Candle>> fetchCandles() async {
-    final uri = Uri.parse(
-        "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h");
-    final res = await http.get(uri);
-
-    return (jsonDecode(res.body) as List<dynamic>)
-        .map((e) => Candle.fromJson(e as List<dynamic>))
-        .toList()
-        .reversed
-        .toList();
-  }
 }

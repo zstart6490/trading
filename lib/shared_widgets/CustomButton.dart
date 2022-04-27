@@ -140,10 +140,6 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("XXXXXXXX");
-    print(bgColor);
-    print("XXXXXXXX");
-    //print(Theme.of(context).primaryColor);
     return SizedBox(
       height: height,
       width: width ?? double.infinity,
