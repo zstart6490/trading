@@ -80,9 +80,9 @@ class StockMoreDetailController extends BaseController
   }
 
   Future<void> checkShowGuidePopup() async {
-    if (shouldShowOnBoarding()) {
+    //if (shouldShowOnBoarding()) {
       showOnBoarding();
-    }
+    //}
   }
 
   void showOnBoarding() {
