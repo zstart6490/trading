@@ -27,7 +27,7 @@ class StockMoreDetailController extends BaseController
   late Offset totalAmountOffset;
   late GlobalKey followKey;
 
-  final int countItem = 12;
+
   RxInt indexTab = 0.obs;
 
   RxBool isFollow = false.obs;
@@ -80,9 +80,9 @@ class StockMoreDetailController extends BaseController
   }
 
   Future<void> checkShowGuidePopup() async {
-    if (shouldShowOnBoarding()) {
+    //if (shouldShowOnBoarding()) {
       showOnBoarding();
-    }
+    //}
   }
 
   void showOnBoarding() {
