@@ -24,7 +24,9 @@ class HomePageController extends BaseController
   final HomeTradingUseCase _homeTradingUseCase = Get.find<HomeTradingUseCase>();
   List<StockModel> listStock = <StockModel>[];
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
-  late RefreshController refreshController;
+
+  RefreshController refreshController =
+  RefreshController();
 
   late Stream myStream;
 
@@ -41,7 +43,6 @@ class HomePageController extends BaseController
     tabController.addListener(() {
       if (!tabController.indexIsChanging) onTabChange(tabController.index);
     });
-    refreshController = RefreshController();
     super.onInit();
   }
 

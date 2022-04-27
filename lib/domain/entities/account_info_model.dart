@@ -56,14 +56,18 @@ class AccountInfoModel {
         totalOrigin += (item.priceAvg ?? 0)  * (item.quantity ?? 0);
       }
     }
-    final percent = ((totalGrowth / totalOrigin)*100).toPrecision(2);
-    final sPercent = percent > 0 ? "+$percent%" : "$percent%";
+
+    final percent = (totalGrowth / totalOrigin)*100;
+    var sPercent = "0%";
+    if (!percent.isNaN && !percent.isInfinite) {
+       sPercent = percent > 0 ? "+${percent.toPrecision(2)}%" : "${percent.toPrecision(2)}%";
+    }
 
     final sTotalGrowth = totalGrowth > 0 ? "+${totalGrowth.toCurrency()}" : totalGrowth.toCurrency();
-
     return "$sTotalGrowth ($sPercent)";
   }
 }
+
 
 class PendingTransactionModel {
   final String? modifyTime;

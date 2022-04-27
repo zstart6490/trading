@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 
-
 part 'stock_current_price_model_dto.g.dart';
 
 @JsonSerializable()
@@ -10,6 +9,10 @@ class StockCurrentPriceModelDTO {
   final bool? isProductWatching;
   @JsonKey(name: "symbol")
   final String? symbol;
+  @JsonKey(name: "imageUrl")
+  final String? imageUrl;
+  @JsonKey(name: "stockName")
+  final String? stockName;
   @JsonKey(name: "TradingDate")
   final String? tradingDate;
   @JsonKey(name: "TradingTime")
@@ -76,6 +79,8 @@ class StockCurrentPriceModelDTO {
   StockCurrentPriceModelDTO(
       this.isProductWatching,
       this.symbol,
+      this.imageUrl,
+      this.stockName,
       this.tradingDate,
       this.tradingTime,
       this.ceiling,
@@ -119,37 +124,40 @@ class StockCurrentPriceModelDTO {
 extension StockCurrentPriceModelDTOMapper on StockCurrentPriceModelDTO {
   StockCurrentPriceModel toModel() {
     return StockCurrentPriceModel(
-        isProductWatching,
-        symbol,
-        tradingDate,
-        tradingTime,
-        ceiling,
-        floor,
-        refPrice,
-        open,
-        close,
-        high,
-        low,
-        avg,
-        priorVal,
-        lastPrice,
-        change,
-        ratioChange,
-        estMatchedPrice,
-        lastVol,
-        totalVal,
-        totalVol,
-        bidPrice1,
-        bidVol1,
-        askPrice1,
-        askVol1,
-        bidPrice2,
-        bidVol2,
-        askPrice2,
-        askVol2,
-        bidPrice3,
-        bidVol3,
-        askPrice3,
-        askVol3);
+      isProductWatching,
+      symbol,
+      imageUrl,
+      stockName,
+      tradingDate,
+      tradingTime,
+      ceiling,
+      floor,
+      refPrice,
+      open,
+      close,
+      high,
+      low,
+      avg,
+      priorVal,
+      lastPrice,
+      change,
+      ratioChange,
+      estMatchedPrice,
+      lastVol,
+      totalVal,
+      totalVol,
+      bidPrice1,
+      bidVol1,
+      askPrice1,
+      askVol1,
+      bidPrice2,
+      bidVol2,
+      askPrice2,
+      askVol2,
+      bidPrice3,
+      bidVol3,
+      askPrice3,
+      askVol3,
+    );
   }
 }

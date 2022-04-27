@@ -27,7 +27,7 @@ class StockMoreDetailController extends BaseController
   late Offset totalAmountOffset;
   late GlobalKey followKey;
 
-  final int countItem = 12;
+
   RxInt indexTab = 0.obs;
 
   RxBool isFollow = false.obs;

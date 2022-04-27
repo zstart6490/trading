@@ -96,7 +96,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: CachedNetworkImage(
-                    imageUrl: controller.stock.fullLink,
+                    imageUrl: stock?.fullLink ?? "",
                     width: 43,
                     height: 43,
                     placeholder: (context, url) =>
@@ -112,7 +112,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        controller.stock.stockName,
+                        stock?.stockName ?? "",
                         style: const TextStyle(
                           color: Color(0xFF333333),
                           fontSize: 14,
@@ -125,7 +125,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                       Row(
                         children: [
                           Text(
-                            controller.stock.lastPrice.toCurrency(symbol: ""),
+                            (stock?.lastPrice ?? 0).toCurrency(symbol: ""),
                             style: const TextStyle(
                               color: Color(0xFF333333),
                               fontSize: 20,
