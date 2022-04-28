@@ -3,22 +3,21 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
-import 'package:trading_module/domain/entities/company_news_model.dart';
-import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_exchange_usecase.dart';
-import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/pages/stock_more_detail/overlayView/overlay_balance.dart';
+import 'package:trading_module/pages/stock_more_detail/tabs/financial/stock_company_info_controller.dart';
+import 'package:trading_module/pages/stock_more_detail/tabs/news/stock_company_news_controller.dart';
+import 'package:trading_module/pages/stock_more_detail/tabs/overview/stock_overview_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomOverlay.dart';
 
 class StockMoreDetailController extends BaseController
-    with StateMixin<StockCurrentPriceModel>, GetSingleTickerProviderStateMixin {
+  with GetSingleTickerProviderStateMixin {
   final StockModel stock;
 
   StockMoreDetailController(this.stock);
 
-  final StockUseCase _stockUseCase = Get.find<StockUseCase>();
   final StockExchangeUseCase _stockExchangeUseCase =
       Get.find<StockExchangeUseCase>();
 
@@ -26,7 +25,6 @@ class StockMoreDetailController extends BaseController
   late TabController tabController;
   late Offset totalAmountOffset;
   late GlobalKey followKey;
-
 
   RxInt indexTab = 0.obs;
 
@@ -43,34 +41,8 @@ class StockMoreDetailController extends BaseController
 
   @override
   void onReady() {
-    getCurrentStockPrice();
     checkShowGuidePopup();
     super.onReady();
-  }
-
-  RxList<CompanyNewsModel> listNews = <CompanyNewsModel>[].obs;
-
-  Future getCompanyNewsList(String symbol, int page, int limit) async {
-    final result = await _stockUseCase.getCompanyNewsList(symbol, page, limit);
-    if (result.data != null) {
-      listNews.value = result.data!.records;
-    }
-    if (result.error != null) {
-      showSnackBar(
-          result.error!.message);
-    }
-  }
-
-  Future<void> getCurrentStockPrice() async {
-    final result =
-        await _stockUseCase.getCurrentStockPrice(symbol: stock.symbol);
-    if (result.data != null) {
-      isFollow.value = result.data?.isProductWatching ?? false;
-      change(result.data, status: RxStatus.success());
-    } else if (result.error != null) {
-      change(null, status: RxStatus.error());
-      showSnackBar(result.error!.message);
-    }
   }
 
   void onPressUnderstoodGuide() {
@@ -122,9 +94,14 @@ class StockMoreDetailController extends BaseController
     debugPrint("TabChange :${tabController.index}");
     indexTab.value = tabController.index;
     if (tabController.index == 0) {
+      final StockOverviewController controller = Get.find();
+      controller.getCurrentStockPrice();
     } else if (tabController.index == 1) {
+      final StockCompanyInfoController newsController = Get.find();
+      newsController.getStockFinanceReport(stock.symbol);
     } else if (tabController.index == 2) {
-      getCompanyNewsList(stock.symbol, 0, 100);
+      final StockCompanyNewsController newsController = Get.find();
+      newsController.getCompanyNewsList(stock.symbol, 0, 100);
     }
   }
 

@@ -8,6 +8,7 @@ class CellFinanceInfo extends StatelessWidget {
   final String contentRow2;
   final FontWeight? fontWeight;
   final Color? textColor;
+  final bool hiddenDiv;
 
   const CellFinanceInfo(
       {Key? key,
@@ -15,7 +16,8 @@ class CellFinanceInfo extends StatelessWidget {
       required this.contentRow1,
       required this.contentRow2,
       this.fontWeight = FontWeight.normal,
-      this.textColor = Colors.black})
+      this.textColor = Colors.black,
+      this.hiddenDiv = false})
       : super(key: key);
 
   @override
@@ -36,7 +38,7 @@ class CellFinanceInfo extends StatelessWidget {
               Expanded(
                   flex: 2,
                   child: Text(
-                    contentRow1,
+                    contentRow1 == "0" ? "" : contentRow1,
                     textAlign: TextAlign.end,
                     style: context.textSize14
                         .copyWith(color: textColor, fontWeight: fontWeight),
@@ -44,7 +46,7 @@ class CellFinanceInfo extends StatelessWidget {
               Expanded(
                   flex: 2,
                   child: Text(
-                    contentRow2,
+                    contentRow2 == "0" ? "" : contentRow2,
                     textAlign: TextAlign.end,
                     style: context.textSize14
                         .copyWith(color: textColor, fontWeight: fontWeight),
@@ -52,10 +54,11 @@ class CellFinanceInfo extends StatelessWidget {
             ],
           ),
           SIZED_BOX_H12,
-          const Divider(
-            color: Color(0xFFF0F0F0),
-            height: 3,
-          )
+          if (!hiddenDiv)
+            const Divider(
+              color: Color(0xFFF0F0F0),
+              height: 3,
+            )
         ]));
   }
 }

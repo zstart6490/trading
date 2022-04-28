@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trading_module/domain/entities/stock_model.dart';
-import 'package:trading_module/pages/market/market_cell.dart';
+import 'package:trading_module/pages/product_owner/my_product_cell.dart';
 import 'package:trading_module/pages/product_owner/product_owner_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
@@ -63,17 +62,9 @@ class ProductOwnerScene extends GetView<ProductOwnerController> {
                   delegate: SliverChildListDelegate(
                       List.generate(stocks!.length, (index) {
                     final stock = stocks[index];
-                    final stockM = StockModel(
-                        symbol: stock.symbol,
-                        stockName: stock.stockName,
-                        imageUrl: stock.imageUrl,
-                        stockType: stock.stockType,
-                        lastPrice: stock.lastPrice,
-                        change: stock.changePrice,
-                        ratioChange: stock.ratioChange);
-                    return MarketCell(
-                      stock: stockM,
-                      onPressed: () => controller.onTapped(stockM),
+                    return MyProductCell(
+                      productOwn:  stock,
+                      onPressed: () => controller.onTapped(stock),
                     );
                   })),
                 ),

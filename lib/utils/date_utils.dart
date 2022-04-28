@@ -105,6 +105,7 @@ class DateFormater {
   static const MMMyyyy = "MMM yyyy";
   static const MMyyyy = "MM/yyyy";
   static const yyyyMMddTHHmma = "yyyy-MM-dd hh:mm a";
+  static const yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss";
   static const ddMMyyyyTHHmmssa = "dd-MM-yyyy hh:mm:ss a";
   static const MMM_dd = "MMM-dd";
   static const dd = "dd";
@@ -114,6 +115,7 @@ class DateFormater {
   static const EEEEMMMddyyyy = "EEEE, MMM dd, yyyy";
   static const EEEEMMMMddyyyy = "EEEE, MMMM dd, yyyy";
   static const yyyyMMddhhmm = "yyyy-HH-dd hh:mm";
+
   static const ddMMMyyyyhhmma = "dd MMM yyyy hh:mm a";
   static const ddMMMyyyy = "dd MMMM, yyyy";
   static const ddMMMMyyyy = "dd MMMM yyyy";
