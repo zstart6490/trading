@@ -10,6 +10,7 @@ import 'package:trading_module/routes/app_routes.dart';
 class StockDetailController extends BaseController
     with StateMixin<MyStockModel>, GetSingleTickerProviderStateMixin {
   final StockExchangeUseCase _stockUseCase = Get.find<StockExchangeUseCase>();
+
   StockPriceSocket stockPriceSocket = Get.find();
   final StockModel stock;
 

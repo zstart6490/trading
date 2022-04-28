@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/domain/entities/property_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/utils/extensions.dart';
+
+import '../../utils/util.dart';
 
 class MyStockModel extends PropertyModel {
   final String? stockName;
@@ -10,8 +14,8 @@ class MyStockModel extends PropertyModel {
   final double dividendsWaitingReturn;
   final List<PortfolioModel>? portfolioHistoryList;
 
-
-  String get fullLink => "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
+  String get fullLink =>
+      "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
 
   MyStockModel(
     int? id,
@@ -62,27 +66,44 @@ extension MyStockModelMapper on MyStockModel {
 
 class PortfolioModel {
   final int? id;
+  final int? historyType;
   final String? productKey;
   final double price;
   final double? quantity;
 
   PortfolioModel({
     this.id,
+    this.historyType,
     this.productKey,
     required this.price,
     this.quantity,
   });
 
-  String getPercentPrice(double currentPrice) {
-    final percentPrice = (price - currentPrice) / price;
-    return "${percentPrice > 0 ? "+${double.parse(percentPrice.toStringAsFixed(2))}" : double.parse(percentPrice.toStringAsFixed(2))}%"
-        .replaceAll(".", ",");
+  String getVolumn() {
+    final value = quantity ?? 0;
+    return historyType == 1
+        ? "+${value.toCurrency(symbol: "")}"
+        : "-${value.toCurrency(symbol: "")}";
   }
 
-  String getPriceDifference(double currentPrice) {
-    final sub = price - currentPrice;
-    return sub > 0
-        ? "+${sub.toCurrency(symbol: "")}"
-        : sub.toCurrency(symbol: "");
+  Color getTypeColor() {
+    return historyType == 1 ? increaseColor : decreaseColor;
   }
+
+  String getTypeTransaction() {
+    return historyType == 1 ? "Mua" : "Bán";
+  }
+
+// String getPercentPrice(double currentPrice) {
+//   final percentPrice = (price - currentPrice) / price;
+//   return "${percentPrice > 0 ? "+${double.parse(percentPrice.toStringAsFixed(2))}" : double.parse(percentPrice.toStringAsFixed(2))}%"
+//       .replaceAll(".", ",");
+// }
+//
+// String getPriceDifference(double currentPrice) {
+//   final sub = price - currentPrice;
+//   return sub > 0
+//       ? "+${sub.toCurrency(symbol: "")}"
+//       : sub.toCurrency(symbol: "");
+// }
 }

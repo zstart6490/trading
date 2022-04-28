@@ -30,14 +30,6 @@ class StockMoreDetailBinding extends Bindings {
           StockMarketRepoImpl(StockMarketServiceImpl()),
         ),
       );
-
-      if (!Get.isRegistered<StockUseCase>()) {
-        Get.lazyPut<StockUseCase>(
-          () => StockUseCase(
-            StockRepoImpl(StockServiceImpl()),
-          ),
-        );
-      }
     }
   }
 }

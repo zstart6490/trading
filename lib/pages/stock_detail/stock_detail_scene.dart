@@ -321,7 +321,7 @@ class HeaderStockDetailView<T extends StockDetailController>
               children: const [
                 Expanded(
                   child: Text(
-                    "Mã CP",
+                    "Giao dịch",
                     style: TextStyle(
                       color: Color(0xFF9AA0A5),
                       fontSize: 12,
@@ -347,20 +347,7 @@ class HeaderStockDetailView<T extends StockDetailController>
                 ),
                 Expanded(
                   child: Text(
-                    "Giá mua",
-                    style: TextStyle(
-                      color: Color(0xFF9AA0A5),
-                      fontSize: 12,
-                      fontFamily: 'iCielHelveticaNowText',
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.none,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    "+/-",
+                    "Giá",
                     style: TextStyle(
                       color: Color(0xFF9AA0A5),
                       fontSize: 12,
@@ -405,9 +392,9 @@ class MyStockItemCell<T extends StockDetailController> extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                item?.productKey ?? "",
-                style: const TextStyle(
-                  color: Color(0xFF333333),
+                item?.getTypeTransaction() ?? "",
+                style: TextStyle(
+                  color: item?.getTypeColor(),
                   fontSize: 12,
                   fontFamily: 'iCielHelveticaNowText',
                   fontWeight: FontWeight.w700,
@@ -418,9 +405,9 @@ class MyStockItemCell<T extends StockDetailController> extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                (item?.quantity ?? 0).toCurrency(symbol: ""),
-                style: const TextStyle(
-                  color: Color(0xFF333333),
+                item?.getVolumn() ?? "",
+                style: TextStyle(
+                  color: item?.getTypeColor() ,
                   fontSize: 12,
                   fontFamily: 'iCielHelveticaNowText',
                   fontWeight: FontWeight.w700,
@@ -440,36 +427,6 @@ class MyStockItemCell<T extends StockDetailController> extends StatelessWidget {
                   decoration: TextDecoration.none,
                 ),
                 textAlign: TextAlign.center,
-              ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    item?.getPriceDifference(controller.priceStock.value) ?? "",
-                    style: TextStyle(
-                      color: item?.price.getStockColorWithCurrentPrice(
-                          controller.priceStock.value),
-                      fontSize: 12,
-                      fontFamily: 'iCielHelveticaNowText',
-                      fontWeight: FontWeight.w700,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                  SIZED_BOX_H04,
-                  Text(
-                    item?.getPercentPrice(controller.priceStock.value) ?? "",
-                    style: TextStyle(
-                      color: item?.price.getStockColorWithCurrentPrice(
-                          controller.priceStock.value),
-                      fontSize: 12,
-                      fontFamily: 'iCielHelveticaNowText',
-                      fontWeight: FontWeight.w700,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                ],
               ),
             ),
           ],

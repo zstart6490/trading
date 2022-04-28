@@ -6,12 +6,17 @@ import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 class MarketBinding extends Bindings {
   @override
   void dependencies() {
-    if (!Get.isRegistered<StockUseCase>()) {
-      Get.lazyPut<StockUseCase>(
-            () => StockUseCase(
-          StockRepoImpl(StockServiceImpl()),
-        ),
-      );
-    }
+    // if (!Get.isRegistered<StockUseCase>()) {
+    //   print("Get.isRegistered<StockUseCase>()");
+    //   Get.lazyPut<StockUseCase>(
+    //       () => StockUseCase(
+    //             StockRepoImpl(
+    //               StockServiceImpl(),
+    //             ),
+    //           ),
+    //       fenix: true);
+    // }else{
+    //   print("No Get.isRegistered<StockUseCase>()");
+    // }
   }
 }
