@@ -8,10 +8,12 @@ class MarketBinding extends Bindings {
   void dependencies() {
     if (!Get.isRegistered<StockUseCase>()) {
       Get.lazyPut<StockUseCase>(
-            () => StockUseCase(
-          StockRepoImpl(StockServiceImpl()),
-        ),
-      );
+          () => StockUseCase(
+                StockRepoImpl(
+                  StockServiceImpl(),
+                ),
+              ),
+          fenix: true);
     }
   }
 }

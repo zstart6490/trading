@@ -19,7 +19,7 @@ class HomePageBinding extends Bindings {
     // Get.lazyPut(() => HomePropertyController());
     // Get.lazyPut(() => StockPriceSocket());
     Get.lazyPut(() =>  OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
-    Get.put(StockUseCase(StockRepoImpl(StockServiceImpl())));
+    Get.put(StockUseCase(StockRepoImpl(StockServiceImpl())), permanent: true);
 
     Get.lazyPut<HomeTradingUseCase>(() => HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl())));
     Get.lazyPut(() => HomePageController());
