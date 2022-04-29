@@ -1,8 +1,10 @@
 import 'package:trading_module/cores/resources/data_state.dart';
+import 'package:trading_module/data/entities/company_financial_info_dto.dart';
 import 'package:trading_module/data/entities/company_news_model_dto.dart';
 import 'package:trading_module/data/entities/stock_current_price_model_dto.dart';
 import 'package:trading_module/data/entities/stock_model_dto.dart';
 import 'package:trading_module/data/services/stock_service.dart';
+import 'package:trading_module/domain/entities/company_financial_info.dart';
 import 'package:trading_module/domain/entities/company_news_model.dart';
 import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
@@ -60,6 +62,20 @@ class StockRepoImpl extends StockRepo {
     if (result.success) {
       final model = result.modelDTO.toModel();
       return DataSuccess(model);
+    }
+    return DataFailed(result.error);
+  }
+
+  @override
+  Future<DataState<List<CompanyFinancialInfo>>> getStockFinanceReport(String stock) async{
+    final result = await _services.getStockFinanceReport(stock);
+    if (result.success) {
+      final model = result.modelDTO;
+      final List<CompanyFinancialInfo> list = [];
+      for (final value in model) {
+        list.add(value.toModel());
+      }
+      return DataSuccess<List<CompanyFinancialInfo>>(list);
     }
     return DataFailed(result.error);
   }

@@ -8,7 +8,6 @@ import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
 import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
 import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 
-
 class HomePageBinding extends Bindings {
   @override
   void dependencies() {
@@ -16,6 +15,5 @@ class HomePageBinding extends Bindings {
     Get.lazyPut(() =>  OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
     Get.lazyPut<HomeTradingUseCase>(() => HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl())));
     Get.lazyPut(() => HomePageController());
-
   }
 }

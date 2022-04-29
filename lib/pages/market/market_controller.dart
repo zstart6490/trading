@@ -14,13 +14,23 @@ import 'package:trading_module/routes/app_routes.dart';
 
 class MarketController extends BaseController
     with StateMixin<List<StockModel>> {
+
   final StockUseCase _stockUseCase = StockUseCase(StockRepoImpl(StockServiceImpl()));
   final nameHolder = TextEditingController();
   List<StockModel> listStock = <StockModel>[];
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
   Rx<bool> hiddenRemoveSearch = true.obs;
-  RefreshController refreshController =
-      RefreshController();
+  RefreshController refreshController = RefreshController();
+
+  @override
+  void onInit() {
+    if (!Get.isRegistered<StockUseCase>()) {
+      Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
+    }
+    super.onInit();
+  }
+
+
 
   @override
   void onReady() {

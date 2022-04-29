@@ -30,10 +30,11 @@ class CompanyNewsModelDto {
   final String? title;
   final String? url;
   final String? imgUrl;
+  final String? createTime;
   final NewsSourceModelDto? source;
 
   CompanyNewsModelDto(
-      {this.id, this.symbol, this.title, this.url, this.imgUrl, this.source});
+      {this.id, this.symbol, this.title, this.url, this.createTime, this.imgUrl, this.source});
 
   factory CompanyNewsModelDto.fromJson(dynamic json) =>
       _$CompanyNewsModelDtoFromJson(json as Map<String, dynamic>);
@@ -49,6 +50,7 @@ extension CompanyNewsModelMapper on CompanyNewsModelDto {
         title: title ?? "",
         url: url ?? "",
         imgUrl: imgUrl ?? "",
+        createTime: createTime ?? "",
         source: source?.toModel() ??
             NewsSourceModel(id: 0, imageUrl: "", sourceName: "", url: ""));
   }

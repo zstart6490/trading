@@ -13,6 +13,7 @@ class CompanyNewsModel {
   final String title;
   final String url;
   final String imgUrl;
+  final String createTime;
   final NewsSourceModel source;
 
   CompanyNewsModel(
@@ -20,6 +21,7 @@ class CompanyNewsModel {
       required this.symbol,
       required this.title,
       required this.url,
+      required this.createTime,
       required this.imgUrl,
       required this.source});
 }

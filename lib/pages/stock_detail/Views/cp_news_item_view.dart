@@ -3,6 +3,7 @@ import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/domain/entities/company_news_model.dart';
 import 'package:trading_module/shared_widgets/Dot.dart';
+import 'package:trading_module/utils/date_utils.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class CompanyNewsItemView extends StatelessWidget {
@@ -35,7 +36,9 @@ class CompanyNewsItemView extends StatelessWidget {
                     ),
                   if (news.source.sourceName.isNotEmpty) SIZED_BOX_W08,
                   Text(
-                    "15/2/2022",
+                    news.createTime
+                        .toDateFormat(DateFormater.yyyyMMddHHmmss)
+                        .toStringFormat(DateFormater.ddMMYYYY),
                     style: context.textSize14.copyWith(color: Colors.grey),
                   )
                 ],

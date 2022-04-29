@@ -25,6 +25,7 @@ CompanyNewsModelDto _$CompanyNewsModelDtoFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       url: json['url'] as String?,
       imgUrl: json['imgUrl'] as String?,
+      createTime: json['createTime'] as String?,
       source: json['source'] == null
           ? null
           : NewsSourceModelDto.fromJson(json['source']),

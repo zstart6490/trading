@@ -6,33 +6,34 @@ part 'company_financial_info_dto.g.dart';
 @JsonSerializable()
 class CompanyFinancialInfoDto {
   String? symbol;
-  int? revenue;
-  int? cost;
-  int? taxIncome;
-  int? profit;
-  int? totalAssets;
-  int? operationCost;
-  int? depositCredit;
-  int? depositClient;
-  int? debt;
-  int? debtCredit;
-  int? debtClient;
-  int? capital;
-  int? capitalCredit;
-  int? undistProfit;
-  int? valuation;
-  int? eps;
-  int? pe;
-  int? profitability;
-  int? roe;
-  int? roa;
-  int? poic;
-  int? grossProfitMargin;
-  int? netProfitVariable;
-  int? financialStrength;
-  int? debtEquity;
-  int? debtAssets;
-  int? fastPayment;
+  num? revenue;
+  num? cost;
+  num? taxIncome;
+  num? profit;
+  num? totalAssets;
+  num? operationCost;
+  num? depositCredit;
+  num? depositClient;
+  num? debt;
+  num? debtCredit;
+  num? debtClient;
+  num? capital;
+  num? capitalCredit;
+  num? undistProfit;
+  num? valuation;
+  num? eps;
+  num? pe;
+  num? pb;
+  num? profitability;
+  num? roe;
+  num? roa;
+  num? poic;
+  num? grossProfitMargin;
+  num? netProfitVariable;
+  num? financialStrength;
+  num? debtEquity;
+  num? debtAssets;
+  num? fastPayment;
 
   CompanyFinancialInfoDto(
       {this.symbol,
@@ -53,6 +54,7 @@ class CompanyFinancialInfoDto {
       this.valuation,
       this.eps,
       this.pe,
+      this.pb,
       this.profitability,
       this.roe,
       this.roa,
@@ -63,6 +65,13 @@ class CompanyFinancialInfoDto {
       this.debtEquity,
       this.debtAssets,
       this.fastPayment});
+
+  static List<CompanyFinancialInfoDto> getList(dynamic data) {
+    final list = data as List;
+    return list
+        .map((e) => CompanyFinancialInfoDto.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
 
   factory CompanyFinancialInfoDto.fromJson(dynamic json) =>
       _$CompanyFinancialInfoDtoFromJson(json as Map<String, dynamic>);
@@ -91,6 +100,7 @@ extension CompanyFinancialInfoMapper on CompanyFinancialInfoDto {
         valuation: valuation ?? 0,
         eps: eps ?? 0,
         pe: pe ?? 0,
+        pb: pb ?? 0,
         profitability: profitability ?? 0,
         roe: roe ?? 0,
         roa: roa ?? 0,

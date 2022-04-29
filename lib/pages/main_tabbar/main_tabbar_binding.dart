@@ -21,10 +21,11 @@ class MainTabBinding extends Bindings {
     // Get.lazyPut(() => StockPriceSocket());
 
     Get.lazyPut(() => MarketController());
-
     Get.lazyPut(() => HomeTradingRepoImpl(HomeTradingServiceImpl()));
     Get.lazyPut(() => OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
-    Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
+    if (!Get.isRegistered<StockUseCase>()) {
+      Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
+    }
     Get.lazyPut(() => HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl())));
   }
 }

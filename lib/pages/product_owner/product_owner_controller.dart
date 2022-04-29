@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/product_own.dart';
-import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/user_stock_usecase.dart';
 import 'package:trading_module/routes/app_navigate.dart';
 
@@ -43,9 +42,9 @@ class ProductOwnerController extends BaseController
 
     if (result.data != null) {
       listStock = result.data!;
-      if(result.data!.isNotEmpty) {
+      if (result.data!.isNotEmpty) {
         change(listStock, status: RxStatus.success());
-      }else{
+      } else {
         change(listStock, status: RxStatus.empty());
       }
     } else if (result.error != null) {
@@ -64,7 +63,7 @@ class ProductOwnerController extends BaseController
 
   void onChangeSearchStock(String name) {
     hiddenRemoveSearch.value = name.isEmpty;
-    textSearch.value =name;
+    textSearch.value = name;
     final stocks = listStock
         .where((e) => e.productKey.toUpperCase().startsWith(name.toUpperCase()))
         .toList();
@@ -75,11 +74,11 @@ class ProductOwnerController extends BaseController
     }
   }
 
-  void onTapped(StockModel stock) {
-    navToSellStock(stock);
+  void onTapped(ProductOwn stock) {
+    navToSellStock(stock.toStockModel());
   }
 
-  void buyStock(){
+  void buyStock() {
     navToSelectStock();
   }
 
