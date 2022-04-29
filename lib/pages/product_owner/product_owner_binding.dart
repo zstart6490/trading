@@ -11,7 +11,9 @@ class ProductOwnerBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => UserStockUseCase(UserRepoImpl(UserServiceImpl())));
-    Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
+    if (!Get.isRegistered<StockUseCase>()) {
+      Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
+    }
     Get.lazyPut(() => ProductOwnerController());
   }
 }

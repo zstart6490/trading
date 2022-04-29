@@ -1,17 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:trading_module/domain/entities/product_own.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-class MarketCell extends StatelessWidget {
-  final StockModel stock;
+class MyProductCell extends StatelessWidget {
+  final ProductOwn productOwn;
   final VoidCallback onPressed;
 
-  const MarketCell({
+  const MyProductCell({
     Key? key,
     required this.onPressed,
-    required this.stock,
+    required this.productOwn,
   }) : super(key: key);
 
   @override
@@ -51,7 +52,7 @@ class MarketCell extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: CachedNetworkImage(
-                      imageUrl: stock.fullLink,
+                      imageUrl: productOwn.fullLink,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -68,7 +69,7 @@ class MarketCell extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          stock.symbol.toUpperCase(),
+                          productOwn.symbol.toUpperCase(),
                           style: mediumStyle,
                           textAlign: TextAlign.left,
                         ),
@@ -76,7 +77,7 @@ class MarketCell extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          stock.stockName,
+                          productOwn.stockName,
                           style: const TextStyle(
                               fontFamily: 'iCielHelveticaNowText',
                               color: Color(0xFF9AA0A5),
@@ -100,7 +101,7 @@ class MarketCell extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        stock.lastPrice.getPriceStock(),
+                        productOwn.lastPrice.getPriceStock(),
                         style: mediumStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -108,10 +109,11 @@ class MarketCell extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        stock.ratioChange.getRatioChange(),
+                        productOwn.getRatioPercentage(),
                         style: TextStyle(
                             fontFamily: 'iCielHelveticaNowText',
-                            color: stock.ratioChange.getStockColor(),
+                            color: (productOwn.priceAvg - productOwn.lastPrice)
+                                .getStockColor(),
                             fontSize: 14,
                             fontWeight: FontWeight.w500),
                         overflow: TextOverflow.ellipsis,

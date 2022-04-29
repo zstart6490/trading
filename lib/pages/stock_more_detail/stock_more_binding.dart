@@ -11,6 +11,9 @@ import 'package:trading_module/domain/use_cases/stock_maket_usecase.dart';
 import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/pages/stock_detail/Views/chart_view_controller.dart';
 import 'package:trading_module/pages/stock_more_detail/stock_more_detail_controller.dart';
+import 'package:trading_module/pages/stock_more_detail/tabs/financial/stock_company_info_controller.dart';
+import 'package:trading_module/pages/stock_more_detail/tabs/news/stock_company_news_controller.dart';
+import 'package:trading_module/pages/stock_more_detail/tabs/overview/stock_overview_controller.dart';
 
 class StockMoreDetailBinding extends Bindings {
   @override
@@ -19,6 +22,9 @@ class StockMoreDetailBinding extends Bindings {
     if (arg is StockModel) {
       Get.lazyPut(() => ChartController(arg));
       Get.lazyPut(() => StockMoreDetailController(arg));
+      Get.lazyPut(() => StockOverviewController(arg));
+      Get.lazyPut(() => StockCompanyInfoController(arg));
+      Get.lazyPut(() => StockCompanyNewsController(arg));
       Get.lazyPut(
         () => StockExchangeUseCase(
           StockExchangeRepoImpl(StockOrderServiceImpl()),
