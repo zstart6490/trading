@@ -15,6 +15,7 @@ import 'package:trading_module/routes/app_routes.dart';
 class MarketController extends BaseController
     with StateMixin<List<StockModel>> {
 
+  final StockUseCase _stockUseCase = StockUseCase(StockRepoImpl(StockServiceImpl()));
   final nameHolder = TextEditingController();
   List<StockModel> listStock = <StockModel>[];
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
@@ -77,7 +78,6 @@ class MarketController extends BaseController
 
   Future getListStock() async {
     showProgressingDialog();
-    final StockUseCase _stockUseCase = Get.find<StockUseCase>();
     final result = await _stockUseCase.getList();
     hideDialog();
     if (result.data != null) {

@@ -16,6 +16,7 @@ import 'package:trading_module/utils/extensions.dart';
 
 enum SortEnum { normal, up, down }
 
+
 class HomePageController extends BaseController
     with StateMixin<AccountInfoModel>, GetSingleTickerProviderStateMixin {
   final timeRange = ["Đang đầu tư".tr, "Đang theo dõi".tr];
@@ -25,15 +26,15 @@ class HomePageController extends BaseController
   List<StockModel> listStock = <StockModel>[];
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
 
-  RefreshController refreshController =
-  RefreshController();
-
-  late Stream myStream;
+  RefreshController refreshController = RefreshController();
 
   Rx<SortEnum> sortAlphabet = Rx<SortEnum>(SortEnum.normal);
   Rx<SortEnum> sortVolume = Rx<SortEnum>(SortEnum.normal);
   Rx<SortEnum> sortCurrentPrice = Rx<SortEnum>(SortEnum.normal);
   Rx<SortEnum> sortProfitAndLoss = Rx<SortEnum>(SortEnum.normal);
+
+  late bool isSubscribeFollow = false;
+  late bool isSubscribeInvest = false;
 
   AccountInfoModel? accountInfoModel;
 
@@ -54,6 +55,8 @@ class HomePageController extends BaseController
 
   @override
   void onClose() {
+    isSubscribeFollow = false;
+    isSubscribeInvest = false;
     stockPriceSocket.unSubscribeStock();
   }
 
@@ -119,8 +122,8 @@ class HomePageController extends BaseController
   }
 
   void onTabChange(int index) {
-    debugPrint("TabChange :${tabController.index}");
     change(accountInfoModel, status: RxStatus.success());
+    subscribe();
   }
 
   void stockDetail(PropertyModel? stock) {
@@ -151,6 +154,7 @@ class HomePageController extends BaseController
   }
 
   void subscribe() {
+    if (isSubscribeInvest && isSubscribeFollow) return;
     final List<String> symbols;
     if (tabController.index == 0) {
       symbols = accountInfoModel?.stockList
@@ -158,17 +162,20 @@ class HomePageController extends BaseController
               .map((e) => e.productKey!)
               .toList() ??
           [""];
+      isSubscribeInvest = true;
     } else {
       symbols = accountInfoModel?.productWatchingVOList
               ?.where((e) => e.productKey != null)
               .map((e) => e.productKey!)
               .toList() ??
           [""];
+      isSubscribeFollow = true;
     }
 
     stockPriceSocket.subscribeStock(
       symbols,
       (stock) {
+        print("stock.stockPrice.symbol: ${stock.stockPrice.symbol}");
         accountInfoModel?.stockList
             ?.firstWhere((e) => e.productKey == stock.stockPrice.symbol)
             .lastPrice = stock.stockPrice.price;
@@ -179,7 +186,6 @@ class HomePageController extends BaseController
       },
     );
   }
-
 
   Future<void> getAccountInfo() async {
     final result = await _homeTradingUseCase.getAccountInfo();

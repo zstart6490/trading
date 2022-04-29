@@ -3,8 +3,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/data/repos/stock_repo_impl.dart';
+import 'package:trading_module/data/services/stock_service.dart';
+import 'package:trading_module/domain/entities/company_news_model.dart';
+import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_exchange_usecase.dart';
+import 'package:trading_module/domain/use_cases/stock_usecase.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 import 'package:trading_module/pages/stock_more_detail/overlayView/overlay_balance.dart';
 import 'package:trading_module/pages/stock_more_detail/tabs/financial/stock_company_info_controller.dart';
 import 'package:trading_module/pages/stock_more_detail/tabs/news/stock_company_news_controller.dart';
@@ -18,6 +24,8 @@ class StockMoreDetailController extends BaseController
 
   StockMoreDetailController(this.stock);
 
+  final StockUseCase _stockUseCase =
+      StockUseCase(StockRepoImpl(StockServiceImpl()));
   final StockExchangeUseCase _stockExchangeUseCase =
       Get.find<StockExchangeUseCase>();
 
@@ -123,6 +131,9 @@ class StockMoreDetailController extends BaseController
         stock: stock.symbol, type: "0", isFlow: isFlow);
     if (result.data != null) {
       isFollow.value = isFlow;
+      final HomePageController _homePageController =
+          Get.find<HomePageController>();
+      _homePageController.getAccountInfo();
     }
   }
 }

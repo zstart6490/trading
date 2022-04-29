@@ -5,13 +5,15 @@ import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
 import 'package:trading_module/data/entities/stock_price.dart';
+import 'package:trading_module/data/repos/stock_repo_impl.dart';
+import 'package:trading_module/data/services/stock_service.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/routes/app_navigate.dart';
 
 class SelectStockController extends BaseController
     with StateMixin<List<StockModel>> {
-  final StockUseCase _stockUseCase = Get.find<StockUseCase>();
+  final StockUseCase _stockUseCase = StockUseCase(StockRepoImpl(StockServiceImpl()));
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
   final nameHolder = TextEditingController();
   List<StockModel> listStock = <StockModel>[];
