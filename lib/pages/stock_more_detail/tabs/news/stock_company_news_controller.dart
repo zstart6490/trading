@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/data/repos/stock_repo_impl.dart';
+import 'package:trading_module/data/services/stock_service.dart';
 import 'package:trading_module/domain/entities/company_news_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_usecase.dart';
@@ -8,7 +10,8 @@ class StockCompanyNewsController extends BaseController
     with StateMixin<List<CompanyNewsModel>> {
   List<CompanyNewsModel> listNews = <CompanyNewsModel>[];
 
-  final StockUseCase _stockUseCase = Get.find<StockUseCase>();
+  final StockUseCase _stockUseCase = StockUseCase(StockRepoImpl(StockServiceImpl()));
+
   final StockModel stock;
 
   StockCompanyNewsController(this.stock);
