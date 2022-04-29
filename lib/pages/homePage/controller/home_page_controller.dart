@@ -16,6 +16,7 @@ import 'package:trading_module/utils/extensions.dart';
 
 enum SortEnum { normal, up, down }
 
+
 class HomePageController extends BaseController
     with StateMixin<AccountInfoModel>, GetSingleTickerProviderStateMixin {
   final timeRange = ["Đang đầu tư".tr, "Đang theo dõi".tr];
