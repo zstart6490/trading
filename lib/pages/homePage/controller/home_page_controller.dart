@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/domain/entities/account_info_model.dart';
@@ -50,6 +54,7 @@ class HomePageController extends BaseController
   @override
   void onReady() {
     super.onReady();
+    loadCache();
     getAccountInfo();
   }
 
@@ -198,6 +203,23 @@ class HomePageController extends BaseController
           PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
       subscribe();
+
+    } else {
+      change(null, status: RxStatus.empty());
+    }
+  }
+
+  void loadCache(){
+    final result =  _homeTradingUseCase.getCache();
+    if (result.data != null) {
+      accountInfoModel = result.data;
+      //Add item fake Header section view1
+      accountInfoModel?.stockList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
+      accountInfoModel?.productWatchingVOList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
+      change(accountInfoModel, status: RxStatus.success());
+
     } else {
       change(null, status: RxStatus.empty());
     }

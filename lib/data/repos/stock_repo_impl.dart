@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:get_storage/get_storage.dart';
 import 'package:trading_module/cores/resources/data_state.dart';
 import 'package:trading_module/data/entities/company_financial_info_dto.dart';
 import 'package:trading_module/data/entities/company_news_model_dto.dart';
@@ -9,6 +12,8 @@ import 'package:trading_module/domain/entities/company_news_model.dart';
 import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/repos/stock_repo.dart';
+
+import '../../configs/constants.dart';
 
 class StockRepoImpl extends StockRepo {
   final StockService _services;
@@ -24,6 +29,9 @@ class StockRepoImpl extends StockRepo {
       for (final value in model) {
         list.add(value.toModel());
       }
+      final box = GetStorage();
+      box.write(Home_Maket_Cache, jsonEncode(result.modelDTO.toList()));
+
       return DataSuccess<List<StockModel>>(list);
     }
     return DataFailed(result.error);
@@ -78,5 +86,20 @@ class StockRepoImpl extends StockRepo {
       return DataSuccess<List<CompanyFinancialInfo>>(list);
     }
     return DataFailed(result.error);
+  }
+
+  @override
+  DataState<List<StockModel>> getCache() {
+    final box = GetStorage();
+    final value = box.read(Home_Maket_Cache);
+    if (value != null) {
+      final users = StockModelDTO.getList(jsonDecode(value.toString()));
+      final List<StockModel> list = [];
+      for (final value in users) {
+        list.add(value.toModel());
+      }
+      return DataSuccess<List<StockModel>>(list);
+    }
+    return const DataFailed(null);
   }
 }

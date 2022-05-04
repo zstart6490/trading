@@ -8,4 +8,5 @@ abstract class HomeTradingRepo {
 
   Future<DataState<AccountInfoModel>> getAccountInfo();
 
+  DataState<AccountInfoModel> getCache();
 }

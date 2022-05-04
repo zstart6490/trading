@@ -23,6 +23,7 @@ class PropertyModel {
       this.refPrice,
       this.lastPrice,);
 
+
   double getPriceDifference() {
     return (priceAvg ?? 0) - (lastPrice ?? 0);
   }

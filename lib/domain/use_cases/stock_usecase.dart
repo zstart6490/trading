@@ -38,4 +38,9 @@ class StockUseCase {
     final result = await _stockRepo.getStockFinanceReport(stock);
     return result;
   }
+
+  DataState<List<StockModel>> getCache() {
+    final result = _stockRepo.getCache();
+    return result;
+  }
 }
