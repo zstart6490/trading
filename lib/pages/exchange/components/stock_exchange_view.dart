@@ -17,33 +17,34 @@ class StockExchangeView<T extends ExchangeStockController>
         children: [
           Expanded(
               child: Row(
-            children: [
-              ClipOval(
-                child: SizedBox(
-                    width: 56,
-                    height: 56,
-                    child: CachedNetworkImage(
-                        imageUrl: controller.stockModel.fullLink)),
-              ),
-              SIZED_BOX_W12,
-              Expanded(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    controller.stockModel.symbol,
-                    style: context.textSize14.copyWith(
-                        color: COLOR_333333, fontWeight: FontWeight.bold),
+                  ClipOval(
+                    child: SizedBox(
+                        width: 56,
+                        height: 56,
+                        child: controller.stockModel.fullLink.loadCacheImg()),
                   ),
-                  Text(
-                    controller.stockModel.stockName,
-                    style:
-                        TextStyle(color: context.disabledColor, fontSize: 14),
-                  )
+                  SIZED_BOX_W12,
+                  Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            controller.stockModel.symbol,
+                            style: context.textSize14.copyWith(
+                                color: COLOR_333333,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            controller.stockModel.stockName,
+                            style:
+                            TextStyle(
+                                color: context.disabledColor, fontSize: 14),
+                          )
+                        ],
+                      ))
                 ],
-              ))
-            ],
-          )),
+              )),
           SIZED_BOX_W08,
           Text(
             controller.priceStock.value.getPriceStock(),

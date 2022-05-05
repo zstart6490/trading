@@ -7,6 +7,10 @@ void navToSelectStock() {
   Get.toNamed(AppRoutes.selectStock);
 }
 
+void navToMarketStock() {
+  Get.toNamed(AppRoutes.market);
+}
+
 void navToProductOwner() {
   Get.toNamed(AppRoutes.productOwner);
 }

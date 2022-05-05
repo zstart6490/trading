@@ -33,6 +33,17 @@ abstract class BaseController extends GetxController
                   hideDialog();
                 }),
           ]));
+    }else{
+      showAlertDialog(CustomAlertDialog(
+          title: "Lỗi kết nối!",
+          desc: "Vui lòng kiểm tra lại internet hoặc thử lại sau.",
+          actions: [
+            AlertAction(
+                text: "cancel".tr,
+                onPressed: () {
+                  hideDialog();
+                }),
+          ]));
     }
   }
 

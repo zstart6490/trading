@@ -300,6 +300,8 @@ extension ImageExtension on String {
   CachedNetworkImage loadCacheImg({double? mWidth, double? mHeight}) {
     return CachedNetworkImage(
       imageUrl: this,
+      placeholder: (context, url) => const CircularProgressIndicator(),
+      errorWidget: (context, url, error) => "stock_image_loading".pngImage(),
       width: mWidth,
       height: mHeight,
     );

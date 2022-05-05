@@ -13,13 +13,13 @@ import 'package:trading_module/domain/entities/property_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
 import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
+import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';
 import 'package:trading_module/routes/app_navigate.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 enum SortEnum { normal, up, down }
-
 
 class HomePageController extends BaseController
     with StateMixin<AccountInfoModel>, GetSingleTickerProviderStateMixin {
@@ -141,6 +141,11 @@ class HomePageController extends BaseController
 
   void selectStock() {
     navToSelectStock();
+  }
+
+  void selectMarketStock() {
+    final TDMainTabController tdMainTabController = Get.find();
+    tdMainTabController.tabIndex = 1;
   }
 
   void selTab(int index) {

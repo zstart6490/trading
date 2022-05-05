@@ -51,10 +51,7 @@ class MyProductCell extends StatelessWidget {
                       )),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: CachedNetworkImage(
-                      imageUrl: productOwn.fullLink,
-                      fit: BoxFit.contain,
-                    ),
+                    child: productOwn.fullLink.loadCacheImg(),
                   ),
                 ),
               ),
