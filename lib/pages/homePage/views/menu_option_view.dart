@@ -122,47 +122,51 @@ class BoardItemCell<T extends HomePageController> extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      controller.tabController.index == 0
-                          ? item?.getValuePriceDifference() ?? ""
-                          : item?.getValuePriceDifferenceFollow() ?? "",
-                      style: TextStyle(
-                        color: controller.tabController.index == 0
-                            ? item?.getPriceDifference().getStockColor()
-                            : item?.lastPrice?.getStockColorWith(
-                                item?.refPrice ?? 0,
-                                item?.floor ?? 0,
-                                item?.ceiling ?? 0),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        controller.tabController.index == 0
+                            ? item?.getValuePriceDifference() ?? ""
+                            : item?.getValuePriceDifferenceFollow() ?? "",
+                        style: TextStyle(
+                          color: controller.tabController.index == 0
+                              ? item?.getPriceDifference().getStockColor()
+                              : item?.lastPrice?.getStockColorWith(
+                                  item?.refPrice ?? 0,
+                                  item?.floor ?? 0,
+                                  item?.ceiling ?? 0),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SIZED_BOX_H04,
-                    Text(
-                      controller.tabController.index == 0
-                          ? item?.getPercentage() ?? ""
-                          : item?.getPercentageFollow() ?? "",
-                      style: TextStyle(
-                        color: controller.tabController.index == 0
-                            ? item?.getPriceDifference().getStockColor()
-                            : item?.lastPrice?.getStockColorWith(
-                                item?.refPrice ?? 0,
-                                item?.floor ?? 0,
-                                item?.ceiling ?? 0),
-                        fontSize: 12,
-                        fontFamily: 'iCielHelveticaNowText',
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.none,
+                      SIZED_BOX_H04,
+                      Text(
+                        controller.tabController.index == 0
+                            ? item?.getPercentage() ?? ""
+                            : item?.getPercentageFollow() ?? "",
+                        style: TextStyle(
+                          color: controller.tabController.index == 0
+                              ? item?.getPriceDifference().getStockColor()
+                              : item?.lastPrice?.getStockColorWith(
+                                  item?.refPrice ?? 0,
+                                  item?.floor ?? 0,
+                                  item?.ceiling ?? 0),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -235,20 +239,30 @@ class HeaderBoardView<T extends HomePageController> extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: HeaderBoardItem(
-                  title: "+/-",
-                  imgUp: controller.sortProfitAndLoss.value == SortEnum.up
-                      ? "ic_arrow_up_selected".pngImage()
-                      : "ic_arrow_up".pngImage(),
-                  imgDown: (controller.sortProfitAndLoss.value == SortEnum.up ||
-                          controller.sortProfitAndLoss.value == SortEnum.normal)
-                      ? "ic_arrow_down".pngImage()
-                      : "ic_arrow_down_selected".pngImage(),
-                  onPressed: () {
-                    controller.tapOnSortProfitAndLoss();
-                  },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: HeaderBoardItem(
+                        title: "+/-",
+                        imgUp: controller.sortProfitAndLoss.value == SortEnum.up
+                            ? "ic_arrow_up_selected".pngImage()
+                            : "ic_arrow_up".pngImage(),
+                        imgDown: (controller.sortProfitAndLoss.value ==
+                                    SortEnum.up ||
+                                controller.sortProfitAndLoss.value ==
+                                    SortEnum.normal)
+                            ? "ic_arrow_down".pngImage()
+                            : "ic_arrow_down_selected".pngImage(),
+                        onPressed: () {
+                          controller.tapOnSortProfitAndLoss();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              )
+              ),
             ],
           ),
         ),

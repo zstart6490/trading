@@ -74,7 +74,7 @@ class PropertyView extends GetView<HomePageController> {
                               TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: 'Giá trị cổ  ',
+                                    text: 'Giá trị cổ phiếu',
                                     style: TextStyle(
                                       color: Color(0xFF333333),
                                       fontSize: 14,
