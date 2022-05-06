@@ -96,7 +96,6 @@ class HomePageView extends GetView<HomePageController> {
                                 }else{
                                   controller.selectStock();
                                 }
-
                               },
                             ),
                           ],
@@ -132,35 +131,6 @@ class HomePageView extends GetView<HomePageController> {
       ),
     );
   }
-
-//   Widget _buildChild() {
-//     return ListView.builder(
-//         padding: const EdgeInsets.only(bottom: 16),
-//         itemCount: controller.countItem,
-//         itemBuilder: (context, index) {
-//           if (index == 0) {
-//             return HeaderHomeView(
-//               controller: controller,
-//             );
-//           }
-//           if (controller.countItem > 2) {
-//             return BoardItemCell(
-//               item: Model(gstId: "SSI", startTime: DateTime.now()),
-//               onPressed: () {},
-//             );
-//           } else {
-//             return ListNoDataBackground(
-//                 pngPath: "assets/images/png/banner_empty_data.png",
-//                 desc: "Chưa có mã nào trong mục này",
-//                 padding: PAD_SYM_H40,
-//                 btnTitle: "Thêm mã",
-//                 onPressed: () {
-//                   controller.selectStock();
-//                 });
-//           }
-//         });
-//   }
-// }
 
 }
 

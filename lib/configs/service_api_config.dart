@@ -36,11 +36,11 @@ class StagingConfig implements BaseConfig {
   @override
   EnvironmentConfiguration get environment => EnvironmentConfiguration.staging;
   @override
-  String get host => "stg-api.trading.vn";
+  String get host => "stg-trading-api.tikop.vn";
   @override
   String get protocol => "https://";
   @override
-  String get marketHost => "104.199.179.48:8910";
+  String get marketHost => "stg-trading-market.tikop.vn";
   @override
   String get marketProtocol => "http://";
   @override
@@ -54,11 +54,11 @@ class ProdConfig implements BaseConfig {
   @override
   EnvironmentConfiguration get environment => EnvironmentConfiguration.product;
   @override
-  String get host => "api.trading.vn";
+  String get host => "trading-api.tikop.vn";
   @override
   String get protocol => "https://";
   @override
-  String get marketHost => "104.199.179.48:8910";
+  String get marketHost => "trading-market.tikop.vn";
   @override
   String get marketProtocol => "http://";
   @override

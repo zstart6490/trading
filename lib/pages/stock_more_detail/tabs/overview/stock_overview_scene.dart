@@ -27,16 +27,7 @@ class StockOverviewScene extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: CachedNetworkImage(
-                    imageUrl: stock?.fullLink ?? "",
-                    width: 43,
-                    height: 43,
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Image.asset(
-                        "assets/images/png/ic_follow.png",
-                        package: "trading_module"),
-                  ),
+                  child: stock?.fullLink.loadCacheImg(mWidth: 43, mHeight: 43),
                 ),
                 SIZED_BOX_W10,
                 Expanded(

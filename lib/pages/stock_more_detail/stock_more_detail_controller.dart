@@ -30,6 +30,7 @@ class StockMoreDetailController extends BaseController
   RxInt indexTab = 0.obs;
 
   RxBool isFollow = false.obs;
+  RxBool isValid = false.obs;
 
   @override
   void onInit() {

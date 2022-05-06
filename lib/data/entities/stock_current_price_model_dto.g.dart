@@ -10,6 +10,7 @@ StockCurrentPriceModelDTO _$StockCurrentPriceModelDTOFromJson(
         Map<String, dynamic> json) =>
     StockCurrentPriceModelDTO(
       json['isProductWatching'] as bool?,
+      json['isOwner'] as bool?,
       json['symbol'] as String?,
       json['imageUrl'] as String?,
       json['stockName'] as String?,
@@ -49,6 +50,7 @@ Map<String, dynamic> _$StockCurrentPriceModelDTOToJson(
         StockCurrentPriceModelDTO instance) =>
     <String, dynamic>{
       'isProductWatching': instance.isProductWatching,
+      'isOwner': instance.isOwner,
       'symbol': instance.symbol,
       'imageUrl': instance.imageUrl,
       'stockName': instance.stockName,

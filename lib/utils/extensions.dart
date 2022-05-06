@@ -301,7 +301,7 @@ extension ImageExtension on String {
     return CachedNetworkImage(
       imageUrl: this,
       placeholder: (context, url) => const CircularProgressIndicator(),
-      errorWidget: (context, url, error) => "stock_image_loading".pngImage(),
+      errorWidget: (context, url, error) => "stock_place_holder".pngImage(),
       width: mWidth,
       height: mHeight,
     );

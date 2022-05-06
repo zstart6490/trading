@@ -24,8 +24,8 @@ CompanyNewsModelDto _$CompanyNewsModelDtoFromJson(Map<String, dynamic> json) =>
       symbol: json['symbol'] as String?,
       title: json['title'] as String?,
       url: json['url'] as String?,
-      imgUrl: json['imgUrl'] as String?,
       createTime: json['createTime'] as String?,
+      imgUrl: json['imgUrl'] as String?,
       source: json['source'] == null
           ? null
           : NewsSourceModelDto.fromJson(json['source']),
@@ -39,6 +39,7 @@ Map<String, dynamic> _$CompanyNewsModelDtoToJson(
       'title': instance.title,
       'url': instance.url,
       'imgUrl': instance.imgUrl,
+      'createTime': instance.createTime,
       'source': instance.source,
     };
 
