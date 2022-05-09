@@ -91,7 +91,12 @@ class HomePageView extends GetView<HomePageController> {
                               padding: PAD_SYM_H40,
                               btnTitle: "Thêm mã",
                               onPressed: () {
-                                controller.selectStock();
+                                if(controller.isSubscribeFollow){
+                                  controller.selectMarketStock();
+                                }else{
+                                  controller.selectStock();
+                                }
+
                               },
                             ),
                           ],

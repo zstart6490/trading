@@ -19,6 +19,9 @@ class AccountInfoModel {
     required this.balancePay,
   });
 
+
+
+
   double getStateProfitLoss() {
     double totalGrowth = 0;
     if (stockList != null) {
@@ -75,6 +78,7 @@ class PendingTransactionModel {
   final double? orderType;
   final double? amount;
   final double? actualAmount;
+
 
   PendingTransactionModel({
     required this.modifyTime,

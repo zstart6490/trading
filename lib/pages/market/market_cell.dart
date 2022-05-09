@@ -50,10 +50,7 @@ class MarketCell extends StatelessWidget {
                       )),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: CachedNetworkImage(
-                      imageUrl: stock.fullLink,
-                      fit: BoxFit.contain,
-                    ),
+                    child: stock.fullLink.loadCacheImg(),
                   ),
                 ),
               ),

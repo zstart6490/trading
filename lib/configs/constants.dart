@@ -49,7 +49,8 @@ const PROGRESSING_DIALOG = 'ProgressingDialog';
 const AUTH_TOKEN_KEY = "trading_auth";
 const TD_DEPOSIT_FIRST_SUFFIX = "_TD_DEPOSIT_FIRST";
 const APP_FOLLOW_STOCK_OPENED = "_trading_Follow_Stock_Opened";
-
+const Home_Cache = "_Home_Cache";
+const Home_Maket_Cache = "_Home_Maket_Cache";
 /// TEXT
 const SESSION_TIMEOUT_CODE = 1200;
 const MAINTAIN_LV1_CODE = 1007;

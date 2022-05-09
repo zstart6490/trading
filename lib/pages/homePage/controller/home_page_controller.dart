@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/domain/entities/account_info_model.dart';
@@ -9,13 +13,13 @@ import 'package:trading_module/domain/entities/property_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
 import 'package:trading_module/domain/use_cases/open_withdraw_usecase.dart';
+import 'package:trading_module/pages/main_tabbar/main_tabbar_controller.dart';
 import 'package:trading_module/routes/app_navigate.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 enum SortEnum { normal, up, down }
-
 
 class HomePageController extends BaseController
     with StateMixin<AccountInfoModel>, GetSingleTickerProviderStateMixin {
@@ -50,6 +54,7 @@ class HomePageController extends BaseController
   @override
   void onReady() {
     super.onReady();
+    loadCache();
     getAccountInfo();
   }
 
@@ -138,6 +143,11 @@ class HomePageController extends BaseController
     navToSelectStock();
   }
 
+  void selectMarketStock() {
+    final TDMainTabController tdMainTabController = Get.find();
+    tdMainTabController.tabIndex = 1;
+  }
+
   void selTab(int index) {
     tabController.animateTo(index);
   }
@@ -198,6 +208,23 @@ class HomePageController extends BaseController
           PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
       subscribe();
+
+    } else {
+      change(null, status: RxStatus.empty());
+    }
+  }
+
+  void loadCache(){
+    final result =  _homeTradingUseCase.getCache();
+    if (result.data != null) {
+      accountInfoModel = result.data;
+      //Add item fake Header section view1
+      accountInfoModel?.stockList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
+      accountInfoModel?.productWatchingVOList?.insert(0,
+          PropertyModel(null, null, null, null, null, null, null, null, null));
+      change(accountInfoModel, status: RxStatus.success());
+
     } else {
       change(null, status: RxStatus.empty());
     }

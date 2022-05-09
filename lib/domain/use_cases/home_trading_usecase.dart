@@ -11,4 +11,9 @@ class HomeTradingUseCase {
     return result;
   }
 
+  DataState<AccountInfoModel> getCache() {
+    final result = _cashInRepo.getCache();
+    return result;
+  }
+
 }

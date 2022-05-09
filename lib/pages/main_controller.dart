@@ -55,10 +55,9 @@ class MainController extends BaseController {
           mainProvider.configMap = dataLogin?.configMap;
           Get.toNamed(AppRoutes.mainView);
         }
-      } else {
-        if (respData.error != null) {
-          handleErrorResponse(respData.error);
-        }
+      }
+      if (respData.error != null) {
+        handleErrorResponse(respData.error);
       }
     }
   }
