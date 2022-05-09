@@ -47,21 +47,21 @@ class StockTransHistoryItemView extends StatelessWidget {
               Expanded(
                   child: Text(
                 "Khối lượng",
-                    textAlign: TextAlign.center,
+                textAlign: TextAlign.center,
                 style: context.textSize12.copyWith(
                     color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
               )),
               Expanded(
                   child: Text(
                 "Giá khớp",
-                    textAlign: TextAlign.center,
+                textAlign: TextAlign.center,
                 style: context.textSize12.copyWith(
                     color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
               )),
               Expanded(
                   child: Text(
                 "Trạng thái",
-                    textAlign: TextAlign.right,
+                textAlign: TextAlign.right,
                 style: context.textSize12.copyWith(
                     color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
               ))
@@ -96,7 +96,11 @@ class StockTransHistoryItemView extends StatelessWidget {
                       )),
                       Expanded(
                           child: Text(
-                        stHistory.quantity.toStockQuantity(),
+                        (stHistory.status == StockTransactionState.processed ||
+                            stHistory.status ==
+                                    StockTransactionState.partiallyProcessed)
+                            ? stHistory.quantityMatch.toStockQuantity()
+                            : stHistory.quantity.toStockQuantity(),
                         textAlign: TextAlign.center,
                         style: context.textSize12.copyWith(
                             color: COLOR_333333, fontWeight: FontWeight.w700),
@@ -134,7 +138,8 @@ class StockTransHistoryItemView extends StatelessWidget {
     if (status == StockTransactionState.pending) {
       return Colors.orange;
     }
-    if (status == StockTransactionState.processed || status==StockTransactionState.partiallyProcessed) {
+    if (status == StockTransactionState.processed ||
+        status == StockTransactionState.partiallyProcessed) {
       return Colors.green;
     }
     if (status == StockTransactionState.failed) {

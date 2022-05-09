@@ -97,7 +97,7 @@ class BuyStockController extends ExchangeStockController {
     hideDialog();
     showAlertDialog(
         CustomAlertDialog(
-            title: "Mua chứng khoán",
+            title: "Mua cổ phiếu",
             descWidget: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(

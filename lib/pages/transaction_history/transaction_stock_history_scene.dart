@@ -56,7 +56,7 @@ class TransactionStockHistoryScene
                       onRefresh: controller.onRefresh,
                       onLoading: controller.onLoading,
                       child: ListView.builder(
-                        physics: const ScrollPhysics(),
+                        shrinkWrap: true,
                         itemBuilder: (context, index) =>
                             StockTransHistoryItemView(controller.listOrderRecord[index]),
                         itemCount: controller.listOrderRecord.length,

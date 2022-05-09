@@ -88,7 +88,7 @@ class StockBuyAmountComponent extends BaseViewModel<BuyStockController> {
                             child: Row(
                           children: [
                             Text(
-                              "Số tiền dự tính",
+                              "Giá trị dự tính",
                               style: context.textSize14
                                   .copyWith(color: context.disabledColor),
                             ),
