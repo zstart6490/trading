@@ -2,7 +2,7 @@ import 'package:trading_module/configs/service_api_config.dart';
 
 class StockCurrentPriceModel {
   final bool? isProductWatching;
-  final bool? isOwner;
+  final bool? isAllowSell;
   final String? symbol;
   final String? imageUrl;
   final String? stockName;
@@ -44,7 +44,7 @@ class StockCurrentPriceModel {
 
   StockCurrentPriceModel(
       this.isProductWatching,
-      this.isOwner,
+      this.isAllowSell,
       this.symbol,
       this.imageUrl,
       this.stockName,

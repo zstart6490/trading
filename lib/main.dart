@@ -15,6 +15,8 @@ import 'pages/main_tabbar/main_tabbar_binding.dart';
 
 
 Future<void> mainCommon(EnvironmentConfiguration serverConfig) async {
+  print("serverConfig111");
+  print(serverConfig);
   Environment().initConfig(serverConfig);
   log(Environment().config.toString());
   runApp(MyApp());

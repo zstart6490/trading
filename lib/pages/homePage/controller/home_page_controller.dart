@@ -157,10 +157,10 @@ class HomePageController extends BaseController
   }
 
   void onRefresh() {
+    print("onRefreshonRefresh");
     Future.wait([
       getAccountInfo(),
     ]).then((_) => refreshController.refreshCompleted());
-    //refreshListTransaction();
   }
 
   void subscribe() {
@@ -239,6 +239,10 @@ class HomePageController extends BaseController
   }
 
   void tapOnSortAlphabet() {
+    sortCurrentPrice.value = SortEnum.normal;
+    sortProfitAndLoss.value = SortEnum.normal;
+    sortVolume.value = SortEnum.normal;
+
     if (sortAlphabet.value != SortEnum.down) {
       sortAlphabet.value = SortEnum.down;
     } else {
@@ -273,6 +277,10 @@ class HomePageController extends BaseController
   }
 
   void tapOnSortVolume() {
+    sortCurrentPrice.value = SortEnum.normal;
+    sortProfitAndLoss.value = SortEnum.normal;
+    sortAlphabet.value = SortEnum.normal;
+
     if (sortVolume.value != SortEnum.down) {
       sortVolume.value = SortEnum.down;
     } else {
@@ -294,6 +302,10 @@ class HomePageController extends BaseController
   }
 
   void tapOnSortCurrentPrice() {
+    sortAlphabet.value = SortEnum.normal;
+    sortProfitAndLoss.value = SortEnum.normal;
+    sortVolume.value = SortEnum.normal;
+
     if (sortCurrentPrice.value != SortEnum.down) {
       sortCurrentPrice.value = SortEnum.down;
     } else {
@@ -327,6 +339,10 @@ class HomePageController extends BaseController
   }
 
   void tapOnSortProfitAndLoss() {
+    sortAlphabet.value = SortEnum.normal;
+    sortCurrentPrice.value = SortEnum.normal;
+    sortVolume.value = SortEnum.normal;
+
     if (sortProfitAndLoss.value != SortEnum.down) {
       sortProfitAndLoss.value = SortEnum.down;
     } else {

@@ -42,7 +42,7 @@ class StagingConfig implements BaseConfig {
   @override
   String get marketHost => "stg-trading-market.tikop.vn";
   @override
-  String get marketProtocol => "http://";
+  String get marketProtocol => "https://";
   @override
   String get appName => "Trading-Stg";
   @override
@@ -78,6 +78,8 @@ class Environment {
   BaseConfig config =  DevConfig();
 
   void initConfig(EnvironmentConfiguration environment) {
+    print("environment environment");
+    print(environment);
     config = _getConfig(environment);
   }
 

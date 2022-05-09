@@ -19,7 +19,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
       actions: const <Widget>[
         FollowStockComponent(),
       ],
-      body:  Column(
+      body: Column(
         children: [
           Expanded(
             child: ListView(
@@ -29,7 +29,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                 StockMenuView(controller: controller),
                 SIZED_BOX_H06,
                 Obx(
-                      () => _buildBody(context, controller.indexTab.value),
+                  () => _buildBody(context, controller.indexTab.value),
                 ),
               ],
             ),
@@ -51,16 +51,19 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                   ),
                 ),
                 SIZED_BOX_W16,
-                Expanded(
-                  child: CustomButton.trailingStyleBgColor(
-                    title: "Bán",
-                    bgColor: const Color(0xFFF46666),
-                    textStyle: context.textSize18light,
-                    trailing: const Icon(
-                      null,
+                Obx(
+                  () => Expanded(
+                    child: CustomButton.trailingStyleBgColor(
+                      title: "Bán",
+                      bgColor: const Color(0xFFF46666),
+                      textStyle: context.textSize18light,
+                      trailing: const Icon(
+                        null,
+                      ),
+                      onPressed: controller.isValid.value
+                          ? () => controller.sellTapped()
+                          : null,
                     ),
-                    onPressed:
-                      controller.isValid.value ? () => controller.sellTapped() : null,
                   ),
                 ),
               ],
@@ -71,8 +74,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
     );
   }
 
-  Widget _buildBody(
-      BuildContext context,  int indexTab) {
+  Widget _buildBody(BuildContext context, int indexTab) {
     if (indexTab == 0) {
       return const StockOverviewScene();
     } else if (indexTab == 1) {
