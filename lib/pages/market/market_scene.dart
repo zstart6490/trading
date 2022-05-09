@@ -93,7 +93,6 @@ class MarketScene extends GetView<MarketController> {
                         ),
                       ),
                   onEmpty: Container(
-                      margin: const EdgeInsets.only(bottom: 180),
                       child: const ListNoDataBackground(
                         pngPath:
                             "assets/images/png/banner_search_not_found.png",
