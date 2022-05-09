@@ -151,8 +151,8 @@ class HomePageController extends BaseController
     Get.toNamed(AppRoutes.tdInputMoneyLocal);
   }
 
-  void onRefresh() {
-    Future.wait([
+  Future onRefresh() {
+    return Future.wait([
       getAccountInfo(),
     ]).then((_) => refreshController.refreshCompleted());
     //refreshListTransaction();

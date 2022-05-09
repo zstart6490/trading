@@ -4,6 +4,7 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/exchange/components/stock_exchange_view.dart';
 import 'package:trading_module/pages/exchange/components/stock_sell_amount_component.dart';
 import 'package:trading_module/pages/exchange/sell/sell_stock_controller.dart';
+import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/utils/extensions.dart';
@@ -17,6 +18,12 @@ class SellStockScene extends GetView<SellStockController> {
       title: "sell_stock".tr,
       elevation: 0.3,
       backgroundColor: context.scaffoldBackgroundColor,
+      actions: [
+        IconButton(
+          icon: "ic_info".pngImage(),
+          onPressed: () =>   Get.toNamed(AppRoutes.stockDetail, arguments: controller.stockModel),
+        )
+      ],
       body: Column(
         children: [
           Expanded(

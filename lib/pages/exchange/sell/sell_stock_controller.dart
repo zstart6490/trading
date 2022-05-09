@@ -85,7 +85,7 @@ class SellStockController extends ExchangeStockController {
     if (!result) return;
     showAlertDialog(
         CustomAlertDialog(
-            title: "Bán chứng khoán",
+            title: "Bán cổ phiếu",
             descWidget: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(

@@ -89,7 +89,7 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                               child: Row(
                             children: [
                               Text(
-                                "Dự kiến nhận",
+                                "Giá trị dự tính",
                                 style: context.textSize14
                                     .copyWith(color: context.disabledColor),
                               ),
@@ -112,7 +112,7 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                                     hideOnTooltipTap: true,
                                     tooltipDirection: TooltipDirection.down,
                                     content: Text(
-                                      "Là số tiền dự kiến bạn sẽ nhận được khi thực hiện bán cổ phiếu.\n"
+                                      "Là số tiền dự tính bạn sẽ nhận được khi thực hiện bán cổ phiếu.\n"
                                       "Chưa bao gồm:\n"
                                       "${controller.stockOrderInfo?.feePercent}% phí bán\n"
                                       "${controller.stockOrderInfo?.vatPercent}% thuế thu nhập cá nhân\n"

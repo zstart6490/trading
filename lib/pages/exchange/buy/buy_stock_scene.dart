@@ -4,6 +4,7 @@ import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/exchange/buy/buy_stock_controller.dart';
 import 'package:trading_module/pages/exchange/components/stock_buy_amount_component.dart';
 import 'package:trading_module/pages/exchange/components/stock_exchange_view.dart';
+import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/utils/extensions.dart';
@@ -14,6 +15,12 @@ class BuyStockScene extends GetView<BuyStockController> {
     return BaseScaffoldAppBar<BuyStockController>(
       title: "buy_stock".tr,
       elevation: 0.3,
+      actions: [
+        IconButton(
+          icon: "ic_info".pngImage(),
+          onPressed: () =>   Get.toNamed(AppRoutes.stockDetail, arguments: controller.stockModel),
+        )
+      ],
       backgroundColor: context.scaffoldBackgroundColor,
       body: Column(
         children: [

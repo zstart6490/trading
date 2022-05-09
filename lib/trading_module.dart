@@ -1,4 +1,4 @@
-import 'package:firebase_messaging_platform_interface/src/remote_message.dart';
+// import 'package:firebase_messaging_platform_interface/src/remote_message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
