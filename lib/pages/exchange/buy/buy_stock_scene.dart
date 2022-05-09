@@ -18,7 +18,7 @@ class BuyStockScene extends GetView<BuyStockController> {
       actions: [
         IconButton(
           icon: "ic_info".pngImage(),
-          onPressed: () =>   Get.toNamed(AppRoutes.stockDetail, arguments: controller.stockModel),
+          onPressed: () =>   Get.toNamed(AppRoutes.stockMoreDetail, arguments: controller.stockModel),
         )
       ],
       backgroundColor: context.scaffoldBackgroundColor,
