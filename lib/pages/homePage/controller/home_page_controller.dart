@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/domain/entities/account_info_model.dart';
@@ -77,13 +73,12 @@ class HomePageController extends BaseController
       final subtitleStyle = Get.context!.textSize14;
       showAlertDialog(CustomAlertDialog(
           title: "Thông báo",
-          descWidget: Expanded(
-              child: RichText(
+          descWidget:RichText(
             textAlign: TextAlign.center,
             maxLines: 3,
             text: TextSpan(
               text:
-                  "Số dư tiền mặt của bạn không đủ để thực hiện hành động này\n",
+              "Số dư tiền mặt của bạn không đủ để thực hiện hành động này\n",
               style: subtitleStyle,
               children: <TextSpan>[
                 TextSpan(
@@ -91,7 +86,7 @@ class HomePageController extends BaseController
                     style: subtitleStyle.copyWith(color: Colors.red)),
               ],
             ),
-          )),
+          ),
           actions: [
             AlertAction(
                 text: "Đã hiểu",
