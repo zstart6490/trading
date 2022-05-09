@@ -19,14 +19,12 @@ class AccountInfoModel {
     required this.balancePay,
   });
 
-
-
-
   double getStateProfitLoss() {
     double totalGrowth = 0;
     if (stockList != null) {
       for (final item in stockList!) {
-        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0))  * (item.quantity ?? 0);
+        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0)) *
+            (item.quantity ?? 0);
       }
     }
     return totalGrowth;
@@ -34,7 +32,10 @@ class AccountInfoModel {
 
   double getTotalProperty() {
     final double totalPrice = getTotalPropertyStock();
-    return totalPrice + (cashBalance ?? 0) + (balanceWaitingReturn ?? 0) + (balancePay ?? 0);
+    return totalPrice +
+        (cashBalance ?? 0) +
+        (balanceWaitingReturn ?? 0) +
+        (balancePay ?? 0);
   }
 
   double getTotalPropertyStock() {
@@ -42,12 +43,28 @@ class AccountInfoModel {
     double totalOrigin = 0;
     if (stockList != null) {
       for (final item in stockList!) {
-        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0))  * (item.quantity ?? 0);
-        totalOrigin += (item.priceAvg ?? 0)  * (item.quantity ?? 0);
+        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0)) *
+            (item.quantity ?? 0);
+        totalOrigin += (item.priceAvg ?? 0) * (item.quantity ?? 0);
       }
     }
 
     return totalOrigin + totalGrowth;
+  }
+
+  double getPercentGrowth() {
+    double totalGrowth = 0;
+    double totalOrigin = 0;
+    if (stockList != null) {
+      for (final item in stockList!) {
+        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0)) *
+            (item.quantity ?? 0);
+        totalOrigin += (item.priceAvg ?? 0) * (item.quantity ?? 0);
+      }
+    }
+
+    final percent = (totalGrowth / totalOrigin) * 100;
+    return percent;
   }
 
   String getTotalGrowth() {
@@ -55,22 +72,26 @@ class AccountInfoModel {
     double totalOrigin = 0;
     if (stockList != null) {
       for (final item in stockList!) {
-        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0))  * (item.quantity ?? 0);
-        totalOrigin += (item.priceAvg ?? 0)  * (item.quantity ?? 0);
+        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0)) *
+            (item.quantity ?? 0);
+        totalOrigin += (item.priceAvg ?? 0) * (item.quantity ?? 0);
       }
     }
 
-    final percent = (totalGrowth / totalOrigin)*100;
+    final percent = (totalGrowth / totalOrigin) * 100;
     var sPercent = "0%";
     if (!percent.isNaN && !percent.isInfinite) {
-       sPercent = percent > 0 ? "+${percent.toPrecision(2)}%" : "${percent.toPrecision(2)}%";
+      sPercent = percent > 0
+          ? "+${percent.toPrecision(2)}%"
+          : "${percent.toPrecision(2)}%";
     }
 
-    final sTotalGrowth = totalGrowth > 0 ? "+${totalGrowth.toCurrency()}" : totalGrowth.toCurrency();
+    final sTotalGrowth = totalGrowth > 0
+        ? "+${totalGrowth.toCurrency()}"
+        : totalGrowth.toCurrency();
     return "$sTotalGrowth ($sPercent)";
   }
 }
-
 
 class PendingTransactionModel {
   final String? modifyTime;
@@ -78,7 +99,6 @@ class PendingTransactionModel {
   final double? orderType;
   final double? amount;
   final double? actualAmount;
-
 
   PendingTransactionModel({
     required this.modifyTime,

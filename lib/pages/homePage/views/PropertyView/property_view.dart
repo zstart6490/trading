@@ -74,7 +74,7 @@ class PropertyView extends GetView<HomePageController> {
                               TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: 'Giá trị cổ  ',
+                                    text: 'Giá trị cổ phiếu',
                                     style: TextStyle(
                                       color: Color(0xFF333333),
                                       fontSize: 14,
@@ -102,11 +102,11 @@ class PropertyView extends GetView<HomePageController> {
                       SIZED_BOX_H08,
                       Row(
                         children: [
-                          const Expanded(
+                           Expanded(
                             child: Text.rich(
                               TextSpan(
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                     text: '  Tăng trưởng ',
                                     style: TextStyle(
                                       color: Color(0xFF858585),
@@ -117,13 +117,7 @@ class PropertyView extends GetView<HomePageController> {
                                     ),
                                   ),
                                   WidgetSpan(
-                                    child: Image(
-                                      width: 16,
-                                      height: 16,
-                                      image: AssetImage(
-                                          "assets/images/png/ic_property_up.png",
-                                          package: "trading_module"),
-                                    ),
+                                    child: (property?.getPercentGrowth() ?? 0) > 0 ? "ic_property_up".pngImage(mWidth: 16, mHeight: 16) : "ic_property_down".pngImage(mWidth: 16, mHeight: 16),
                                   ),
                                 ],
                               ),

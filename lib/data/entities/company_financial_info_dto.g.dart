@@ -61,6 +61,7 @@ Map<String, dynamic> _$CompanyFinancialInfoDtoToJson(
       'valuation': instance.valuation,
       'eps': instance.eps,
       'pe': instance.pe,
+      'pb': instance.pb,
       'profitability': instance.profitability,
       'roe': instance.roe,
       'roa': instance.roa,

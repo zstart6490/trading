@@ -35,6 +35,7 @@ class StockOverviewController extends BaseController
         final StockMoreDetailController _homePageController =
         Get.find<StockMoreDetailController>();
         _homePageController.isFollow.value = result.data?.isProductWatching ?? false;
+        _homePageController.isValid.value = result.data?.isOwner ?? false;
         _stockCurrentPriceModel = result.data;
         change(result.data, status: RxStatus.success());
       } else if (result.error != null) {

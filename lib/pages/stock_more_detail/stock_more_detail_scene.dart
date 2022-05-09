@@ -23,7 +23,7 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
         children: [
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.only(top: 30),
+              //padding: const EdgeInsets.only(top: 0),
               children: <Widget>[
                 SIZED_BOX_H08,
                 StockMenuView(controller: controller),
@@ -59,9 +59,8 @@ class StockMoreDetailScene extends GetView<StockMoreDetailController> {
                     trailing: const Icon(
                       null,
                     ),
-                    onPressed: () {
-                      controller.sellTapped();
-                    },
+                    onPressed:
+                      controller.isValid.value ? () => controller.sellTapped() : null,
                   ),
                 ),
               ],

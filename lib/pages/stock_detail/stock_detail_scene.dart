@@ -117,21 +117,12 @@ class HeaderStockDetailView<T extends StockDetailController>
       children: <Widget>[
         SIZED_BOX_H08,
         Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
           child: Row(
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: CachedNetworkImage(
-                  imageUrl: stock?.fullLink ?? "",
-                  width: 43,
-                  height: 43,
-                  placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Image.asset(
-                      "assets/images/png/ic_follow.png",
-                      package: "trading_module"),
-                ),
+                child: stock?.fullLink.loadCacheImg(mWidth: 43, mHeight: 43),
               ),
               SIZED_BOX_W10,
               Expanded(
