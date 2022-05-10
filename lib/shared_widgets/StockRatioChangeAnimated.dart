@@ -20,7 +20,7 @@ class _StockRatioChangeAnimatedState extends State<StockRatioChangeAnimated>{
       thousandSeparator: ".",
       decimalSeparator: ",",
       value:  widget.ratioChange,
-      fractionDigits: 2,
+      fractionDigits: (widget.ratioChange < 100)? 2 : 0,
       prefix: (widget.ratioChange >0)? "+" : "",// decimal precision
       suffix: "%",
       textStyle: TextStyle(
