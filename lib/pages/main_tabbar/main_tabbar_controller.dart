@@ -33,6 +33,7 @@ class TDMainTabController extends BaseController
 
   void onTabChange() {
     debugPrint("TabChange :${tabController.index}");
+    FocusManager.instance.primaryFocus?.unfocus();
     if (tabIndex == 0) {
     } else if (tabIndex == 1) {
     } else if (tabIndex == 2) {}

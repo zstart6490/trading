@@ -63,75 +63,74 @@ class HomePageView extends GetView<HomePageController> {
               ),
             ),
             SafeArea(
-              child: CustomRefresher(
-                controller: controller.refreshController,
-                onRefresh: controller.onRefresh,
-                child: controller.obx(
-                  (property) => ListView.builder(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    itemCount: controller.tabController.index == 0
-                        ? property?.stockList?.length ?? 0
-                        : property?.productWatchingVOList?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      if ((controller.tabController.index == 0 &&
-                              (property?.stockList?.length ?? 0) == 1) ||
-                          (controller.tabController.index == 1 &&
-                              (property?.productWatchingVOList?.length ?? 0) ==
-                                  1)) {
-                        return Column(
-                          children: [
-                            HeaderHomeView(
+              child: controller.obx((property) => CustomRefresher(
+                    controller: controller.refreshController,
+                    onRefresh: controller.onRefresh,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      itemCount: controller.tabController.index == 0
+                          ? property?.stockList?.length ?? 0
+                          : property?.productWatchingVOList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        if ((controller.tabController.index == 0 &&
+                                (property?.stockList?.length ?? 0) == 1) ||
+                            (controller.tabController.index == 1 &&
+                                (property?.productWatchingVOList?.length ??
+                                        0) ==
+                                    1)) {
+                          return Column(
+                            children: [
+                              HeaderHomeView(
+                                controller: controller,
+                                accountInfo: property!,
+                              ),
+                              ListNoDataBackground(
+                                pngPath:
+                                    "assets/images/png/banner_empty_data.png",
+                                desc: "Chưa có mã nào trong mục này",
+                                padding: PAD_SYM_H40,
+                                btnTitle: "Thêm mã",
+                                onPressed: () {
+                                  if (controller.isSubscribeFollow) {
+                                    controller.selectMarketStock();
+                                  } else {
+                                    controller.selectStock();
+                                  }
+                                },
+                              ),
+                            ],
+                          );
+                        } else {
+                          if (index == 0) {
+                            return HeaderHomeView(
                               controller: controller,
                               accountInfo: property!,
-                            ),
-                            ListNoDataBackground(
-                              pngPath:
-                                  "assets/images/png/banner_empty_data.png",
-                              desc: "Chưa có mã nào trong mục này",
-                              padding: PAD_SYM_H40,
-                              btnTitle: "Thêm mã",
-                              onPressed: () {
-                                if(controller.isSubscribeFollow){
-                                  controller.selectMarketStock();
-                                }else{
-                                  controller.selectStock();
-                                }
-                              },
-                            ),
-                          ],
-                        );
-                      } else {
-                        if (index == 0) {
-                          return HeaderHomeView(
+                            );
+                          }
+
+                          return BoardItemCell(
+                            item: controller.tabController.index == 0
+                                ? (property?.stockList?[index])
+                                : (property?.productWatchingVOList?[index]),
+                            onPressed: () {
+                              controller.tabController.index == 0
+                                  ? controller
+                                      .stockDetail(property?.stockList?[index])
+                                  : controller.stockDetail(
+                                      property?.productWatchingVOList?[index]);
+                            },
                             controller: controller,
-                            accountInfo: property!,
                           );
                         }
-
-                        return BoardItemCell(
-                          item: controller.tabController.index == 0
-                              ? (property?.stockList?[index])
-                              : (property?.productWatchingVOList?[index]),
-
-                          onPressed: () {
-                            controller.tabController.index == 0
-                                ? controller.stockDetail(property?.stockList?[index])
-                                : controller.stockDetail(property?.productWatchingVOList?[index]);
-                          },
-                          controller: controller,
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
+                      },
+                    ),
+                  )),
+            )
           ],
         ),
       ),
     );
   }
-
 }
 
 class CustomShape extends CustomClipper<Path> {

@@ -7,8 +7,8 @@ part 'stock_current_price_model_dto.g.dart';
 class StockCurrentPriceModelDTO {
   @JsonKey(name: "isProductWatching")
   final bool? isProductWatching;
-  @JsonKey(name: "isOwner")
-  final bool? isOwner;
+  @JsonKey(name: "isAllowSell")
+  final bool? isAllowSell;
   @JsonKey(name: "symbol")
   final String? symbol;
   @JsonKey(name: "imageUrl")
@@ -80,7 +80,7 @@ class StockCurrentPriceModelDTO {
 
   StockCurrentPriceModelDTO(
       this.isProductWatching,
-      this.isOwner,
+      this.isAllowSell,
       this.symbol,
       this.imageUrl,
       this.stockName,
@@ -128,7 +128,7 @@ extension StockCurrentPriceModelDTOMapper on StockCurrentPriceModelDTO {
   StockCurrentPriceModel toModel() {
     return StockCurrentPriceModel(
       isProductWatching,
-      isOwner,
+      isAllowSell,
       symbol,
       imageUrl,
       stockName,

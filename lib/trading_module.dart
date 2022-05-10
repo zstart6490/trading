@@ -1,3 +1,4 @@
+// import 'package:firebase_messaging_platform_interface/src/remote_message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
@@ -35,7 +36,7 @@ class DataCallback {
 }
 
 class TradingModule {
-  static String versionTrading = "-dev-1.0.1.0";
+  static String versionTrading = "-dev-1.0.2.0";
 
   static Future openTradingModule({
     required BuildContext context,
@@ -49,7 +50,7 @@ class TradingModule {
     initGetxTrading();
 
     //init
-    Environment().initConfig(EnvironmentConfiguration.develop);
+    Environment().initConfig(EnvironmentConfiguration.staging);
     print("===data input===");
     print("token=${dataInput.token}");
     print("userIsRegisteredKyc=${dataInput.userIsRegisteredKyc}");
@@ -141,4 +142,8 @@ class TradingModule {
   }
 
   void init() {}
+
+  static void firebaseOnMessage(String action) {
+
+  }
 }

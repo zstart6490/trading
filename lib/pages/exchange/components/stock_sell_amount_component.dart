@@ -89,7 +89,7 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                               child: Row(
                             children: [
                               Text(
-                                "Dự kiến nhận",
+                                "Giá trị dự tính",
                                 style: context.textSize14
                                     .copyWith(color: context.disabledColor),
                               ),
@@ -124,24 +124,25 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                                         style: context.textSize12
                                             .copyWith(color: Colors.white, height: 1.3)
                                         ),
-                                        SizedBox(height: 6),
+                                        const SizedBox(height: 6),
                                         Text(
                                         "Chưa bao gồm:",
                                         style: context.textSize12
                                             .copyWith(color: Colors.white, height: 1.3)
                                         ),
-                                        SizedBox(height: 6),
+                                        const SizedBox(height: 6),
                                         Text("${controller.stockOrderInfo?.feePercent}% phí bán.",
                                             style: context.textSize12
                                                 .copyWith(color: Colors.white)),
-                                        SizedBox(height: 6),
+                                        const SizedBox(height: 6),
                                         Text("${controller.stockOrderInfo?.vatPercent}% thuế thu nhập cá nhân.",
                                             style: context.textSize12
                                                 .copyWith(color: Colors.white)),
-                                        SizedBox(height: 6),
+                                        const SizedBox(height: 6),
                                         Text("${controller.feeTransaction.value.toCurrency()} phí giao dịch.",style: context.textSize14
                                             .copyWith(color: Colors.white)),
                                       ],
+
                                     ),
                                     child: const Icon(
                                       Icons.info,
