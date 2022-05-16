@@ -50,7 +50,7 @@ class TradingModule {
     initGetxTrading();
 
     //init
-    Environment().initConfig(EnvironmentConfiguration.staging);
+    Environment().initConfig(EnvironmentConfiguration.develop);
     print("===data input===");
     print("token=${dataInput.token}");
     print("userIsRegisteredKyc=${dataInput.userIsRegisteredKyc}");
