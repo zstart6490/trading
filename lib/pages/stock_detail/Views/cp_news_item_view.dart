@@ -35,12 +35,13 @@ class CompanyNewsItemView extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   if (news.source.sourceName.isNotEmpty) SIZED_BOX_W08,
-                  Text(
-                    news.createTime
-                        .toDateFormat(DateFormater.yyyyMMddHHmmss)
-                        .toStringFormat(DateFormater.ddMMYYYY),
-                    style: context.textSize14.copyWith(color: Colors.grey),
-                  )
+                  if (news.createTime.isNotEmpty)
+                    Text(
+                      news.createTime
+                          .toDateFormat(DateFormater.yyyyMMddHHmmss)
+                          .toStringFormat(DateFormater.ddMMYYYY),
+                      style: context.textSize14.copyWith(color: Colors.grey),
+                    )
                 ],
               ),
               SIZED_BOX_H12,
@@ -49,8 +50,7 @@ class CompanyNewsItemView extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: "https://vnn-imgs-f.vgcloud.vn/2022/01/04/15/1-1.jpg"
-                        .loadCacheImg(mWidth: 113, mHeight: 80),
+                    child: news.imgUrl.loadCacheImg(mWidth: 113, mHeight: 80),
                   ),
                   SIZED_BOX_W12,
                   Expanded(

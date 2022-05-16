@@ -1,9 +1,10 @@
 
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:trading_module/utils/extensions.dart';
 
 class StockRatioChangeAnimated extends StatefulWidget{
-  final num ratioChange;
+  final double ratioChange;
   const StockRatioChangeAnimated({
     required this.ratioChange,
 });
@@ -26,7 +27,8 @@ class _StockRatioChangeAnimatedState extends State<StockRatioChangeAnimated>{
       textStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
-        color: (widget.ratioChange >0) ? const Color(0xFF33CC7F) : (widget.ratioChange <0 ? const Color(0xFFF46666) :const Color(0xFFFFBE40)),
+        color: widget.ratioChange.getStockColor(),
+          // (widget.ratioChange >0) ? const Color(0xFF33CC7F) : (widget.ratioChange <0 ? const Color(0xFFF46666) :const Color(0xFFFFBE40)),
         overflow: TextOverflow.ellipsis,
       ),
 
