@@ -99,26 +99,50 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                                 child: SimpleTooltip(
                                     arrowBaseWidth: 18,
                                     //minWidth: MediaQuery.of(context).size.width - 150,
-                                    arrowLength: 11,
+                                    arrowLength: 10,
+                                    arrowTipDistance: 4,
+                                    // maxWidth: MediaQuery.of(context).size.width,
                                     ballonPadding: const EdgeInsets.symmetric(
                                         horizontal: 2, vertical: 1),
+
                                     borderRadius: 2,
                                     borderColor: const Color(0xFF606060),
-                                    backgroundColor: const Color(0xFF606060),
+                                    borderWidth: 1,
+                                    backgroundColor: const Color(0xFF333333),
                                     minimumOutSidePadding: 12.0,
                                     animationDuration:
                                         const Duration(milliseconds: 250),
                                     show: controller.isShowToolTip.value,
                                     hideOnTooltipTap: true,
                                     tooltipDirection: TooltipDirection.down,
-                                    content: Text(
-                                      "Là số tiền dự tính bạn sẽ nhận được khi thực hiện bán cổ phiếu.\n"
-                                      "Chưa bao gồm:\n"
-                                      "${controller.stockOrderInfo?.feePercent}% phí bán\n"
-                                      "${controller.stockOrderInfo?.vatPercent}% thuế thu nhập cá nhân\n"
-                                      "${controller.feeTransaction.value.toCurrency()} phí giao dịch",
-                                      style: context.textSize14
-                                          .copyWith(color: Colors.white),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                        "Là số tiền dự kiến bạn sẽ nhận được khi thực hiện bán cổ phiếu.",
+                                        style: context.textSize12
+                                            .copyWith(color: Colors.white, height: 1.3)
+                                        ),
+                                        const SizedBox(height: 6),
+                                        Text(
+                                        "Chưa bao gồm:",
+                                        style: context.textSize12
+                                            .copyWith(color: Colors.white, height: 1.3)
+                                        ),
+                                        const SizedBox(height: 6),
+                                        Text("${controller.stockOrderInfo?.feePercent}% phí bán.",
+                                            style: context.textSize12
+                                                .copyWith(color: Colors.white)),
+                                        const SizedBox(height: 6),
+                                        Text("${controller.stockOrderInfo?.vatPercent}% thuế thu nhập cá nhân.",
+                                            style: context.textSize12
+                                                .copyWith(color: Colors.white)),
+                                        const SizedBox(height: 6),
+                                        Text("${controller.feeTransaction.value.toCurrency()} phí giao dịch.",style: context.textSize14
+                                            .copyWith(color: Colors.white)),
+                                      ],
+
                                     ),
                                     child: const Icon(
                                       Icons.info,
