@@ -47,9 +47,12 @@ class TradingModule {
     Function(TradingSmartOTPType smartOTPType)? callToActiveSmartOtpPin,
     Function(TradingSmartOTPType smartOTPType)? callToForgetPin,
     Function()? callToSignIn,
+    Function(List<String> subscribeTopics,List<String> unSubscribeTopics)? registerNotifyTopic,
   }) async {
     initGetxTrading();
 
+    //init
+    Environment().initConfig(EnvironmentConfiguration.develop);
     //initev
     Environment().initConfig(EnvironmentConfiguration.develop);
     print("===data input===");
@@ -68,7 +71,7 @@ class TradingModule {
           callToAddBank,
           callToActiveSmartOtpPin,
           callToForgetPin,
-          callToSignIn));
+          callToSignIn,registerNotifyTopic));
     } else {
       Get.find<MainTradingProvider>().dataInputApp = dataInput;
     }

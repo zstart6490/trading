@@ -1,7 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
+import 'package:trading_module/shared_widgets/StockLastPriceAnimated.dart';
+import 'package:trading_module/shared_widgets/StockRatioChangeAnimated.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class MarketCell extends StatelessWidget {
@@ -16,12 +17,6 @@ class MarketCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const mediumStyle = TextStyle(
-        fontFamily: 'iCielHelveticaNowText',
-        color: Color(0xFF333333),
-        fontSize: 14,
-        fontWeight: FontWeight.w500);
-
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () => onPressed.call(),
@@ -47,7 +42,7 @@ class MarketCell extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: const Color(0xFF9AA0A5),
-                      )),
+                      ),),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: stock.fullLink.loadCacheImg(),
@@ -66,7 +61,12 @@ class MarketCell extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: Text(
                           stock.symbol.toUpperCase(),
-                          style: mediumStyle,
+                          style: const TextStyle(
+                            fontFamily: 'iCielHelveticaNowText-Medium',
+                            color: Color(0xFF333333),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
                           textAlign: TextAlign.left,
                         ),
                       ),
@@ -78,7 +78,7 @@ class MarketCell extends StatelessWidget {
                               fontFamily: 'iCielHelveticaNowText',
                               color: Color(0xFF9AA0A5),
                               fontSize: 12,
-                              fontWeight: FontWeight.w400),
+                              fontWeight: FontWeight.w400,),
                           textAlign: TextAlign.left,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -96,29 +96,17 @@ class MarketCell extends StatelessWidget {
                   children: [
                     Align(
                       alignment: Alignment.topRight,
-                      child: Text(
-                        stock.lastPrice.getPriceStock(),
-                        style: mediumStyle,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: StockLastPriceAnimated(lastPrice: stock.lastPrice),
                     ),
                     Align(
                       alignment: Alignment.topRight,
-                      child: Text(
-                        stock.ratioChange.getRatioChange(),
-                        style: TextStyle(
-                            fontFamily: 'iCielHelveticaNowText',
-                            color: stock.ratioChange.getStockColor(),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: StockRatioChangeAnimated(ratioChange: stock.ratioChange),
                     ),
                   ],
                 ),
               ),
             ),
-          ]),
+          ],),
         ),
       ),
     );

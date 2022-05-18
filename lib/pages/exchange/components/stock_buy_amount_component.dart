@@ -102,22 +102,44 @@ class StockBuyAmountComponent extends BaseViewModel<BuyStockController> {
                                   ballonPadding: const EdgeInsets.symmetric(
                                       horizontal: 2, vertical: 1),
                                   borderRadius: 2,
+                                  borderWidth: 1,
                                   borderColor: const Color(0xFF606060),
-                                  backgroundColor: const Color(0xFF606060),
+                                  backgroundColor: const Color(0xFF333333),
                                   minimumOutSidePadding: 12.0,
+                                  // minWidth: MediaQuery.of(context).size.width*4/5,
                                   animationDuration:
                                       const Duration(milliseconds: 190),
                                   show: controller.isShowToolTip.value,
                                   hideOnTooltipTap: true,
                                   tooltipDirection: TooltipDirection.down,
-                                  content: Text(
-                                    "Tikop đã dự tính số tiền lớn nhất để có thể thực hiện giao dịch này. Trong trường hợp số tiền cần trả nhỏ hơn, bạn sẽ nhận lại tiền thừa khi giao dịch hoàn tất.\n"
-                                        "Đã bao gồm: \n"
-                                        "${controller.stockOrderInfo?.feePartnerPercent}% phí mua\n"
+                                  content: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                      "Tikop đã dự tính số tiền lớn nhất để có thể thực hiện giao dịch này. Trong trường hợp số tiền cần trả nhỏ hơn, bạn sẽ nhận lại tiền thừa khi giao dịch hoàn tất.",
+                                      style: context.textSize12
+                                          .copyWith(color: Colors.white),
+                                      ),
+                                      SizedBox(height: 6),
+                                      Text(
+                                        "Đã bao gồm:",
+                                        style: context.textSize12
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                        SizedBox(height: 6),
+                                        Text(
+                                        "${controller.stockOrderInfo?.feePartnerPercent}% phí mua.",
+                                        style: context.textSize12
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                        SizedBox(height: 6),
+                                        Text(
                                         "${controller.feeTransaction.value.toCurrency()} phí giao dịch",
-                                    style: context.textSize14
-                                        .copyWith(color: Colors.white),
-                                  ),
+                                        style: context.textSize12
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                  ],),
                                   child: const Icon(
                                     Icons.info,
                                     color: Color(0xFF9AA0A5),

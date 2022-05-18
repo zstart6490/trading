@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/domain/entities/account_info_model.dart';
@@ -73,12 +76,12 @@ class HomePageController extends BaseController
       final subtitleStyle = Get.context!.textSize14;
       showAlertDialog(CustomAlertDialog(
           title: "Thông báo",
-          descWidget:RichText(
+          descWidget: RichText(
             textAlign: TextAlign.center,
             maxLines: 3,
             text: TextSpan(
               text:
-              "Số dư tiền mặt của bạn không đủ để thực hiện hành động này\n",
+                  "Số dư tiền mặt của bạn không đủ để thực hiện hành động này\n",
               style: subtitleStyle,
               children: <TextSpan>[
                 TextSpan(
@@ -174,6 +177,36 @@ class HomePageController extends BaseController
               .toList() ??
           [""];
       isSubscribeFollow = true;
+      //register topic notify
+      if (mainProvider.box.hasData(TopicsNotifySubscribe)) {
+        final List<dynamic>? topicCache =
+        mainProvider.box.read<List<dynamic>>(TopicsNotifySubscribe);
+
+        if (topicCache != null &&
+            topicCache.isNotEmpty) {
+          final List<String> newSymbols = [];
+          for (final dynamic topicNew in topicCache) {
+            if (!symbols.contains(topicNew as String)) {
+              newSymbols.add(topicNew);
+            }
+          }
+          topicCache
+              .removeWhere((element) => symbols.contains(element));
+          final List<String> unsubscribeTopic = [];
+          for (dynamic t in topicCache) {
+            unsubscribeTopic.add(t as String);
+          }
+          mainProvider.registerNotifyTopic
+              ?.call(newSymbols, unsubscribeTopic);
+          mainProvider.box
+              .write(TopicsNotifySubscribe, symbols);
+        }
+      } else {
+        if (symbols.isNotEmpty) {
+          mainProvider.box.write(TopicsNotifySubscribe, jsonEncode(symbols));
+        }
+      }
+      //
     }
 
     stockPriceSocket.subscribeStock(
@@ -202,14 +235,13 @@ class HomePageController extends BaseController
           PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
       subscribe();
-
     } else {
       change(null, status: RxStatus.empty());
     }
   }
 
-  void loadCache(){
-    final result =  _homeTradingUseCase.getCache();
+  void loadCache() {
+    final result = _homeTradingUseCase.getCache();
     if (result.data != null) {
       accountInfoModel = result.data;
       //Add item fake Header section view1
@@ -218,7 +250,6 @@ class HomePageController extends BaseController
       accountInfoModel?.productWatchingVOList?.insert(0,
           PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
-
     } else {
       change(null, status: RxStatus.empty());
     }
