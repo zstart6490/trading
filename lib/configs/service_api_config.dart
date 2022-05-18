@@ -17,6 +17,7 @@ abstract class BaseConfig {
 class DevConfig implements BaseConfig {
   @override
   EnvironmentConfiguration get environment => EnvironmentConfiguration.develop;
+  // http://172.16.24.81:8501/
   @override
   String get host => "104.199.179.48:8501";
   @override
