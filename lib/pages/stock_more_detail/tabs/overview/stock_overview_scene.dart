@@ -145,9 +145,9 @@ class StockOverviewScene extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        (stock?.askVol1 ?? 0).getVolumeStock(),
+                        (stock?.bidVol1 ?? 0).getVolumeStock(),
                         style: TextStyle(
-                          color: (stock?.askPrice1 ?? 0).getStockColorWith(
+                          color: (stock?.bidPrice1 ?? 0).getStockColorWith(
                               stock?.refPrice ?? 0,
                               stock?.floor ?? 0,
                               stock?.ceiling ?? 0),
@@ -158,9 +158,9 @@ class StockOverviewScene extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        (stock?.askVol2 ?? 0).getVolumeStock(),
+                        (stock?.bidVol2 ?? 0).getVolumeStock(),
                         style: TextStyle(
-                          color: (stock?.askPrice2 ?? 0).getStockColorWith(
+                          color: (stock?.bidPrice2 ?? 0).getStockColorWith(
                               stock?.refPrice ?? 0,
                               stock?.floor ?? 0,
                               stock?.ceiling ?? 0),
@@ -171,9 +171,9 @@ class StockOverviewScene extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        (stock?.askVol3 ?? 0).getVolumeStock(),
+                        (stock?.bidVol3 ?? 0).getVolumeStock(),
                         style: TextStyle(
-                          color: (stock?.askPrice3 ?? 0).getStockColorWith(
+                          color: (stock?.bidPrice3 ?? 0).getStockColorWith(
                               stock?.refPrice ?? 0,
                               stock?.floor ?? 0,
                               stock?.ceiling ?? 0),
@@ -185,56 +185,6 @@ class StockOverviewScene extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        (stock?.askPrice1 ?? 0).getPriceStock(),
-                        style: TextStyle(
-                          color: (stock?.askPrice1 ?? 0).getStockColorWith(
-                              stock?.refPrice ?? 0,
-                              stock?.floor ?? 0,
-                              stock?.ceiling ?? 0),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      Text(
-                        (stock?.askPrice2 ?? 0).getPriceStock(),
-                        style: TextStyle(
-                          color: (stock?.askPrice2 ?? 0).getStockColorWith(
-                              stock?.refPrice ?? 0,
-                              stock?.floor ?? 0,
-                              stock?.ceiling ?? 0),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                      Text(
-                        (stock?.askPrice3 ?? 0).getPriceStock(),
-                        style: TextStyle(
-                          color: (stock?.askPrice3 ?? 0).getStockColorWith(
-                              stock?.refPrice ?? 0,
-                              stock?.floor ?? 0,
-                              stock?.ceiling ?? 0),
-                          fontSize: 12,
-                          fontFamily: 'iCielHelveticaNowText',
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.none,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  color: const Color(0xFFDADADA),
                 ),
                 Expanded(
                   child: Column(
@@ -282,14 +232,18 @@ class StockOverviewScene extends StatelessWidget {
                     ],
                   ),
                 ),
+                Container(
+                  width: 1,
+                  color: const Color(0xFFDADADA),
+                ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        (stock?.bidVol1 ?? 0).getVolumeStock(),
+                        (stock?.askPrice1 ?? 0).getPriceStock(),
                         style: TextStyle(
-                          color: (stock?.bidPrice1 ?? 0).getStockColorWith(
+                          color: (stock?.askPrice1 ?? 0).getStockColorWith(
                               stock?.refPrice ?? 0,
                               stock?.floor ?? 0,
                               stock?.ceiling ?? 0),
@@ -300,9 +254,9 @@ class StockOverviewScene extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        (stock?.bidVol2 ?? 0).getVolumeStock(),
+                        (stock?.askPrice2 ?? 0).getPriceStock(),
                         style: TextStyle(
-                          color: (stock?.bidPrice2 ?? 0).getStockColorWith(
+                          color: (stock?.askPrice2 ?? 0).getStockColorWith(
                               stock?.refPrice ?? 0,
                               stock?.floor ?? 0,
                               stock?.ceiling ?? 0),
@@ -313,9 +267,55 @@ class StockOverviewScene extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        (stock?.bidVol3 ?? 0).getVolumeStock(),
+                        (stock?.askPrice3 ?? 0).getPriceStock(),
                         style: TextStyle(
-                          color: (stock?.bidPrice3 ?? 0).getStockColorWith(
+                          color: (stock?.askPrice3 ?? 0).getStockColorWith(
+                              stock?.refPrice ?? 0,
+                              stock?.floor ?? 0,
+                              stock?.ceiling ?? 0),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        (stock?.askVol1 ?? 0).getVolumeStock(),
+                        style: TextStyle(
+                          color: (stock?.askPrice1 ?? 0).getStockColorWith(
+                              stock?.refPrice ?? 0,
+                              stock?.floor ?? 0,
+                              stock?.ceiling ?? 0),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      Text(
+                        (stock?.askVol2 ?? 0).getVolumeStock(),
+                        style: TextStyle(
+                          color: (stock?.askPrice2 ?? 0).getStockColorWith(
+                              stock?.refPrice ?? 0,
+                              stock?.floor ?? 0,
+                              stock?.ceiling ?? 0),
+                          fontSize: 12,
+                          fontFamily: 'iCielHelveticaNowText',
+                          fontWeight: FontWeight.w700,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                      Text(
+                        (stock?.askVol3 ?? 0).getVolumeStock(),
+                        style: TextStyle(
+                          color: (stock?.askPrice3 ?? 0).getStockColorWith(
                               stock?.refPrice ?? 0,
                               stock?.floor ?? 0,
                               stock?.ceiling ?? 0),
