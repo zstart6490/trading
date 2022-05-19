@@ -163,6 +163,15 @@ extension CustomNumExtension on num {
     return round().toString();
   }
 
+  String toStockQuantityFormat(){
+    final value = round();
+    final oCcy = NumberFormat.decimalPattern("vi");
+    final quantity = oCcy.format(value).replaceAll(",", ".");
+    return quantity;
+  }
+
+
+
   String formatWithSeparator({String separator = ","}) {
     return toString().replaceAll(RegExp(r'\.'), separator);
   }
