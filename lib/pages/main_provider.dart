@@ -26,9 +26,10 @@ class MainTradingProvider with BaseCommonWidgets {
   Function(TradingSmartOTPType smartOTPType)? callToActiveOTP;
   Function(TradingSmartOTPType smartOTPType)? callToForgetPin;
   Function()? callToSignIn;
+  Function(List<String> subscribeTopics, List<String> unSubscribeTopics)? registerNotifyTopic;
 
   MainTradingProvider(this.dataInputApp, this.callToEKYC, this.callToAddBank,
-      this.callToActiveOTP, this.callToForgetPin, this.callToSignIn);
+      this.callToActiveOTP, this.callToForgetPin, this.callToSignIn, this.registerNotifyTopic);
 
   // void updateDataInput(DataInputApp dataInputApp){
   //   this.dataInputApp =dataInputApp;

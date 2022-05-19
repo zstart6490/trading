@@ -47,7 +47,8 @@ class BuyStockController extends ExchangeStockController {
   void checkRequestAmount() {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
-    canConfirm.value = requestAmount > 0 && amount.value <= amountMaximum.value;
+    canConfirm.value = true;
+    // canConfirm.value = requestAmount > 0 && amount.value <= amountMaximum.value;
     overBuy.value = (amount.value > amountMaximum.value)
         ? ConditionState.error
         : ConditionState.none;
@@ -62,10 +63,10 @@ class BuyStockController extends ExchangeStockController {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final double finalAmount = priceStock.value * requestAmount;
-    final double fee = (stockOrderInfo?.feePercent ?? 0) * finalAmount;
-    feeTransaction.value = fee;
+    final double fee = ((stockOrderInfo?.feePercent) ?? 0)/100 * finalAmount;
     final double feePartner =
-        (stockOrderInfo?.feePartnerPercent ?? 0) * finalAmount;
+        (stockOrderInfo?.feePartnerPercent ?? 0)/100 * finalAmount;
+    feeTransaction.value = feePartner;
     amount.value = finalAmount + fee + feePartner;
     print("abc=${amount.value}");
     checkRequestAmount();
