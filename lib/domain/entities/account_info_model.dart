@@ -30,15 +30,15 @@ class AccountInfoModel {
     return totalGrowth;
   }
 
-  double getTotalProperty() {
-    final double totalPrice = getTotalPropertyStock();
+  int getTotalProperty() {
+    final int totalPrice = getTotalPropertyStock();
     return totalPrice +
-        (cashBalance ?? 0) +
+        ((cashBalance ?? 0) +
         (balanceWaitingReturn ?? 0) +
-        (balancePay ?? 0);
+        (balancePay ?? 0)).toInt();
   }
 
-  double getTotalPropertyStock() {
+  int getTotalPropertyStock() {
     double totalGrowth = 0;
     double totalOrigin = 0;
     if (stockList != null) {
@@ -49,7 +49,7 @@ class AccountInfoModel {
       }
     }
 
-    return totalOrigin + totalGrowth;
+    return (totalOrigin + totalGrowth).toInt();
   }
 
   double getPercentGrowth() {
@@ -87,8 +87,8 @@ class AccountInfoModel {
     }
 
     final sTotalGrowth = totalGrowth > 0
-        ? "+${totalGrowth.toCurrency()}"
-        : totalGrowth.toCurrency();
+        ? "+${totalGrowth.toInt().toCurrency()}"
+        : totalGrowth.toInt().toCurrency();
     return "$sTotalGrowth ($sPercent)";
   }
 }

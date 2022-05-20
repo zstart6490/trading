@@ -15,7 +15,7 @@ class StockPriceSocket {
     final stockSymbols = symbols.join('-');
     if (stockSymbols.isEmpty) return;
     unSubscribeStock();
-    print("SubscribeStock: $stockSymbols");
+    print("Link SubscribeStock: '${Environment().marketUrl}/stock/v1/subscribe/$stockSymbols'");
     SSEClient.subscribeToSSE(
         url: '${Environment().marketUrl}/stock/v1/subscribe/$stockSymbols',
         header: {
