@@ -122,7 +122,7 @@ class StockTransHistoryItemView extends StatelessWidget {
                           flex : 3,
                           child: Text(
                             (stHistory.priceMatch > 0)
-                                ? stHistory.priceMatch.getPriceStock()
+                                ? stHistory.priceMatch.toCurrency(symbol: "")
                                 : "----",
                             textAlign: TextAlign.center,
                             style: context.textSize12.copyWith(
