@@ -88,8 +88,10 @@ class PortfolioModelDTO {
   final double? price;
   @JsonKey(name: "quantity")
   final double? quantity;
+  @JsonKey(name: "historyType")
+  final int? historyType;
 
-  PortfolioModelDTO(this.id, this.productKey, this.price, this.quantity);
+  PortfolioModelDTO(this.id, this.productKey, this.price, this.quantity, this.historyType);
 
   static PortfolioModelDTO fromResult(dynamic data) =>
       PortfolioModelDTO.fromJson(data as Map<String, dynamic>);
@@ -103,6 +105,6 @@ class PortfolioModelDTO {
 extension PortfolioModelDTOMapper on PortfolioModelDTO {
   PortfolioModel toModel() {
     return PortfolioModel(
-        id: id, productKey: productKey, price: price ?? 0, quantity: quantity);
+        id: id, historyType: historyType, productKey: productKey, price: price ?? 0, quantity: quantity);
   }
 }

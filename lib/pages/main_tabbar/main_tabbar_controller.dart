@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
+import 'package:trading_module/pages/homePage/controller/home_page_controller.dart';
 
 class TDMainTabController extends BaseController
     with WidgetsBindingObserver, GetSingleTickerProviderStateMixin {
@@ -35,8 +36,10 @@ class TDMainTabController extends BaseController
     debugPrint("TabChange :${tabController.index}");
     FocusManager.instance.primaryFocus?.unfocus();
     if (tabIndex == 0) {
+      Get.find<HomePageController>().getAccountInfo();
     } else if (tabIndex == 1) {
-    } else if (tabIndex == 2) {}
+
+    }
   }
 
   int get tabIndex => tabController.index;

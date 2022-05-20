@@ -37,7 +37,7 @@ class DataCallback {
 }
 
 class TradingModule {
-  static String versionTrading = "1.0.3.0";
+  static String versionTrading = "1.0.2.0";
 
   static Future openTradingModule({
     required BuildContext context,
@@ -47,14 +47,14 @@ class TradingModule {
     Function(TradingSmartOTPType smartOTPType)? callToActiveSmartOtpPin,
     Function(TradingSmartOTPType smartOTPType)? callToForgetPin,
     Function()? callToSignIn,
-    Function(List<String> subscribeTopics,List<String> unSubscribeTopics)? registerNotifyTopic,
+    Function(List<String> subscribeTopics, List<String> unSubscribeTopics)?
+        registerNotifyTopic,
   }) async {
     initGetxTrading();
 
     //init
-    Environment().initConfig(EnvironmentConfiguration.develop);
-    //initev
-    Environment().initConfig(EnvironmentConfiguration.develop);
+    Environment().initConfig(EnvironmentConfiguration.staging);
+
     print("===data input===");
     print("token=${dataInput.token}");
     print("userIsRegisteredKyc=${dataInput.userIsRegisteredKyc}");
@@ -71,7 +71,8 @@ class TradingModule {
           callToAddBank,
           callToActiveSmartOtpPin,
           callToForgetPin,
-          callToSignIn,registerNotifyTopic));
+          callToSignIn,
+          registerNotifyTopic));
     } else {
       Get.find<MainTradingProvider>().dataInputApp = dataInput;
     }
@@ -122,10 +123,11 @@ class TradingModule {
   }
 
   static void clearCache() {
+    print("clearCache");
     if (Get.isRegistered<MainTradingProvider>()) {
       Get.find<MainTradingProvider>().clearAccessToken();
+      print("clearCache MainTradingProvider");
     }
-
     final box = GetStorage();
     box.remove(Home_Cache);
     box.remove(Home_Maket_Cache);
@@ -151,7 +153,5 @@ class TradingModule {
 
   void init() {}
 
-  static void firebaseOnMessage(String action) {
-
-  }
+  static void firebaseOnMessage(String action) {}
 }
