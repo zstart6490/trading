@@ -66,8 +66,8 @@ class BuyStockController extends ExchangeStockController {
     final double fee = ((stockOrderInfo?.feePercent) ?? 0)/100 * finalAmount;
     final double feePartner =
         (stockOrderInfo?.feePartnerPercent ?? 0)/100 * finalAmount;
-    feeTransaction.value = feePartner;
-    amount.value = finalAmount + fee + feePartner;
+    feeTransaction.value = feePartner.ceilToDouble();
+    amount.value =  (finalAmount + fee + feePartner).ceilToDouble();
     print("abc=${amount.value}");
     checkRequestAmount();
   }
