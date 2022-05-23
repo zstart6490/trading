@@ -20,6 +20,7 @@ class VerifyPolicyController extends BaseController with BaseCheckSmartOTP {
 
 
   Future acceptTermAndVerify() async {
+    print("abc");
     final dataInput = mainProvider.dataInputApp;
     if (dataInput.userIsRegisteredKyc == KycStatus.verified) {
       showProgressingDialog();
