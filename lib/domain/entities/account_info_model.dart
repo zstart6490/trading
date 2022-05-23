@@ -23,33 +23,32 @@ class AccountInfoModel {
     double totalGrowth = 0;
     if (stockList != null) {
       for (final item in stockList!) {
-        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0)) *
+        totalGrowth += ((item.lastPrice ?? 0) - (item.priceAvg ?? 0)) *
             (item.quantity ?? 0);
       }
     }
     return totalGrowth;
   }
 
-  double getTotalProperty() {
-    final double totalPrice = getTotalPropertyStock();
+  int getTotalProperty() {
+    final int totalPrice = getTotalPropertyStock();
     return totalPrice +
-        (cashBalance ?? 0) +
+        ((cashBalance ?? 0) +
         (balanceWaitingReturn ?? 0) +
-        (balancePay ?? 0);
+        (balancePay ?? 0)).toInt();
   }
 
-  double getTotalPropertyStock() {
+  int getTotalPropertyStock() {
     double totalGrowth = 0;
     double totalOrigin = 0;
     if (stockList != null) {
       for (final item in stockList!) {
-        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0)) *
-            (item.quantity ?? 0);
+        totalGrowth += (item.lastPrice ?? 0) * (item.quantity ?? 0);
         totalOrigin += (item.priceAvg ?? 0) * (item.quantity ?? 0);
       }
     }
 
-    return totalOrigin + totalGrowth;
+    return (totalOrigin + (totalGrowth - totalOrigin)).toInt();
   }
 
   double getPercentGrowth() {
@@ -57,13 +56,12 @@ class AccountInfoModel {
     double totalOrigin = 0;
     if (stockList != null) {
       for (final item in stockList!) {
-        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0)) *
-            (item.quantity ?? 0);
+        totalGrowth += (item.lastPrice ?? 0) * (item.quantity ?? 0);
         totalOrigin += (item.priceAvg ?? 0) * (item.quantity ?? 0);
       }
     }
 
-    final percent = (totalGrowth / totalOrigin) * 100;
+    final percent = ((totalGrowth - totalOrigin) / totalOrigin) * 100;
     return percent;
   }
 
@@ -72,13 +70,12 @@ class AccountInfoModel {
     double totalOrigin = 0;
     if (stockList != null) {
       for (final item in stockList!) {
-        totalGrowth += ((item.priceAvg ?? 0) - (item.lastPrice ?? 0)) *
-            (item.quantity ?? 0);
+        totalGrowth += (item.lastPrice ?? 0) * (item.quantity ?? 0);
         totalOrigin += (item.priceAvg ?? 0) * (item.quantity ?? 0);
       }
     }
 
-    final percent = (totalGrowth / totalOrigin) * 100;
+    final percent = ((totalGrowth - totalOrigin) / totalOrigin) * 100;
     var sPercent = "0%";
     if (!percent.isNaN && !percent.isInfinite) {
       sPercent = percent > 0
@@ -87,8 +84,8 @@ class AccountInfoModel {
     }
 
     final sTotalGrowth = totalGrowth > 0
-        ? "+${totalGrowth.toCurrency()}"
-        : totalGrowth.toCurrency();
+        ? "+${totalGrowth.toInt().toCurrency()}"
+        : totalGrowth.toInt().toCurrency();
     return "$sTotalGrowth ($sPercent)";
   }
 }

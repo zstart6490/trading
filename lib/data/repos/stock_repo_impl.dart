@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/resources/data_state.dart';
 import 'package:trading_module/data/entities/company_financial_info_dto.dart';
 import 'package:trading_module/data/entities/company_news_model_dto.dart';
@@ -12,8 +13,6 @@ import 'package:trading_module/domain/entities/company_news_model.dart';
 import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/repos/stock_repo.dart';
-
-import '../../configs/constants.dart';
 
 class StockRepoImpl extends StockRepo {
   final StockService _services;

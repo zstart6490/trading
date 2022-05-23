@@ -299,7 +299,7 @@ extension ImageExtension on String {
 
   CachedNetworkImage loadCacheImg({double? mWidth, double? mHeight}) {
     return CachedNetworkImage(
-      imageUrl: this,
+      imageUrl: "${this}?t=${DateTime.now().millisecond}",
       placeholder: (context, url) => const CircularProgressIndicator(),
       errorWidget: (context, url, error) => "stock_place_holder".pngImage(),
       width: mWidth,

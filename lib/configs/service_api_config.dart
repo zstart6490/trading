@@ -17,9 +17,9 @@ abstract class BaseConfig {
 class DevConfig implements BaseConfig {
   @override
   EnvironmentConfiguration get environment => EnvironmentConfiguration.develop;
-  // http://172.16.24.81:8501/
   @override
   String get host => "104.199.179.48:8501";
+  //String get host => "172.16.24.81:8501";
   @override
   String get protocol => "http://";
   @override
@@ -38,6 +38,7 @@ class StagingConfig implements BaseConfig {
   EnvironmentConfiguration get environment => EnvironmentConfiguration.staging;
   @override
   String get host => "stg-trading-api.tikop.vn";
+  //String get host => "172.16.24.81:8501";
   @override
   String get protocol => "https://";
   @override

@@ -42,12 +42,15 @@ class MyStockModel extends PropertyModel {
         ? "+${priceDifference.toCurrency(symbol: "")}"
         : priceDifference.toCurrency(symbol: "");
     final percentPrice = priceDifference / (quantity! * priceAvg!);
-    final num = percentPrice > 0
-        ? "+${double.parse(percentPrice.toStringAsFixed(2))}"
-            .replaceAll(".", ",")
-        : "+${double.parse(percentPrice.toStringAsFixed(2))}"
-            .replaceAll(".", ",");
-    return "$priceDifferenceValue ($num%)";
+    if (!percentPrice.isNaN && !percentPrice.isInfinite) {
+      final num = percentPrice > 0
+          ? "+${double.parse(percentPrice.toStringAsFixed(2))}"
+          .replaceAll(".", ",")
+          : "+${double.parse(percentPrice.toStringAsFixed(2))}"
+          .replaceAll(".", ",");
+      return "$priceDifferenceValue ($num%)";
+    }
+    return "0%";
   }
 }
 
@@ -91,6 +94,7 @@ class PortfolioModel {
   }
 
   String getTypeTransaction() {
+    print("historyType111 $historyType");
     return historyType == 1 ? "Mua" : "Bán";
   }
 
