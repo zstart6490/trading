@@ -5,18 +5,15 @@ import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/lang/translation_service.dart';
+import 'package:trading_module/pages/main_tabbar/main_tabbar_binding.dart';
 import 'package:trading_module/routes/app_pages.dart';
 import 'package:trading_module/shared/logger/logger_utils.dart';
 import 'package:trading_module/theme/app_theme.dart';
-
-import 'pages/main_tabbar/main_tabbar_binding.dart';
 
 
 
 
 Future<void> mainCommon(EnvironmentConfiguration serverConfig) async {
-  print("serverConfig111");
-  print(serverConfig);
   Environment().initConfig(serverConfig);
   log(Environment().config.toString());
   runApp(MyApp());

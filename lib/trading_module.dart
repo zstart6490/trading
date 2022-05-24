@@ -1,6 +1,7 @@
 // import 'package:firebase_messaging_platform_interface/src/remote_message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
@@ -46,7 +47,8 @@ class TradingModule {
     Function(TradingSmartOTPType smartOTPType)? callToActiveSmartOtpPin,
     Function(TradingSmartOTPType smartOTPType)? callToForgetPin,
     Function()? callToSignIn,
-    Function(List<String> subscribeTopics,List<String> unSubscribeTopics)? registerNotifyTopic,
+    Function(List<String> subscribeTopics, List<String> unSubscribeTopics)?
+        registerNotifyTopic,
   }) async {
     initGetxTrading();
 
@@ -68,7 +70,8 @@ class TradingModule {
           callToAddBank,
           callToActiveSmartOtpPin,
           callToForgetPin,
-          callToSignIn,registerNotifyTopic));
+          callToSignIn,
+          registerNotifyTopic));
     } else {
       Get.find<MainTradingProvider>().dataInputApp = dataInput;
     }
@@ -122,6 +125,9 @@ class TradingModule {
     if (Get.isRegistered<MainTradingProvider>()) {
       Get.find<MainTradingProvider>().clearAccessToken();
     }
+    final box = GetStorage();
+    box.remove(Home_Cache);
+    box.remove(Home_Maket_Cache);
   }
 
   static void initGetxTrading() {
@@ -134,7 +140,7 @@ class TradingModule {
     // Get.changeTheme(appTheme.lightTheme);
     // Get.changeThemeMode(ThemeMode.light);
     if (Get.routeTree.routes.isNotEmpty) {
-      for (var value in AppPages.tradingRoutes) {
+      for (final value in AppPages.tradingRoutes) {
         if (!Get.routeTree.routes.contains(value)) {
           Get.addPage(value);
         }
@@ -144,7 +150,5 @@ class TradingModule {
 
   void init() {}
 
-  static void firebaseOnMessage(String action) {
-
-  }
+  static void firebaseOnMessage(String action) {}
 }

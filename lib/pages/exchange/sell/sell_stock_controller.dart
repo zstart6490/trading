@@ -172,8 +172,8 @@ class SellStockController extends ExchangeStockController {
     final requestAmount = int.tryParse(val.numericOnly()) ?? 0;
     final double finalAmount = (stockOrderInfo?.price ?? 0) * requestAmount;
     final double fee = (stockOrderInfo?.feePercent ?? 0) * finalAmount;
-    feeTransaction.value = fee;
-    amountWithoutFeeTax.value = finalAmount;
+    feeTransaction.value = fee.floorToDouble();
+    amountWithoutFeeTax.value = finalAmount.floorToDouble();
     checkRequestAmount();
   }
 }

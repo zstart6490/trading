@@ -66,6 +66,9 @@ const BLOCK_MINI_GAME = 1533;
 const OUT_OFF_TURN_MINI_GAME = 1530;
 
 const DUR_NONE = Duration();
+const DUR_1000 = Duration(milliseconds: 1000);
+const DUR_800 = Duration(milliseconds: 800);
+const DUR_600 = Duration(milliseconds: 600);
 const DUR_500 = Duration(milliseconds: 500);
 const DUR_400 = Duration(milliseconds: 400);
 const DUR_250 = Duration(milliseconds: 250);

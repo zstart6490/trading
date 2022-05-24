@@ -68,9 +68,6 @@ class StockDetailController extends BaseController
     stockPriceSocket.subscribeStock(
       [stock.symbol],
       (event) {
-        print(stock.lastPrice);
-        print(event.stockPrice.price);
-
         if (stock.symbol == event.stockPrice.symbol &&
             stock.lastPrice != event.stockPrice.price) {
           priceStock.value = event.stockPrice.price ?? 0;

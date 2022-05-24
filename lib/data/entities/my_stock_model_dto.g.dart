@@ -42,6 +42,7 @@ PortfolioModelDTO _$PortfolioModelDTOFromJson(Map<String, dynamic> json) =>
       json['productKey'] as String?,
       (json['price'] as num?)?.toDouble(),
       (json['quantity'] as num?)?.toDouble(),
+      json['historyType'] as int?,
     );
 
 Map<String, dynamic> _$PortfolioModelDTOToJson(PortfolioModelDTO instance) =>
@@ -50,4 +51,5 @@ Map<String, dynamic> _$PortfolioModelDTOToJson(PortfolioModelDTO instance) =>
       'productKey': instance.productKey,
       'price': instance.price,
       'quantity': instance.quantity,
+      'historyType': instance.historyType,
     };
