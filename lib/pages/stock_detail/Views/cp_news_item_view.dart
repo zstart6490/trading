@@ -50,7 +50,7 @@ class CompanyNewsItemView extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: news.imgUrl.loadCacheImg(mWidth: 113, mHeight: 80),
+                    child: news.fullImgUrl.loadCacheImg(mWidth: 113, mHeight: 80),
                   ),
                   SIZED_BOX_W12,
                   Expanded(

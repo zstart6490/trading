@@ -1,4 +1,6 @@
 
+import 'package:trading_module/configs/service_api_config.dart';
+
 class CompanyNewsData {
   final List<CompanyNewsModel> records;
 
@@ -15,6 +17,9 @@ class CompanyNewsModel {
   final String imgUrl;
   final String createTime;
   final NewsSourceModel source;
+
+  String get fullImgUrl => "${Environment().backendUrl}/resource/v1/news-image/$imgUrl";
+
 
   CompanyNewsModel(
       {required this.id,
