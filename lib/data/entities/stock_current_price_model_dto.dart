@@ -34,8 +34,8 @@ class StockCurrentPriceModelDTO {
   final double? high;
   @JsonKey(name: "Low")
   final double? low;
-  @JsonKey(name: "Avg")
-  final double? avg;
+  @JsonKey(name: "AvgPrice")
+  final double? avgPrice;
   @JsonKey(name: "PriorVal")
   final double? priorVal;
   @JsonKey(name: "LastPrice")
@@ -93,7 +93,7 @@ class StockCurrentPriceModelDTO {
       this.close,
       this.high,
       this.low,
-      this.avg,
+      this.avgPrice,
       this.priorVal,
       this.lastPrice,
       this.change,
@@ -141,7 +141,7 @@ extension StockCurrentPriceModelDTOMapper on StockCurrentPriceModelDTO {
       close,
       high,
       low,
-      avg,
+      avgPrice,
       priorVal,
       lastPrice,
       change,

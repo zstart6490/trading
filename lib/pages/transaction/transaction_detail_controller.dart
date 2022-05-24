@@ -42,11 +42,11 @@ class TransactionDetailController extends BaseController {
   }
 
   void goToHomeTrading() {
-    if (Get.isRegistered<HomePageController>()) {
-      final HomePageController homeController =
-      Get.find<HomePageController>();
-      homeController.getAccountInfo();
-    }
+    // if (Get.isRegistered<HomePageController>()) {
+    //   final HomePageController homeController =
+    //   Get.find<HomePageController>();
+    //   homeController.getAccountInfo();
+    // }
     Get.back();
   }
 }

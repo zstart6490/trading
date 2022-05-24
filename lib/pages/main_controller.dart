@@ -26,12 +26,14 @@ class MainController extends BaseController {
     //check token
     final accessToken = mainProvider.accessToken;
     if (accessToken != null && mainProvider.userData != null) {
+      //print("clearCache accessToken");
       hideDialog();
       if (kDebugMode) {
         print("TradingToken=$accessToken");
       }
       Get.toNamed(AppRoutes.mainView,preventDuplicates: false);
     } else {
+      //print("clearCache accessToken22");
       final respData = await _boardingUseCase.getDataLoginUser(
         token: dataInput.token,
         fbDeviceId: dataInput.fbDeviceId ?? "",
