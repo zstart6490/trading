@@ -25,11 +25,11 @@ class PropertyModel {
 
 
   double getPriceDifference() {
-    return (priceAvg ?? 0) - (lastPrice ?? 0);
+    return (lastPrice ?? 0) - (priceAvg ?? 0);
   }
 
   double getNumberPriceDifference() {
-    final value = ((priceAvg ?? 0) - (lastPrice ?? 0)) / (priceAvg ?? 0);
+    final value = ((lastPrice ?? 0) - (priceAvg ?? 0)) / (priceAvg ?? 0);
     if (!value.isNaN && !value.isInfinite) {
       return value.toPrecision(2);
     }
@@ -45,13 +45,13 @@ class PropertyModel {
   }
 
   String getValuePriceDifference() {
-    final value = (priceAvg ?? 0) - (lastPrice ?? 0);
+    final value = (lastPrice ?? 0) - (priceAvg ?? 0);
     return value > 0 ? "+${value.toCurrency(symbol: "")}" : value.toCurrency(
         symbol: "");
   }
 
   String getPercentage() {
-    final value = ((priceAvg ?? 0) - (lastPrice ?? 0)) / (priceAvg ?? 0);
+    final value = ((lastPrice ?? 0) - (priceAvg ?? 0)) / (priceAvg ?? 0);
     if (!value.isNaN && !value.isInfinite) {
       return value > 0 ? "+${value.toPrecision(2)}%" : "${value.toPrecision(
           2)}%";

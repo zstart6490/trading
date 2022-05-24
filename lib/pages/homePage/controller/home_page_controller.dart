@@ -212,7 +212,7 @@ class HomePageController extends BaseController
     stockPriceSocket.subscribeStock(
       symbols,
       (stock) {
-        print("stock.stockPrice.symbol: ${stock.stockPrice.symbol}");
+        //print("stock.stockPrice.symbol: ${stock.stockPrice.symbol}");
         accountInfoModel?.stockList
             ?.firstWhere((e) => e.productKey == stock.stockPrice.symbol)
             .lastPrice = stock.stockPrice.price;
