@@ -170,6 +170,19 @@ extension CustomNumExtension on num {
     return quantity;
   }
 
+  String roundUpPriceMatch(){
+    final value = ceil();
+    final oCcy = NumberFormat.decimalPattern("vi");
+    final price = oCcy.format(value).replaceAll(",", ".");
+    return price;
+  }
+  String roundDownPriceMatch(){
+    final value = floor();
+    final oCcy = NumberFormat.decimalPattern("vi");
+    final price = oCcy.format(value).replaceAll(",", ".");
+    return price;
+  }
+
 
 
   String formatWithSeparator({String separator = ","}) {
