@@ -43,27 +43,33 @@ class StockTransHistoryItemView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(
+                Flexible(
+                  fit: FlexFit.tight,
+                    flex : 2,
                     child: Text(
                       "Mã CP",
                       style: context.textSize12.copyWith(
                           color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
                     )),
-                Expanded(
+                Flexible(
+                    fit: FlexFit.tight,
+                    flex : 4,
                     child: Text(
                       "Khối lượng",
                       textAlign: TextAlign.center,
                       style: context.textSize12.copyWith(
                           color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
                     )),
-                Expanded(
+                Flexible(fit: FlexFit.tight,
+                    flex : 3,
                     child: Text(
                       "Giá khớp",
                       textAlign: TextAlign.center,
                       style: context.textSize12.copyWith(
                           color: COLOR_NEUTRAL_300, fontWeight: FontWeight.w400),
                     )),
-                Expanded(
+                Flexible(fit: FlexFit.tight,
+                    flex : 3,
                     child: Text(
                       "Trạng thái",
                       textAlign: TextAlign.right,
@@ -92,28 +98,31 @@ class StockTransHistoryItemView extends StatelessWidget {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(
+                        Flexible(fit: FlexFit.tight,
+                            flex : 2,
                             child: Text(
                               stHistory.symbol,
                               textAlign: TextAlign.left,
                               style: context.textSize12.copyWith(
                                   color: COLOR_333333, fontWeight: FontWeight.w700,),
                             )),
-                        Expanded(
+                        Flexible(fit: FlexFit.tight,
+                            flex : 4,
                             child: Text(
                               (stHistory.status == StockTransactionState.processed ||
                                   stHistory.status ==
                                       StockTransactionState.partiallyProcessed)
-                                  ? stHistory.quantityMatch.toStockQuantity()
-                                  : stHistory.quantity.toStockQuantity(),
+                                  ? "${stHistory.quantityMatch.toStockQuantityFormat()}/${stHistory.quantity.toStockQuantityFormat()}"
+                                  : "0/${stHistory.quantity.toStockQuantityFormat()}",
                               textAlign: TextAlign.center,
                               style: context.textSize12.copyWith(
                                   color: COLOR_333333, fontWeight: FontWeight.w700,),
                             )),
-                        Expanded(
+                        Flexible(fit: FlexFit.tight,
+                          flex : 3,
                           child: Text(
                             (stHistory.priceMatch > 0)
-                                ? stHistory.priceMatch.getPriceStock()
+                                ? (stHistory.orderType == "BUY")? stHistory.priceMatch.roundUpPriceMatch(): stHistory.priceMatch.roundDownPriceMatch()
                                 : "----",
                             textAlign: TextAlign.center,
                             style: context.textSize12.copyWith(
@@ -121,7 +130,8 @@ class StockTransHistoryItemView extends StatelessWidget {
                                 fontWeight: FontWeight.w700),
                           ),
                         ),
-                        Expanded(
+                        Flexible(fit: FlexFit.tight,
+                            flex : 3,
                             child: Text(
                               stHistory.getStateContent(),
                               textAlign: TextAlign.right,

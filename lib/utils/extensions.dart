@@ -163,6 +163,28 @@ extension CustomNumExtension on num {
     return round().toString();
   }
 
+  String toStockQuantityFormat(){
+    final value = round();
+    final oCcy = NumberFormat.decimalPattern("vi");
+    final quantity = oCcy.format(value).replaceAll(",", ".");
+    return quantity;
+  }
+
+  String roundUpPriceMatch(){
+    final value = ceil();
+    final oCcy = NumberFormat.decimalPattern("vi");
+    final price = oCcy.format(value).replaceAll(",", ".");
+    return price;
+  }
+  String roundDownPriceMatch(){
+    final value = floor();
+    final oCcy = NumberFormat.decimalPattern("vi");
+    final price = oCcy.format(value).replaceAll(",", ".");
+    return price;
+  }
+
+
+
   String formatWithSeparator({String separator = ","}) {
     return toString().replaceAll(RegExp(r'\.'), separator);
   }
