@@ -8,11 +8,11 @@ part 'transaction_detail_dto.g.dart';
 class TransactionDetailDto {
   final String id;
   final String? transactionCode;
-  final int? requestAmount;
-  final int? amount;
-  final int? fee;
-  final int? vat;
-  final int? receiveAmount;
+  final num? requestAmount;
+  final num? amount;
+  final num? fee;
+  final num? vat;
+  final num? receiveAmount;
   final String? name;
   final String? bankName;
   final String? bankCode;
