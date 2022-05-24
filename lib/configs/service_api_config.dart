@@ -21,7 +21,7 @@ class DevConfig implements BaseConfig {
   String get host => "104.199.179.48:8501";
   //String get host => "172.16.24.81:8501";
   @override
-  String get protocol => "https://";
+  String get protocol => "http://";
   @override
   String get marketHost => "104.199.179.48:8910";
   @override
