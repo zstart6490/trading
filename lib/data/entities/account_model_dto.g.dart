@@ -20,6 +20,10 @@ AccountInfoModelDTO _$AccountInfoModelDTOFromJson(Map<String, dynamic> json) =>
       (json['cashBalance'] as num?)?.toDouble(),
       (json['balanceWaitingReturn'] as num?)?.toDouble(),
       (json['balancePay'] as num?)?.toDouble(),
+      (json['growthValue'] as num?)?.toDouble(),
+      (json['growthPercent'] as num?)?.toDouble(),
+      (json['totalAmountPortfolio'] as num?)?.toDouble(),
+      (json['totalAsset'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$AccountInfoModelDTOToJson(
@@ -31,6 +35,10 @@ Map<String, dynamic> _$AccountInfoModelDTOToJson(
       'cashBalance': instance.cashBalance,
       'balanceWaitingReturn': instance.balanceWaitingReturn,
       'balancePay': instance.balancePay,
+      'growthValue': instance.growthValue,
+      'growthPercent': instance.growthPercent,
+      'totalAmountPortfolio': instance.totalAmountPortfolio,
+      'totalAsset': instance.totalAsset,
     };
 
 PendingTransactionModelDTO _$PendingTransactionModelDTOFromJson(

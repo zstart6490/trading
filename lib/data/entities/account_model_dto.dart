@@ -19,6 +19,14 @@ class AccountInfoModelDTO {
   final double? balanceWaitingReturn;
   @JsonKey(name: "balancePay")
   final double? balancePay;
+  @JsonKey(name: "growthValue")
+  final double? growthValue;
+  @JsonKey(name: "growthPercent")
+  final double? growthPercent;
+  @JsonKey(name: "totalAmountPortfolio")
+  final double? totalAmountPortfolio;
+  @JsonKey(name: "totalAsset")
+  final double? totalAsset;
 
   AccountInfoModelDTO(
     this.stockList,
@@ -27,6 +35,10 @@ class AccountInfoModelDTO {
     this.cashBalance,
     this.balanceWaitingReturn,
     this.balancePay,
+    this.growthValue,
+    this.growthPercent,
+    this.totalAmountPortfolio,
+    this.totalAsset,
   );
 
   static AccountInfoModelDTO fromResult(dynamic data) =>
@@ -77,6 +89,10 @@ extension AccountInfoModelMapper on AccountInfoModelDTO {
       cashBalance: cashBalance,
       balanceWaitingReturn: balanceWaitingReturn,
       balancePay: balancePay,
+      growthValue:growthValue,
+      growthPercent:growthPercent,
+      totalAmountPortfolio:totalAmountPortfolio,
+      totalAsset: totalAsset,
     );
   }
 }

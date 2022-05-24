@@ -9,6 +9,10 @@ class AccountInfoModel {
   final double? cashBalance;
   final double? balanceWaitingReturn;
   final double? balancePay;
+  final double? growthValue;
+  final double? growthPercent;
+  final double? totalAmountPortfolio;
+  final double? totalAsset;
 
   AccountInfoModel({
     required this.stockList,
@@ -17,6 +21,10 @@ class AccountInfoModel {
     required this.cashBalance,
     required this.balanceWaitingReturn,
     required this.balancePay,
+    required this.growthValue,
+    required this.growthPercent,
+    required this.totalAmountPortfolio,
+    required this.totalAsset,
   });
 
   double getStateProfitLoss() {
