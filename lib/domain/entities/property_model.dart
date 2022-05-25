@@ -46,24 +46,24 @@ class PropertyModel {
 
   String getValuePriceDifference() {
     final value = (lastPrice ?? 0) - (priceAvg ?? 0);
-    return value > 0 ? "+${value.toCurrency(symbol: "")}" : value.toCurrency(
+    return value > 0 ? "+${value.toInt().toCurrency(symbol: "")}" : value.toInt().toCurrency(
         symbol: "");
   }
 
   String getPercentage() {
-    final value = ((lastPrice ?? 0) - (priceAvg ?? 0)) / (priceAvg ?? 0);
+    final value = (((lastPrice ?? 0) - (priceAvg ?? 0)) / (priceAvg ?? 0)) * 100;
     if (!value.isNaN && !value.isInfinite) {
-      return value > 0 ? "+${value.toPrecision(2)}%" : "${value.toPrecision(
-          2)}%";
+      return value > 0 ? "+${value.toPrecision(2)}%".replaceAll(".", ",") : "${value.toPrecision(
+          2)}%".replaceAll(".", ",");
     }
     return "0%";
   }
 
   String getPercentageFollow() {
-    final value = ((lastPrice ?? 0) - (refPrice ?? 0)) / (refPrice ?? 0);
+    final value = (((lastPrice ?? 0) - (refPrice ?? 0)) / (refPrice ?? 0)) * 100;
     if (!value.isNaN && !value.isInfinite) {
-      return value > 0 ? "+${value.toPrecision(2)}%" : "${value.toPrecision(
-          2)}%";
+      return value > 0 ? "+${value.toPrecision(2)}%".replaceAll(".", ",") : "${value.toPrecision(
+          2)}%".replaceAll(".", ",");
     }
     return "0%";
   }
