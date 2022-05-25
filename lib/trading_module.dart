@@ -37,7 +37,7 @@ class DataCallback {
 }
 
 class TradingModule {
-  static String versionTrading = "dev_1.0.2.1";
+  static String versionTrading = "1.0.3.0";
 
   static Future openTradingModule({
     required BuildContext context,
@@ -53,7 +53,7 @@ class TradingModule {
     initGetxTrading();
 
     //init
-    Environment().initConfig(EnvironmentConfiguration.develop);
+    Environment().initConfig(EnvironmentConfiguration.staging);
     print("===data input===");
     print("token=${dataInput.token}");
     print("userIsRegisteredKyc=${dataInput.userIsRegisteredKyc}");

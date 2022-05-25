@@ -46,7 +46,7 @@ class PropertyModel {
 
   String getValuePriceDifference() {
     final value = (lastPrice ?? 0) - (priceAvg ?? 0);
-    return value > 0 ? "+${value.toCurrency(symbol: "")}" : value.toCurrency(
+    return value > 0 ? "+${value.toInt().toCurrency(symbol: "")}" : value.toInt().toCurrency(
         symbol: "");
   }
 
