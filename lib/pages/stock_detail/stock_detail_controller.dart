@@ -57,6 +57,7 @@ class StockDetailController extends BaseController
 
     if (result.data != null) {
       result.data?.portfolioHistoryList?.insert(0, PortfolioModel(price: 0));
+      priceStock.value = result.data?.lastPrice ?? 0;
       change(result.data, status: RxStatus.success());
     } else if (result.error != null) {
       change(null, status: RxStatus.error());

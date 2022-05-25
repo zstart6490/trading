@@ -36,7 +36,7 @@ class InvestInfoView extends GetView<StockDetailController> {
               children: [
                 InvestInfoItem(
                     title: "TB giá mua  (đ)",
-                    desc: (stock?.priceAvg ?? 0).toCurrency(symbol: ""),
+                    desc: (stock?.priceAvg ?? 0).roundDownPriceMatch(),
                     imgUrl: "assets/images/png/ic_avg_bought_price.png",
                     descColor: Color(0xFF333333)),
                 SIZED_BOX_H12,
@@ -55,7 +55,7 @@ class InvestInfoView extends GetView<StockDetailController> {
               children: [
                 InvestInfoItem(
                     title: "Tiền vốn (đ)",
-                    desc: (stock?.priceAvg ?? 0).toCurrency(symbol: ""),
+                    desc: (stock?.amount ?? 0).roundDownPriceMatch(),
                     imgUrl: "assets/images/png/ic_funds.png",
                     descColor: const Color(0xFF333333)),
                 SIZED_BOX_H12,

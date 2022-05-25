@@ -160,7 +160,7 @@ class HeaderStockDetailView<T extends StockDetailController>
           width: double.infinity,
           height: 340,
           margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-          child: ChartView(),
+          child: const ChartView(),
         ),
         SIZED_BOX_H12,
         const SpaceWithCustom(
@@ -194,7 +194,7 @@ class HeaderStockDetailView<T extends StockDetailController>
                     SIZED_BOX_H02,
                     Center(
                       child: Text(
-                        (stock?.quantity ?? 0).toCurrency(symbol: " CP"),
+                        (stock?.getTotalVolumn() ?? 0).toCurrency(symbol: " CP"),
                         style: const TextStyle(
                           color: Color(0xFF33CC7F),
                           fontSize: 24,
