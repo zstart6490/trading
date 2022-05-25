@@ -482,7 +482,7 @@ class StockOverviewScene extends StatelessWidget {
                   child: Text(
                     (stock?.avg ?? 0).getPriceStock(),
                     style: TextStyle(
-                      color: (stock?.avg ?? 0).getStockColorWith(
+                      color:(stock?.avg ?? 0).getStockColorWith(
                           stock?.refPrice ?? 0,
                           stock?.floor ?? 0,
                           stock?.ceiling ?? 0),

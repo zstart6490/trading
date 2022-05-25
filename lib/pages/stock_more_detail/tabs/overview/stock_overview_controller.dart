@@ -6,6 +6,7 @@ import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/pages/stock_more_detail/stock_more_detail_controller.dart';
+import 'package:trading_module/utils/extensions.dart';
 
 class StockOverviewController extends BaseController
     with StateMixin<StockCurrentPriceModel>, GetSingleTickerProviderStateMixin {
@@ -22,6 +23,10 @@ class StockOverviewController extends BaseController
   void onReady() {
     getCurrentStockPrice();
     super.onReady();
+
+    // double ab = 123.56;
+    // final a = ab.toPrecision(0).getPriceStock();
+    // print("AAAAAARRR: $a");
   }
 
   Future<void> getCurrentStockPrice() async {
