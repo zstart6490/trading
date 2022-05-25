@@ -10,6 +10,7 @@ import '../../utils/util.dart';
 class MyStockModel extends PropertyModel {
   final String? stockName;
   final String? imageUrl;
+  final double? amount;
   final double quantityWaitingReturn;
   final double dividendsWaitingReturn;
   final List<PortfolioModel>? portfolioHistoryList;
@@ -30,6 +31,7 @@ class MyStockModel extends PropertyModel {
     this.stockName,
     this.imageUrl,
     this.quantityWaitingReturn,
+    this.amount,
     this.dividendsWaitingReturn,
     this.portfolioHistoryList,
   ) : super(id, productKey, productType, quantity, priceAvg, ceiling, floor,
@@ -37,20 +39,24 @@ class MyStockModel extends PropertyModel {
 
   String getPercentPrice(double currentPrice) {
     final priceDifference =
-        (quantity! * priceAvg!) - (quantity! * currentPrice);
+        (currentPrice - priceAvg!) * quantity!;
     final priceDifferenceValue = priceDifference > 0
         ? "+${priceDifference.toCurrency(symbol: "")}"
         : priceDifference.toCurrency(symbol: "");
-    final percentPrice = priceDifference / (quantity! * priceAvg!);
+    final percentPrice = priceDifference / (quantity! * priceAvg!) * 100;
     if (!percentPrice.isNaN && !percentPrice.isInfinite) {
       final num = percentPrice > 0
           ? "+${double.parse(percentPrice.toStringAsFixed(2))}"
-          .replaceAll(".", ",")
-          : "+${double.parse(percentPrice.toStringAsFixed(2))}"
-          .replaceAll(".", ",");
+              .replaceAll(".", ",")
+          : "${double.parse(percentPrice.toStringAsFixed(2))}"
+              .replaceAll(".", ",");
       return "$priceDifferenceValue ($num%)";
     }
     return "0%";
+  }
+
+  double getTotalVolumn(){
+    return (quantity ?? 0) + quantityWaitingReturn;
   }
 }
 
@@ -61,7 +67,7 @@ extension MyStockModelMapper on MyStockModel {
         stockName: "",
         imageUrl: null,
         stockType: null,
-        lastPrice: 0,
+        lastPrice: lastPrice ?? 0,
         change: null,
         ratioChange: 0);
   }
@@ -94,9 +100,10 @@ class PortfolioModel {
   }
 
   String getTypeTransaction() {
-    print("historyType111 $historyType");
     return historyType == 1 ? "Mua" : "Bán";
   }
+
+
 
 // String getPercentPrice(double currentPrice) {
 //   final percentPrice = (price - currentPrice) / price;

@@ -24,6 +24,7 @@ class PropertyModel {
       this.lastPrice,);
 
 
+
   double getPriceDifference() {
     return (lastPrice ?? 0) - (priceAvg ?? 0);
   }

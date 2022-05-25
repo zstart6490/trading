@@ -19,6 +19,8 @@ class MyStockModelDTO {
   final String? stockName;
   @JsonKey(name: "imageUrl")
   final String? imageUrl;
+  @JsonKey(name: "lastPrice")
+  final double? lastPrice;
   @JsonKey(name: "quantityWaitingReturn")
   final double? quantityWaitingReturn;
   @JsonKey(name: "dividendsWaitingReturn")
@@ -34,6 +36,7 @@ class MyStockModelDTO {
       this.amount,
       this.stockName,
       this.imageUrl,
+      this.lastPrice,
       this.quantityWaitingReturn,
       this.dividendsWaitingReturn,
       this.portfolioHistoryList);
@@ -68,10 +71,11 @@ extension MyStockModelMapper on MyStockModelDTO {
       null,
       null,
       null,
-      null,
+      lastPrice,
       stockName,
       imageUrl,
       quantityWaitingReturn ?? 0,
+      amount,
       dividendsWaitingReturn ?? 0,
       getListPortfolio(),
     );

@@ -15,6 +15,7 @@ MyStockModelDTO _$MyStockModelDTOFromJson(Map<String, dynamic> json) =>
       (json['amount'] as num?)?.toDouble(),
       json['stockName'] as String?,
       json['imageUrl'] as String?,
+      (json['lastPrice'] as num?)?.toDouble(),
       (json['quantityWaitingReturn'] as num?)?.toDouble(),
       (json['dividendsWaitingReturn'] as num?)?.toDouble(),
       (json['portfolioHistoryList'] as List<dynamic>?)
@@ -31,6 +32,7 @@ Map<String, dynamic> _$MyStockModelDTOToJson(MyStockModelDTO instance) =>
       'amount': instance.amount,
       'stockName': instance.stockName,
       'imageUrl': instance.imageUrl,
+      'lastPrice': instance.lastPrice,
       'quantityWaitingReturn': instance.quantityWaitingReturn,
       'dividendsWaitingReturn': instance.dividendsWaitingReturn,
       'portfolioHistoryList': instance.portfolioHistoryList,
