@@ -176,6 +176,7 @@ extension CustomNumExtension on num {
     final price = oCcy.format(value).replaceAll(",", ".");
     return price;
   }
+
   String roundDownPriceMatch(){
     final value = floor();
     final oCcy = NumberFormat.decimalPattern("vi");

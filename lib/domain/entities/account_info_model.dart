@@ -74,21 +74,23 @@ class AccountInfoModel {
   }
 
   String getTotalGrowth() {
-    double totalGrowth = 0;
+    double totalValueCurrent = 0;
     double totalOrigin = 0;
+
     if (stockList != null) {
       for (final item in stockList!) {
-        totalGrowth += (item.lastPrice ?? 0) * (item.quantity ?? 0);
+        totalValueCurrent += (item.lastPrice ?? 0) * (item.quantity ?? 0);
         totalOrigin += (item.priceAvg ?? 0) * (item.quantity ?? 0);
       }
     }
 
-    final percent = ((totalGrowth - totalOrigin) / totalOrigin) * 100;
+    final totalGrowth = totalValueCurrent - totalOrigin;
+    final percent = (totalGrowth / totalOrigin) * 100;
     var sPercent = "0%";
     if (!percent.isNaN && !percent.isInfinite) {
       sPercent = percent > 0
-          ? "+${percent.toPrecision(2)}%"
-          : "${percent.toPrecision(2)}%";
+          ? "+${percent.toPrecision(2)}%".replaceAll(".", ",")
+          : "${percent.toPrecision(2)}%".replaceAll(".", ",");
     }
 
     final sTotalGrowth = totalGrowth > 0
