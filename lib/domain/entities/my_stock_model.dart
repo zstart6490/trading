@@ -103,6 +103,10 @@ class PortfolioModel {
     return historyType == 1 ? "Mua" : "Bán";
   }
 
+  String getPriceByType() {
+    return historyType == 1 ? price.roundUpPriceMatch() : price.roundDownPriceMatch();
+  }
+
 
 
 // String getPercentPrice(double currentPrice) {

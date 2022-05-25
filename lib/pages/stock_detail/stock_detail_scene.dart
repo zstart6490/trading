@@ -409,7 +409,7 @@ class MyStockItemCell<T extends StockDetailController> extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                (item?.price ?? 0).toCurrency(symbol: ""),
+                item?.getPriceByType() ?? "",
                 style: const TextStyle(
                   color: Color(0xFF333333),
                   fontSize: 12,
