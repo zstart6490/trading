@@ -36,6 +36,7 @@ class StockCompanyNewsController extends BaseController
           change(listNews, status: RxStatus.empty());
         } else {
           listNews.addAll(result.data!.records);
+          //print(listNews[0].fullImgUrl);
           change(listNews, status: RxStatus.success());
         }
       }
