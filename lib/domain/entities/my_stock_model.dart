@@ -46,9 +46,9 @@ class MyStockModel extends PropertyModel {
     final percentPrice = priceDifference / (quantity! * priceAvg!) * 100;
     if (!percentPrice.isNaN && !percentPrice.isInfinite) {
       final num = percentPrice > 0
-          ? "+${double.parse(percentPrice.toStringAsFixed(2))}"
+          ? "+${double.parse(percentPrice.getShortCut())}"
               .replaceAll(".", ",")
-          : "${double.parse(percentPrice.toStringAsFixed(2))}"
+          : "${double.parse(percentPrice.getShortCut())}"
               .replaceAll(".", ",");
       return "$priceDifferenceValue ($num%)";
     }

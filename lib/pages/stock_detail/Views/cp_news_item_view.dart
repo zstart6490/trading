@@ -45,6 +45,7 @@ class CompanyNewsItemView extends StatelessWidget {
                 ],
               ),
               SIZED_BOX_H12,
+
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

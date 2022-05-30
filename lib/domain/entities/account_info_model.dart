@@ -70,6 +70,7 @@ class AccountInfoModel {
     }
 
     final percent = ((totalGrowth - totalOrigin) / totalOrigin) * 100;
+    print("percent $percent");
     return percent;
   }
 
@@ -89,8 +90,8 @@ class AccountInfoModel {
     var sPercent = "0%";
     if (!percent.isNaN && !percent.isInfinite) {
       sPercent = percent > 0
-          ? "+${percent.toPrecision(2)}%".replaceAll(".", ",")
-          : "${percent.toPrecision(2)}%".replaceAll(".", ",");
+          ? "+${percent.getShortCut()}%".replaceAll(".", ",")
+          : "${percent.getShortCut()}%".replaceAll(".", ",");
     }
 
     final sTotalGrowth = totalGrowth > 0

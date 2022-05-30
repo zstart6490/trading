@@ -189,6 +189,24 @@ extension CustomNumExtension on num {
   String formatWithSeparator({String separator = ","}) {
     return toString().replaceAll(RegExp(r'\.'), separator);
   }
+
+  // double getNumber(double input, {int precision = 2}) =>
+  //     double.parse('$input'.substring(0, '$input'.indexOf('.') + precision + 1));
+
+
+  // String getNumber(double input, {int precision = 2}) {
+  //   print("input11 : $input");
+  //   final index = '$input'.indexOf('.');
+  //   if (index > 0) {
+  //     print("index : $index");
+  //     final newValue = "$input";
+  //
+  //     final result = newValue.substring(0, newValue.indexOf('.') + precision);
+  //     return result;
+  //   }
+  //   return "$input,00";
+  // }
+
 }
 
 extension CustomDoubleExtension on double {
@@ -253,6 +271,12 @@ extension CustomDoubleExtension on double {
     final oCcy = NumberFormat("###.0#","vi");
     // print("number=${value.floorWithFractionDigits(2)}");
     final summary = oCcy.format(value.floorWithFractionDigits(2));
+    return summary;
+  }
+
+  String getShortCut({int precision = 2}) {
+    final oCcy = NumberFormat("###.0#","vi");
+    final summary = oCcy.format(floorWithFractionDigits(precision));
     return summary;
   }
 
