@@ -274,6 +274,12 @@ extension CustomDoubleExtension on double {
     return summary;
   }
 
+  String getShortCut({int precision = 2}) {
+    final oCcy = NumberFormat("###.0#","vi");
+    final summary = oCcy.format(floorWithFractionDigits(precision));
+    return summary;
+  }
+
   String getVolumeStock() {
     final value = this / 10;
     final oCcy = NumberFormat.decimalPattern("vi");

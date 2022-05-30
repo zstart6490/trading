@@ -57,14 +57,6 @@ class HomePageController extends BaseController
     super.onReady();
     loadCache();
     getAccountInfo();
-
-    const double a =  2.075;
-
-    var f = NumberFormat("###.0#", "vi_VN");
-    print(f.format(12.345));
-    print(a);
-    //print("a.getNumber(): ${a.getNumber(2)}");
-    print("a.roundUpPriceMatch(): ${a.toStringAsFixed(2)}");
   }
 
   @override
