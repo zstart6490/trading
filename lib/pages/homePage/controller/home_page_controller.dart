@@ -179,27 +179,26 @@ class HomePageController extends BaseController
       isSubscribeFollow = true;
       //register topic notify
       if (mainProvider.box.hasData(TopicsNotifySubscribe)) {
-        final List<dynamic>? topicCache =
-        mainProvider.box.read<List<dynamic>>(TopicsNotifySubscribe);
-
-        if (topicCache != null &&
-            topicCache.isNotEmpty) {
+        final dynamic cache =
+            mainProvider.box.read<dynamic>(TopicsNotifySubscribe);
+        if (cache is String && cache.isNotEmpty) {
+          print("Cache=" + cache);
+          final List<dynamic> topicCache = jsonDecode(cache) as List<dynamic>;
           final List<String> newSymbols = [];
           for (final dynamic topicNew in topicCache) {
             if (!symbols.contains(topicNew as String)) {
               newSymbols.add(topicNew);
             }
           }
-          topicCache
-              .removeWhere((element) => symbols.contains(element));
+          topicCache.removeWhere((element) => symbols.contains(element));
           final List<String> unsubscribeTopic = [];
           for (dynamic t in topicCache) {
             unsubscribeTopic.add(t as String);
           }
-          mainProvider.registerNotifyTopic
-              ?.call(newSymbols, unsubscribeTopic);
-          mainProvider.box
-              .write(TopicsNotifySubscribe, symbols);
+          mainProvider.registerNotifyTopic?.call(newSymbols, unsubscribeTopic);
+          mainProvider.box.write(TopicsNotifySubscribe, jsonEncode(symbols));
+        }else{
+          mainProvider.box.remove(TopicsNotifySubscribe);
         }
       } else {
         if (symbols.isNotEmpty) {
