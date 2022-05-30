@@ -239,11 +239,12 @@ class Api extends GetConnect {
     }
   }
 
-  Result handlerResult(Result result, {String? endPoint}) {
+  Future<Result> handlerResult(Result result, {String? endPoint}) async{
     if (!result.success) {
       if (result.code == 401) {
-        onSessionTimeout(result);
-        return Result();
+        // onSessionTimeout(result);
+        await Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
+        return Result(code: 401);
       } else if (result.code == SESSION_TIMEOUT_CODE) {
         //UNAUTHORIZED
         Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
@@ -291,22 +292,23 @@ class Api extends GetConnect {
     _showMessageDialog(dialog, name: "BlockOTP", canDissmiss: false);
   }
 
-  void onSessionTimeout(Result result) {
-    // print("kkkkkkkkkkkkkk");
-    final dialog = CustomAlertDialog(
-      desc: result.error?.message,
-      actions: [
-        AlertAction(
-            text: "Đã hiểu",
-            isDefaultAction: true,
-            onPressed: () {
-              Get.back();
-              TradingModule.clearCache();
-              Get.find<MainTradingProvider>().callToSignIn?.call();
-            })
-      ],
-    );
-    _showMessageDialog(dialog, name: "SessionTimeout", canDissmiss: false);
+  Future onSessionTimeout(Result result) async {
+    // final dialog = CustomAlertDialog(
+    //   desc: result.error?.message,
+    //   actions: [
+    //     AlertAction(
+    //         text: "Đã hiểu",
+    //         isDefaultAction: true,
+    //         onPressed: () {
+    //           Get.back();
+    //           TradingModule.clearCache();
+    //           Get.find<MainTradingProvider>().callToSignIn?.call();
+    //         })
+    //   ],
+    // );
+    // _showMessageDialog(dialog, name: "SessionTimeout", canDissmiss: false);
+    TradingModule.clearCache();
+    await Get.find<MainController>().getDataLogin();
   }
 
   void _showMessageDialog(Widget dialog,
