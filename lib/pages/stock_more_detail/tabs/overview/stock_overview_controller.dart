@@ -6,7 +6,6 @@ import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_usecase.dart';
 import 'package:trading_module/pages/stock_more_detail/stock_more_detail_controller.dart';
-import 'package:trading_module/utils/extensions.dart';
 
 class StockOverviewController extends BaseController
     with StateMixin<StockCurrentPriceModel>, GetSingleTickerProviderStateMixin {
@@ -43,8 +42,13 @@ class StockOverviewController extends BaseController
         _stockCurrentPriceModel = result.data;
         change(result.data, status: RxStatus.success());
       } else if (result.error != null) {
-        change(null, status: RxStatus.error(result.error!.message));
-        showSnackBar(result.error!.message);
+        if(result.error?.code==401){
+          getCurrentStockPrice();
+        }else{
+          change(null, status: RxStatus.error(result.error!.message));
+          showSnackBar(result.error!.message);
+        }
+
       }
     }
   }
