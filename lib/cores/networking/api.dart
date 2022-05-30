@@ -58,6 +58,8 @@ class Api extends GetConnect {
     super.onInit();
   }
 
+  int countReLogin = 0;
+
   /// FOR NETWORKING WITH THE [Method.GET]
   /// RETURN DATA WITH [Result] MODEL
   Future<Result> getData({
@@ -81,8 +83,18 @@ class Api extends GetConnect {
           bodyString: res.bodyString,
         );
       }
-      return handlerResult(Result.fromJson(res.bodyString!),
+      final handlerResponse = await handlerResult(
+          Result.fromJson(res.bodyString!),
           endPoint: endPoint);
+      if (handlerResponse.code == 401) {
+        if (countReLogin < 3) {
+          return getData(endPoint: endPoint, params: params, timeOut: timeOut);
+        }
+        countReLogin = 0;
+        return handlerResponse;
+      }
+      countReLogin = 0;
+      return handlerResponse;
     } on TimeoutException catch (e) {
       _requestException(
         Method.GET,
@@ -135,8 +147,21 @@ class Api extends GetConnect {
           bodyString: res.bodyString,
         );
       }
-      return handlerResult(Result.fromJson(res.bodyString ?? ""),
+      final handlerResponse = await handlerResult(
+          Result.fromJson(res.bodyString!),
           endPoint: endPoint);
+      if (handlerResponse.code == 401) {
+        if (countReLogin < 3) {
+          return postData(endPoint: endPoint, params: params, timeOut: timeOut);
+        }
+        countReLogin = 0;
+        return handlerResponse;
+      }
+      countReLogin = 0;
+      return handlerResponse;
+
+      // return handlerResult(Result.fromJson(res.bodyString ?? ""),
+      //     endPoint: endPoint);
     } on TimeoutException catch (e) {
       _requestException(
         Method.POST,
@@ -183,8 +208,20 @@ class Api extends GetConnect {
           bodyString: res.bodyString,
         );
       }
-      return handlerResult(Result.fromJson(res.bodyString!),
+      final handlerResponse = await handlerResult(
+          Result.fromJson(res.bodyString!),
           endPoint: endPoint);
+      if (handlerResponse.code == 401) {
+        if (countReLogin < 3) {
+          return deleteData(endPoint: endPoint, params: params, timeOut: timeOut);
+        }
+        countReLogin = 0;
+        return handlerResponse;
+      }
+      countReLogin = 0;
+      return handlerResponse;
+      // return handlerResult(Result.fromJson(res.bodyString!),
+      //     endPoint: endPoint);
     } on TimeoutException catch (e) {
       _requestException(
         Method.DELETE,
@@ -239,16 +276,17 @@ class Api extends GetConnect {
     }
   }
 
-  Future<Result> handlerResult(Result result, {String? endPoint}) async{
+  Future<Result> handlerResult(Result result, {String? endPoint}) async {
     if (!result.success) {
       if (result.code == 401) {
         // onSessionTimeout(result);
-        await Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
+        await Get.find<MainController>()
+            .refreshToken(() => refreshTokenSuccess());
         return Result(code: 401);
       } else if (result.code == SESSION_TIMEOUT_CODE) {
         //UNAUTHORIZED
         Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
-        return Result();
+        return Result(code: 401);
       } else if (result.code == BLOCK_OTP_1_CODE ||
           result.code == BLOCK_OTP_2_CODE) {
         onBlockOTP(result, endPoint: endPoint);

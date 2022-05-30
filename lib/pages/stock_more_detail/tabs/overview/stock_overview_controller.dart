@@ -13,8 +13,8 @@ class StockOverviewController extends BaseController
 
   StockOverviewController(this.stock);
 
-  final StockUseCase _stockUseCase = StockUseCase(StockRepoImpl(StockServiceImpl()));
-
+  final StockUseCase _stockUseCase =
+      StockUseCase(StockRepoImpl(StockServiceImpl()));
 
   StockCurrentPriceModel? _stockCurrentPriceModel;
 
@@ -34,21 +34,16 @@ class StockOverviewController extends BaseController
       final result =
           await _stockUseCase.getCurrentStockPrice(symbol: stock.symbol);
       if (result.data != null) {
-
         final StockMoreDetailController _homePageController =
-        Get.find<StockMoreDetailController>();
-        _homePageController.isFollow.value = result.data?.isProductWatching ?? false;
+            Get.find<StockMoreDetailController>();
+        _homePageController.isFollow.value =
+            result.data?.isProductWatching ?? false;
         _homePageController.isValid.value = result.data?.isAllowSell ?? false;
         _stockCurrentPriceModel = result.data;
         change(result.data, status: RxStatus.success());
       } else if (result.error != null) {
-        if(result.error?.code==401){
-          getCurrentStockPrice();
-        }else{
-          change(null, status: RxStatus.error(result.error!.message));
-          showSnackBar(result.error!.message);
-        }
-
+        change(null, status: RxStatus.error(result.error!.message));
+        showSnackBar(result.error!.message);
       }
     }
   }
