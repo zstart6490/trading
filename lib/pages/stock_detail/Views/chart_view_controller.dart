@@ -69,12 +69,12 @@ class ChartController extends BaseController
         change(null, status: RxStatus.empty());
       }
     } else if (result.error != null) {
-      if(result.error?.code==401){
-        getHistoryStockPrice(time);
-      }else{
-        change(null, status: RxStatus.error());
-        showSnackBar(result.error!.message);
-      }
+      // if(result.error?.code==401){
+      //   getHistoryStockPrice(time);
+      // }else{
+      change(null, status: RxStatus.error());
+      showSnackBar(result.error!.message);
+      // }
 
     }
   }
@@ -82,5 +82,4 @@ class ChartController extends BaseController
   void changeThem() {
     themeIsDark.value = !themeIsDark.value;
   }
-
 }
