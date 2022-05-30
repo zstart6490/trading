@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:math_expressions/math_expressions.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
