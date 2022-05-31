@@ -38,7 +38,7 @@ class InvestInfoView extends GetView<StockDetailController> {
                     title: "TB giá mua  (đ)",
                     desc: (stock?.priceAvg ?? 0).roundDownPriceMatch(),
                     imgUrl: "assets/images/png/ic_avg_bought_price.png",
-                    descColor: Color(0xFF333333)),
+                    descColor: const Color(0xFF333333)),
                 SIZED_BOX_H12,
                 Obx(() => InvestInfoItem(
                     title: "Giá hiện tại (đ)",
@@ -63,8 +63,8 @@ class InvestInfoView extends GetView<StockDetailController> {
                   title: "Lãi lỗ (đ)",
                   desc: stock?.getPercentPrice(controller.priceStock.value) ?? "",
                   imgUrl: "assets/images/png/ic_profit_loss.png",
-                  descColor: stock?.priceAvg?.getStockColorWithCurrentPrice(
-                          controller.priceStock.value) ??
+                  descColor: controller.priceStock.value?.getStockColorWithCurrentPrice(
+                          stock?.priceAvg ?? 0) ??
                       const Color(0xFF333333),
                 ),
               ],

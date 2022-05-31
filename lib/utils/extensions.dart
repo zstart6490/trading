@@ -275,10 +275,16 @@ extension CustomDoubleExtension on double {
   }
 
 
-  String getPriceStock1() {
+  String getPriceStockNoComma() {
     final value = this / 1000;
     final oCcy = NumberFormat.currency(locale: "vi",decimalDigits: 0,symbol: "");
     final summary = oCcy.format(value.floorWithFractionDigits(0));
+    return summary;
+  }
+
+  String getPriceOrigin() {
+    final oCcy = NumberFormat.currency(locale: "vi",decimalDigits: 0,symbol: "");
+    final summary = oCcy.format(floorWithFractionDigits(0));
     return summary;
   }
 

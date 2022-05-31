@@ -38,18 +38,17 @@ class MyStockModel extends PropertyModel {
             refPrice, lastPrice);
 
   String getPercentPrice(double currentPrice) {
+    final quantity = getTotalVolumn();
     final priceDifference =
-        (currentPrice - priceAvg!) * quantity!;
+        (currentPrice - priceAvg!) * quantity;
     final priceDifferenceValue = priceDifference > 0
-        ? "+${priceDifference.toCurrency(symbol: "")}"
-        : priceDifference.toCurrency(symbol: "");
-    final percentPrice = priceDifference / (quantity! * priceAvg!) * 100;
+        ? "+${priceDifference.getPriceOrigin()}"
+        : priceDifference.getPriceOrigin();
+    final percentPrice = priceDifference / (quantity * priceAvg!) * 100;
     if (!percentPrice.isNaN && !percentPrice.isInfinite) {
       final num = percentPrice > 0
-          ? "+${double.parse(percentPrice.getShortCut())}"
-              .replaceAll(".", ",")
-          : "${double.parse(percentPrice.getShortCut())}"
-              .replaceAll(".", ",");
+          ? "+${percentPrice.getShortCut()}"
+          : percentPrice.getShortCut();
       return "$priceDifferenceValue ($num%)";
     }
     return "0%";
