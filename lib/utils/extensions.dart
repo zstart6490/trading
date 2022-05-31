@@ -274,6 +274,14 @@ extension CustomDoubleExtension on double {
     return summary;
   }
 
+
+  String getPriceStock1() {
+    final value = this / 1000;
+    final oCcy = NumberFormat.currency(locale: "vi",decimalDigits: 0,symbol: "");
+    final summary = oCcy.format(value.floorWithFractionDigits(0));
+    return summary;
+  }
+
   String getShortCut({int precision = 2}) {
     final oCcy = NumberFormat("###.0#","vi");
     final summary = oCcy.format(floorWithFractionDigits(precision));

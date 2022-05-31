@@ -576,7 +576,7 @@ class StockOverviewScene extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    (stock?.totalVal ?? 0).getPriceStock(),
+                    (stock?.totalVal ?? 0).getPriceStock1(),
                     style: const TextStyle(
                       color: Color(0xFF333333),
                       fontSize: 12,
