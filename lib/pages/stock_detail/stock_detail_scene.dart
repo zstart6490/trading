@@ -59,9 +59,9 @@ class StockDetailScene extends GetView<StockDetailController> {
                       trailing: const Icon(
                         null,
                       ),
-                      onPressed: () {
-                        controller.sellTapped();
-                      },
+                      onPressed: controller.isValid.value
+                          ? () => controller.sellTapped()
+                          : null,
                     ),
                   ),
                 ],

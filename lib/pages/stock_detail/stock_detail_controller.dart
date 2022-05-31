@@ -22,6 +22,7 @@ class StockDetailController extends BaseController
   final int countItem = 12;
 
   RxDouble priceStock = 0.0.obs;
+  RxBool isValid = false.obs;
 
   @override
   void onInit() {
@@ -58,10 +59,19 @@ class StockDetailController extends BaseController
     if (result.data != null) {
       result.data?.portfolioHistoryList?.insert(0, PortfolioModel(price: 0));
       priceStock.value = result.data?.lastPrice ?? 0;
+      _checkValidateSell(result.data?.quantity ?? 0);
       change(result.data, status: RxStatus.success());
     } else if (result.error != null) {
       change(null, status: RxStatus.error());
       showSnackBar(result.error!.message);
+    }
+  }
+
+  void _checkValidateSell(double quantitySell){
+    if (quantitySell > 0) {
+      isValid.value = true;
+    } else {
+      isValid.value = false;
     }
   }
 
