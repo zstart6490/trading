@@ -88,6 +88,7 @@ class Api extends GetConnect {
           endPoint: endPoint);
       if (handlerResponse.code == 401) {
         if (countReLogin < 3) {
+          countReLogin++;
           return getData(endPoint: endPoint, params: params, timeOut: timeOut);
         }
         countReLogin = 0;
@@ -152,6 +153,7 @@ class Api extends GetConnect {
           endPoint: endPoint);
       if (handlerResponse.code == 401) {
         if (countReLogin < 3) {
+          countReLogin++;
           return postData(endPoint: endPoint, params: params, timeOut: timeOut);
         }
         countReLogin = 0;
@@ -213,6 +215,7 @@ class Api extends GetConnect {
           endPoint: endPoint);
       if (handlerResponse.code == 401) {
         if (countReLogin < 3) {
+          countReLogin++;
           return deleteData(endPoint: endPoint, params: params, timeOut: timeOut);
         }
         countReLogin = 0;
