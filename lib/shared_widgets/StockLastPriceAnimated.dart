@@ -23,8 +23,8 @@ class _StockLastPriceAnimatedState extends State<StockLastPriceAnimated>{
       fractionDigits: 2,
       textStyle: const TextStyle(
           fontSize: 12,
-          fontFamily: "iCielHelveticaNowText-Medium",
           fontWeight: FontWeight.w500,
+          letterSpacing: -1,
           color: Color(0xFF333333),
           overflow: TextOverflow.ellipsis,
       ),
