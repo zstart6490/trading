@@ -266,6 +266,7 @@ extension CustomDoubleExtension on double {
   }
 
   String getPriceStock() {
+    if (this == 0) {return "0,0";}
     final value = this / 1000;
     // final oCcy = NumberFormat.currency(locale: "vi",decimalDigits: 2,symbol: "");
     final oCcy = NumberFormat("###.0#","vi");
@@ -295,6 +296,7 @@ extension CustomDoubleExtension on double {
   }
 
   String getVolumeStock() {
+    if (this == 0) {return "0.0";}
     final value = this / 10;
     final oCcy = NumberFormat.decimalPattern("vi");
     final summary = oCcy.format(value).replaceAll(",", ".");

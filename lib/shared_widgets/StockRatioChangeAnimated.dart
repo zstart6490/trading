@@ -27,9 +27,11 @@ class _StockRatioChangeAnimatedState extends State<StockRatioChangeAnimated>{
       textStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
+        letterSpacing: -1,
         color: widget.ratioChange.getStockColor(),
           // (widget.ratioChange >0) ? const Color(0xFF33CC7F) : (widget.ratioChange <0 ? const Color(0xFFF46666) :const Color(0xFFFFBE40)),
         overflow: TextOverflow.ellipsis,
+        height: 20/14
       ),
 
     );

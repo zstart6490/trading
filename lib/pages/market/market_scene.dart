@@ -12,6 +12,7 @@ class MarketScene extends GetView<MarketController> {
 
   @override
   Widget build(BuildContext context) {
+    final focusNode = FocusNode();
     return BaseScaffoldAppBar<MarketController>(
       backgroundColor: Colors.white,
       leading: IconButton(
@@ -35,8 +36,9 @@ class MarketScene extends GetView<MarketController> {
                 () => TextField(
                   textAlignVertical: TextAlignVertical.center,
                   controller: controller.nameHolder,
+                  focusNode: focusNode,
                   inputFormatters: [
-                    LengthLimitingTextInputFormatter(5), /// here char limit is 5
+                    LengthLimitingTextInputFormatter(10), /// here char limit is 10
                   ],
                   decoration: InputDecoration(
                     isCollapsed: true,
@@ -59,9 +61,8 @@ class MarketScene extends GetView<MarketController> {
                         color: const Color(0xFFADADAD),
                       ),
 
-                      onPressed: () {
-                        controller.cleanSearch();
-                      },
+                      onPressed: () => controller.cleanSearch()
+                      ,
                     ),
                   ),
                   onChanged: (val) => controller.onChangeSearchStock(val),
@@ -79,7 +80,10 @@ class MarketScene extends GetView<MarketController> {
                           final stock = stocks![index];
                           return MarketCell(
                             stock: stock,
-                            onPressed: () => controller.onTapped(stock),
+                            onPressed: ()  {
+                              focusNode.unfocus();
+                              controller.onTapped(stock);
+                            },
                           );
                         },
                         itemCount: stocks!.length,

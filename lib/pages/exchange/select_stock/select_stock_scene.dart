@@ -12,6 +12,7 @@ class SelectStockScene extends GetView<SelectStockController> {
 
   @override
   Widget build(BuildContext context) {
+    final focusNode = FocusNode();
     return BaseScaffoldAppBar<SelectStockController>(
       backgroundColor: Colors.white,
       title: controller.getTitleScreen(),
@@ -29,8 +30,9 @@ class SelectStockScene extends GetView<SelectStockController> {
                 () => TextField(
                   textAlignVertical: TextAlignVertical.center,
                   controller: controller.nameHolder,
+                  focusNode: focusNode,
                   inputFormatters: [
-                    LengthLimitingTextInputFormatter(5), /// here char limit is 5
+                    LengthLimitingTextInputFormatter(10), /// here char limit is 10
                   ],
                   decoration: InputDecoration(
                     isCollapsed: true,
@@ -49,10 +51,9 @@ class SelectStockScene extends GetView<SelectStockController> {
                           controller.hiddenRemoveSearch.value
                               ? null
                               : Icons.clear,
-                          color: const Color(0xFFADADAD)),
-                      onPressed: () {
-                        controller.cleanSearch();
-                      },
+                          color : const Color(0xFFADADAD)),
+                      onPressed: () => controller.cleanSearch()
+                      ,
                     ),
                   ),
                   onChanged: (val) => controller.onChangeSearchStock(val),
@@ -70,7 +71,10 @@ class SelectStockScene extends GetView<SelectStockController> {
                           final stock = stocks![index];
                           return MarketCell(
                             stock: stock,
-                            onPressed: () => controller.onTapped(stock),
+                            onPressed: () {
+                              focusNode.unfocus();
+                              controller.onTapped(stock);
+                            },
                           );
                         },
                         itemCount: stocks!.length,
