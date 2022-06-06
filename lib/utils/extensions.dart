@@ -186,25 +186,28 @@ extension CustomNumExtension on num {
     return price;
   }
 
+
+
   String formatWithSeparator({String separator = ","}) {
     return toString().replaceAll(RegExp(r'\.'), separator);
   }
 
-// double getNumber(double input, {int precision = 2}) =>
-//     double.parse('$input'.substring(0, '$input'.indexOf('.') + precision + 1));
+  // double getNumber(double input, {int precision = 2}) =>
+  //     double.parse('$input'.substring(0, '$input'.indexOf('.') + precision + 1));
 
-// String getNumber(double input, {int precision = 2}) {
-//   print("input11 : $input");
-//   final index = '$input'.indexOf('.');
-//   if (index > 0) {
-//     print("index : $index");
-//     final newValue = "$input";
-//
-//     final result = newValue.substring(0, newValue.indexOf('.') + precision);
-//     return result;
-//   }
-//   return "$input,00";
-// }
+
+  // String getNumber(double input, {int precision = 2}) {
+  //   print("input11 : $input");
+  //   final index = '$input'.indexOf('.');
+  //   if (index > 0) {
+  //     print("index : $index");
+  //     final newValue = "$input";
+  //
+  //     final result = newValue.substring(0, newValue.indexOf('.') + precision);
+  //     return result;
+  //   }
+  //   return "$input,00";
+  // }
 
 }
 
@@ -265,6 +268,7 @@ extension CustomDoubleExtension on double {
   }
 
   String getPriceStock() {
+    if (this == 0) {return "0,0";}
     final value = this / 1000;
     // final oCcy = NumberFormat.currency(locale: "vi",decimalDigits: 2,symbol: "");
     final oCcy = NumberFormat("###.00", "vi");
@@ -289,12 +293,13 @@ extension CustomDoubleExtension on double {
   }
 
   String getShortCut({int precision = 2}) {
-    final oCcy = NumberFormat("###.0#", "vi");
+    final oCcy = NumberFormat("##0.0#", "vi");
     final summary = oCcy.format(floorWithFractionDigits(precision));
     return summary;
   }
 
   String getVolumeStock() {
+    if (this == 0) {return "0.0";}
     final value = this / 10;
     final oCcy = NumberFormat.decimalPattern("vi");
     final summary = oCcy.format(value).replaceAll(",", ".");
