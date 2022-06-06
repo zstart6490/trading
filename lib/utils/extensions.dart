@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:trading_module/configs/constants.dart';
+import 'package:trading_module/pages/main_provider.dart';
 
 extension DurationExtension on Duration {
   String formatHHMMSS() {
@@ -163,49 +165,46 @@ extension CustomNumExtension on num {
     return round().toString();
   }
 
-  String toStockQuantityFormat(){
+  String toStockQuantityFormat() {
     final value = round();
     final oCcy = NumberFormat.decimalPattern("vi");
     final quantity = oCcy.format(value).replaceAll(",", ".");
     return quantity;
   }
 
-  String roundUpPriceMatch(){
+  String roundUpPriceMatch() {
     final value = ceil();
     final oCcy = NumberFormat.decimalPattern("vi");
     final price = oCcy.format(value).replaceAll(",", ".");
     return price;
   }
 
-  String roundDownPriceMatch(){
+  String roundDownPriceMatch() {
     final value = floor();
     final oCcy = NumberFormat.decimalPattern("vi");
     final price = oCcy.format(value).replaceAll(",", ".");
     return price;
   }
 
-
-
   String formatWithSeparator({String separator = ","}) {
     return toString().replaceAll(RegExp(r'\.'), separator);
   }
 
-  // double getNumber(double input, {int precision = 2}) =>
-  //     double.parse('$input'.substring(0, '$input'.indexOf('.') + precision + 1));
+// double getNumber(double input, {int precision = 2}) =>
+//     double.parse('$input'.substring(0, '$input'.indexOf('.') + precision + 1));
 
-
-  // String getNumber(double input, {int precision = 2}) {
-  //   print("input11 : $input");
-  //   final index = '$input'.indexOf('.');
-  //   if (index > 0) {
-  //     print("index : $index");
-  //     final newValue = "$input";
-  //
-  //     final result = newValue.substring(0, newValue.indexOf('.') + precision);
-  //     return result;
-  //   }
-  //   return "$input,00";
-  // }
+// String getNumber(double input, {int precision = 2}) {
+//   print("input11 : $input");
+//   final index = '$input'.indexOf('.');
+//   if (index > 0) {
+//     print("index : $index");
+//     final newValue = "$input";
+//
+//     final result = newValue.substring(0, newValue.indexOf('.') + precision);
+//     return result;
+//   }
+//   return "$input,00";
+// }
 
 }
 
@@ -268,28 +267,29 @@ extension CustomDoubleExtension on double {
   String getPriceStock() {
     final value = this / 1000;
     // final oCcy = NumberFormat.currency(locale: "vi",decimalDigits: 2,symbol: "");
-    final oCcy = NumberFormat("###.0#","vi");
+    final oCcy = NumberFormat("###.00", "vi");
     // print("number=${value.floorWithFractionDigits(2)}");
     final summary = oCcy.format(value.floorWithFractionDigits(2));
     return summary;
   }
 
-
   String getPriceStockNoComma() {
     final value = this / 1000;
-    final oCcy = NumberFormat.currency(locale: "vi",decimalDigits: 0,symbol: "");
+    final oCcy =
+        NumberFormat.currency(locale: "vi", decimalDigits: 0, symbol: "");
     final summary = oCcy.format(value.floorWithFractionDigits(0));
     return summary;
   }
 
   String getPriceOrigin() {
-    final oCcy = NumberFormat.currency(locale: "vi",decimalDigits: 0,symbol: "");
+    final oCcy =
+        NumberFormat.currency(locale: "vi", decimalDigits: 0, symbol: "");
     final summary = oCcy.format(floorWithFractionDigits(0));
     return summary;
   }
 
   String getShortCut({int precision = 2}) {
-    final oCcy = NumberFormat("###.0#","vi");
+    final oCcy = NumberFormat("###.0#", "vi");
     final summary = oCcy.format(floorWithFractionDigits(precision));
     return summary;
   }
@@ -361,8 +361,11 @@ extension ImageExtension on String {
   }
 
   CachedNetworkImage loadCacheImg({double? mWidth, double? mHeight}) {
+    // ?t=${DateTime.now().millisecond}
     return CachedNetworkImage(
-      imageUrl: "${this}?t=${DateTime.now().millisecond}",
+      imageUrl: this,
+      filterQuality: FilterQuality.high,
+      cacheManager: Get.find<MainTradingProvider>().imageCacheManager,
       placeholder: (context, url) => const CircularProgressIndicator(),
       errorWidget: (context, url, error) => "stock_place_holder".pngImage(),
       width: mWidth,

@@ -34,6 +34,7 @@ class MainController extends BaseController {
       Get.toNamed(AppRoutes.mainView,preventDuplicates: false);
     } else {
       //print("clearCache accessToken22");
+      mainProvider.imageCacheManager.emptyCache();
       final respData = await _boardingUseCase.getDataLoginUser(
         token: dataInput.token,
         fbDeviceId: dataInput.fbDeviceId ?? "",

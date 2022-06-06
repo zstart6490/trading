@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_view_model.dart';
@@ -20,9 +19,9 @@ class StockExchangeView<T extends ExchangeStockController>
                 children: [
                   ClipOval(
                     child: SizedBox(
-                        width: 56,
-                        height: 56,
-                        child: controller.stockModel.fullLink.loadCacheImg()),
+                        width: 40,
+                        height: 40,
+                        child: controller.stockModel.fullLink.loadCacheImg(mWidth: 40,mHeight: 40)),
                   ),
                   SIZED_BOX_W12,
                   Expanded(

@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:trading_module/domain/entities/my_stock_model.dart';
 import 'package:trading_module/pages/stock_detail/stock_detail_controller.dart';
-
 import 'package:trading_module/utils/util.dart';
 
 class InvestInfoView extends GetView<StockDetailController> {
@@ -63,9 +62,8 @@ class InvestInfoView extends GetView<StockDetailController> {
                   title: "Lãi lỗ (đ)",
                   desc: stock?.getPercentPrice(controller.priceStock.value) ?? "",
                   imgUrl: "assets/images/png/ic_profit_loss.png",
-                  descColor: controller.priceStock.value?.getStockColorWithCurrentPrice(
-                          stock?.priceAvg ?? 0) ??
-                      const Color(0xFF333333),
+                  descColor: controller.priceStock.value.getStockColorWithCurrentPrice(
+                          stock?.priceAvg ?? 0),
                 ),
               ],
             ),
