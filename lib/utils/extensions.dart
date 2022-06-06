@@ -294,7 +294,7 @@ extension CustomDoubleExtension on double {
   }
 
   String getShortCut({int precision = 2}) {
-    final oCcy = NumberFormat("##0.0#","en_US");
+    final oCcy = NumberFormat("##0.0#","vi");
     final summary = oCcy.format(floorWithFractionDigits(precision));
     return summary;
   }
