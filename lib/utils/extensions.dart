@@ -158,7 +158,11 @@ extension CustomNumExtension on num {
 
   num floorWithFractionDigits(int fractionDigits) {
     final p = pow(10, fractionDigits);
-    return (this * p).floor() / p;
+    if (this > 0) {
+      return (this * p).floor() / p;
+    }else{
+      return (this * p).ceil() / p;
+    }
   }
 
   String toStockQuantity() {

@@ -64,7 +64,7 @@ class PropertyModel {
     final value = (((lastPrice ?? 0) - (refPrice ?? 0)) / (refPrice ?? 0)) * 100;
     if (!value.isNaN && !value.isInfinite) {
       return value > 0 ? "+${value.getShortCut()}%".replaceAll(".", ",") : "${value.getShortCut(
-          )}%".replaceAll(".", ",");
+      )}%".replaceAll(".", ",");
     }
     return "0%";
   }
