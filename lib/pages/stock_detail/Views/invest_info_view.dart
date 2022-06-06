@@ -63,9 +63,8 @@ class InvestInfoView extends GetView<StockDetailController> {
                   title: "Lãi lỗ (đ)",
                   desc: stock?.getPercentPrice(controller.priceStock.value) ?? "",
                   imgUrl: "assets/images/png/ic_profit_loss.png",
-                  descColor: controller.priceStock.value?.getStockColorWithCurrentPrice(
-                          stock?.priceAvg ?? 0) ??
-                      const Color(0xFF333333),
+                  descColor: controller.priceStock.value.getStockColorWithCurrentPrice(
+                          stock?.priceAvg ?? 0),
                 ),
               ],
             ),

@@ -55,7 +55,9 @@ class PropertyModel {
     final value = (((lastPrice ?? 0) - (priceAvg ?? 0)) / (priceAvg ?? 0)) * 100;
     if (!value.isNaN && !value.isInfinite) {
 
-
+      print(value);
+      print(value.getShortCut());
+      print(value);
       return value > 0 ? "+${value.getShortCut()}%".replaceAll(".", ",") : "${value.getShortCut(
           )}%".replaceAll(".", ",");
     }
@@ -65,8 +67,11 @@ class PropertyModel {
   String getPercentageFollow() {
     final value = (((lastPrice ?? 0) - (refPrice ?? 0)) / (refPrice ?? 0)) * 100;
     if (!value.isNaN && !value.isInfinite) {
+      print("getPercentageFollow");
+      print(value.getShortCut());
+      print(value);
       return value > 0 ? "+${value.getShortCut()}%".replaceAll(".", ",") : "${value.getShortCut(
-          )}%".replaceAll(".", ",");
+      )}%".replaceAll(".", ",");
     }
     return "0%";
   }

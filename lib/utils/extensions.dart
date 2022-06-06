@@ -156,7 +156,11 @@ extension CustomNumExtension on num {
 
   num floorWithFractionDigits(int fractionDigits) {
     final p = pow(10, fractionDigits);
-    return (this * p).floor() / p;
+    if (this > 0) {
+      return (this * p).floor() / p;
+    }else{
+      return (this * p).ceil() / p;
+    }
   }
 
   String toStockQuantity() {
@@ -290,7 +294,7 @@ extension CustomDoubleExtension on double {
   }
 
   String getShortCut({int precision = 2}) {
-    final oCcy = NumberFormat("###.0#","vi");
+    final oCcy = NumberFormat("##0.0#","en_US");
     final summary = oCcy.format(floorWithFractionDigits(precision));
     return summary;
   }
