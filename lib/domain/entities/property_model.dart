@@ -54,8 +54,6 @@ class PropertyModel {
   String getPercentage() {
     final value = (((lastPrice ?? 0) - (priceAvg ?? 0)) / (priceAvg ?? 0)) * 100;
     if (!value.isNaN && !value.isInfinite) {
-
-
       return value > 0 ? "+${value.getShortCut()}%".replaceAll(".", ",") : "${value.getShortCut(
           )}%".replaceAll(".", ",");
     }
