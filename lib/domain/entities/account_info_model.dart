@@ -70,7 +70,7 @@ class AccountInfoModel {
     }
 
     final percent = ((totalGrowth - totalOrigin) / totalOrigin) * 100;
-    print("percent $percent");
+    //print("percent $percent");
     return percent;
   }
 
