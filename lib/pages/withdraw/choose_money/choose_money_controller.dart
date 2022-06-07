@@ -88,6 +88,7 @@ class ChooseMoneyController extends BaseController {
   void onChangedMoney(int val) {
     validMinMoney.value = (val == 0) ? ConditionState.none : (val < minMoneyCanWithdraw) ? ConditionState.error : ConditionState.success ;
     validMaxMoney.value = (val == 0) ? ConditionState.none : (val > data.totalMoneyUser) ? ConditionState.error : ConditionState.success ;
+    checkRequestAmount();
   }
 
   // ignore: avoid_positional_boolean_parameters
