@@ -39,8 +39,8 @@ class StockUseCase {
     return result;
   }
 
-  DataState<List<StockModel>> getCache() {
-    final result = _stockRepo.getCache();
+  Future<DataState<List<StockModel>>> getListCache() async {
+    final result = await _stockRepo.getListCache();
     return result;
   }
 }

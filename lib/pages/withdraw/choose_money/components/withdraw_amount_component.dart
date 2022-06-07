@@ -53,7 +53,6 @@ class WithdrawAmountComponent extends BaseViewModel<ChooseMoneyController> {
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
                                         CurrencyInputFormatter(
-                                            maxAmount: 500000000,
                                             onOver: () =>
                                                 controller.onInputOver())
                                       ],

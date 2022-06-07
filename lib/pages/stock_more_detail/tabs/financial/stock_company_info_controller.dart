@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:trading_module/data/repos/stock_repo_impl.dart';
+import 'package:trading_module/data/services/local/stock_storage_service.dart';
 import 'package:trading_module/data/services/stock_service.dart';
 import 'package:trading_module/domain/entities/company_financial_info.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
@@ -11,7 +12,7 @@ class StockCompanyInfoController extends GetxController
 
   StockCompanyInfoController(this.stock);
 
-  final StockUseCase _stockUseCase = StockUseCase(StockRepoImpl(StockServiceImpl()));
+  final StockUseCase _stockUseCase = StockUseCase(StockRepoImpl(StockServiceImpl(),StockStorageServiceImpl()));
   List<CompanyFinancialInfo> listCompanyInfo = <CompanyFinancialInfo>[];
 
   Future getStockFinanceReport(String symbol) async {
