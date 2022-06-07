@@ -38,7 +38,9 @@ class MarketScene extends GetView<MarketController> {
                   controller: controller.nameHolder,
                   focusNode: focusNode,
                   inputFormatters: [
-                    LengthLimitingTextInputFormatter(10), /// here char limit is 10
+                    LengthLimitingTextInputFormatter(10),
+
+                    /// here char limit is 10
                   ],
                   decoration: InputDecoration(
                     isCollapsed: true,
@@ -60,9 +62,7 @@ class MarketScene extends GetView<MarketController> {
                             : Icons.clear,
                         color: const Color(0xFFADADAD),
                       ),
-
-                      onPressed: () => controller.cleanSearch()
-                      ,
+                      onPressed: () => controller.cleanSearch(),
                     ),
                   ),
                   onChanged: (val) => controller.onChangeSearchStock(val),
@@ -80,7 +80,7 @@ class MarketScene extends GetView<MarketController> {
                           final stock = stocks![index];
                           return MarketCell(
                             stock: stock,
-                            onPressed: ()  {
+                            onPressed: () {
                               focusNode.unfocus();
                               controller.onTapped(stock);
                             },
@@ -89,20 +89,15 @@ class MarketScene extends GetView<MarketController> {
                         itemCount: stocks!.length,
                       )),
                   onLoading: const SizedBox(),
-                  onError: (error) => Center(
-                        child: Text(
-                          error ?? "Load Content Error!",
-                          style:
-                              const TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
+                  onError: (error) => const ListNoDataBackground(
+                        pngPath: "assets/images/png/banner_error.png",
+                        title: "Có lỗi xảy ra, vui lòng thử lại!",
                       ),
-                  onEmpty: Container(
-                      child: const ListNoDataBackground(
-                        pngPath:
-                            "assets/images/png/banner_search_not_found.png",
-                        title: "Không tìm thấy kết quả",
-                        desc: "Kiểm tra từ khóa và thử lại",
-                      )))),
+                  onEmpty: const ListNoDataBackground(
+                    pngPath: "assets/images/png/banner_search_not_found.png",
+                    title: "Không tìm thấy kết quả",
+                    desc: "Kiểm tra từ khóa và thử lại",
+                  ))),
         ],
       ),
     );

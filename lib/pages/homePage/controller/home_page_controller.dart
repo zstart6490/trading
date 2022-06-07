@@ -184,7 +184,6 @@ class HomePageController extends BaseController
         final dynamic cache =
             mainProvider.box.read<dynamic>(TopicsNotifySubscribe);
         if (cache is String && cache.isNotEmpty) {
-          print("Cache=" + cache);
           final List<dynamic> topicCache = jsonDecode(cache) as List<dynamic>;
           final List<String> newSymbols = [];
           for (final dynamic topicNew in topicCache) {
@@ -199,7 +198,7 @@ class HomePageController extends BaseController
           }
           mainProvider.registerNotifyTopic?.call(newSymbols, unsubscribeTopic);
           mainProvider.box.write(TopicsNotifySubscribe, jsonEncode(symbols));
-        }else{
+        } else {
           mainProvider.box.remove(TopicsNotifySubscribe);
         }
       } else {
@@ -235,7 +234,10 @@ class HomePageController extends BaseController
       accountInfoModel?.productWatchingVOList?.insert(0,
           PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
+
       subscribe();
+    } else if (result.error != null) {
+      change(null, status: RxStatus.error(result.error!.message));
     } else {
       change(null, status: RxStatus.empty());
     }
