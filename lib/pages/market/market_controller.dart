@@ -6,6 +6,7 @@ import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
 import 'package:trading_module/data/entities/stock_price.dart';
 import 'package:trading_module/data/repos/stock_repo_impl.dart';
+import 'package:trading_module/data/services/local/stock_storage_service.dart';
 import 'package:trading_module/data/services/stock_service.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/use_cases/stock_usecase.dart';
@@ -15,7 +16,7 @@ import 'package:trading_module/routes/app_routes.dart';
 class MarketController extends BaseController
     with StateMixin<List<StockModel>> {
   final StockUseCase _stockUseCase =
-      StockUseCase(StockRepoImpl(StockServiceImpl()));
+      StockUseCase(StockRepoImpl(StockServiceImpl(),StockStorageServiceImpl()));
   final nameHolder = TextEditingController();
   List<StockModel> listStock = <StockModel>[];
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
@@ -25,7 +26,7 @@ class MarketController extends BaseController
   @override
   void onInit() {
     if (!Get.isRegistered<StockUseCase>()) {
-      Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
+      Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl(),StockStorageServiceImpl())));
     }
     super.onInit();
   }
@@ -75,11 +76,13 @@ class MarketController extends BaseController
     }
   }
 
-  void getListCache() {
+  Future getListCache() async{
     showProgressingDialog();
-    final result = _stockUseCase.getCache();
+    final result = await _stockUseCase.getListCache();
     hideDialog();
+    print("res="+result.data.toString());
     if (result.data != null) {
+
       listStock = result.data!;
       change(listStock, status: RxStatus.success());
     } else if (result.error != null) {
@@ -98,7 +101,7 @@ class MarketController extends BaseController
       change(listStock, status: RxStatus.success());
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
-      change(null, status: RxStatus.error(result.error!.message));
+      // change(null, status: RxStatus.error(result.error!.message));
     }
     subscribe();
   }

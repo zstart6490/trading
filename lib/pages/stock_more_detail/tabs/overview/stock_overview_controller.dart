@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/repos/stock_repo_impl.dart';
+import 'package:trading_module/data/services/local/stock_storage_service.dart';
 import 'package:trading_module/data/services/stock_service.dart';
 import 'package:trading_module/domain/entities/stock_current_price_model.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
@@ -13,8 +14,7 @@ class StockOverviewController extends BaseController
 
   StockOverviewController(this.stock);
 
-  final StockUseCase _stockUseCase =
-      StockUseCase(StockRepoImpl(StockServiceImpl()));
+  final StockUseCase _stockUseCase = StockUseCase(StockRepoImpl(StockServiceImpl(),StockStorageServiceImpl()));
 
   StockCurrentPriceModel? _stockCurrentPriceModel;
 
