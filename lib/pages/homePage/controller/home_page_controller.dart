@@ -8,6 +8,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
+import 'package:trading_module/data/repos/home_trading_repo_imp.dart';
+import 'package:trading_module/data/services/home_trading_service.dart';
+import 'package:trading_module/data/services/local/LocalStorageServices.dart';
 import 'package:trading_module/domain/entities/account_info_model.dart';
 import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/domain/entities/property_model.dart';
@@ -27,7 +30,9 @@ class HomePageController extends BaseController
   final timeRange = ["Đang đầu tư".tr, "Đang theo dõi".tr];
   late TabController tabController;
   final OpenWithdrawUseCase _withdrawUseCase = Get.find<OpenWithdrawUseCase>();
-  final HomeTradingUseCase _homeTradingUseCase = Get.find<HomeTradingUseCase>();
+  final HomeTradingUseCase _homeTradingUseCase = HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl(),LocalStorageServiceImpl()));
+
+
   List<StockModel> listStock = <StockModel>[];
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
 
@@ -234,12 +239,12 @@ class HomePageController extends BaseController
       accountInfoModel?.productWatchingVOList?.insert(0,
           PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
-
       subscribe();
     } else if (result.error != null) {
-      change(null, status: RxStatus.error(result.error!.message));
+      //change(null, status: RxStatus.error(result.error!.message));
+      showSnackBar(result.error!.message);
     } else {
-      change(null, status: RxStatus.empty());
+      //change(null, status: RxStatus.empty());
     }
   }
 
@@ -254,7 +259,7 @@ class HomePageController extends BaseController
           PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
     } else {
-      change(null, status: RxStatus.empty());
+      //change(null, status: RxStatus.empty());
     }
   }
 

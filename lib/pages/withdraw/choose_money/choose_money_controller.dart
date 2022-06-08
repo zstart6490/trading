@@ -7,6 +7,7 @@ import 'package:trading_module/domain/entities/info_withdraw.dart';
 import 'package:trading_module/domain/entities/navigate_withdraw_data.dart';
 import 'package:trading_module/domain/use_cases/withdraw_usecase.dart';
 import 'package:trading_module/routes/app_routes.dart';
+import 'package:trading_module/utils/enums.dart';
 
 class ChooseMoneyController extends BaseController {
   final NavigateWithdrawData data;
@@ -23,8 +24,8 @@ class ChooseMoneyController extends BaseController {
   RxList<UserBank> userBanks = <UserBank>[].obs;
   RxBool isAllin = true.obs;
   RxBool canConfirm = true.obs;
-  RxBool validMinMoney = false.obs;
-  RxBool validMaxMoney = false.obs;
+  Rx<ConditionState> validMinMoney = ConditionState.none.obs;
+  Rx<ConditionState> validMaxMoney = ConditionState.none.obs;
   TextEditingController textEditController = TextEditingController();
   double vatPercent = 5.0;
   int maxMoneyCanWithdraw = 0;
@@ -84,7 +85,9 @@ class ChooseMoneyController extends BaseController {
     textEditController.dispose();
   }
 
-  void onChangedMoney(String val) {
+  void onChangedMoney(int val) {
+    validMinMoney.value = (val == 0) ? ConditionState.none : (val < minMoneyCanWithdraw) ? ConditionState.error : ConditionState.success ;
+    validMaxMoney.value = (val == 0) ? ConditionState.none : (val > data.totalMoneyUser) ? ConditionState.error : ConditionState.success ;
     checkRequestAmount();
   }
 
@@ -113,8 +116,6 @@ class ChooseMoneyController extends BaseController {
           requestAmount >= minMoneyCanWithdraw &&
           requestAmount <= data.totalMoneyUser;
 
-      // validMinMoney.value =requestAmount >= minMoneyCanWithdraw;
-      // validMaxMoney.value =requestAmount <= data.totalMoneyUser;
     }
   }
 
