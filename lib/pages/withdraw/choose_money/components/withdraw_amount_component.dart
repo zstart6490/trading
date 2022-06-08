@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_view_model.dart';
 import 'package:trading_module/pages/withdraw/choose_money/choose_money_controller.dart';
 import 'package:trading_module/theme/app_color.dart';
+import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 import 'package:trading_module/utils/text_field_utils/numeric_formatter.dart';
 
@@ -53,13 +55,13 @@ class WithdrawAmountComponent extends BaseViewModel<ChooseMoneyController> {
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
                                         CurrencyInputFormatter(
-                                            maxAmount: 500000000,
+                                            maxAmount: controller.data.totalMoneyUser.toInt(),
                                             onOver: () =>
                                                 controller.onInputOver())
                                       ],
                                       focusNode: controller.focusNode,
                                       onChanged: (val) =>
-                                          controller.onChangedMoney(val),
+                                          controller.onChangedMoney(controller.textEditController.text != "" ? int.parse(controller.textEditController.text.replaceAll(RegExp("\\.|,"), "")) :0),
                                       decoration: InputDecoration(
                                         isCollapsed: true,
                                         border: const OutlineInputBorder(
@@ -101,34 +103,42 @@ class WithdrawAmountComponent extends BaseViewModel<ChooseMoneyController> {
                         const SizedBox(
                           height: 17,
                         ),
-                        Row(
+                        Obx(()=> Row(
                           children: [
                             Icon(Icons.info,
-                                color: controller.validMinMoney.value
+                                color: controller.validMinMoney.value == ConditionState.success
                                     ? context.primaryColor
-                                    : COLOR_9AA0A5,
-                                size: 18),
+                                    : controller.validMinMoney.value == ConditionState.none
+                                    ? context.disabledColor
+                                    : context.errorColor,
+                                size: 18,),
                             const SizedBox(
                               width: 10,
                             ),
                             Text(
                               "Số tiền rút tối thiểu là ${controller.minMoneyCanWithdraw.toCurrency()}",
                               style: context.textSize14.copyWith(
-                                  color: controller.validMinMoney.value
+                                  color: controller.validMinMoney.value == ConditionState.success
                                       ? context.primaryColor
-                                      : context.disabledColor),
+                                      : controller.validMinMoney.value == ConditionState.none
+                                          ? context.disabledColor
+                                          : context.errorColor,
+                              ),
                             )
+
                           ],
-                        ),
+                        )),
                         const SizedBox(
                           height: 17,
                         ),
                         Row(
                           children: [
                             Icon(Icons.info,
-                                color: controller.validMaxMoney.value
+                                color: controller.validMaxMoney.value == ConditionState.success
                                     ? context.primaryColor
-                                    : COLOR_9AA0A5,
+                                    : controller.validMaxMoney.value == ConditionState.none
+                                    ? context.disabledColor
+                                    : context.errorColor,
                                 size: 18),
                             const SizedBox(
                               width: 10,
@@ -136,10 +146,13 @@ class WithdrawAmountComponent extends BaseViewModel<ChooseMoneyController> {
                             Text(
                               "Số tiền rút tối đa là ${controller.maxMoneyCanWithdraw.toCurrency()}",
                               style: context.textSize14.copyWith(
-                                  color: controller.validMaxMoney.value
-                                      ? context.primaryColor
-                                      : context.disabledColor),
-                            )
+                                color: controller.validMaxMoney.value == ConditionState.success
+                                    ? context.primaryColor
+                                    : controller.validMaxMoney.value == ConditionState.none
+                                    ? context.disabledColor
+                                    : context.errorColor,
+                              ),
+                            ),
                           ],
                         )
                       ],

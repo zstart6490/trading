@@ -9,7 +9,7 @@ abstract class StockRepo {
 
   Future<DataState<List<StockModel>>> getList();
 
-  DataState<List<StockModel>> getCache();
+  Future<DataState<List<StockModel>>> getListCache();
 
   Future<DataState<StockCurrentPriceModel>> getCurrentStockPrice({
     required String symbol,

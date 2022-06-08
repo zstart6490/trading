@@ -31,6 +31,7 @@ class StockModelDTO {
 
   Map<String, dynamic> toJson() => _$StockModelDTOToJson(this);
 
+
   static List<StockModelDTO> getList(dynamic data) {
     final list = data as List;
     return list
