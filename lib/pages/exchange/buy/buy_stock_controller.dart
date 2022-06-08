@@ -79,7 +79,7 @@ class BuyStockController extends ExchangeStockController {
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.getBuyOrderInfo(
         symbol: stockModel.symbol,
-        price: stockModel.lastPrice,
+        price: priceStock.value,
         quantity: requestAmount);
     if (result.data != null) {
       stockOrderInfo = result.data;
@@ -164,7 +164,7 @@ class BuyStockController extends ExchangeStockController {
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.confirmBuyOrderInfo(
         symbol: stockModel.symbol,
-        price: stockModel.lastPrice,
+        price: priceStock.value,
         quantity: requestAmount);
     hideDialog();
     if (result.data != null) {

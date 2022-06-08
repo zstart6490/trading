@@ -3,6 +3,7 @@ import 'package:trading_module/data/repos/home_trading_repo_imp.dart';
 import 'package:trading_module/data/repos/stock_repo_impl.dart';
 import 'package:trading_module/data/repos/withdraw_repos_impl.dart';
 import 'package:trading_module/data/services/home_trading_service.dart';
+import 'package:trading_module/data/services/local/stock_storage_service.dart';
 import 'package:trading_module/data/services/stock_service.dart';
 import 'package:trading_module/data/services/withdraw_service.dart';
 import 'package:trading_module/domain/use_cases/home_trading_usecase.dart';
@@ -24,7 +25,7 @@ class MainTabBinding extends Bindings {
     Get.lazyPut(() => HomeTradingRepoImpl(HomeTradingServiceImpl()));
     Get.lazyPut(() => OpenWithdrawUseCase(WithdrawRepoImpl(WithdrawServiceImpl())));
     if (!Get.isRegistered<StockUseCase>()) {
-      Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl())));
+      Get.lazyPut(() =>StockUseCase(StockRepoImpl(StockServiceImpl(),StockStorageServiceImpl())));
     }
     Get.lazyPut(() => HomeTradingUseCase(HomeTradingRepoImpl(HomeTradingServiceImpl())));
   }
