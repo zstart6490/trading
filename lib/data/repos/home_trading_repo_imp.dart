@@ -6,13 +6,15 @@ import 'package:trading_module/cores/networking/result.dart';
 import 'package:trading_module/cores/resources/data_state.dart';
 import 'package:trading_module/data/entities/account_model_dto.dart';
 import 'package:trading_module/data/services/home_trading_service.dart';
+import 'package:trading_module/data/services/local/LocalStorageServices.dart';
 import 'package:trading_module/domain/entities/account_info_model.dart';
 import 'package:trading_module/domain/repos/home_trading_repo.dart';
 
 class HomeTradingRepoImpl extends HomeTradingRepo {
   final HomeTradingService _services;
+  final LocalStorageService _localStorageService;
 
-  HomeTradingRepoImpl(this._services);
+  HomeTradingRepoImpl(this._services, this._localStorageService);
 
   @override
   Future<DataState<AccountInfoModel>> getAccountInfo() async {
@@ -20,8 +22,7 @@ class HomeTradingRepoImpl extends HomeTradingRepo {
     if (result.success) {
       final model = result.modelDTO.toModel();
 
-      final box = GetStorage();
-      box.write(Home_Cache, jsonEncode(result.modelDTO.toJson()));
+      _localStorageService.writeObject(Home_Cache, result.modelDTO);
 
       return DataSuccess(model);
     }
@@ -30,11 +31,9 @@ class HomeTradingRepoImpl extends HomeTradingRepo {
 
   @override
   DataState<AccountInfoModel> getCache() {
-    final box = GetStorage();
-    final value = box.read(Home_Cache);
+    final value = _localStorageService.getObject(Home_Cache);
     if (value != null) {
-      final AccountInfoModelDTO user =
-      AccountInfoModelDTO.fromJson(jsonDecode(value.toString()));
+      final AccountInfoModelDTO user = AccountInfoModelDTO.fromJson(jsonDecode(value.toString()));
       return DataSuccess(user.toModel());
     }
     return const DataFailed(null);

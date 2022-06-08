@@ -15,7 +15,7 @@ class StockRepoImpl extends StockRepo {
   final StockService _services;
   final StockStorageService _stockStorageService;
 
-  StockRepoImpl(this._services,this._stockStorageService);
+  StockRepoImpl(this._services, this._stockStorageService);
 
   @override
   Future<DataState<List<StockModel>>> getList() async {
@@ -86,15 +86,14 @@ class StockRepoImpl extends StockRepo {
   }
 
   @override
-  Future<DataState<List<StockModel>>> getListCache() async{
+  Future<DataState<List<StockModel>>> getListCache() async {
     // final box = Get.find<MainTradingProvider>().box;
     // final value = box.read(Home_Maket_Cache);
     // if (value != null) {
-      final listStock = await  _stockStorageService.getList();
-      final List<StockModel> list = listStock.map((e) => e.toModel()).toList();
-      return DataSuccess<List<StockModel>>(list);
+    final listStock = await _stockStorageService.getList();
+    final List<StockModel> list = listStock.map((e) => e.toModel()).toList();
+    return DataSuccess<List<StockModel>>(list);
     // }
     return const DataFailed(null);
-
   }
 }

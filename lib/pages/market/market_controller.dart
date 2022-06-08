@@ -80,9 +80,8 @@ class MarketController extends BaseController
     showProgressingDialog();
     final result = await _stockUseCase.getListCache();
     hideDialog();
-    print("res="+result.data.toString());
+    //print("res="+result.data.toString());
     if (result.data != null) {
-
       listStock = result.data!;
       change(listStock, status: RxStatus.success());
     } else if (result.error != null) {
