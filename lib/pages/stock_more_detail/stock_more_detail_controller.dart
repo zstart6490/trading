@@ -20,7 +20,7 @@ class StockMoreDetailController extends BaseController
   StockMoreDetailController(this.stock);
 
   final StockExchangeUseCase _stockExchangeUseCase =
-  Get.find<StockExchangeUseCase>();
+      Get.find<StockExchangeUseCase>();
 
   final timeRange = ["Tổng quan".tr, "Tài chính".tr, "Tin tức".tr];
   late TabController tabController;
@@ -88,7 +88,7 @@ class StockMoreDetailController extends BaseController
 
   Offset getOffsetWidget(GlobalKey globalKey) {
     final RenderBox? renderBox =
-    globalKey.currentContext?.findRenderObject() as RenderBox?;
+        globalKey.currentContext?.findRenderObject() as RenderBox?;
     return renderBox?.localToGlobal(Offset.zero) ?? Offset.zero;
   }
 
@@ -125,9 +125,9 @@ class StockMoreDetailController extends BaseController
         stock: stock.symbol, type: "0", isFlow: isFlow);
     if (result.data != null) {
       isFollow.value = isFlow;
-      // DUR_600.delay().then((_) =>
-      //     Get.find<HomePageController>().getAccountInfo(),
-      // );
+      DUR_600.delay().then(
+            (_) => Get.find<HomePageController>().getAccountInfo(),
+          );
     }
   }
 }
