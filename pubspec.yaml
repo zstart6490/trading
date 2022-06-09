@@ -49,8 +49,8 @@ dependencies:
   http: ^0.13.4
   candlesticks:
     git:
-      url: https://github.com/zstart6490/candlesticks2
-      ref: develop
+      url: https://github.com/ducanh230397/candlesticks2.git
+      ref: release
   firebase_core: ^1.16.0
   #flutter_client_sse: ^1.0.0
 #  flutter_client_sse: ^1.0.0

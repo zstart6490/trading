@@ -16,6 +16,7 @@ class ChartView extends GetView<ChartController> {
           Expanded(
             child: Candlesticks(
               candles: candle!,
+              controller: controller.candlestickController,
             ),
           ),
           SIZED_BOX_H16,
