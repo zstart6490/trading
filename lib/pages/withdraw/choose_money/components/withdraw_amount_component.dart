@@ -79,6 +79,8 @@ class WithdrawAmountComponent extends BaseViewModel<ChooseMoneyController> {
                               child: InkWell(
                                 onTap: () {
                                   controller.clearText();
+                                  controller.onChangedMoney(controller.textEditController.text != "" ? int.parse(controller.textEditController.text.replaceAll(RegExp("\\.|,"), "")) :0);
+
                                 },
                                 child: SvgPicture.asset(
                                   "assets/images/svg/ic_close.svg",
@@ -105,13 +107,10 @@ class WithdrawAmountComponent extends BaseViewModel<ChooseMoneyController> {
                         ),
                         Obx(()=> Row(
                           children: [
-                            Icon(Icons.info,
-                                color: controller.validMinMoney.value == ConditionState.success
-                                    ? context.primaryColor
-                                    : controller.validMinMoney.value == ConditionState.none
-                                    ? context.disabledColor
-                                    : context.errorColor,
-                                size: 18,),
+                            if (controller.validMinMoney.value == ConditionState.success) SvgPicture.asset("assets/images/svg/ic_condition_success.svg",height: 18,)
+                            else controller.validMinMoney.value == ConditionState.none
+                                ? SvgPicture.asset("assets/images/svg/ic_condition_none.svg",height: 18,)
+                                : SvgPicture.asset("assets/images/svg/ic_condition_error.svg",height: 18,),
                             const SizedBox(
                               width: 10,
                             ),
@@ -133,13 +132,10 @@ class WithdrawAmountComponent extends BaseViewModel<ChooseMoneyController> {
                         ),
                         Row(
                           children: [
-                            Icon(Icons.info,
-                                color: controller.validMaxMoney.value == ConditionState.success
-                                    ? context.primaryColor
-                                    : controller.validMaxMoney.value == ConditionState.none
-                                    ? context.disabledColor
-                                    : context.errorColor,
-                                size: 18),
+                            if (controller.validMaxMoney.value == ConditionState.success) SvgPicture.asset("assets/images/svg/ic_condition_success.svg",height: 18,)
+                            else controller.validMaxMoney.value == ConditionState.none
+                                ? SvgPicture.asset("assets/images/svg/ic_condition_none.svg",height: 18,)
+                                : SvgPicture.asset("assets/images/svg/ic_condition_error.svg",height: 18,),
                             const SizedBox(
                               width: 10,
                             ),
