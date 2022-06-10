@@ -17,7 +17,7 @@ class ChartController extends BaseController
 
   final timeRange = ["1W".tr, "1M".tr, "3M".tr, "6M".tr, "1Y".tr];
   late TabController tabController;
-
+  final CandlestickChartController candlestickController = CandlestickChartController();
   ChartController(this.stock);
 
   @override
@@ -36,6 +36,7 @@ class ChartController extends BaseController
   }
 
   void onTabChange(int index) {
+    candlestickController.setIndex(-10);
     print("onTabChange:  $index");
     final time = timeRange[index];
     getHistoryStockPrice(time);
