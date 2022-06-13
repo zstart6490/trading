@@ -47,8 +47,8 @@ class BuyStockController extends ExchangeStockController {
   void checkRequestAmount() {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
-    canConfirm.value = true;
-    // canConfirm.value = requestAmount > 0 && amount.value <= amountMaximum.value;
+    // canConfirm.value = true;
+    canConfirm.value = requestAmount > 0 && amount.value <= amountMaximum.value;
     overBuy.value = (amount.value > amountMaximum.value)
         ? ConditionState.error
         : ConditionState.none;
@@ -170,6 +170,7 @@ class BuyStockController extends ExchangeStockController {
     if (result.data != null) {
       final StockTransactionDetail stockTransactionDetail = result.data!;
       //order success
+      refreshAccountInfo();
       showDialogConfirm(stockTransactionDetail);
     }
     if (result.error != null) {

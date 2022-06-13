@@ -7,6 +7,7 @@ import 'package:trading_module/pages/support_fab/support_fab.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
 import 'package:trading_module/shared_widgets/GuideComponent.dart';
+import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
 import 'package:trading_module/theme/app_color.dart';
 import 'package:trading_module/utils/util.dart';
 import 'component/bank_list.dart';
@@ -79,6 +80,19 @@ class TDTransferInfoScene extends GetView<TDTransferInfoController> {
           ],
         ),
         onLoading: const SizedBox(),
+
+        onError: (error) => SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: ListNoDataBackground(
+            pngPath: "assets/images/png/banner_error.png",
+            title: "Có lỗi xảy ra, vui lòng thử lại!",
+            padding: PAD_SYM_H40,
+            showIconButton: false,
+            btnTitle: "Về trang chủ",
+            onPressed: () => controller.onFinish(),
+          ),
+        ),
+
       ),
     );
   }

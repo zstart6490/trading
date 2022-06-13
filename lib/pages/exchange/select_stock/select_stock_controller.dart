@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:rxdart/streams.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
@@ -14,13 +15,15 @@ import 'package:trading_module/routes/app_navigate.dart';
 
 class SelectStockController extends BaseController
     with StateMixin<List<StockModel>> {
-  final StockUseCase _stockUseCase = StockUseCase(StockRepoImpl(StockServiceImpl(),StockStorageServiceImpl()));
+  final StockUseCase _stockUseCase = StockUseCase(
+      StockRepoImpl(StockServiceImpl(), StockStorageServiceImpl()));
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
   final nameHolder = TextEditingController();
   List<StockModel> listStock = <StockModel>[];
   Rx<bool> hiddenRemoveSearch = true.obs;
   RefreshController refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
+
   SelectStockController();
 
   String getTitleScreen() {
@@ -28,29 +31,31 @@ class SelectStockController extends BaseController
   }
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
   void onReady() {
-    getListCache();
-    getListStock();
+    // getListCache();
+    // getListStock();
+    getDataMarket();
     super.onReady();
   }
 
-  Future getListCache() async{
+  void getDataMarket() {
     showProgressingDialog();
-    final result = await _stockUseCase.getListCache();
-    hideDialog();
-    if (result.data != null) {
-      listStock = result.data!;
-      change(listStock, status: RxStatus.success());
-    } else if (result.error != null) {
-      showSnackBar(result.error!.message);
-      change(null, status: RxStatus.error(result.error!.message));
-    }
-    subscribe();
+    ConcatStream([
+      Stream.fromFuture(_stockUseCase.getListCache()),
+      Stream.fromFuture(_stockUseCase.getList()),
+    ]).listen((result) {
+      if (result.data != null) {
+        listStock = result.data!;
+        change(listStock, status: RxStatus.success());
+      } else if (result.error != null) {
+        showSnackBar(result.error!.message);
+        if (listStock.isEmpty) {
+          change(listStock, status: RxStatus.error(result.error!.message));
+        }
+      }
+      hideDialog();
+      subscribe();
+    }, onError: (Object e, StackTrace s) => showSnackBar(e.toString()));
   }
 
   @override
@@ -59,10 +64,7 @@ class SelectStockController extends BaseController
   }
 
   Future getListStock() async {
-    showProgressingDialog();
     final result = await _stockUseCase.getList();
-    hideDialog();
-
     if (result.data != null) {
       listStock = result.data!;
       change(listStock, status: RxStatus.success());
@@ -95,7 +97,7 @@ class SelectStockController extends BaseController
     navToBuyStock(stock);
   }
 
-  void subscribe() {
+  Future subscribe() async {
     final symbols = listStock.map((e) => e.symbol).toList();
     stockPriceSocket.subscribeStock(
       symbols,
@@ -123,9 +125,7 @@ class SelectStockController extends BaseController
     return super.onWillPop();
   }
 
-
-
-  Future onRefresh() async{
+  Future onRefresh() async {
     await getListStock();
     refreshController.refreshCompleted();
   }

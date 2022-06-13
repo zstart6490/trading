@@ -41,9 +41,9 @@ class TDTransactionConfirmController extends BaseController
   }
 
   Future<void> getTransferFee() async {
-    //showProgressingDialog();
+    showProgressingDialog();
     final result = await _cashInUseCase.createCashIn(amount.toString());
-    //hideDialog();
+    hideDialog();
 
     if (result.data != null) {
       transaction = result.data!;

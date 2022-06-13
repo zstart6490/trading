@@ -33,7 +33,7 @@ class TDMainTabController extends BaseController
   }
 
   void onTabChange() {
-    debugPrint("TabChange :${tabController.index}");
+    // debugPrint("TabChange :${tabController.index}");
     FocusManager.instance.primaryFocus?.unfocus();
     if (tabIndex == 0) {
       Get.find<HomePageController>().getAccountInfo();

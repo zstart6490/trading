@@ -8,6 +8,7 @@ class ListNoDataBackground extends StatelessWidget {
     this.desc,
     this.padding = EdgeInsets.zero,
     this.btnTitle,
+    this.showIconButton = true,
     this.onPressed,
     Key? key,
   }) : super(key: key);
@@ -16,6 +17,7 @@ class ListNoDataBackground extends StatelessWidget {
   final String? title;
   final String? desc;
   final EdgeInsets padding;
+  final bool showIconButton;
 
   final String? btnTitle;
   final VoidCallback? onPressed;
@@ -70,9 +72,15 @@ class ListNoDataBackground extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Image.asset("assets/images/png/ic_add.png",
-                      package: "trading_module"),
-                  SIZED_BOX_W12,
+                  if (showIconButton)
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Image.asset("assets/images/png/ic_add.png",
+                            package: "trading_module"),
+                        SIZED_BOX_W12,
+                      ],
+                    ),
                   Text(
                     btnTitle ?? "",
                     style: const TextStyle(

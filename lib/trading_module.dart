@@ -37,7 +37,7 @@ class DataCallback {
 }
 
 class TradingModule {
-  static String versionTrading = "1.0.3.4";
+  static String versionTrading = "1.0.3.5";
 
   static Future openTradingModule({
     required BuildContext context,

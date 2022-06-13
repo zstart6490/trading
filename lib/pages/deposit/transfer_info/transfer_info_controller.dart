@@ -146,6 +146,7 @@ class TDTransferInfoController extends BaseController
       this.result = result.data!;
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
+      change(null, status: RxStatus.error());
     }
 
     const Duration(milliseconds: 600)

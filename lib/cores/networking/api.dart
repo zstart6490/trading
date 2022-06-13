@@ -49,7 +49,7 @@ class Api extends GetConnect {
       request.headers["Device-ID"] = mainProvider.deviceId;
       request.headers['Authorization'] = mainProvider.accessToken ?? "";
       request.headers['X-Request-ID'] = generateMd5(
-          "$userId${DateTime.now().millisecond.toString()}${4.genRandom()}");
+          "$userId${DateTime.now().millisecond.toString()}${100.genRandom()}");
       if (kDebugMode) {
         log(request.headers.toString(), name: request.url.path);
       }
