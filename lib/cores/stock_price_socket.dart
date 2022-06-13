@@ -8,8 +8,8 @@ import 'package:trading_module/pages/main_provider.dart';
 import 'package:trading_module/sse/flutter_client_sse.dart';
 
 class StockPriceSocket {
-  void subscribeStock(
-      List<String> symbols, Function(SocketStockEvent) eventStock) {
+  Future subscribeStock(
+      List<String> symbols, Function(SocketStockEvent) eventStock) async{
     final MainTradingProvider mainTradingProvider =
         Get.find<MainTradingProvider>();
     final stockSymbols = symbols.join('-');
