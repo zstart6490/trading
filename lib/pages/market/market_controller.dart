@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:rxdart/streams.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
@@ -15,8 +16,8 @@ import 'package:trading_module/routes/app_routes.dart';
 
 class MarketController extends BaseController
     with StateMixin<List<StockModel>> {
-  final StockUseCase _stockUseCase =
-      StockUseCase(StockRepoImpl(StockServiceImpl(),StockStorageServiceImpl()));
+  final StockUseCase _stockUseCase = StockUseCase(
+      StockRepoImpl(StockServiceImpl(), StockStorageServiceImpl()));
   final nameHolder = TextEditingController();
   List<StockModel> listStock = <StockModel>[];
   final StockPriceSocket stockPriceSocket = Get.find<StockPriceSocket>();
@@ -26,16 +27,44 @@ class MarketController extends BaseController
   @override
   void onInit() {
     if (!Get.isRegistered<StockUseCase>()) {
-      Get.lazyPut(() => StockUseCase(StockRepoImpl(StockServiceImpl(),StockStorageServiceImpl())));
+      Get.lazyPut(
+        () => StockUseCase(
+          StockRepoImpl(StockServiceImpl(), StockStorageServiceImpl()),
+        ),
+      );
     }
     super.onInit();
   }
 
   @override
   void onReady() {
-    getListCache();
-    getListStock();
+    // getListCache();
+    // getListStock();
+    getDataMarket();
     super.onReady();
+  }
+
+  void getDataMarket() {
+    showProgressingDialog();
+    ConcatStream([
+      Stream.fromFuture(_stockUseCase.getListCache()),
+      Stream.fromFuture(_stockUseCase.getList()),
+    ]).listen(
+      (result) {
+        if (result.data != null) {
+          listStock = result.data!;
+          change(listStock, status: RxStatus.success());
+        } else if (result.error != null) {
+          showSnackBar(result.error!.message);
+          change(listStock, status: RxStatus.error(result.error!.message));
+        }
+        hideDialog();
+        subscribe();
+      },
+    ).onError((e) {
+      showSnackBar("Có lỗi xảy ra. Vui lòng quay lại sau");
+      hideDialog();
+    });
   }
 
   @override
@@ -54,7 +83,7 @@ class MarketController extends BaseController
     return Future.value(true);
   }
 
-  void subscribe() {
+  Future subscribe() async{
     final symbols = listStock.map((e) => e.symbol).toList();
     stockPriceSocket.subscribeStock(
       symbols,
@@ -76,7 +105,7 @@ class MarketController extends BaseController
     }
   }
 
-  Future getListCache() async{
+  Future getListCache() async {
     showProgressingDialog();
     final result = await _stockUseCase.getListCache();
     hideDialog();
@@ -88,7 +117,6 @@ class MarketController extends BaseController
       showSnackBar(result.error!.message);
       change(null, status: RxStatus.error(result.error!.message));
     }
-    subscribe();
   }
 
   Future getListStock() async {

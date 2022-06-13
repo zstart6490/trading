@@ -51,13 +51,17 @@ abstract class BaseController extends GetxController
     return true;
   }
 
+  void refreshAccountInfo(){
+    Get.find<HomePageController>().getAccountInfo();
+  }
+
   void requestLogin() {}
 
   Future<void> loginFaceBook() async {}
 
   void loginGoogle() {}
 
-  void handleLoginFacebook() async {}
+  Future handleLoginFacebook() async {}
 
   Future<void> loginBackend(String token) async {}
 
