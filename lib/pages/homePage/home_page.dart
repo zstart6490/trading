@@ -120,7 +120,7 @@ class HomePageView extends GetView<HomePageController> {
                                     property?.productWatchingVOList?[index]);
                           },
                           controller: controller,
-                        );H
+                        );
                       }
                     },
                   ),
