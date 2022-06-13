@@ -87,13 +87,10 @@ class StockRepoImpl extends StockRepo {
 
   @override
   Future<DataState<List<StockModel>>> getListCache() async {
-    // final box = Get.find<MainTradingProvider>().box;
-    // final value = box.read(Home_Maket_Cache);
-    // if (value != null) {
+
     final listStock = await _stockStorageService.getList();
     final List<StockModel> list = listStock.map((e) => e.toModel()).toList();
     return DataSuccess<List<StockModel>>(list);
-    // }
-    return const DataFailed(null);
+
   }
 }
