@@ -36,7 +36,7 @@ class ChartController extends BaseController
   }
 
   void onTabChange(int index) {
-    candlestickController.setIndex(-10);
+    candlestickController.setIndex(0);
     print("onTabChange:  $index");
     final time = timeRange[index];
     getHistoryStockPrice(time);

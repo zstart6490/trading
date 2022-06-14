@@ -62,6 +62,8 @@ class MobileChart extends StatefulWidget {
 class _MobileChartState extends State<MobileChart> {
   double? longPressX;
   double? longPressY;
+  double? tapX;
+  double? tapY;
   double additionalVerticalPadding = 0;
 
   double calcutePriceScale(double height, double high, double low) {
@@ -137,6 +139,12 @@ class _MobileChartState extends State<MobileChart> {
           longPressX = min(longPressX!, maxWidth);
           longPressY = max(longPressY!, 0);
           longPressY = min(longPressY!, maxHeight);
+        }
+        if (tapX != null && tapY != null) {
+          tapX = max(tapX!, 0);
+          tapX = min(tapX!, maxWidth);
+          tapY = max(tapY!, 0);
+          tapY = min(tapY!, maxHeight);
         }
 
         return TweenAnimationBuilder(
@@ -215,26 +223,26 @@ class _MobileChartState extends State<MobileChart> {
                                             ),
                                           ),
                                         ),
-                                        child: AnimatedPadding(
-                                          duration: Duration(milliseconds: 300),
-                                          padding: EdgeInsets.symmetric(
-                                              vertical:
-                                                  MAIN_CHART_VERTICAL_PADDING +
-                                                      additionalVerticalPadding),
-                                          child: RepaintBoundary(
-                                            child: CandleStickWidget(
-                                              candles: widget.candles,
-                                              candleWidth: widget.candleWidth,
-                                              index: widget.index,
-                                              high: high,
-                                              low: low,
-                                              bearColor:
-                                                  Theme.of(context).primaryRed,
-                                              bullColor: Theme.of(context)
-                                                  .primaryGreen,
+                                        child: ClipRRect(
+                                          child: AnimatedPadding(
+                                            duration: Duration(milliseconds: 300),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical:
+                                                MAIN_CHART_VERTICAL_PADDING +
+                                                    additionalVerticalPadding),
+                                            child: RepaintBoundary(
+                                              child: CandleStickWidget(
+                                                candles: widget.candles,
+                                                candleWidth: widget.candleWidth,
+                                                index: widget.index,
+                                                high: high,
+                                                low: low,
+                                                bearColor: Theme.of(context).primaryRed,
+                                                bullColor: Theme.of(context).primaryGreen,
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                        )
                                       ),
                                     ),
                                     SizedBox(
@@ -245,65 +253,6 @@ class _MobileChartState extends State<MobileChart> {
                               ],
                             ),
                           ),
-                          // Expanded(
-                          //   flex: 1,
-                          //   child: Row(
-                          //     children: [
-                          //       Expanded(
-                          //         child: Container(
-                          //           decoration: BoxDecoration(
-                          //             border: Border(
-                          //               right: BorderSide(
-                          //                 color: Theme.of(context).grayColor,
-                          //                 width: 1,
-                          //               ),
-                          //             ),
-                          //           ),
-                          //           child: Padding(
-                          //             padding: const EdgeInsets.only(top: 10.0),
-                          //             child: VolumeWidget(
-                          //               candles: widget.candles,
-                          //               barWidth: widget.candleWidth,
-                          //               index: widget.index,
-                          //               high:
-                          //                   HelperFunctions.getRoof(volumeHigh),
-                          //               bearColor:
-                          //                   Theme.of(context).secondaryRed,
-                          //               bullColor:
-                          //                   Theme.of(context).secondaryGreen,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       SizedBox(
-                          //         child: Column(
-                          //           crossAxisAlignment:
-                          //               CrossAxisAlignment.start,
-                          //           children: [
-                          //             SizedBox(
-                          //               height: DATE_BAR_HEIGHT,
-                          //               child: Center(
-                          //                 child: Row(
-                          //                   children: [
-                          //                     Text(
-                          //                       "-${HelperFunctions.addMetricPrefix(HelperFunctions.getRoof(volumeHigh))}",
-                          //                       style: TextStyle(
-                          //                         color: Theme.of(context)
-                          //                             .grayColor,
-                          //                         fontSize: 12,
-                          //                       ),
-                          //                     ),
-                          //                   ],
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //         width: PRICE_BAR_WIDTH,
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           SizedBox(
                             height: DATE_BAR_HEIGHT,
                           ),
@@ -360,13 +309,84 @@ class _MobileChartState extends State<MobileChart> {
                               child: Container(
                                 width: widget.candleWidth,
                                 height: maxHeight-20,
-                                color: Theme.of(context).gold.withOpacity(0.2),
+                                // color: Theme.of(context).gold.withOpacity(0.2),
+                                alignment: Alignment.center,
+                                child: DashLine(
+                                  length: maxHeight-20,
+                                  thickness: 0.5,
+                                  color: Theme.of(context).grayColor,
+                                  direction: Axis.vertical,),
                               ),
                               right: (maxWidth - longPressX!) ~/
                                       widget.candleWidth *
                                       widget.candleWidth +
                                   PRICE_BAR_WIDTH,
                             )
+                          : Container(),
+                      tapY != null
+                          ? Positioned(
+                            top: longPressY! - 10,
+                            child: Row(
+                              children: [
+                                DashLine(
+                                  length: maxWidth,
+                                  color: Theme.of(context).grayColor,
+                                  direction: Axis.horizontal,
+                                  thickness: 0.5,
+                                ),
+                                Container(
+                                  padding:EdgeInsets.symmetric(vertical: 2),
+                                  color: Theme.of(context)
+                                      .hoverIndicatorBackgroundColor,
+                                  child: Text(
+                                    longPressY! < maxHeight * 1
+                                        ? "  ${HelperFunctions.priceToString(
+                                        high -
+                                            (longPressY! - 20) /
+                                                (maxHeight * 1 - 40) *
+                                                (high - low))}"
+                                        : "  ${HelperFunctions.addMetricPrefix(
+                                        HelperFunctions.getRoof(
+                                            volumeHigh) *
+                                            (1 -
+                                                (longPressY! -
+                                                    maxHeight * 1 -
+                                                    10) /
+                                                    (maxHeight * 0 -
+                                                        10)))}",
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .hoverIndicatorTextColor,
+                                      fontSize: 14,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+
+                                  width: PRICE_BAR_WIDTH,
+
+                                ),
+                              ],
+                            ),
+                          )
+                          : Container(),
+                      tapX != null
+                          ? Positioned(
+                            child: Container(
+                              width: widget.candleWidth,
+                              height: maxHeight-20,
+                              // color: Theme.of(context).gold.withOpacity(0.2),
+                              alignment: Alignment.center,
+                              child: DashLine(
+                                length: maxHeight-20,
+                                thickness: 0.5,
+                                color: Theme.of(context).grayColor,
+                                direction: Axis.vertical,),
+                            ),
+                            right: (maxWidth - longPressX!) ~/
+                                widget.candleWidth *
+                                widget.candleWidth +
+                                PRICE_BAR_WIDTH,
+                          )
                           : Container(),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -378,12 +398,12 @@ class _MobileChartState extends State<MobileChart> {
                       Padding(
                         padding: const EdgeInsets.only(right: 50, bottom: 20),
                         child: GestureDetector(
-                          onLongPressEnd: (_) {
-                            setState(() {
-                              longPressX = null;
-                              longPressY = null;
-                            });
-                          },
+                          // onLongPressEnd: (_) {
+                          //   setState(() {
+                          //     longPressX = null;
+                          //     longPressY = null;
+                          //   });
+                          // },
                           onScaleEnd: (_) {
                             widget.onPanEnd();
                           },
@@ -411,6 +431,17 @@ class _MobileChartState extends State<MobileChart> {
                               longPressY = details.localPosition.dy;
                             });
                           },
+                          onTapDown: (details){
+                            setState(() {
+                              longPressX = details.localPosition.dx;
+                              longPressY = details.localPosition.dy;
+                            });
+                          },
+                          onTap: (){
+                            setState(() {
+
+                            });
+                          }
                         ),
                       )
                     ],

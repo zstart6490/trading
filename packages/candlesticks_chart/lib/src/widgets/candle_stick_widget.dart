@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:candlesticks/src/models/candle.dart';
 import 'package:flutter/material.dart';
 import '../models/candle.dart';
@@ -104,11 +106,10 @@ class CandleStickRenderObject extends RenderBox {
   void paintCandle(PaintingContext context, Offset offset, int index,
       Candle candle, double range) {
     Color color = candle.isBull ? _bullColor : _bearColor;
-
     Paint paint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
+      ..strokeWidth = _candleWidth/8;
 
     double x = size.width + offset.dx - (index + 0.5) * _candleWidth;
 
@@ -125,7 +126,7 @@ class CandleStickRenderObject extends RenderBox {
       context.canvas.drawLine(
         Offset(x, openCandleY),
         Offset(x, closeCandleY),
-        paint..strokeWidth = _candleWidth - 1,
+        paint..strokeWidth = _candleWidth/2,
       );
     } else {
       // if the candle body is too small
@@ -133,7 +134,7 @@ class CandleStickRenderObject extends RenderBox {
       context.canvas.drawLine(
         Offset(x, mid - 0.5),
         Offset(x, mid + 0.5),
-        paint..strokeWidth = _candleWidth - 1,
+        paint..strokeWidth = _candleWidth/2,
       );
     }
   }

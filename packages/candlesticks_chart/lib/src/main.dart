@@ -128,8 +128,8 @@ class _CandlesticksState extends State<Candlesticks> {
                   return DesktopChart(
                     chartAdjust: widget.chartAdjust,
                     onScaleUpdate: (double scale) {
-                      scale = max(0.90, scale);
-                      scale = min(1.1, scale);
+                      scale = max(0, scale);
+                      scale = min(0, scale);
                       setState(() {
                         candleWidth *= scale;
                         candleWidth = min(candleWidth, 16);
@@ -173,7 +173,7 @@ class _CandlesticksState extends State<Candlesticks> {
                       setState(() {
                         candleWidth *= scale;
                         candleWidth = min(candleWidth, 16);
-                        candleWidth = max(candleWidth, 4);
+                        candleWidth = max(candleWidth, 1);
                       });
                     },
                     onPanEnd: () {

@@ -117,12 +117,12 @@ class _TimeRowState extends State<TimeRow> {
               reverse: true,
               itemBuilder: (context, index) {
                 DateTime _time = _timeCalculator(step, index, dif);
-                if (index == 0){
-                  return  SizedBox(
-                    height: 0,
-                    width: 0,
-                  );
-                }
+                // if (index == 0){
+                //   return  SizedBox(
+                //     height: 0,
+                //     width: 0,
+                //   );
+                // }
                 return Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -136,12 +136,10 @@ class _TimeRowState extends State<TimeRow> {
                       padding: EdgeInsets.only(top: 10),
                       color: Theme.of(context).background,
                       width: double.infinity,
-                      child: Container( //k can
-                        alignment: Alignment.center,
-                        child: index != 0
-                            ?_monthDayText(_time, Theme.of(context).scaleNumbersColor)
-                            : SizedBox(height: 20, width: 100,)
-                      )
+                      alignment: Alignment.center,
+                      child: index != 0
+                          ?_monthDayText(_time, Theme.of(context).scaleNumbersColor)
+                          : SizedBox(height: 20, width: 100,)
 
                     )
 
