@@ -77,8 +77,8 @@ class _MoneyTextFieldState extends State<MoneyTextField> {
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
-    focusNode.dispose();
+    // controller.dispose();
+    // focusNode.dispose();
   }
 
 // change textStyle color

@@ -28,16 +28,14 @@ class StockDetailController extends BaseController
   void onInit() {
     priceStock.value = stock.lastPrice;
     tabController = TabController(length: timeRange.length, vsync: this);
-    tabController.addListener(() {
-
-    });
+    tabController.addListener(() {});
     super.onInit();
   }
 
   @override
   void onReady() {
     getStockDetail();
-    subsStock();
+
     super.onReady();
   }
 
@@ -61,13 +59,17 @@ class StockDetailController extends BaseController
       priceStock.value = result.data?.lastPrice ?? 0;
       _checkValidateSell(result.data?.quantity ?? 0);
       change(result.data, status: RxStatus.success());
+      subsStock();
+      stock.stockName = result.data?.stockName ?? "";
+      stock.lastPrice = result.data?.lastPrice ?? 0;
+      stock.imageUrl = result.data?.imageUrl ?? "";
     } else if (result.error != null) {
       change(null, status: RxStatus.error());
       showSnackBar(result.error!.message);
     }
   }
 
-  void _checkValidateSell(double quantitySell){
+  void _checkValidateSell(double quantitySell) {
     if (quantitySell > 0) {
       isValid.value = true;
     } else {

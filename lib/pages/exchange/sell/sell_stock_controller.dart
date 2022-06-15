@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rxdart/rxdart.dart' as rxdart;
 import 'package:trading_module/data/entities/navigate_stock_trans_detail.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/entities/stock_order_info.dart';
@@ -18,11 +19,18 @@ class SellStockController extends ExchangeStockController {
   Rx<ConditionState> overBuy = ConditionState.none.obs;
   RxDouble quantityMaximum = 0.0.obs;
   RxDouble amountWithoutFeeTax = 0.0.obs;
-  RxDouble feeTransaction = 0.0.obs;
   late FocusNode focusNode;
+  Rx<bool> loadingCalculatorAmount = false.obs;
+  Rx<bool> loadingQuantityMaximum = false.obs;
+  final _inputQuantity = rxdart.BehaviorSubject<String>();
 
-  SellStockController(StockModel stockModel)
-      : super(stockModel);
+  //feeTransaction: fee giao dịch
+  RxDouble feeTransaction = 0.0.obs;
+
+  //feePartner:fee mua
+  RxDouble feePartner = 0.0.obs;
+
+  SellStockController(StockModel stockModel) : super(stockModel);
 
   @override
   void onInit() {
@@ -30,20 +38,39 @@ class SellStockController extends ExchangeStockController {
     focusNode.addListener(() {
       if (focusNode.hasFocus) isShowToolTip.value = false;
     });
+    _inputQuantity
+        .debounce(
+            (_) => rxdart.TimerStream(true, const Duration(milliseconds: 1000)))
+        .switchMap((value) async* {
+      yield await serverCalculatorStockOrder();
+    }).listen((event) {
+
+      checkRequestAmount();
+    });
     super.onInit();
   }
 
   @override
   void onReady() {
-    getDataStockOrder();
+    initStockTrade();
     super.onReady();
+  }
+
+  Future initStockTrade() async {
+    loadingQuantityMaximum.value = true;
+    final bool result = await getStockDetail();
+    if (result) {
+      await serverCalculatorStockOrder();
+    }
   }
 
   void checkRequestAmount() {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
-    canConfirm.value =
-        requestAmount > 0 && requestAmount <= quantityMaximum.value;
+    canConfirm.value = requestAmount > 0 &&
+        requestAmount <= quantityMaximum.value &&
+        amountWithoutFeeTax.value > 0;
+
     overBuy.value = (requestAmount > quantityMaximum.value)
         ? ConditionState.error
         : ConditionState.none;
@@ -59,18 +86,24 @@ class SellStockController extends ExchangeStockController {
 
   StockOrderInfo? stockOrderInfo;
 
-  Future<bool> getDataStockOrder() async {
+  Future<bool> serverCalculatorStockOrder() async {
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
-    final result = await stockExchangeUseCase.getSellOrderInfo(
-        symbol: stockModel.symbol, price: stockModel.lastPrice, quantity: requestAmount);
+    final result = await stockExchangeUseCase.createSellOrderInfo(
+        symbol: stockModel.symbol,
+        price: stockModel.lastPrice,
+        quantity: requestAmount);
     if (result.data != null) {
       stockOrderInfo = result.data;
       if (stockOrderInfo != null) {
         priceStock.value = stockOrderInfo?.price ?? 0;
+        feeTransaction.value = stockOrderInfo?.fee ?? 0;
+        feePartner.value = stockOrderInfo?.feePartner ?? 0;
         amountWithoutFeeTax.value = stockOrderInfo?.amountWithoutFeeTax ?? 0;
         quantityMaximum.value = stockOrderInfo?.quantityMaximum ?? 0;
       }
+      loadingCalculatorAmount.value = false;
+      loadingQuantityMaximum.value = false;
       return true;
     }
     if (result.error != null) {
@@ -80,8 +113,8 @@ class SellStockController extends ExchangeStockController {
   }
 
   Future onConfirmAmount() async {
-    isShowToolTip.value =false;
-    final result = await getDataStockOrder();
+    isShowToolTip.value = false;
+    final result = await serverCalculatorStockOrder();
     if (!result) return;
     showAlertDialog(
         CustomAlertDialog(
@@ -143,14 +176,15 @@ class SellStockController extends ExchangeStockController {
   }
 
   Future confirmSellStock() async {
-    isShowToolTip.value =false;
+    isShowToolTip.value = false;
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.confirmSellOrderInfo(
-        symbol: stockModel.symbol, price: stockModel.lastPrice, quantity: requestAmount);
+        symbol: stockModel.symbol,
+        price: stockModel.lastPrice,
+        quantity: requestAmount);
     if (result.data != null) {
       final StockTransactionDetail stockTransactionDetail = result.data!;
-
       //order success
       Get.offNamedUntil(AppRoutes.stTransactionDetail,
           ModalRoute.withName(AppRoutes.mainView),
@@ -167,13 +201,29 @@ class SellStockController extends ExchangeStockController {
     if (isShowToolTip.value) focusNode.unfocus();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    textEditController.dispose();
+    focusNode.dispose();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    _inputQuantity.close();
+  }
+
   void onChangeMoney(String val) {
-    isEmptyText.value = val.isEmpty;
-    final requestAmount = int.tryParse(val.numericOnly()) ?? 0;
-    final double finalAmount = (stockOrderInfo?.price ?? 0) * requestAmount;
-    final double fee = (stockOrderInfo?.feePercent ?? 0) * finalAmount;
-    feeTransaction.value = fee.floorToDouble();
-    amountWithoutFeeTax.value = finalAmount.floorToDouble();
-    checkRequestAmount();
+    isEmptyText.value = textEditController.value.text.isEmpty;
+    // final requestAmount = int.tryParse(val.numericOnly()) ?? 0;
+    // final double finalAmount = (stockOrderInfo?.price ?? 0) * requestAmount;
+    // final double fee = (stockOrderInfo?.feePercent ?? 0) * finalAmount;
+    // feeTransaction.value = fee.floorToDouble();
+    // amountWithoutFeeTax.value = finalAmount.floorToDouble();
+    // checkRequestAmount();
+
+    _inputQuantity.add(val);
+    loadingCalculatorAmount.value = true;
   }
 }

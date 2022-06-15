@@ -72,6 +72,7 @@ class WithdrawReasonController extends BaseController
       hideDialog();
       if (result.data != null) {
         data.transactionId = result.data?.transactionId;
+        data.totalMoneyUser = result.data?.balance ?? 0;
         if (data.transactionId != null) {
           Get.toNamed(AppRoutes.withdrawMoney, arguments: data);
         } else {

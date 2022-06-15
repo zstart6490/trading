@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:simple_tooltip/simple_tooltip.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_view_model.dart';
@@ -72,12 +73,7 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                               color: context.disabledColor,
                             ),
                           )),
-                          Text(
-                            "${controller.quantityMaximum.value.toStockQuantity()} CP",
-                            style: context.textSize14.copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700),
-                          )
+                          widgetAmountStock(context)
                         ],
                       ),
                       const SizedBox(
@@ -131,11 +127,7 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                                             .copyWith(color: Colors.white, height: 1.3)
                                         ),
                                         const SizedBox(height: 6),
-                                        Text("${controller.stockOrderInfo?.feePercent}% phí bán.",
-                                            style: context.textSize12
-                                                .copyWith(color: Colors.white)),
-                                        const SizedBox(height: 6),
-                                        Text("${controller.stockOrderInfo?.vatPercent}% thuế thu nhập cá nhân.",
+                                        Text("${controller.feePartner.value.toCurrency()} phí bán.",
                                             style: context.textSize12
                                                 .copyWith(color: Colors.white)),
                                         const SizedBox(height: 6),
@@ -152,12 +144,9 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                               ),
                             ],
                           )),
-                          Text(
-                            controller.amountWithoutFeeTax.value.toCurrency(),
-                            style: context.textSize14.copyWith(
-                                color: Colors.green,
-                                fontWeight: FontWeight.w700),
-                          )
+                          Container(
+                            child: widgetCalculatorValue(context),
+                          ),
                         ],
                       )
                     ])),
@@ -167,5 +156,34 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
         ),
       ),
     );
+  }
+  Widget widgetAmountStock(BuildContext context) {
+    if (controller.loadingQuantityMaximum.value) {
+      return LoadingAnimationWidget.waveDots(
+        color: Colors.black,
+        size: 20,
+      );
+    } else {
+      return  Text(
+        "${controller.quantityMaximum.value.toStockQuantity()} CP",
+        style: context.textSize14.copyWith(
+            color: Colors.black,
+            fontWeight: FontWeight.w700),
+      );
+    }
+  }
+  Widget widgetCalculatorValue(BuildContext context) {
+    if (controller.loadingCalculatorAmount.value) {
+      return LoadingAnimationWidget.waveDots(
+        color: Colors.green,
+        size: 20,
+      );
+    } else {
+      return Text(
+        controller.amountWithoutFeeTax.value.toCurrency(),
+        style: context.textSize14
+            .copyWith(color: Colors.green, fontWeight: FontWeight.w700),
+      );
+    }
   }
 }
