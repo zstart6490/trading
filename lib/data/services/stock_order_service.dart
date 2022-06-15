@@ -1,15 +1,15 @@
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/api_services.dart';
 import 'package:trading_module/cores/networking/decoder.dart';
-import 'package:trading_module/data/entities/my_stock_model_dto.dart';
 import 'package:trading_module/data/entities/list_order_transaction_dto.dart';
+import 'package:trading_module/data/entities/my_stock_model_dto.dart';
 import 'package:trading_module/data/entities/stock_order_info_dto.dart';
 import 'package:trading_module/data/entities/stock_transaction_detail_dto.dart';
 
 abstract class StockOrderService extends ApiServices {
   StockOrderService() : super();
 
-  Future<BaseDecoder<StockOrderInfoDto>> getBuyOrderInfo(String symbol,double price,int quantity,);
+  Future<BaseDecoder<StockOrderInfoDto>> createBuyOrderInfo(String symbol,double price,int quantity,);
   Future<BaseDecoder<StockTransactionDetailDto>> confirmBuyOrderInfo(String symbol,double price,int quantity,);
   Future<BaseDecoder<StockTransactionDetailDto>> confirmSellOrderInfo(String symbol,double price,int quantity,);
   Future<BaseDecoder<StockOrderInfoDto>> getSellOrderInfo(String symbol,double price,int quantity,);
@@ -23,7 +23,7 @@ class StockOrderServiceImpl extends StockOrderService {
   StockOrderServiceImpl() : super();
 
   @override
-  Future<BaseDecoder<StockOrderInfoDto>> getBuyOrderInfo(String symbol,double price,int quantity) async {
+  Future<BaseDecoder<StockOrderInfoDto>> createBuyOrderInfo(String symbol,double price,int quantity) async {
     return  BaseDecoder(await api.postData(
         endPoint: "/order/v1/buy/create",
         params: {

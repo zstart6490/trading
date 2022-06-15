@@ -9,20 +9,20 @@ class StockExchangeUseCase {
 
   StockExchangeUseCase(this._stockRepo);
 
-  Future<DataState<StockOrderInfo>> getBuyOrderInfo(
+  Future<DataState<StockOrderInfo>> createBuyOrderInfo(
       {required String symbol,
       required double price,
       required int quantity}) async {
-    final otp = await _stockRepo.getBuyOrderInfo(
+    final otp = await _stockRepo.createBuyOrderInfo(
         symbol: symbol, price: price, quantity: quantity);
     return otp;
   }
 
-  Future<DataState<StockOrderInfo>> getSellOrderInfo(
+  Future<DataState<StockOrderInfo>> createSellOrderInfo(
       {required String symbol,
       required double price,
       required int quantity}) async {
-    final otp = await _stockRepo.getSellOrderInfo(
+    final otp = await _stockRepo.createSellOrderInfo(
         symbol: symbol, price: price, quantity: quantity);
     return otp;
   }

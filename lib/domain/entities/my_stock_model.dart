@@ -64,10 +64,10 @@ extension MyStockModelMapper on MyStockModel {
     return StockModel(
         symbol: productKey ?? "",
         stockName: "",
-        imageUrl: null,
-        stockType: null,
+        imageUrl: "",
+        stockType: 0,
         lastPrice: lastPrice ?? 0,
-        change: null,
+        change: 0,
         ratioChange: 0);
   }
 }

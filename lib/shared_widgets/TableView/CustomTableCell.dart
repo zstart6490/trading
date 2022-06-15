@@ -9,7 +9,6 @@ import 'package:trading_module/theme/app_color.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-
 /// Title ngắn hơn nội dung
 class CustomTableCell extends StatelessWidget with BaseCommonWidgets {
   final String title;
@@ -17,21 +16,23 @@ class CustomTableCell extends StatelessWidget with BaseCommonWidgets {
   final String detail;
   final TextStyle? detailStyle;
   final bool canCopy;
-  const CustomTableCell({
-    Key? key,
-    required this.title,
-    this.titleStyle,
-    required this.detail,
-    this.detailStyle,
-    this.canCopy = false,
-  }) : super(key: key);
+  final Widget? icon;
+
+  const CustomTableCell(
+      {Key? key,
+      required this.title,
+      this.titleStyle,
+      required this.detail,
+      this.detailStyle,
+      this.canCopy = false,
+      this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(12.0, 7.0, 12.0, 7.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AutoSizeText(
@@ -42,15 +43,19 @@ class CustomTableCell extends StatelessWidget with BaseCommonWidgets {
             style: titleStyle ??
                 context.textSize14.copyWith(color: context.disabledColor),
           ),
+          if (icon != null) Row(children: [SIZED_BOX_W06,icon?? Container()],) ,
           SIZED_BOX_W12,
           Expanded(
             child: Text(
               detail,
-              style: detailStyle ?? context.textSize14.copyWith(color: COLOR_333333,fontWeight: FontWeight.w400),
+              style: detailStyle ??
+                  context.textSize14.copyWith(
+                      color: COLOR_333333, fontWeight: FontWeight.w400),
               maxLines: 2,
               textAlign: TextAlign.right,
             ),
           ),
+
           if (canCopy)
             InkWell(
               onTap: () {
@@ -75,6 +80,7 @@ class CustomTableCell2 extends StatelessWidget with BaseCommonWidgets {
   final String detail;
   final TextStyle? detailStyle;
   final bool canCopy;
+
   const CustomTableCell2({
     Key? key,
     required this.title,

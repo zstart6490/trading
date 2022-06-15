@@ -11,7 +11,7 @@ StockCurrentPriceModelDTO _$StockCurrentPriceModelDTOFromJson(
     StockCurrentPriceModelDTO(
       json['isProductWatching'] as bool?,
       json['isAllowSell'] as bool?,
-      json['symbol'] as String?,
+      json['Symbol'] as String?,
       json['imageUrl'] as String?,
       json['stockName'] as String?,
       json['TradingDate'] as String?,

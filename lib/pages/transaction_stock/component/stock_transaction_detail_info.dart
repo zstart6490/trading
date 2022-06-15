@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:simple_tooltip/simple_tooltip.dart';
 import 'package:trading_module/domain/entities/stock_transaction_detail.dart';
+import 'package:trading_module/pages/transaction_stock/transaction_stock_controller.dart';
 import 'package:trading_module/shared_widgets/TableView/CustomTableCell.dart';
 import 'package:trading_module/shared_widgets/TableView/CustomTableHeader.dart';
 import 'package:trading_module/utils/date_utils.dart';
@@ -17,6 +20,7 @@ class StockTransactionDetailInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final method = transaction.getMethod;
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 15),
       decoration: BoxDecoration(
@@ -45,6 +49,8 @@ class StockTransactionDetailInfo extends StatelessWidget {
   }
 
   Widget getInForTrans(BuildContext context) {
+    final TransactionStockController _transactionStockController =
+        Get.find<TransactionStockController>();
     if (transaction.status == StockTransactionState.processed ||
         transaction.status == StockTransactionState.partiallyProcessed) {
       return Column(
@@ -56,7 +62,7 @@ class StockTransactionDetailInfo extends StatelessWidget {
           CustomTableCell(
             title: "Khối lượng khớp/đặt",
             detail:
-            "${transaction.quantityMatch.toStockQuantity()}/${transaction.quantity.toStockQuantity()}",
+                "${transaction.quantityMatch.toStockQuantity()}/${transaction.quantity.toStockQuantity()}",
           ),
           CustomTableCell(
             title: "Giá khớp",
@@ -69,6 +75,7 @@ class StockTransactionDetailInfo extends StatelessWidget {
           CustomTableCell(
             title: "Phí mua",
             detail: transaction.feePartner.toCurrency(),
+            icon: feeTransactionDescription(context,_transactionStockController),
           ),
           CustomTableCell(
             title: "Phí giao dịch",
@@ -78,9 +85,8 @@ class StockTransactionDetailInfo extends StatelessWidget {
             title: "Số tiền thực trả",
             detail: transaction.amount.toCurrency(),
             detailStyle:
-            context.textSize14.copyWith(color: context.primaryColor),
+                context.textSize14.copyWith(color: context.primaryColor),
           ),
-
         ],
       );
     } else {
@@ -101,6 +107,7 @@ class StockTransactionDetailInfo extends StatelessWidget {
           CustomTableCell(
             title: "Phí mua",
             detail: transaction.feePartner.toCurrency(),
+            icon: feeTransactionDescription(context,_transactionStockController),
           ),
           CustomTableCell(
             title: "Phí giao dịch",
@@ -110,10 +117,61 @@ class StockTransactionDetailInfo extends StatelessWidget {
             title: "Số tiền dự tính trả",
             detail: transaction.amount.toCurrency(),
             detailStyle:
-            context.textSize14.copyWith(color: context.primaryColor),
+                context.textSize14.copyWith(color: context.primaryColor),
           ),
         ],
       );
     }
+  }
+
+  Widget feeTransactionDescription(BuildContext context,
+      TransactionStockController _transactionStockController) {
+    return InkWell(
+      onTap: () => _transactionStockController.showToolTip(),
+      child: Obx(
+        () => SimpleTooltip(
+            arrowBaseWidth: 18,
+            arrowLength: 11,
+            ballonPadding:
+                const EdgeInsets.symmetric(horizontal: 2, vertical: 1),
+            borderRadius: 2,
+            borderWidth: 1,
+            borderColor: const Color(0xFF606060),
+            backgroundColor: const Color(0xFF333333),
+            minimumOutSidePadding: 12.0,
+            animationDuration: const Duration(milliseconds: 190),
+            show: _transactionStockController.isShowToolTip.value,
+            hideOnTooltipTap: true,
+            tooltipDirection: TooltipDirection.down,
+            arrowTipDistance: 4,
+            content: Expanded(child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Tiền phí mua được chi trả cho bên CTCK bao gồm:",
+                  style: context.textSize12.copyWith(color: Colors.white),
+                ),
+                Text(
+                  "+ Phí giao dịch với CTCK",
+                  style: context.textSize12.copyWith(color: Colors.white),
+                ),
+                Text(
+                  "+ Phí giao dịch với sở",
+                  style: context.textSize12.copyWith(color: Colors.white),
+                ),
+                Text(
+                  "+ Phí lưu ký chứng khoán",
+                  style: context.textSize12.copyWith(color: Colors.white),
+                ),
+              ],
+            )),
+            child: const Icon(
+              Icons.info,
+              color: Color(0xFF9AA0A5),
+              size: 18,
+            )),
+      ),
+    );
   }
 }
