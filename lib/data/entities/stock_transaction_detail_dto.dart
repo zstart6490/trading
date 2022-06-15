@@ -14,7 +14,9 @@ class StockTransactionDetailDto {
   double? amount;
   double? amountWithoutFeeVat;
   double? fee;
+  double? feeMatch;
   double? feePartner;
+  double? feePartnerMatch;
   double? feePartnerPercent;
   double? feePercent;
   double? vatPercent;
@@ -33,7 +35,9 @@ class StockTransactionDetailDto {
       this.amount,
       this.amountWithoutFeeVat,
       this.fee,
+      this.feeMatch,
       this.feePartner,
+      this.feePartnerMatch,
       this.feePartnerPercent,
       this.feePercent,
       this.vatPercent,
@@ -65,7 +69,9 @@ extension StockTransactionDetailMapper on StockTransactionDetailDto {
         amount: amount ?? 0,
         amountWithoutFeeVat: amountWithoutFeeVat ?? 0,
         fee: fee ?? 0,
+        feeMatch: feeMatch?? 0,
         feePartner: feePartner ?? 0,
+        feePartnerMatch: feePartnerMatch??0,
         feePartnerPercent: feePartnerPercent ?? 0,
         feePercent: feePercent ?? 0,
         vatPercent: vatPercent ?? 0,

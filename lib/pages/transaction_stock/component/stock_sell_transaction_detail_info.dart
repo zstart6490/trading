@@ -73,12 +73,12 @@ class StockSellTransactionDetailInfo extends StatelessWidget {
         ),
         CustomTableCell(
           title: "Phí bán",
-          detail: transaction.feePartner.toCurrency(),
+          detail: transaction.feePartnerMatch.toCurrency(),
           icon: feeTransactionDescription(context, _transactionStockController),
         ),
         CustomTableCell(
           title: "Phí giao dịch",
-          detail: transaction.fee.toCurrency(),
+          detail: transaction.feeMatch.toCurrency(),
         ),
         CustomTableCell(
           title: "Số tiền dự tính nhận",

@@ -9,7 +9,9 @@ class StockTransactionDetail {
   double amount;
   double amountWithoutFeeVat;
   double fee;
+  double feeMatch;
   double feePartner;
+  double feePartnerMatch;
   double feePartnerPercent;
   double feePercent;
   double vatPercent;
@@ -27,7 +29,9 @@ class StockTransactionDetail {
       required this.amount,
       required this.amountWithoutFeeVat,
       required this.fee,
+      required this.feeMatch,
       required this.feePartner,
+      required this.feePartnerMatch,
       required this.feePercent,
       required this.vatPercent,
       required this.feePartnerPercent,
