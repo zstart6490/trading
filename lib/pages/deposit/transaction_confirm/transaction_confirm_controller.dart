@@ -50,7 +50,12 @@ class TDTransactionConfirmController extends BaseController
       change(result.data, status: RxStatus.success());
     } else if (result.error != null) {
       showSnackBar(result.error!.message);
+      change(null, status: RxStatus.error());
     }
+  }
+
+  void onFinish() {
+    backToHome();
   }
 
   Future<void> onConfirm() async {
