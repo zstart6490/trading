@@ -49,6 +49,7 @@ const Map<String, String> vi_VN = {
   "ekyc_reject_content":"Tài khoản của bạn đã xác thực eKYC không thành công. Vui lòng thực hiện lại để có thể sử dụng tính năng này.",
   "contract_title":"Đăng ký thành công",
   "contract_invest_now":"Đầu tư ngay",
+  "try_again":"Thử lại",
 };
 // ignore_for_file: file_names
 

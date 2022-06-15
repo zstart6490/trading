@@ -14,11 +14,11 @@ class StockExchangeRepoImpl extends StockExchangeRepo {
   StockExchangeRepoImpl(this._services);
 
   @override
-  Future<DataState<StockOrderInfo>> getBuyOrderInfo(
+  Future<DataState<StockOrderInfo>> createBuyOrderInfo(
       {required String symbol,
       required double price,
       required int quantity}) async {
-    final result = await _services.getBuyOrderInfo(symbol, price, quantity);
+    final result = await _services.createBuyOrderInfo(symbol, price, quantity);
     if (result.success) {
       final model = result.modelDTO.toModel();
       return DataSuccess(model);
@@ -27,7 +27,7 @@ class StockExchangeRepoImpl extends StockExchangeRepo {
   }
 
   @override
-  Future<DataState<StockOrderInfo>> getSellOrderInfo(
+  Future<DataState<StockOrderInfo>> createSellOrderInfo(
       {required String symbol,
       required double price,
       required int quantity}) async {

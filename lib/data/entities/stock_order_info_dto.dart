@@ -13,6 +13,7 @@ class StockOrderInfoDto {
   final double? amount;
   final double? amountWithoutFee;
   final double? fee;
+  final double? feePartner;
   final double? feePercent;
   final double? feePartnerPercent;
   final double? amountWithoutFeeTax;
@@ -28,6 +29,7 @@ class StockOrderInfoDto {
     this.amount,
     this.amountWithoutFee,
     this.fee,
+    this.feePartner,
     this.feePercent,
     this.feePartnerPercent,
     this.amountWithoutFeeTax,
@@ -50,6 +52,7 @@ extension StockOrderInfoMapper on StockOrderInfoDto {
         amount: amount ?? 0,
         amountWithoutFee: amountWithoutFee ?? 0,
         fee: fee ?? 0,
+        feePartner: feePartner ?? 0,
         feePercent: feePercent ?? 0,
         feePartnerPercent: feePartnerPercent ?? 0,
         amountWithoutFeeTax: amountWithoutFeeTax ?? 0,

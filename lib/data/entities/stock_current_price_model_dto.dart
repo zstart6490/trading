@@ -9,7 +9,7 @@ class StockCurrentPriceModelDTO {
   final bool? isProductWatching;
   @JsonKey(name: "isAllowSell")
   final bool? isAllowSell;
-  @JsonKey(name: "symbol")
+  @JsonKey(name: "Symbol")
   final String? symbol;
   @JsonKey(name: "imageUrl")
   final String? imageUrl;
