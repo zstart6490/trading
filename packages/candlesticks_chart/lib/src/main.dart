@@ -95,13 +95,13 @@ class _CandlesticksState extends State<Candlesticks> {
           onZoomInPressed: () {
             setState(() {
               candleWidth += 2;
-              candleWidth = min(candleWidth, 16);
+              candleWidth = min(candleWidth, 40);
             });
           },
           onZoomOutPressed: () {
             setState(() {
               candleWidth -= 2;
-              candleWidth = max(candleWidth, 4);
+              candleWidth = max(candleWidth, 1);
             });
           },
           children: widget.actions,
@@ -172,7 +172,7 @@ class _CandlesticksState extends State<Candlesticks> {
                       scale = min(1.1, scale);
                       setState(() {
                         candleWidth *= scale;
-                        candleWidth = min(candleWidth, 16);
+                        candleWidth = min(candleWidth, 40);
                         candleWidth = max(candleWidth, 1);
                       });
                     },

@@ -109,7 +109,7 @@ class CandleStickRenderObject extends RenderBox {
     Paint paint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = _candleWidth/8;
+      ..strokeWidth = (_candleWidth >6) ? max(0.5, _candleWidth/8) : max(0.5, _candleWidth/4);
 
     double x = size.width + offset.dx - (index + 0.5) * _candleWidth;
 
@@ -126,7 +126,7 @@ class CandleStickRenderObject extends RenderBox {
       context.canvas.drawLine(
         Offset(x, openCandleY),
         Offset(x, closeCandleY),
-        paint..strokeWidth = _candleWidth/2,
+        paint..strokeWidth = (_candleWidth >6) ? _candleWidth/2 : _candleWidth*3/4,
       );
     } else {
       // if the candle body is too small
@@ -134,7 +134,7 @@ class CandleStickRenderObject extends RenderBox {
       context.canvas.drawLine(
         Offset(x, mid - 0.5),
         Offset(x, mid + 0.5),
-        paint..strokeWidth = _candleWidth/2,
+        paint..strokeWidth = (_candleWidth >6) ? _candleWidth/2 : _candleWidth*3/4,
       );
     }
   }
