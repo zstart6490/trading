@@ -9,8 +9,8 @@ import 'package:trading_module/utils/date_utils.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 
-class StockTransactionDetailInfo extends StatelessWidget {
-  const StockTransactionDetailInfo(
+class StockBuyTransactionDetailInfo extends StatelessWidget {
+  const StockBuyTransactionDetailInfo(
     this.transaction, {
     Key? key,
   }) : super(key: key);
@@ -99,6 +99,9 @@ class StockTransactionDetailInfo extends StatelessWidget {
           CustomTableCell(
             title: "Khối lượng đặt",
             detail: transaction.quantity.toStockQuantity(),
+          ), CustomTableCell(
+            title: "Giá đặt",
+            detail: transaction.price.toCurrency(),
           ),
           CustomTableCell(
             title: "Số tiền dự tính khớp",

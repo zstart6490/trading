@@ -20,7 +20,7 @@ StockTransactionDetailDto _$StockTransactionDetailDtoFromJson(
       feePartnerPercent: (json['feePartnerPercent'] as num?)?.toDouble(),
       feePercent: (json['feePercent'] as num?)?.toDouble(),
       vatPercent: (json['vatPercent'] as num?)?.toDouble(),
-      priceMatch: (json['priceMatch'] as num?)?.toDouble(),
+      priceMatch: json['priceMatch'],
       quantityMatch: (json['quantityMatch'] as num?)?.toDouble(),
       orderType: json['orderType'] as String?,
       transactionCode: json['transactionCode'] as String?,

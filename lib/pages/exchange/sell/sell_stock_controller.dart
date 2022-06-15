@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/data/entities/navigate_stock_trans_detail.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
 import 'package:trading_module/domain/entities/stock_order_info.dart';
@@ -8,6 +10,7 @@ import 'package:trading_module/domain/entities/stock_transaction_detail.dart';
 import 'package:trading_module/pages/exchange/exchange_stock_controller.dart';
 import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/theme/app_color.dart';
 import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 
@@ -20,6 +23,7 @@ class SellStockController extends ExchangeStockController {
   RxDouble quantityMaximum = 0.0.obs;
   RxDouble amountWithoutFeeTax = 0.0.obs;
   late FocusNode focusNode;
+  RxBool autoFocus = true.obs;
   Rx<bool> loadingCalculatorAmount = false.obs;
   Rx<bool> loadingQuantityMaximum = false.obs;
   final _inputQuantity = rxdart.BehaviorSubject<String>();
@@ -44,7 +48,7 @@ class SellStockController extends ExchangeStockController {
         .switchMap((value) async* {
       yield await serverCalculatorStockOrder();
     }).listen((event) {
-
+      loadingCalculatorAmount.value = false;
       checkRequestAmount();
     });
     super.onInit();
@@ -102,7 +106,7 @@ class SellStockController extends ExchangeStockController {
         amountWithoutFeeTax.value = stockOrderInfo?.amountWithoutFeeTax ?? 0;
         quantityMaximum.value = stockOrderInfo?.quantityMaximum ?? 0;
       }
-      loadingCalculatorAmount.value = false;
+
       loadingQuantityMaximum.value = false;
       return true;
     }
@@ -122,7 +126,7 @@ class SellStockController extends ExchangeStockController {
             descWidget: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                  text: "Bạn chắc chắc muốn bán",
+                  text: "Bạn chắc chắn muốn bán",
                   style: Get.context!.textSize14,
                   children: [
                     TextSpan(
@@ -154,7 +158,7 @@ class SellStockController extends ExchangeStockController {
                     ),
                     TextSpan(
                       text:
-                          " đã bao gồm ${stockOrderInfo?.feePercent ?? 0}% phí bán và ${stockOrderInfo?.vatPercent ?? 0}% thuế TNCN.",
+                          " chưa bao gồm ${stockOrderInfo?.fee.toCurrency() ?? 0} phí bán và ${stockOrderInfo?.feePartner.toCurrency() ?? 0} phí giao dịch.",
                     ),
                   ]),
             ),
@@ -169,6 +173,9 @@ class SellStockController extends ExchangeStockController {
                   text: "Tiếp tục",
                   isDefaultAction: true,
                   onPressed: () {
+                    hideDialog();
+                    focusNode.unfocus();
+                    autoFocus.value = false;
                     confirmSellStock();
                   }),
             ]),
@@ -177,23 +184,110 @@ class SellStockController extends ExchangeStockController {
 
   Future confirmSellStock() async {
     isShowToolTip.value = false;
+    showProgressingDialog();
     final requestAmount =
         int.tryParse(textEditController.text.numericOnly()) ?? 0;
     final result = await stockExchangeUseCase.confirmSellOrderInfo(
         symbol: stockModel.symbol,
         price: stockModel.lastPrice,
         quantity: requestAmount);
+    hideDialog();
     if (result.data != null) {
       final StockTransactionDetail stockTransactionDetail = result.data!;
       //order success
-      Get.offNamedUntil(AppRoutes.stTransactionDetail,
-          ModalRoute.withName(AppRoutes.mainView),
-          arguments: NavigateStockTranDetail(
-              stockTransactionDetail, StockOrderType.sell));
+      //order success
+      refreshAccountInfo();
+      showDialogConfirm(stockTransactionDetail);
     }
     if (result.error != null) {
       showSnackBar(result.error!.message);
     }
+  }
+
+  void showDialogConfirm(StockTransactionDetail stockTransactionDetail) {
+    showAlertDialog(
+      CustomAlertType2tDialog(
+        title: "Đặt lệnh bán thành công",
+        titleWidget: Column(
+          children: [
+            "ic_dialog_success_orderstock".pngImage(),
+            SIZED_BOX_H12,
+            Text(
+              "Đặt lệnh bán thành công",
+              style: Get.context!.textSize16.copyWith(color: COLOR_333333),
+            ),
+            SIZED_BOX_H06,
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                  text: "Lệnh của bạn sẽ khớp trong thời gian sớm nhất.\n",
+                  style: Get.context!.textSize12,
+                  children: [
+                    TextSpan(
+                        text: "*Thời gian giao dịch: ",
+                        style: Get.context!.textSize12),
+                    TextSpan(
+                      text: "09:00-14:45 hàng ngày\n",
+                      style: Get.context!.textSize12
+                          .copyWith(color: Get.context!.primaryColor),
+                    ),
+                    TextSpan(
+                        text: " (trừ thứ bảy, chủ nhật và ngày lễ)",
+                        style: Get.context!.textSize12),
+                  ]),
+            )
+          ],
+        ),
+        actions: [
+          SizedBox(
+            width: 155,
+            height: 40,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: const RoundedRectangleBorder(borderRadius: BOR_RAD8),
+                  side: BorderSide(
+                      color: Get.context!.backgroundColor, width: 0.5),
+                  primary: Get.context!.primaryColor,
+                  elevation: 0,
+                ),
+                onPressed: () {
+                  Get.until((route) => Get.currentRoute == AppRoutes.mainView);
+                },
+                child: AutoSizeText(
+                  'Đồng ý',
+                  maxLines: 1,
+                  minFontSize: 10,
+                  style: Get.context!.textSize14
+                      .copyWith(color: Get.context!.backgroundColor),
+                )),
+          ),
+          SIZED_BOX_H08,
+          Material(
+            color: Colors.transparent,
+            shadowColor: Colors.transparent,
+            child: InkWell(
+              child: Text(
+                "Chi tiết lệnh",
+                style: Get.context!.textSize14.copyWith(
+                    color: Get.context!.primaryColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              onTap: () => {
+              // Get.offNamedUntil(AppRoutes.stTransactionDetail,
+              // ModalRoute.withName(AppRoutes.mainView),
+              // arguments: NavigateStockTranDetail(
+              // stockTransactionDetail, StockOrderType.sell));
+
+                Get.toNamed(AppRoutes.stTransactionDetail,
+                    arguments: NavigateStockTranDetail(
+                        stockTransactionDetail, StockOrderType.sell))
+              },
+            ),
+          )
+        ],
+      ),
+      dismissable: false,
+    );
   }
 
   void showToolTip() {

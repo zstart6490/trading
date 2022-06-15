@@ -94,6 +94,7 @@ class BuyStockController extends ExchangeStockController {
 
   void onChangeMoney(String val) {
     isEmptyText.value = textEditController.value.text.isEmpty;
+    checkRequestAmount();
     _inputQuantity.add(val);
     loadingCalculatorAmount.value = true;
   }

@@ -46,6 +46,7 @@ class StockSellAmountComponent extends BaseViewModel<SellStockController> {
                                   child: MoneyInputComponent(
                                     investType: InvestType.stock,
                                     focusNode: controller.focusNode,
+                                    autoFocus: controller.autoFocus.value,
                                     textEditingController:
                                         controller.textEditController,
                                     onChangeMoney: (val) =>

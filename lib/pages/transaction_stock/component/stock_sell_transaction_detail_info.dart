@@ -6,6 +6,7 @@ import 'package:trading_module/pages/transaction_stock/transaction_stock_control
 import 'package:trading_module/shared_widgets/TableView/CustomTableCell.dart';
 import 'package:trading_module/shared_widgets/TableView/CustomTableHeader.dart';
 import 'package:trading_module/utils/date_utils.dart';
+import 'package:trading_module/utils/enums.dart';
 import 'package:trading_module/utils/extensions.dart';
 
 class StockSellTransactionDetailInfo extends StatelessWidget {
@@ -20,7 +21,7 @@ class StockSellTransactionDetailInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     // final method = transaction.getMethod;
     final TransactionStockController _transactionStockController =
-    Get.find<TransactionStockController>();
+        Get.find<TransactionStockController>();
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 15),
       decoration: BoxDecoration(
@@ -42,40 +43,85 @@ class StockSellTransactionDetailInfo extends StatelessWidget {
                 .toStringFormat(DateFormater.ddMMYYYYhhmm),
           ),
           const Divider(),
-          CustomTableCell(
-            title: "Mã CP",
-            detail: transaction.symbol,
-          ),
-          CustomTableCell(
-            title: "Khối lượng đặt",
-            detail: transaction.quantity.toString(),
-          ),
-          CustomTableCell(
-            title: "Số tiền dự tính khớp",
-            detail: transaction.amountWithoutFeeVat.toCurrency(),
-          ),
-          CustomTableCell(
-            title: "Phí bán",
-            detail: transaction.feePartner.toCurrency(),
-            icon: feeTransactionDescription(context,_transactionStockController),
-          ),
-          CustomTableCell(
-            title: "Thuế TNCN (${transaction.vatPercent}%)",
-            detail: transaction.fee.toCurrency(),
-          ),
-          CustomTableCell(
-            title: "Phí giao dịch",
-            detail: transaction.fee.toCurrency(),
-          ),
-          CustomTableCell(
-            title: "Số tiền dự tính nhận",
-            detail: transaction.amount.toCurrency(),
-            detailStyle: context.textSize14.copyWith(
-                color: context.primaryColor, fontWeight: FontWeight.bold),
-          ),
+          getInForTrans(context)
         ],
       ),
     );
+  }
+
+  Widget getInForTrans(BuildContext context) {
+    final TransactionStockController _transactionStockController =
+        Get.find<TransactionStockController>();
+    if (transaction.status == StockTransactionState.processed ||
+        transaction.status == StockTransactionState.partiallyProcessed) {
+      return Column(children: [
+        CustomTableCell(
+          title: "Mã CP",
+          detail: transaction.symbol,
+        ),
+        CustomTableCell(
+          title: "Khối lượng khớp/đặt",
+          detail:
+          "${transaction.quantityMatch.toStockQuantity()}/${transaction.quantity.toStockQuantity()}",
+        ), CustomTableCell(
+          title: "Giá khớp",
+          detail:transaction.priceMatch.toCurrency(),
+        ),
+        CustomTableCell(
+          title: "Số tiền dự tính khớp",
+          detail: transaction.amountWithoutFeeVat.toCurrency(),
+        ),
+        CustomTableCell(
+          title: "Phí bán",
+          detail: transaction.feePartner.toCurrency(),
+          icon: feeTransactionDescription(context, _transactionStockController),
+        ),
+        CustomTableCell(
+          title: "Phí giao dịch",
+          detail: transaction.fee.toCurrency(),
+        ),
+        CustomTableCell(
+          title: "Số tiền dự tính nhận",
+          detail: transaction.amount.toCurrency(),
+          detailStyle: context.textSize14.copyWith(
+              color: context.primaryColor, fontWeight: FontWeight.bold),
+        ),
+      ]);
+    } else {
+      return Column(children: [
+        CustomTableCell(
+          title: "Mã CP",
+          detail: transaction.symbol,
+        ),
+        CustomTableCell(
+          title: "Khối lượng đặt",
+          detail: transaction.quantity.toString(),
+        ),
+        CustomTableCell(
+          title: "Giá đặt",
+          detail: transaction.price.toCurrency(),
+        ),
+        CustomTableCell(
+          title: "Số tiền dự tính khớp",
+          detail: transaction.amountWithoutFeeVat.toCurrency(),
+        ),
+        CustomTableCell(
+          title: "Phí bán",
+          detail: transaction.feePartner.toCurrency(),
+          icon: feeTransactionDescription(context, _transactionStockController),
+        ),
+        CustomTableCell(
+          title: "Phí giao dịch",
+          detail: transaction.fee.toCurrency(),
+        ),
+        CustomTableCell(
+          title: "Số tiền dự tính nhận",
+          detail: transaction.amount.toCurrency(),
+          detailStyle: context.textSize14.copyWith(
+              color: context.primaryColor, fontWeight: FontWeight.bold),
+        ),
+      ]);
+    }
   }
 
   Widget feeTransactionDescription(BuildContext context,
@@ -118,7 +164,8 @@ class StockSellTransactionDetailInfo extends StatelessWidget {
                 Text(
                   "+ Thuế bán",
                   style: context.textSize12.copyWith(color: Colors.white),
-                ),Text(
+                ),
+                Text(
                   "+ Phí chuyển khoán chứng khoán",
                   style: context.textSize12.copyWith(color: Colors.white),
                 ),

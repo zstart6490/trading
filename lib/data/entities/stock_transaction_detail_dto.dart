@@ -18,7 +18,7 @@ class StockTransactionDetailDto {
   double? feePartnerPercent;
   double? feePercent;
   double? vatPercent;
-  double? priceMatch;
+  dynamic priceMatch;
   double? quantityMatch;
   String? orderType;
   String? transactionCode;
@@ -56,7 +56,11 @@ extension StockTransactionDetailMapper on StockTransactionDetailDto {
         symbol: symbol ?? "",
         quantity: quantity ?? 0,
         quantityMatch: quantityMatch ?? 0,
-        priceMatch: priceMatch ?? 0,
+        priceMatch: priceMatch is String
+            ? 0
+            : priceMatch != null
+                ? priceMatch as double
+                : 0,
         price: price ?? 0,
         amount: amount ?? 0,
         amountWithoutFeeVat: amountWithoutFeeVat ?? 0,
@@ -79,7 +83,7 @@ extension StockTransactionHistoryMapper on StockTransactionDetailDto {
         quantity: quantity ?? 0,
         price: price ?? 0,
         orderType: orderType ?? "BUY",
-        priceMatch: priceMatch ?? 0,
+        priceMatch: priceMatch is String ? 0 : priceMatch as double,
         quantityMatch: quantityMatch ?? 0,
         requestTime: requestTime ?? DateTime.now(),
         status: status ?? StockTransactionState.failed);

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/data/entities/navigate_stock_trans_detail.dart';
 import 'package:trading_module/pages/transaction_stock/component/st_transaction_state_component.dart';
+import 'package:trading_module/pages/transaction_stock/component/stock_buy_transaction_detail_info.dart';
 import 'package:trading_module/pages/transaction_stock/component/stock_sell_transaction_detail_info.dart';
-import 'package:trading_module/pages/transaction_stock/component/stock_transaction_detail_info.dart';
 import 'package:trading_module/pages/transaction_stock/transaction_stock_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
 import 'package:trading_module/shared_widgets/CustomButton.dart';
@@ -41,7 +41,7 @@ class TransactionStockDetailScene extends GetView<TransactionStockController> {
 
   Widget switchInfoType(NavigateStockTranDetail trans) {
     if (trans.stockTransactionType == StockOrderType.buy) {
-      return StockTransactionDetailInfo(
+      return StockBuyTransactionDetailInfo(
           controller.navigateStockTranDetail.transaction);
     } else {
       return StockSellTransactionDetailInfo(
