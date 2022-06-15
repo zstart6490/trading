@@ -29,30 +29,39 @@ class _TimeRowState extends State<TimeRow> {
 
   /// Calculates number of candles between two time indicator
   int _stepCalculator() {
-    if (widget.candleWidth < 3)
+    if(widget.candleWidth == 40)
+      return 2;
+    if (widget.candleWidth <= 1)
+      return 365;
+    else if (widget.candleWidth < 3)
       return 31;
     else if (widget.candleWidth < 5)
       return 19;
     else if (widget.candleWidth < 7)
       return 13;
-    else
-      return 9;
+    else return 9;
   }
 
   /// Calculates [DateTime] of a given candle index
   DateTime _timeCalculator(int step, int index, Duration dif) {
     int candleNumber = (step + 1) ~/ 2 - 10 + index * step + -1;
     DateTime? _time;
-    if (candleNumber < 0)
-      _time = widget.candles[0].date.add(Duration(
-          milliseconds: dif.inMilliseconds ~/ -1 * step * candleNumber));
-    else if (candleNumber < widget.candles.length)
-      _time = widget.candles[candleNumber].date;
-    else {
-      _time = widget.candles[0].date.subtract(
-          Duration(milliseconds: dif.inMilliseconds ~/ step * candleNumber));
+    if(step == 365){
+      _time = widget.candles[index].date;
+      return _time;
     }
-    return _time;
+    else {
+      if (candleNumber < 0)
+        _time = widget.candles[0].date.add(Duration(
+            milliseconds: dif.inMilliseconds ~/ -1 * step * candleNumber));
+      else if (candleNumber < widget.candles.length)
+        _time = widget.candles[candleNumber].date;
+      else {
+        _time = widget.candles[0].date/*.subtract(
+            Duration(milliseconds: dif.inMilliseconds ~/ step * candleNumber))*/;
+      }
+      return _time;
+    }
   }
 
   /// Fomats number as 2 digit integer
@@ -70,20 +79,17 @@ class _TimeRowState extends State<TimeRow> {
       ),
     );
   }
-
-  /// Hour/minute text widget
-  Text _hourMinuteText(DateTime _time, Color color) {
+  Text _onlyMonthText(DateTime _time, Color color){
     return Text(
-      numberFormat(_time.hour) + ":" + numberFormat(_time.minute),
+      "Tháng " + numberFormat(_time.month),
       style: TextStyle(
-        color: color,
+        color:  color,
         fontSize: 14,
       ),
     );
   }
 
   String dateFormatter(DateTime date) {
-    //return "${date.year}-${numberFormat(date.month)}-${numberFormat(date.day)} ${numberFormat(date.hour)}:${numberFormat(date.minute)}";
     return "${numberFormat(date.day)}/${numberFormat(date.month)}/${date.year}";
   }
 
@@ -117,19 +123,13 @@ class _TimeRowState extends State<TimeRow> {
               reverse: true,
               itemBuilder: (context, index) {
                 DateTime _time = _timeCalculator(step, index, dif);
-                // if (index == 0){
-                //   return  SizedBox(
-                //     height: 0,
-                //     width: 0,
-                //   );
-                // }
                 return Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       child: Container(
-                        width: 0.3,
-                        color: Color(0x3F9AA0A5),
+                        width: 0.7,
+                        color: Theme.of(context).grayColor.withOpacity(0.35),
                       ),
                     ),
                     Container(
@@ -137,18 +137,10 @@ class _TimeRowState extends State<TimeRow> {
                       color: Theme.of(context).background,
                       width: double.infinity,
                       alignment: Alignment.center,
-                      child: index != 0
-                          ?_monthDayText(_time, Theme.of(context).scaleNumbersColor)
-                          : SizedBox(height: 20, width: 100,)
-
+                      child: index == 0
+                        ? SizedBox(height: 20, width: 100,)
+                        :_monthDayText(_time, Theme.of(context).scaleNumbersColor)
                     )
-
-
-                    // dif.compareTo(Duration(days: 1)) > 0
-                    //     ? _monthDayText(
-                    //         _time, Theme.of(context).scaleNumbersColor)
-                    //     : _hourMinuteText(
-                    //         _time, Theme.of(context).scaleNumbersColor),
                   ],
                 );
               },
