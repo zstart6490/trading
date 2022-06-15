@@ -1,18 +1,16 @@
 import 'package:trading_module/configs/service_api_config.dart';
 
 class StockModel {
+  String symbol;
+  String stockName;
+  String imageUrl;
+  int stockType;
+  double lastPrice;
+  double change;
+  double ratioChange;
 
-  final String symbol;
-  final String stockName;
-  final String? imageUrl;
-  final int? stockType;
-  late double lastPrice;
-  final double? change;
-  late double ratioChange;
-
-
-  String get fullLink => "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
-
+  String get fullLink =>
+      "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
 
   StockModel(
       {required this.symbol,
@@ -23,4 +21,3 @@ class StockModel {
       required this.change,
       required this.ratioChange});
 }
-
