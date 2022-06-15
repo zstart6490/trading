@@ -7,13 +7,20 @@ class TransactionStockController extends BaseController{
   final NavigateStockTranDetail navigateStockTranDetail;
 
   TransactionStockController(this.navigateStockTranDetail);
+  Rx<bool> isShowToolTip = false.obs;
 
   @override
   void onInit() {
     super.onInit();
+
+
   }
 
   void onSelectBackHome() {
     Get.until((route)=>Get.currentRoute== AppRoutes.mainView);
+  }
+
+  void showToolTip() {
+    isShowToolTip.value = !isShowToolTip.value;
   }
 }

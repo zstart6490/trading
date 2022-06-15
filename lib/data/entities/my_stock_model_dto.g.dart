@@ -42,7 +42,7 @@ PortfolioModelDTO _$PortfolioModelDTOFromJson(Map<String, dynamic> json) =>
     PortfolioModelDTO(
       json['id'] as int?,
       json['productKey'] as String?,
-      (json['price'] as num?)?.toDouble(),
+      json['price'],
       (json['quantity'] as num?)?.toDouble(),
       json['historyType'] as int?,
     );

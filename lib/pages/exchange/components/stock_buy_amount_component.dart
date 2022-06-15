@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:simple_tooltip/simple_tooltip.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_view_model.dart';
@@ -72,11 +73,7 @@ class StockBuyAmountComponent extends BaseViewModel<BuyStockController> {
                             color: context.disabledColor,
                           ),
                         )),
-                        Text(
-                          controller.amountMaximum.value.toCurrency(),
-                          style: context.textSize14.copyWith(
-                              color: Colors.black, fontWeight: FontWeight.w700),
-                        )
+                        widgetCalculatorBalance(context)
                       ],
                     ),
                     const SizedBox(
@@ -113,33 +110,35 @@ class StockBuyAmountComponent extends BaseViewModel<BuyStockController> {
                                   hideOnTooltipTap: true,
                                   tooltipDirection: TooltipDirection.down,
                                   content: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
-                                      "Tikop đã dự tính số tiền lớn nhất để có thể thực hiện giao dịch này. Trong trường hợp số tiền cần trả nhỏ hơn, bạn sẽ nhận lại tiền thừa khi giao dịch hoàn tất.",
-                                      style: context.textSize12
-                                          .copyWith(color: Colors.white),
+                                        "Tikop đã dự tính số tiền lớn nhất để có thể thực hiện giao dịch này. Trong trường hợp số tiền cần trả nhỏ hơn, bạn sẽ nhận lại tiền thừa khi giao dịch hoàn tất.",
+                                        style: context.textSize12
+                                            .copyWith(color: Colors.white),
                                       ),
-                                      SizedBox(height: 6),
+                                      const SizedBox(height: 6),
                                       Text(
                                         "Đã bao gồm:",
                                         style: context.textSize12
                                             .copyWith(color: Colors.white),
                                       ),
-                                        SizedBox(height: 6),
-                                        Text(
-                                        "${controller.stockOrderInfo?.feePartnerPercent}% phí mua.",
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        "${controller.feePartner.value.toCurrency()} phí mua.",
                                         style: context.textSize12
                                             .copyWith(color: Colors.white),
                                       ),
-                                        SizedBox(height: 6),
-                                        Text(
-                                        "${controller.feeTransaction.value.toCurrency()} phí giao dịch",
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        "${controller.feeTransaction.value.toCurrency()} phí giao dịch.",
                                         style: context.textSize12
                                             .copyWith(color: Colors.white),
                                       ),
-                                  ],),
+                                    ],
+                                  ),
                                   child: const Icon(
                                     Icons.info,
                                     color: Color(0xFF9AA0A5),
@@ -148,11 +147,9 @@ class StockBuyAmountComponent extends BaseViewModel<BuyStockController> {
                             ),
                           ],
                         )),
-                        Text(
-                          controller.amount.value.toCurrency(),
-                          style: context.textSize14.copyWith(
-                              color: Colors.green, fontWeight: FontWeight.w700),
-                        )
+                        Container(
+                          child: widgetCalculatorValue(context),
+                        ),
                       ],
                     )
                   ],
@@ -163,5 +160,35 @@ class StockBuyAmountComponent extends BaseViewModel<BuyStockController> {
         ),
       ),
     );
+  }
+
+  Widget widgetCalculatorBalance(BuildContext context) {
+    if (controller.loadingMaxAmount.value) {
+      return LoadingAnimationWidget.waveDots(
+        color: Colors.black,
+        size: 20,
+      );
+    } else {
+      return Text(
+        controller.amountMaximum.value.toCurrency(),
+        style: context.textSize14
+            .copyWith(color: Colors.black, fontWeight: FontWeight.w700),
+      );
+    }
+  }
+
+  Widget widgetCalculatorValue(BuildContext context) {
+    if (controller.loadingCalculatorAmount.value) {
+      return LoadingAnimationWidget.waveDots(
+        color: Colors.green,
+        size: 20,
+      );
+    } else {
+      return Text(
+        controller.amount.value.toCurrency(),
+        style: context.textSize14
+            .copyWith(color: Colors.green, fontWeight: FontWeight.w700),
+      );
+    }
   }
 }
