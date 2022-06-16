@@ -226,10 +226,10 @@ class _MobileChartState extends State<MobileChart> {
                                         child: ClipRRect(
                                           child: AnimatedPadding(
                                             duration: Duration(milliseconds: 300),
-                                            padding: EdgeInsets.symmetric(
-                                                vertical:
-                                                MAIN_CHART_VERTICAL_PADDING +
-                                                    additionalVerticalPadding),
+                                            padding: EdgeInsets.only(
+                                                top: MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding + 14,
+                                                bottom: MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding - 14
+                                            ),
                                             child: RepaintBoundary(
                                               child: CandleStickWidget(
                                                 candles: widget.candles,
