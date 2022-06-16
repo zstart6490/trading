@@ -138,6 +138,7 @@ class ChooseMoneyController extends BaseController {
     if (result.data != null) {
       withdrawInfo = result.data!;
       withdrawInfo.userBank = selectedBank.value;
+      data.totalMoneyUser =result.data?.balance??0;
       // final tranId = withdrawInfo.transactionId;
       moveToConfirmScene();
     } else if (result.error != null) {
@@ -151,6 +152,7 @@ class ChooseMoneyController extends BaseController {
 
   void onInputOver() {
     showSnackBar("Bạn không được nhập số tiền lớn hơn bạn đang có");
+    textEditController.text =data.totalMoneyUser.toString();
   }
 
   Future<void> onAddBank() async {

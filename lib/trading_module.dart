@@ -48,7 +48,7 @@ class TradingModule {
     Function(TradingSmartOTPType smartOTPType)? callToForgetPin,
     Function()? callToSignIn,
     Function(List<String> subscribeTopics, List<String> unSubscribeTopics)?
-        registerNotifyTopic,
+        registerNotifyTopic,H
   }) async {
     initGetxTrading();
 

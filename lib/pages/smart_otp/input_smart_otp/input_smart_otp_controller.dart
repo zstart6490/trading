@@ -73,18 +73,6 @@ class InputSmartOTPController extends BaseController {
         ),
         dismissable: false,
         onCompleted: () => Get.back());
-
-    // final dialog = CustomAlertDialog(
-    //   title: "Tính năng tạm khoá".tr,
-    //   desc: desc,
-    //   actions: [
-    //     AlertAction.ok(() {
-    //       hideDialog();
-    //     })
-    //   ],
-    // );
-    // showMessageDialog(dialog,
-    //     name: "InputSmartOTPController", canDissmiss: false);
   }
 
   Future<void> onForgotPIN() async {

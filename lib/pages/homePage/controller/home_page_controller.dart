@@ -219,11 +219,9 @@ class HomePageController extends BaseController
       (stock) {
         //print("stock.stockPrice.symbol: ${stock.stockPrice.symbol}");
         accountInfoModel?.stockList
-            ?.firstWhere((e) => e.productKey == stock.stockPrice.symbol)
-            .lastPrice = stock.stockPrice.price;
+            ?.firstWhereOrNull((e) => e.productKey == stock.stockPrice.symbol)?.lastPrice = stock.stockPrice.price;
         accountInfoModel?.productWatchingVOList
-            ?.firstWhere((e) => e.productKey == stock.stockPrice.symbol)
-            .lastPrice = stock.stockPrice.price;
+            ?.firstWhereOrNull((e) => e.productKey == stock.stockPrice.symbol)?.lastPrice = stock.stockPrice.price;
         change(accountInfoModel, status: RxStatus.success());
       },
     );
@@ -240,13 +238,16 @@ class HomePageController extends BaseController
           PropertyModel(null, null, null, null, null, null, null, null, null));
       change(accountInfoModel, status: RxStatus.success());
       subscribe();
+
     } else if (result.error != null) {
       //change(null, status: RxStatus.error(result.error!.message));
       showSnackBar(result.error!.message);
     } else {
       //change(null, status: RxStatus.empty());
     }
+
   }
+
 
   void loadCache() {
     final result = _homeTradingUseCase.getCache();
