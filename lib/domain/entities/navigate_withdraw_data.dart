@@ -5,7 +5,7 @@ class NavigateWithdrawData {
   Reason? selectedReason;
   List<Reason> listReason;
   final List<UserBank>? listUserBank;
-   num totalMoneyUser;
+  num totalMoneyUser;
   num? transactionId;
 
   NavigateWithdrawData(
