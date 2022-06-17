@@ -46,7 +46,7 @@ class BuyStockController extends ExchangeStockController {
     });
     _inputQuantity
         .debounce(
-            (_) => rxdart.TimerStream(true, const Duration(milliseconds: 1000)))
+            (_) => rxdart.TimerStream(true, const Duration(milliseconds: 500)))
         .switchMap((value) async* {
       yield await serverCalculatorStockOrder();
     }).listen((event) {
@@ -94,7 +94,8 @@ class BuyStockController extends ExchangeStockController {
 
   void onChangeMoney(String val) {
     isEmptyText.value = textEditController.value.text.isEmpty;
-    checkRequestAmount();
+    canConfirm.value =false;
+    // checkRequestAmount();
     _inputQuantity.add(val);
     loadingCalculatorAmount.value = true;
   }
