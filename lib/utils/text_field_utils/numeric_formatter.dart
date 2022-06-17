@@ -28,10 +28,11 @@ class CurrencyInputFormatter extends TextInputFormatter {
         return oldValue;
       }
       final String newString = NumberFormat.decimalPattern("vi").format(intVal);
+
       return TextEditingValue(
         text: newString,
         selection: TextSelection.collapsed(
-          offset: newString.length - selectionIndexFromTheRight,
+          offset: (newString.length - selectionIndexFromTheRight)<0?0:(newString.length - selectionIndexFromTheRight),
         ),
       );
     } else {

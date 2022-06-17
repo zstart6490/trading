@@ -151,7 +151,7 @@ class ChooseMoneyController extends BaseController {
   }
 
   void onInputOver() {
-    showSnackBar("Bạn không được nhập số tiền lớn hơn bạn đang có");
+    // showSnackBar("Bạn không được nhập số tiền lớn hơn bạn đang có");
     textEditController.text =data.totalMoneyUser.toString();
   }
 
