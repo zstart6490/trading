@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:math_expressions/math_expressions.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
@@ -240,12 +238,14 @@ class HomePageController extends BaseController
       subscribe();
 
     } else if (result.error != null) {
-      //change(null, status: RxStatus.error(result.error!.message));
-      showSnackBar(result.error!.message);
+      if (accountInfoModel == null){
+        change(null, status: RxStatus.error(result.error!.message));
+      }else{
+        showSnackBar(result.error!.message);
+      }
     } else {
       //change(null, status: RxStatus.empty());
     }
-
   }
 
 

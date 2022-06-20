@@ -19,9 +19,15 @@ class StockModelDTO {
   final double? change;
   @JsonKey(name: "ratioChange")
   final double? ratioChange;
+  @JsonKey(name: "ceiling")
+  final double? ceiling;
+  @JsonKey(name: "floor")
+  final double? floor;
+  @JsonKey(name: "refPrice")
+  final double? refPrice;
 
   StockModelDTO(this.symbol, this.stockName, this.imageUrl, this.stockType,
-      this.lastPrice, this.change, this.ratioChange);
+      this.lastPrice, this.change, this.ratioChange, this.ceiling, this.floor, this.refPrice);
 
   static Future<StockModelDTO> fromResult(dynamic data) async =>
       StockModelDTO.fromJson(data as Map<String, dynamic>);
@@ -30,7 +36,6 @@ class StockModelDTO {
       _$StockModelDTOFromJson(json as Map<String, dynamic>);
 
   Map<String, dynamic> toJson() => _$StockModelDTOToJson(this);
-
 
   static List<StockModelDTO> getList(dynamic data) {
     final list = data as List;
@@ -43,12 +48,16 @@ class StockModelDTO {
 extension StockModelMapper on StockModelDTO {
   StockModel toModel() {
     return StockModel(
-        symbol: symbol??"",
-        stockName: stockName??"",
-        imageUrl: imageUrl??"",
-        stockType: stockType??0,
-        lastPrice: lastPrice??0,
-        change: change??0,
-        ratioChange: ratioChange??0);
+      symbol: symbol ?? "",
+      stockName: stockName ?? "",
+      imageUrl: imageUrl ?? "",
+      stockType: stockType ?? 0,
+      lastPrice: lastPrice ?? 0,
+      change: change ?? 0,
+      ratioChange: ratioChange ?? 0,
+      ceiling: ceiling ?? 0,
+      floor: floor ?? 0,
+      refPrice: refPrice ?? 0,
+    );
   }
 }

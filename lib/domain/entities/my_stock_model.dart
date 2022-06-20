@@ -68,7 +68,7 @@ extension MyStockModelMapper on MyStockModel {
         stockType: 0,
         lastPrice: lastPrice ?? 0,
         change: 0,
-        ratioChange: 0);
+        ratioChange: 0, ceiling: 0, floor: 0, refPrice: 0);
   }
 }
 
