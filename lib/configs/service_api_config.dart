@@ -42,9 +42,9 @@ class StagingConfig implements BaseConfig {
   @override
   String get protocol => "https://";
   @override
-  String get marketHost => "104.199.179.48:8501";
+  String get marketHost => "stg-trading-api.tikop.vn";
   @override
-  String get marketProtocol => "http://";
+  String get marketProtocol => "https://";
   @override
   String get appName => "Trading-Stg";
   @override

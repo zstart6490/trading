@@ -14,6 +14,7 @@ class MarketApiServices {
         backendUrl: Environment().marketUrl,
         fullToken: mainProvider.accessToken ?? "",
         userId: mainProvider.userData?.id.toString() ?? "");
+    api.onInit();
   }
 
   late Api api;
