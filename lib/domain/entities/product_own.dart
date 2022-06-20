@@ -1,6 +1,7 @@
-import 'package:get/get.dart';
+
 import 'package:trading_module/configs/service_api_config.dart';
 import 'package:trading_module/domain/entities/stock_model.dart';
+import 'package:trading_module/utils/util.dart';
 
 class ProductOwn {
   final int id;
@@ -20,11 +21,10 @@ class ProductOwn {
       "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
 
   String getRatioPercentage() {
-    final value = (priceAvg -lastPrice) / priceAvg;
+    final value = ((lastPrice  - priceAvg ) / priceAvg ) * 100;
     if (!value.isNaN && !value.isInfinite) {
-      return value > 0
-          ? "+${value.toPrecision(2)}%"
-          : "${value.toPrecision(2)}%";
+      return value > 0 ? "+${value.getShortCut()}%".replaceAll(".", ",") : "${value.getShortCut(
+      )}%".replaceAll(".", ",");
     }
     return "0%";
   }

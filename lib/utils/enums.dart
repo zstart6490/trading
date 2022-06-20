@@ -157,29 +157,32 @@ enum InvestProductType {
 }
 
 enum TransactionMethod {
-  @JsonValue("BANK_TRANSFER")
-  bankTransfer,
-  @JsonValue("9PAY_KEEP")
-  ninePayKeep,
-  @JsonValue("9PAY_GATEWAY")
-  ninePayGateWay,
-  @JsonValue("BANK_TRANSFER_INTERNATIONAL")
-  bankTransferGlobal,
-  @JsonValue("PAYPAL")
-  paypal,
-  @JsonValue("REFERRAL")
-  referral,
-  @JsonValue("RENEW")
-  renew,
-  @JsonValue("MOVE_PRODUCT")
-  moveProduct,
-  @JsonValue("MOVE_PRODUCT_FROM_TARGET")
-  moveProductFromTarget,
-  @JsonValue("TRANSFER_SAVING")
-  transferSaving,
-  @JsonValue("9PAY_WITHDRAW")
-  ninePay_withdraw,
-  none,
+@JsonValue("BANK_TRANSFER")
+bankTransfer,
+@JsonValue("9PAY_KEEP")
+ninePayKeep,
+@JsonValue("9PAY_GATEWAY")
+ninePayGateWay,
+@JsonValue("BANK_TRANSFER_INTERNATIONAL")
+bankTransferGlobal,
+@JsonValue("PAYPAL")
+paypal,
+@JsonValue("REFERRAL")
+referral,
+@JsonValue("RENEW")
+renew,
+@JsonValue("MOVE_PRODUCT")
+moveProduct,
+@JsonValue("MOVE_PRODUCT_FROM_TARGET")
+moveProductFromTarget,
+@JsonValue("MOVE_SAVING_FROM_REAL_ESTATE")
+moveSavingFromRealEstate,
+@JsonValue("TRANSFER_SAVING")
+transferSaving,
+@JsonValue("9PAY_WITHDRAW")
+ninePay_withdraw,
+
+none,
 }
 
 enum EkycType {
