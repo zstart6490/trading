@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:trading_module/theme/app_color.dart';
 
 class AppConstants {
   static const Size designScreenSize = Size(375, 754);
@@ -205,3 +206,11 @@ const ceilColor = Color(0xFFA500A8);
 const floorColor = Color(0xFF2F80ED);
 const increaseColor = Color(0xFF00B14F);
 const decreaseColor = Color(0xFFF46666);
+
+
+/// Widgets
+const RIGHT_ARROW_ICON = Icon(
+  Icons.arrow_forward_ios_rounded,
+  size: 12,
+  color: COLOR_NEUTRAL_200,
+);

@@ -109,7 +109,7 @@ class MyProductCell extends StatelessWidget {
                         productOwn.getRatioPercentage(),
                         style: TextStyle(
                             fontFamily: 'iCielHelveticaNowText',
-                            color: (productOwn.priceAvg - productOwn.lastPrice)
+                            color: (productOwn.lastPrice - productOwn.priceAvg)
                                 .getStockColor(),
                             fontSize: 14,
                             fontWeight: FontWeight.w500),
