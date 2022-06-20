@@ -72,8 +72,7 @@ class _MobileChartState extends State<MobileChart> {
     double sizeRange = max(0.01, high - low);
 
     double minStepSize = sizeRange / minTiles;
-    double base =
-        pow(10, HelperFunctions.log10(minStepSize).floor()).toDouble();
+    double base = pow(10, HelperFunctions.log10(minStepSize).floor()).toDouble();
 
     if (2 * base > minStepSize) return 2 * base;
     if (5 * base > minStepSize) return 5 * base;
@@ -119,10 +118,8 @@ class _MobileChartState extends State<MobileChart> {
         }
 
         // calcute priceScale
-        double chartHeight = maxHeight * 1 -
-            2 * (MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding);
-        double priceScale =
-            calcutePriceScale(chartHeight, candlesHighPrice, candlesLowPrice);
+        double chartHeight = maxHeight * 1 - 2 * (MAIN_CHART_VERTICAL_PADDING + additionalVerticalPadding);
+        double priceScale = calcutePriceScale(chartHeight, candlesHighPrice, candlesLowPrice);
 
         // high and low calibrations revision
         candlesHighPrice = (candlesHighPrice ~/ priceScale + 1) * priceScale;
@@ -158,10 +155,7 @@ class _MobileChartState extends State<MobileChart> {
                 final currentCandle = longPressX == null
                     ? null
                     : widget.candles[min(
-                        max(
-                            (maxWidth - longPressX!) ~/ widget.candleWidth +
-                                widget.index,
-                            0),
+                        max((maxWidth - longPressX!) ~/ widget.candleWidth + widget.index, 0),
                         widget.candles.length - 1)];
                 return Container(
                   color: Theme.of(context).background,
@@ -188,21 +182,17 @@ class _MobileChartState extends State<MobileChart> {
                                   chartHeight: chartHeight,
                                   // lastCandle: widget.candles[
                                   //     widget.index < 0 ? 0 : widget.index],
-                                          lastCandle: widget.candles[
-                                              widget.index < 0 ? 0 : (widget.index >= widget.candles.length ? widget.candles.length - 1 : widget.index)],
+                                  lastCandle: widget.candles[
+                                      widget.index < 0 ? 0 : (widget.index >= widget.candles.length ? widget.candles.length - 1 : widget.index)],
 
                                   onScale: (delta) {
                                     setState(() {
                                       additionalVerticalPadding += delta;
-                                      additionalVerticalPadding = min(
-                                          maxHeight / 4,
-                                          additionalVerticalPadding);
-                                      additionalVerticalPadding =
-                                          max(0, additionalVerticalPadding);
+                                      additionalVerticalPadding = min(maxHeight / 4, additionalVerticalPadding);
+                                      additionalVerticalPadding = max(0, additionalVerticalPadding);
                                     });
                                   },
-                                  additionalVerticalPadding:
-                                      additionalVerticalPadding,
+                                  additionalVerticalPadding: additionalVerticalPadding,
                                 ),
                                 Row(
                                   children: [
@@ -276,19 +266,9 @@ class _MobileChartState extends State<MobileChart> {
                                       child: Text(
                                         longPressY! < maxHeight * 1
                                             ? "  ${HelperFunctions.priceToString(
-                                                high -
-                                                    (longPressY! - 20) /
-                                                        (maxHeight * 1 - 40) *
-                                                        (high - low))}"
+                                                high - (longPressY! - 20) / (maxHeight * 1 - 40) * (high - low))}"
                                             : "  ${HelperFunctions.addMetricPrefix(
-                                                HelperFunctions.getRoof(
-                                                        volumeHigh) *
-                                                    (1 -
-                                                        (longPressY! -
-                                                                maxHeight * 1 -
-                                                                10) /
-                                                            (maxHeight * 0 -
-                                                                10)))}",
+                                                HelperFunctions.getRoof(volumeHigh) * (1 - (longPressY! - maxHeight * 1 - 10) / (maxHeight * 0 - 10)))}",
                                         style: TextStyle(
                                           color: Theme.of(context)
                                               .hoverIndicatorTextColor,
@@ -296,7 +276,6 @@ class _MobileChartState extends State<MobileChart> {
                                         ),
                                         textAlign: TextAlign.left,
                                       ),
-
                                     width: PRICE_BAR_WIDTH,
 
                                   ),
@@ -317,10 +296,7 @@ class _MobileChartState extends State<MobileChart> {
                                   color: Theme.of(context).grayColor,
                                   direction: Axis.vertical,),
                               ),
-                              right: (maxWidth - longPressX!) ~/
-                                      widget.candleWidth *
-                                      widget.candleWidth +
-                                  PRICE_BAR_WIDTH,
+                              right: (maxWidth - longPressX!) ~/ widget.candleWidth * widget.candleWidth + PRICE_BAR_WIDTH,
                             )
                           : Container(),
                       tapY != null
@@ -341,27 +317,16 @@ class _MobileChartState extends State<MobileChart> {
                                   child: Text(
                                     longPressY! < maxHeight * 1
                                         ? "  ${HelperFunctions.priceToString(
-                                        high -
-                                            (longPressY! - 20) /
-                                                (maxHeight * 1 - 40) *
-                                                (high - low))}"
+                                        high - (longPressY! - 20) / (maxHeight * 1 - 40) * (high - low))}"
                                         : "  ${HelperFunctions.addMetricPrefix(
                                         HelperFunctions.getRoof(
-                                            volumeHigh) *
-                                            (1 -
-                                                (longPressY! -
-                                                    maxHeight * 1 -
-                                                    10) /
-                                                    (maxHeight * 0 -
-                                                        10)))}",
+                                            volumeHigh) * (1 - (longPressY! - maxHeight * 1 - 10) / (maxHeight * 0 - 10)))}",
                                     style: TextStyle(
-                                      color: Theme.of(context)
-                                          .hoverIndicatorTextColor,
+                                      color: Theme.of(context).hoverIndicatorTextColor,
                                       fontSize: 14,
                                     ),
                                     textAlign: TextAlign.left,
                                   ),
-
                                   width: PRICE_BAR_WIDTH,
 
                                 ),
@@ -382,10 +347,7 @@ class _MobileChartState extends State<MobileChart> {
                                 color: Theme.of(context).grayColor,
                                 direction: Axis.vertical,),
                             ),
-                            right: (maxWidth - longPressX!) ~/
-                                widget.candleWidth *
-                                widget.candleWidth +
-                                PRICE_BAR_WIDTH,
+                            right: (maxWidth - longPressX!) ~/ widget.candleWidth * widget.candleWidth + PRICE_BAR_WIDTH,
                           )
                           : Container(),
                       Padding(
@@ -398,12 +360,12 @@ class _MobileChartState extends State<MobileChart> {
                       Padding(
                         padding: const EdgeInsets.only(right: 50, bottom: 20),
                         child: GestureDetector(
-                          // onLongPressEnd: (_) {
-                          //   setState(() {
-                          //     longPressX = null;
-                          //     longPressY = null;
-                          //   });
-                          // },
+                          onLongPressEnd: (_) {
+                            setState(() {
+                              longPressX = null;
+                              longPressY = null;
+                            });
+                          },
                           onScaleEnd: (_) {
                             widget.onPanEnd();
                           },
@@ -431,17 +393,17 @@ class _MobileChartState extends State<MobileChart> {
                               longPressY = details.localPosition.dy;
                             });
                           },
-                          onTapDown: (details){
-                            setState(() {
-                              longPressX = details.localPosition.dx;
-                              longPressY = details.localPosition.dy;
-                            });
-                          },
-                          onTap: (){
-                            setState(() {
-
-                            });
-                          }
+                          // onTapDown: (details){
+                          //   setState(() {
+                          //     longPressX = details.localPosition.dx;
+                          //     longPressY = details.localPosition.dy;
+                          //   });
+                          // },
+                          // onTap: (){
+                          //   setState(() {
+                          //
+                          //   });
+                          // }
                         ),
                       )
                     ],

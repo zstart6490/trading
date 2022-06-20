@@ -36,10 +36,10 @@ class ChartController extends BaseController
   }
 
   void onTabChange(int index) {
-    candlestickController.setIndex(0);
     print("onTabChange:  $index");
     final time = timeRange[index];
     getHistoryStockPrice(time);
+
   }
 
   Future<void> getHistoryStockPrice(String time) async {
@@ -65,6 +65,7 @@ class ChartController extends BaseController
 
       if (candles.length > 1) {
         //DUR_400.delay().then((_) => change(candles, status: RxStatus.success()));
+        candlestickController.setIndex(0);
         change(candles, status: RxStatus.success());
       } else {
         change(null, status: RxStatus.empty());

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:candlesticks/src/models/candle.dart';
+import 'package:candlesticks/src/widgets/draw_time.dart';
 import 'package:flutter/material.dart';
 import '../models/candle.dart';
 
@@ -88,6 +89,7 @@ class CandleStickRenderObject extends RenderBox {
     Color bearColor,
   ) {
     _candles = candles;
+
     _index = index;
     _candleWidth = candleWidth;
     _low = low;
@@ -109,15 +111,37 @@ class CandleStickRenderObject extends RenderBox {
     Paint paint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = (_candleWidth >6) ? max(0.5, _candleWidth/8) : max(0.5, _candleWidth/4);
+      ..strokeWidth = min(2,(_candleWidth >6) ?  max(0.5, _candleWidth/8) : max(0.5, _candleWidth/4));
 
     double x = size.width + offset.dx - (index + 0.5) * _candleWidth;
+
 
     context.canvas.drawLine(
       Offset(x, offset.dy + (_high - candle.high) / range),
       Offset(x, offset.dy + (_high - candle.low) / range),
       paint,
     );
+
+
+
+    //
+    // final textSpan = TextSpan(
+    //   text: index.toString(),
+    //   style:  TextStyle(
+    //     color: Colors.black,
+    //     fontSize: 12,
+    //   ),
+    // );
+    // final textPainter = TextPainter(
+    //   text: textSpan,
+    //   textDirection: TextDirection.ltr,
+    // );
+    // textPainter.layout(
+    //   minWidth: 0,
+    //   maxWidth: size.width,
+    // );
+    //
+    // textPainter.paint(context.canvas,  Offset(x, -10));
 
     final double openCandleY = offset.dy + (_high - candle.open) / range;
     final double closeCandleY = offset.dy + (_high - candle.close) / range;
@@ -142,11 +166,14 @@ class CandleStickRenderObject extends RenderBox {
   @override
   void paint(PaintingContext context, Offset offset) {
     double range = (_high - _low) / size.height;
+    // int current_month = _candles[0].date.month;
     for (int i = 0; (i + 1) * _candleWidth < size.width; i++) {
-      final value = i +_index;
+      final value = i +_index ;
+
       if (value >= _candles.length || value < 0) continue;
       var candle = _candles[value];
       paintCandle(context, offset, i, candle, range);
+      // DrawTime(date: current_month.toString(), offset: Offset(offset.dx,size.height)).paint(context.canvas, size);
     }
     _close = _candles[0].close;
     context.canvas.save();
