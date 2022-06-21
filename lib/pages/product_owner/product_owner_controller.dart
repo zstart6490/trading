@@ -4,6 +4,8 @@ import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/product_own.dart';
 import 'package:trading_module/domain/use_cases/user_stock_usecase.dart';
 import 'package:trading_module/routes/app_navigate.dart';
+import 'package:trading_module/shared_widgets/CustomAlertDialog.dart';
+import 'package:trading_module/utils/util.dart';
 
 class ProductOwnerController extends BaseController
     with StateMixin<List<ProductOwn>> {
@@ -75,7 +77,53 @@ class ProductOwnerController extends BaseController
   }
 
   void onTapped(ProductOwn stock) {
-    navToSellStock(stock.toStockModel());
+    if (stock.quantity <= 0) {
+      final subtitleStyle =
+          Get.context!.textSize14.copyWith(color: const Color(0xFF5C5C5C));
+      showAlertDialog(CustomAlertDialog(
+          title: "Hiện chưa thể bán mã này",
+          descWidget: Column(children: [
+            "sell_stock_validation".pngImage(mWidth: 112,mHeight: 90),
+            RichText(
+              textAlign: TextAlign.center,
+              maxLines: 4,
+              text: TextSpan(
+                text: "Sau",
+                style: subtitleStyle,
+                children: <TextSpan>[
+                  TextSpan(
+                      text: " 2 ngày ",
+                      style: subtitleStyle.copyWith(color: Colors.green,fontWeight: FontWeight.bold)),
+                  TextSpan(
+                      text:
+                      "thực hiện giao dịch mua thành công, CP về tại tài khoản ",
+                      style:
+                      subtitleStyle.copyWith(color: const Color(0xFF5C5C5C))),
+                  TextSpan(
+                      text: "\"CP có thể bán\" ",
+                      style:
+                      subtitleStyle.copyWith(color: const Color(0xFF5C5C5C),fontWeight: FontWeight.bold)),
+                  TextSpan(
+                      text: "mới giao dịch bán được.\n",
+                      style:
+                      subtitleStyle.copyWith(color: const Color(0xFF5C5C5C))),
+                  TextSpan(
+                      text: "(Không kể thứ bảy, chủ nhật và ngày lễ)",
+                      style:
+                      subtitleStyle.copyWith(color: const Color(0xFF5C5C5C))),
+                ],
+              ),
+            )
+          ],),
+          actions: [
+            AlertAction(
+                text: "Tôi đã hiểu",
+                isDefaultAction: true,
+                onPressed: () => hideDialog())
+          ]));
+    } else {
+      navToSellStock(stock.toStockModel());
+    }
   }
 
   void buyStock() {
