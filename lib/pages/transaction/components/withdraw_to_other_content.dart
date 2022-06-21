@@ -40,7 +40,7 @@ class WithdrawToOtherContent extends StatelessWidget {
         CustomTableCell(
           title: "Nguồn tiền",
           detail: transaction.fundsLabel,
-          detailStyle: context.textSize14.copyWith(color: context.primaryColor),
+          detailStyle: context.textSize14.copyWith(color: context.primaryColor,fontWeight: FontWeight.bold),
         ),
          CustomTableCell(
           title: "Số tiền rút",
@@ -53,7 +53,7 @@ class WithdrawToOtherContent extends StatelessWidget {
         CustomTableCell(
           title: "Tiền thực nhận",
           detail: transaction.receiveAmount.toCurrency(),
-          detailStyle: context.textSize14.copyWith(color: context.primaryColor),
+          detailStyle: context.textSize14.copyWith(color: context.primaryColor,fontWeight: FontWeight.bold),
         ),
 
       ],

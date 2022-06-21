@@ -82,7 +82,7 @@ class BuyStockController extends ExchangeStockController {
     // canConfirm.value = true;
     canConfirm.value = requestAmount > 0 &&
         amount.value <= amountMaximum.value &&
-        amount.value > 0;
+        amount.value > 0 && priceStock.value>0;
     overBuy.value = (amount.value > amountMaximum.value)
         ? ConditionState.error
         : ConditionState.none;

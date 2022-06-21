@@ -35,9 +35,9 @@ class WithdrawSavingInfo extends StatelessWidget {
             ),
             CustomTableCell(
               title: "Thời gian",
-              detail: transaction.createDate.toStringFormat(DateFormater.ddMMYYYYhhmm),
+              detail: transaction.createDate.toStringFormat(DateFormater.hhmmDDMMYYYY),
             ),
-          const Divider(),
+          const Divider(height: 2),
           WithdrawToOtherContent(transaction)
 
         ],
