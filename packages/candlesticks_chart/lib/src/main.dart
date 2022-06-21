@@ -63,7 +63,7 @@ class Candlesticks extends StatefulWidget {
 class _CandlesticksState extends State<Candlesticks> {
   /// index of the newest candle to be displayed
   /// changes when user scrolls along the chart
-  static final  defaultIndex = 0;
+  static final  defaultIndex = -10;
   int index = defaultIndex;
   double lastX = 0;
   int lastIndex = defaultIndex;
@@ -105,7 +105,10 @@ class _CandlesticksState extends State<Candlesticks> {
           onZoomOutPressed: () {
             setState(() {
               candleWidth -= 2;
-              candleWidth = /*widget.candles.length <=7 ? max(candleWidth, 40) :*/max(candleWidth, 1);
+              candleWidth = max(
+                  candleWidth,
+                  (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 8 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1
+              );
             });
           },
           children: widget.actions,
@@ -135,7 +138,10 @@ class _CandlesticksState extends State<Candlesticks> {
                       setState(() {
                         candleWidth *= scale;
                         candleWidth = min(candleWidth, 40);
-                        candleWidth = widget.candles.length <=7 ? max(candleWidth, 40) :max(candleWidth, 1);
+                        candleWidth = max(
+                            candleWidth,
+                            (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 8 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1
+                        );
                       });
                     },
                     onPanEnd: () {

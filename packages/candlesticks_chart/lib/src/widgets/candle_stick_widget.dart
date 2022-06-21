@@ -42,7 +42,7 @@ class CandleStickWidget extends LeafRenderObjectWidget {
       BuildContext context, covariant RenderObject renderObject) {
     CandleStickRenderObject candlestickRenderObject =
         renderObject as CandleStickRenderObject;
-
+    candlestickRenderObject._close = candles[0].close;
     if (index <= 0 && candlestickRenderObject._close != candles[0].close) {
       candlestickRenderObject._candles = candles;
       candlestickRenderObject._index = index;
@@ -53,9 +53,9 @@ class CandleStickWidget extends LeafRenderObjectWidget {
       candlestickRenderObject._bearColor = bearColor;
       candlestickRenderObject.markNeedsPaint();
     } else if (candlestickRenderObject._index != index ||
-        candlestickRenderObject._candleWidth != candleWidth ||
-        candlestickRenderObject._high != high ||
-        candlestickRenderObject._low != low) {
+      candlestickRenderObject._candleWidth != candleWidth ||
+      candlestickRenderObject._high != high ||
+      candlestickRenderObject._low != low) {
       candlestickRenderObject._candles = candles;
       candlestickRenderObject._index = index;
       candlestickRenderObject._candleWidth = candleWidth;
@@ -105,13 +105,17 @@ class CandleStickRenderObject extends RenderBox {
   }
 
   /// draws a single candle
-  void paintCandle(PaintingContext context, Offset offset, int index,
-      Candle candle, double range) {
+  void paintCandle(PaintingContext context, Offset offset, int index, Candle candle, double range, int indexData) {
     Color color = candle.isBull ? _bullColor : _bearColor;
     Paint paint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
       ..strokeWidth = min(2,(_candleWidth >6) ?  max(0.5, _candleWidth/8) : max(0.5, _candleWidth/4));
+
+    Paint line = Paint()
+      ..color = Color(0x59848E9C)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 0.7;
 
     double x = size.width + offset.dx - (index + 0.5) * _candleWidth;
 
@@ -123,25 +127,67 @@ class CandleStickRenderObject extends RenderBox {
     );
 
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if(indexData >= 0) {
+      final dateText = TextSpan(
+        text: _candles[indexData].date.day.toString() + "/" +_candles[indexData].date.month.toString(),
+        style:  TextStyle(
+          color: Colors.black,
+          fontSize: 12,
+        ),
+      );
+      final dateTextPainter = TextPainter(
+        text: dateText,
+        textDirection: TextDirection.ltr,
+      );
+      dateTextPainter.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
 
-    //
-    // final textSpan = TextSpan(
-    //   text: index.toString(),
-    //   style:  TextStyle(
-    //     color: Colors.black,
-    //     fontSize: 12,
-    //   ),
-    // );
-    // final textPainter = TextPainter(
-    //   text: textSpan,
-    //   textDirection: TextDirection.ltr,
-    // );
-    // textPainter.layout(
-    //   minWidth: 0,
-    //   maxWidth: size.width,
-    // );
-    //
-    // textPainter.paint(context.canvas,  Offset(x, -10));
+      final montText = TextSpan(
+        text: "Tháng " +_candles[indexData].date.month.toString(),
+        style:  TextStyle(
+          color: Colors.black,
+          fontSize: 12,
+        ),
+      );
+      final monthTextPainter = TextPainter(
+        text: montText,
+        textDirection: TextDirection.ltr,
+      );
+      monthTextPainter.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
+      final int current_month = _candles[0].date.month;
+      if(_candleWidth <= 40 && _candleWidth > 30  && indexData % 2 ==0){
+        context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
+        dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , -10));
+      }
+      else if(_candleWidth <= 30 && _candleWidth >= 8  && indexData % 5 ==0){
+        context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
+        dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , -10));
+      }
+      else if(_candles[indexData].date.month != _candles[indexData +1].date.month) {
+        if(_candleWidth < 8 && _candleWidth >= 4) {
+          context.canvas.drawLine(Offset(x, 0), Offset(x, size.height), line);
+          monthTextPainter.paint(
+              context.canvas, Offset(x - monthTextPainter.width / 2, -10));
+        }
+        else if(_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month-current_month)%2 == 0){
+          context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
+          monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width/2 , -10));
+        }
+        else if(_candleWidth == 1 && (_candles[indexData].date.month-current_month)%3 == 0){
+          context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
+          monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width/2 , -10));
+        }
+      }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     final double openCandleY = offset.dy + (_high - candle.open) / range;
     final double closeCandleY = offset.dy + (_high - candle.close) / range;
@@ -166,13 +212,11 @@ class CandleStickRenderObject extends RenderBox {
   @override
   void paint(PaintingContext context, Offset offset) {
     double range = (_high - _low) / size.height;
-    // int current_month = _candles[0].date.month;
-    for (int i = 0; (i + 1) * _candleWidth < size.width; i++) {
+    for (int i = -10; (i + 1) * _candleWidth < size.width; i++) {
       final value = i +_index ;
-
       if (value >= _candles.length || value < 0) continue;
       var candle = _candles[value];
-      paintCandle(context, offset, i, candle, range);
+      paintCandle(context, offset, i, candle, range, value);
       // DrawTime(date: current_month.toString(), offset: Offset(offset.dx,size.height)).paint(context.canvas, size);
     }
     _close = _candles[0].close;

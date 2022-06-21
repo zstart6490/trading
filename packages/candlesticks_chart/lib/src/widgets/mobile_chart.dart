@@ -107,11 +107,17 @@ class _MobileChartState extends State<MobileChart> {
           if (candlesStartIndex >= widget.candles.length) {
             candlesStartIndex = 0;
           }
-          List<Candle> inRangeCandles = widget.candles
-              .getRange(candlesStartIndex, length)
-              .toList();
-          candlesHighPrice = inRangeCandles.map((e) => e.high).reduce(max);
-          candlesLowPrice = inRangeCandles.map((e) => e.low).reduce(min);
+          if(length >= 0)
+          {
+            List<Candle> inRangeCandles =
+                widget.candles.getRange(candlesStartIndex, length).toList();
+            candlesHighPrice = inRangeCandles.map((e) => e.high).reduce(max);
+            candlesLowPrice = inRangeCandles.map((e) => e.low).reduce(min);
+          }
+          else{
+            candlesHighPrice = widget.candles[0].high;
+            candlesLowPrice = widget.candles[0].low;
+          }
         } else if (widget.chartAdjust == ChartAdjust.fullRange) {
           candlesHighPrice = widget.candles.map((e) => e.high).reduce(max);
           candlesLowPrice = widget.candles.map((e) => e.low).reduce(min);
@@ -162,13 +168,13 @@ class _MobileChartState extends State<MobileChart> {
                   margin: const EdgeInsets.only(bottom: 10),
                   child: Stack(
                     children: [
-                      TimeRow(
-                        indicatorX: longPressX,
-                        candles: widget.candles,
-                        candleWidth: widget.candleWidth,
-                        indicatorTime: currentCandle?.date,
-                        index: widget.index,
-                      ),
+                      // TimeRow(
+                      //   indicatorX: longPressX,
+                      //   candles: widget.candles,
+                      //   candleWidth: widget.candleWidth,
+                      //   indicatorTime: currentCandle?.date,
+                      //   index: widget.index,
+                      // ),
                       Column(
                         children: [
                           Expanded(
