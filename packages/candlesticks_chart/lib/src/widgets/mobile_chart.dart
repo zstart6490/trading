@@ -5,6 +5,7 @@ import 'package:candlesticks/src/theme/theme_data.dart';
 import 'package:candlesticks/src/utils/helper_functions.dart';
 import 'package:candlesticks/src/widgets/candle_info_text.dart';
 import 'package:candlesticks/src/widgets/candle_stick_widget.dart';
+import 'package:candlesticks/src/widgets/draw_time.dart';
 import 'package:candlesticks/src/widgets/price_column.dart';
 import 'package:candlesticks/src/widgets/time_row.dart';
 import 'package:flutter/material.dart';
@@ -86,19 +87,16 @@ class _MobileChartState extends State<MobileChart> {
         // determine charts width and height
         final double maxWidth = constraints.maxWidth - PRICE_BAR_WIDTH;
         final double maxHeight = constraints.maxHeight - DATE_BAR_HEIGHT;
-
         // visible candles start and end indexes
         int candlesStartIndex = max(widget.index, 0);
         final int candlesEndIndex = min(
             maxWidth ~/ widget.candleWidth + widget.index,
             widget.candles.length - 1);
-
         if (candlesEndIndex == widget.candles.length - 1) {
           Future(() {
             widget.onReachEnd();
           });
         }
-
         // visible candles highest and lowest price
         double candlesHighPrice = 0;
         double candlesLowPrice = 0;
@@ -153,28 +151,44 @@ class _MobileChartState extends State<MobileChart> {
         return TweenAnimationBuilder(
           tween: Tween(begin: candlesHighPrice, end: candlesHighPrice),
           duration: Duration(milliseconds: 300),
-          builder: (context, double high, _) {
+          builder: (context, double high, Widget? child) {
             return TweenAnimationBuilder(
               tween: Tween(begin: candlesLowPrice, end: candlesLowPrice),
               duration: Duration(milliseconds: 300),
-              builder: (context, double low, _) {
+              builder: (context, double low, Widget? child) {
                 final currentCandle = longPressX == null
                     ? null
                     : widget.candles[min(
                         max((maxWidth - longPressX!) ~/ widget.candleWidth + widget.index, 0),
                         widget.candles.length - 1)];
                 return Container(
-                  color: Theme.of(context).background,
                   margin: const EdgeInsets.only(bottom: 10),
                   child: Stack(
                     children: [
-                      // TimeRow(
-                      //   indicatorX: longPressX,
-                      //   candles: widget.candles,
-                      //   candleWidth: widget.candleWidth,
-                      //   indicatorTime: currentCandle?.date,
-                      //   index: widget.index,
-                      // ),
+                      Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.only(right: PRICE_BAR_WIDTH),
+                        child: Container(
+                          color: Color(0xFFF4F4F4),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                    child: ClipRRect(
+                                      child:  RepaintBoundary(
+                                        child: DrawTime(
+                                          candles: widget.candles,
+                                          candleWidth: widget.candleWidth,
+                                          index: widget.index,
+                                        ),
+                                      ),
+                                    )
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       Column(
                         children: [
                           Expanded(
@@ -186,8 +200,6 @@ class _MobileChartState extends State<MobileChart> {
                                   priceScale: priceScale,
                                   width: constraints.maxWidth,
                                   chartHeight: chartHeight,
-                                  // lastCandle: widget.candles[
-                                  //     widget.index < 0 ? 0 : widget.index],
                                   lastCandle: widget.candles[
                                       widget.index < 0 ? 0 : (widget.index >= widget.candles.length ? widget.candles.length - 1 : widget.index)],
 
@@ -246,6 +258,7 @@ class _MobileChartState extends State<MobileChart> {
                                     ),
                                   ],
                                 ),
+
                               ],
                             ),
                           ),

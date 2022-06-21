@@ -65,7 +65,7 @@ class ChartController extends BaseController
 
       if (candles.length > 1) {
         //DUR_400.delay().then((_) => change(candles, status: RxStatus.success()));
-        candlestickController.setIndex(0);
+        candlestickController.setIndex(-1);
         change(candles, status: RxStatus.success());
       } else {
         change(null, status: RxStatus.empty());

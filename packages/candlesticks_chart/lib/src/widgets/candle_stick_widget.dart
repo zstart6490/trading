@@ -126,65 +126,66 @@ class CandleStickRenderObject extends RenderBox {
       paint,
     );
 
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(indexData >= 0) {
-      final dateText = TextSpan(
-        text: _candles[indexData].date.day.toString() + "/" +_candles[indexData].date.month.toString(),
-        style:  TextStyle(
-          color: Colors.black,
-          fontSize: 12,
-        ),
-      );
-      final dateTextPainter = TextPainter(
-        text: dateText,
-        textDirection: TextDirection.ltr,
-      );
-      dateTextPainter.layout(
-        minWidth: 0,
-        maxWidth: size.width,
-      );
-
-      final montText = TextSpan(
-        text: "Tháng " +_candles[indexData].date.month.toString(),
-        style:  TextStyle(
-          color: Colors.black,
-          fontSize: 12,
-        ),
-      );
-      final monthTextPainter = TextPainter(
-        text: montText,
-        textDirection: TextDirection.ltr,
-      );
-      monthTextPainter.layout(
-        minWidth: 0,
-        maxWidth: size.width,
-      );
-      final int current_month = _candles[0].date.month;
-      if(_candleWidth <= 40 && _candleWidth > 30  && indexData % 2 ==0){
-        context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
-        dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , -10));
-      }
-      else if(_candleWidth <= 30 && _candleWidth >= 8  && indexData % 5 ==0){
-        context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
-        dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , -10));
-      }
-      else if(_candles[indexData].date.month != _candles[indexData +1].date.month) {
-        if(_candleWidth < 8 && _candleWidth >= 4) {
-          context.canvas.drawLine(Offset(x, 0), Offset(x, size.height), line);
-          monthTextPainter.paint(
-              context.canvas, Offset(x - monthTextPainter.width / 2, -10));
-        }
-        else if(_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month-current_month)%2 == 0){
-          context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
-          monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width/2 , -10));
-        }
-        else if(_candleWidth == 1 && (_candles[indexData].date.month-current_month)%3 == 0){
-          context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
-          monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width/2 , -10));
-        }
-      }
-    }
+    //
+    // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // late double date_height = -10;
+    // if(indexData >= 0) {
+    //   final dateText = TextSpan(
+    //     text: _candles[indexData].date.day.toString() + "/" +_candles[indexData].date.month.toString(),
+    //     style:  TextStyle(
+    //       color: Colors.black,
+    //       fontSize: 12,
+    //     ),
+    //   );
+    //   final dateTextPainter = TextPainter(
+    //     text: dateText,
+    //     textDirection: TextDirection.ltr,
+    //   );
+    //   dateTextPainter.layout(
+    //     minWidth: 0,
+    //     maxWidth: size.width,
+    //   );
+    //
+    //   final montText = TextSpan(
+    //     text: "Tháng " +_candles[indexData].date.month.toString(),
+    //     style:  TextStyle(
+    //       color: Colors.black,
+    //       fontSize: 12,
+    //     ),
+    //   );
+    //   final monthTextPainter = TextPainter(
+    //     text: montText,
+    //     textDirection: TextDirection.ltr,
+    //   );
+    //   monthTextPainter.layout(
+    //     minWidth: 0,
+    //     maxWidth: size.width,
+    //   );
+    //   final int current_month = _candles[0].date.month;
+    //   if(_candleWidth <= 40 && _candleWidth > 30  && indexData % 2 ==0){
+    //     context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
+    //     dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , date_height));
+    //   }
+    //   else if(_candleWidth <= 30 && _candleWidth >= 8  && indexData % 5 ==0){
+    //     context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
+    //     dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , date_height));
+    //   }
+    //   else if(_candles[indexData].date.month != _candles[indexData +1].date.month) {
+    //     if(_candleWidth < 8 && _candleWidth >= 4) {
+    //       context.canvas.drawLine(Offset(x, 0), Offset(x, size.height), line);
+    //       monthTextPainter.paint(
+    //           context.canvas, Offset(x - monthTextPainter.width / 2, date_height));
+    //     }
+    //     else if(_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month-current_month)%2 == 0){
+    //       context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
+    //       monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width/2 , date_height));
+    //     }
+    //     else if(_candleWidth == 1 && (_candles[indexData].date.month-current_month)%3 == 0){
+    //       context.canvas.drawLine(Offset(x, 0), Offset(x,size.height), line);
+    //       monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width/2 , date_height));
+    //     }
+    //   }
+    // }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -212,12 +213,11 @@ class CandleStickRenderObject extends RenderBox {
   @override
   void paint(PaintingContext context, Offset offset) {
     double range = (_high - _low) / size.height;
-    for (int i = -10; (i + 1) * _candleWidth < size.width; i++) {
+    for (int i = -1; (i + 1) * _candleWidth < size.width; i++) {
       final value = i +_index ;
       if (value >= _candles.length || value < 0) continue;
       var candle = _candles[value];
       paintCandle(context, offset, i, candle, range, value);
-      // DrawTime(date: current_month.toString(), offset: Offset(offset.dx,size.height)).paint(context.canvas, size);
     }
     _close = _candles[0].close;
     context.canvas.save();

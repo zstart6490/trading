@@ -2,12 +2,14 @@ import 'dart:math';
 import 'package:candlesticks/src/controller/candlestick_chart_controller.dart';
 import 'package:candlesticks/src/models/candle.dart';
 import 'package:candlesticks/src/theme/theme_data.dart';
+import 'package:candlesticks/src/widgets/draw_time.dart';
 import 'package:candlesticks/src/widgets/toolbar_action.dart';
 import 'package:candlesticks/src/widgets/mobile_chart.dart';
 import 'package:candlesticks/src/widgets/desktop_chart.dart';
 import 'package:candlesticks/src/widgets/toolbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'constant/view_constants.dart';
 import 'models/candle.dart';
 import 'dart:io' show Platform;
 
@@ -63,7 +65,7 @@ class Candlesticks extends StatefulWidget {
 class _CandlesticksState extends State<Candlesticks> {
   /// index of the newest candle to be displayed
   /// changes when user scrolls along the chart
-  static final  defaultIndex = -10;
+  static final  defaultIndex = -2;
   int index = defaultIndex;
   double lastX = 0;
   int lastIndex = defaultIndex;
@@ -172,7 +174,39 @@ class _CandlesticksState extends State<Candlesticks> {
                     candles: widget.candles,
                     index: index,
                   );
-                }
+                },
+              child: Container(
+                width: 300,
+                height: 300,
+                color: Colors.red,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                          child: ClipRRect(
+                            child: AnimatedPadding(
+                              duration: Duration(milliseconds: 300),
+                              padding: EdgeInsets.only(
+                                  top: MAIN_CHART_VERTICAL_PADDING  + 14,
+                                  bottom: MAIN_CHART_VERTICAL_PADDING  - 14
+                              ),
+                              child: RepaintBoundary(
+                                child: DrawTime(
+                                  candles: widget.candles,
+                                  candleWidth: candleWidth,
+                                  index: index,
+                                ),
+                              ),
+                            ),
+                          )
+                      ),
+                    ),
+                    SizedBox(
+                      width: PRICE_BAR_WIDTH,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
       ],
