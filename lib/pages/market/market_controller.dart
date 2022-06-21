@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rxdart/streams.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/data/entities/socket_stock_event.dart';
@@ -56,14 +57,14 @@ class MarketController extends BaseController
           if (listStock.isEmpty){
             change(null, status: RxStatus.error(result.error!.message));
           }else{
-            showSnackBar(result.error!.message);
+            showSnackBar(UNKNOWN_ERROR);
           }
         }
         hideDialog();
         subscribe();
       },
     ).onError((e) {
-      showSnackBar("Có lỗi xảy ra. Vui lòng quay lại sau");
+      showSnackBar(UNKNOWN_ERROR);
       hideDialog();
     });
   }
@@ -117,7 +118,7 @@ class MarketController extends BaseController
       if (listStock.isEmpty){
         change(null, status: RxStatus.error(result.error!.message));
       }else{
-        showSnackBar(result.error!.message);
+        showSnackBar(UNKNOWN_ERROR);
       }
     }
     subscribe();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/product_owner/my_product_cell.dart';
 import 'package:trading_module/pages/product_owner/product_owner_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
@@ -71,7 +72,18 @@ class ProductOwnerScene extends GetView<ProductOwnerController> {
               ]),
             ),
             onLoading: const SizedBox(),
-            onError: (error) => Text(error ?? "Load Content Error!"),
+            onError: (error) => SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: ListNoDataBackground(
+                pngPath: "assets/images/png/banner_error.png",
+                title: UNKNOWN_ERROR,
+                padding: PAD_SYM_H40,
+                showIconButton: false,
+                btnTitle: "Thử lại",
+                onPressed: () => controller.getListStock(),
+              ),
+            ),
+
             onEmpty: Obx(() => controller.textSearch.value.isNotEmpty
                 ? const ListNoDataBackground(
                     pngPath: "assets/images/png/banner_search_not_found.png",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/stock_detail/Views/cp_news_item_view.dart';
 import 'package:trading_module/pages/stock_more_detail/tabs/news/stock_company_news_controller.dart';
 import 'package:trading_module/shared_widgets/ListNoDataBackground.dart';
@@ -27,7 +28,7 @@ class StockCompanyNewsView extends StatelessWidget {
         onError: (error) => const ListNoDataBackground(
           padding: EdgeInsets.only(top: 100),
           pngPath: "assets/images/png/trans_empty.png",
-          title: "Có lỗi xảy ra!",
+          title: UNKNOWN_ERROR,
           desc: "",
         ),
         onEmpty: const ListNoDataBackground(

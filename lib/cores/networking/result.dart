@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:trading_module/configs/constants.dart';
 
 part 'result.g.dart';
 
@@ -21,13 +22,13 @@ class Result {
   bool get hasError => !success && code != null;
 
   Errors? get error =>
-      code != null ? Errors(code!, msg ?? "Có lỗi xảy ra! Hãy thử lại") : null;
+      code != null ? Errors(code!, msg ?? UNKNOWN_ERROR) : null;
 
   factory Result.fromJson(String json) =>
       _$ResultFromJson(jsonDecode(json) as Map<String, dynamic>);
 
   factory Result.unknowError() =>
-      Result(code: -1, success: false, msg: "Có lỗi xảy ra! Hãy thử lại");
+      Result(code: -1, success: false, msg: UNKNOWN_ERROR);
 }
 
 class Errors {

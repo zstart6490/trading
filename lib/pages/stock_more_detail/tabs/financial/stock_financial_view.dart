@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/stock_detail/Views/cell_finance_info.dart';
 import 'package:trading_module/pages/stock_detail/Views/cell_header_finance_info.dart';
 import 'package:trading_module/pages/stock_more_detail/tabs/financial/stock_company_info_controller.dart';
@@ -234,7 +235,7 @@ class StockFinancialView extends StatelessWidget {
       onError: (error) =>  ListNoDataBackground(
         padding: const EdgeInsets.only(top: 100),
         pngPath: "assets/images/png/trans_empty.png",
-        title: "Có lỗi xảy ra",
+        title: UNKNOWN_ERROR,
         desc: error??"",
       ),
     );

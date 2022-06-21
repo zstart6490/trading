@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/cores/stock_price_socket.dart';
 import 'package:trading_module/domain/entities/my_stock_model.dart';
@@ -65,7 +66,7 @@ class StockDetailController extends BaseController
       stock.imageUrl = result.data?.imageUrl ?? "";
     } else if (result.error != null) {
       change(null, status: RxStatus.error());
-      showSnackBar(result.error!.message);
+      showSnackBar(UNKNOWN_ERROR);
     }
   }
 

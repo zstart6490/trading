@@ -74,7 +74,7 @@ class StockDetailScene extends GetView<StockDetailController> {
           width: MediaQuery.of(context).size.width,
           child: ListNoDataBackground(
             pngPath: "assets/images/png/banner_error.png",
-            title: "Có lỗi xảy ra, vui lòng thử lại!",
+            title: UNKNOWN_ERROR,
             padding: PAD_SYM_H40,
             showIconButton: false,
             btnTitle: "Thử lại",

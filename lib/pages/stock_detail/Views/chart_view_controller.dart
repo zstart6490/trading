@@ -44,14 +44,9 @@ class ChartController extends BaseController
   }
 
   Future<void> getHistoryStockPrice(String time) async {
-    //showProgressingDialog();
-    final time1 = new DateTime.now();
-    print("start time $timee: ${time1}");
     final result = await _stockMarketUseCase.getHistoryStockPrice(
         symbol: stock.symbol, type: time);
-    print("End time $timee: ${new DateTime.now()}");
 
-    timee+=1;
     if (result.data != null) {
       final length = result.data?.length ?? 0;
       final data = result.data!;
@@ -81,7 +76,7 @@ class ChartController extends BaseController
       //   getHistoryStockPrice(time);
       // }else{
       change(null, status: RxStatus.error());
-      showSnackBar(result.error!.message);
+      showSnackBar(UNKNOWN_ERROR);
       // }
 
     }

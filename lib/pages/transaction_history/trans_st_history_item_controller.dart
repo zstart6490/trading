@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/entities/navigate_stock_trans_detail.dart';
 import 'package:trading_module/domain/entities/list_order_transaction.dart';
@@ -59,7 +60,7 @@ class TransStockHistoryController extends BaseController
       }
     }
     if (result.error != null) {
-      showSnackBar(result.error?.message ?? "Error");
+      showSnackBar(UNKNOWN_ERROR);
       change([], status: RxStatus.empty());
     }
   }
@@ -106,7 +107,7 @@ class TransStockHistoryController extends BaseController
       navToStockTransactionDetail(navigateStockTranDetail);
     }
     if (result.error != null) {
-      showSnackBar(result.error!.message);
+      showSnackBar(UNKNOWN_ERROR);
     }
   }
 }

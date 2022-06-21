@@ -52,7 +52,7 @@ class ProductOwnerController extends BaseController
         change(listStock, status: RxStatus.empty());
       }
     } else if (result.error != null) {
-      showSnackBar(result.error!.message);
+      showSnackBar(UNKNOWN_ERROR);
       change(null, status: RxStatus.error());
     }
   }

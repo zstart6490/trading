@@ -116,7 +116,7 @@ class HomePageController extends BaseController
                 totalMoneyUser: balance));
       }
       if (result.error != null) {
-        showSnackBar(result.error!.message);
+        showSnackBar(UNKNOWN_ERROR);
       }
     } else {
       //to add bank
@@ -241,7 +241,7 @@ class HomePageController extends BaseController
       if (accountInfoModel == null){
         change(null, status: RxStatus.error(result.error!.message));
       }else{
-        showSnackBar(result.error!.message);
+        showSnackBar(UNKNOWN_ERROR);
       }
     } else {
       //change(null, status: RxStatus.empty());

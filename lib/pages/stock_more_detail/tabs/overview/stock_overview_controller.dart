@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/data/repos/stock_repo_impl.dart';
 import 'package:trading_module/data/services/local/stock_storage_service.dart';
@@ -43,7 +44,7 @@ class StockOverviewController extends BaseController
         change(result.data, status: RxStatus.success());
       } else if (result.error != null) {
         change(null, status: RxStatus.error(result.error!.message));
-        showSnackBar(result.error!.message);
+        showSnackBar(UNKNOWN_ERROR);
       }
     }
   }

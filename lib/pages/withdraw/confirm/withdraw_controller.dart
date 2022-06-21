@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
 import 'package:trading_module/domain/entities/bank.dart';
 import 'package:trading_module/domain/entities/info_withdraw.dart';
@@ -40,7 +41,7 @@ class WithdrawController extends BaseController with BaseCheckSmartOTP {
         selectedBank.value = userBanks.first;
       }
     } else {
-      showSnackBar(result.error!.message);
+      showSnackBar(UNKNOWN_ERROR);
     }
   }
 
