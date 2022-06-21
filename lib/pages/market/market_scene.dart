@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:trading_module/configs/constants.dart';
 import 'package:trading_module/pages/market/market_cell.dart';
 import 'package:trading_module/pages/market/market_controller.dart';
 import 'package:trading_module/shared_widgets/BaseScaffold.dart';
@@ -89,10 +90,19 @@ class MarketScene extends GetView<MarketController> {
                         itemCount: stocks!.length,
                       )),
                   onLoading: const SizedBox(),
-                  onError: (error) => const ListNoDataBackground(
-                        pngPath: "assets/images/png/banner_error.png",
-                        title: "Có lỗi xảy ra, vui lòng thử lại!",
-                      ),
+
+                  onError: (error) => SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: ListNoDataBackground(
+                      pngPath: "assets/images/png/banner_error.png",
+                      title: "Có lỗi xảy ra, vui lòng thử lại!",
+                      padding: PAD_SYM_H40,
+                      showIconButton: false,
+                      btnTitle: "Thử lại",
+                      onPressed: () => controller.getListStock(),
+                    ),
+                  ),
+
                   onEmpty: const ListNoDataBackground(
                     pngPath: "assets/images/png/banner_search_not_found.png",
                     title: "Không tìm thấy kết quả",

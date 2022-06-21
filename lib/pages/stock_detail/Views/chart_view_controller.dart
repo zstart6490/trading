@@ -43,6 +43,7 @@ class ChartController extends BaseController
   }
 
   Future<void> getHistoryStockPrice(String time) async {
+    //showProgressingDialog();
     final result = await _stockMarketUseCase.getHistoryStockPrice(
         symbol: stock.symbol, type: time);
     if (result.data != null) {
@@ -61,7 +62,7 @@ class ChartController extends BaseController
         );
         candles.add(candle);
       }
-      print("AAAA:  ${candles.length}");
+      //print("AAAA:  ${candles.length}");
 
       if (candles.length > 1) {
         //DUR_400.delay().then((_) => change(candles, status: RxStatus.success()));
@@ -78,9 +79,10 @@ class ChartController extends BaseController
       // }
 
     }
+    //hideDialog();
   }
 
-  void changeThem() {
+  void changeTheme() {
     themeIsDark.value = !themeIsDark.value;
   }
 }

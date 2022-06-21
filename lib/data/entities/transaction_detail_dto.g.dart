@@ -89,6 +89,7 @@ const _$TransactionMethodEnumMap = {
   TransactionMethod.renew: 'RENEW',
   TransactionMethod.moveProduct: 'MOVE_PRODUCT',
   TransactionMethod.moveProductFromTarget: 'MOVE_PRODUCT_FROM_TARGET',
+  TransactionMethod.moveSavingFromRealEstate: 'MOVE_SAVING_FROM_REAL_ESTATE',
   TransactionMethod.transferSaving: 'TRANSFER_SAVING',
   TransactionMethod.ninePay_withdraw: '9PAY_WITHDRAW',
   TransactionMethod.none: 'none',

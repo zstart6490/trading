@@ -482,7 +482,7 @@ class StockOverviewScene extends StatelessWidget {
                   child: Text(
                     (stock?.avg ?? 0).getPriceStock(),
                     style: TextStyle(
-                      color:(stock?.avg ?? 0).getStockColorWith(
+                      color: (stock?.avg ?? 0).getStockColorWith(
                           stock?.refPrice ?? 0,
                           stock?.floor ?? 0,
                           stock?.ceiling ?? 0),
@@ -599,11 +599,18 @@ class StockOverviewScene extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
         ),
-        onError: (error) => const ListNoDataBackground(
-              padding: EdgeInsets.only(top: 100),
-              pngPath: "assets/images/png/trans_empty.png",
-              title: "Chưa có dữ liệu ",
-              desc: "",
-            ));
+
+      onError: (error) => SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: ListNoDataBackground(
+          pngPath: "assets/images/png/banner_error.png",
+          title: "Có lỗi xảy ra, vui lòng thử lại!",
+          padding: PAD_SYM_H40,
+          showIconButton: false,
+          btnTitle: "Thử lại",
+          onPressed: () => controller.getCurrentStockPrice(),
+        ),
+      ),
+    );
   }
 }

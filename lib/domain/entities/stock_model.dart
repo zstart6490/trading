@@ -8,6 +8,9 @@ class StockModel {
   double lastPrice;
   double change;
   double ratioChange;
+  double ceiling;
+  double floor;
+  double refPrice;
 
   String get fullLink =>
       "${Environment().backendUrl}/resource/v1/stock-image/$imageUrl";
@@ -19,5 +22,8 @@ class StockModel {
       required this.stockType,
       required this.lastPrice,
       required this.change,
-      required this.ratioChange});
+      required this.ratioChange,
+      required this.ceiling,
+      required this.floor,
+      required this.refPrice});
 }

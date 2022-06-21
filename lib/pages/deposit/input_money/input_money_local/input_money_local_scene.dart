@@ -51,7 +51,7 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
                         height: 30,
                         child: ValidateComponent(
                           desc:
-                              "Tối thiểu là ${int.parse(controller.mainProvider.configMap?.minMoneyUser ?? "500000").toCurrency()} trên một giao dịch",
+                              "Tối thiểu là ${int.parse(controller.mainProvider.configMap?.minMoneyUser ?? "50000").toCurrency()} trên một giao dịch",
                           state: controller.pasMinAmount.value,
                         ),
                       )),
@@ -60,7 +60,7 @@ class TDInputMoneyLocalScene extends GetView<TDInputMoneyLocalController> {
                           padding: PAD_SYM_H16,
                           child: ValidateComponent(
                             desc:
-                                "Tối đa là ${int.parse(controller.mainProvider.configMap?.maxMoneyUser ?? "999999999999").toCurrency()} trên 1 suất đầu tư",
+                                "Tối đa là ${int.parse(controller.mainProvider.configMap?.maxMoneyUser ?? "1000000000").toCurrency()} trên 1 suất đầu tư",
                             state: controller.pasMaxAmount.value,
                           ),
                         )),

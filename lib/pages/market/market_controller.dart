@@ -38,8 +38,6 @@ class MarketController extends BaseController
 
   @override
   void onReady() {
-    // getListCache();
-    // getListStock();
     getDataMarket();
     super.onReady();
   }
@@ -55,8 +53,11 @@ class MarketController extends BaseController
           listStock = result.data!;
           change(listStock, status: RxStatus.success());
         } else if (result.error != null) {
-          showSnackBar(result.error!.message);
-          change(listStock, status: RxStatus.error(result.error!.message));
+          if (listStock.isEmpty){
+            change(null, status: RxStatus.error(result.error!.message));
+          }else{
+            showSnackBar(result.error!.message);
+          }
         }
         hideDialog();
         subscribe();
@@ -105,20 +106,6 @@ class MarketController extends BaseController
     }
   }
 
-  Future getListCache() async {
-    showProgressingDialog();
-    final result = await _stockUseCase.getListCache();
-    hideDialog();
-    //print("res="+result.data.toString());
-    if (result.data != null) {
-      listStock = result.data!;
-      change(listStock, status: RxStatus.success());
-    } else if (result.error != null) {
-      showSnackBar(result.error!.message);
-      change(null, status: RxStatus.error(result.error!.message));
-    }
-  }
-
   Future getListStock() async {
     showProgressingDialog();
     final result = await _stockUseCase.getList();
@@ -127,8 +114,11 @@ class MarketController extends BaseController
       listStock = result.data!;
       change(listStock, status: RxStatus.success());
     } else if (result.error != null) {
-      showSnackBar(result.error!.message);
-      // change(null, status: RxStatus.error(result.error!.message));
+      if (listStock.isEmpty){
+        change(null, status: RxStatus.error(result.error!.message));
+      }else{
+        showSnackBar(result.error!.message);
+      }
     }
     subscribe();
   }

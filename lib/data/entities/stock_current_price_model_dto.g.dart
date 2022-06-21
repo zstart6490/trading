@@ -51,7 +51,7 @@ Map<String, dynamic> _$StockCurrentPriceModelDTOToJson(
     <String, dynamic>{
       'isProductWatching': instance.isProductWatching,
       'isAllowSell': instance.isAllowSell,
-      'symbol': instance.symbol,
+      'Symbol': instance.symbol,
       'imageUrl': instance.imageUrl,
       'stockName': instance.stockName,
       'TradingDate': instance.tradingDate,
