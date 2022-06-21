@@ -20,6 +20,7 @@ class ChartController extends BaseController
   final CandlestickChartController candlestickController = CandlestickChartController();
   ChartController(this.stock);
 
+  int timee = 1;
   @override
   void onInit() {
     tabController = TabController(length: timeRange.length, vsync: this);
@@ -43,8 +44,14 @@ class ChartController extends BaseController
   }
 
   Future<void> getHistoryStockPrice(String time) async {
+    //showProgressingDialog();
+    final time1 = new DateTime.now();
+    print("start time $timee: ${time1}");
     final result = await _stockMarketUseCase.getHistoryStockPrice(
         symbol: stock.symbol, type: time);
+    print("End time $timee: ${new DateTime.now()}");
+
+    timee+=1;
     if (result.data != null) {
       final length = result.data?.length ?? 0;
       final data = result.data!;
@@ -61,7 +68,7 @@ class ChartController extends BaseController
         );
         candles.add(candle);
       }
-      print("AAAA:  ${candles.length}");
+      //print("AAAA:  ${candles.length}");
 
       if (candles.length > 1) {
         //DUR_400.delay().then((_) => change(candles, status: RxStatus.success()));
@@ -78,9 +85,10 @@ class ChartController extends BaseController
       // }
 
     }
+    //hideDialog();
   }
 
-  void changeThem() {
+  void changeTheme() {
     themeIsDark.value = !themeIsDark.value;
   }
 }

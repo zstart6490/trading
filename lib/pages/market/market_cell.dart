@@ -100,7 +100,7 @@ class MarketCell extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.topRight,
-                      child: StockRatioChangeAnimated(ratioChange: stock.ratioChange),
+                      child: StockRatioChangeAnimated(stock: stock)
                     ),
                   ],
                 ),

@@ -54,6 +54,6 @@ extension ProductOwnToStock on ProductOwn {
         stockType: stockType,
         lastPrice: lastPrice,
         change: changePrice,
-        ratioChange: ratioChange);
+        ratioChange: ratioChange, ceiling: 0, floor: 0, refPrice: 0);
   }
 }
