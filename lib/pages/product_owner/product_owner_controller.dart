@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trading_module/cores/states/base_controller.dart';
@@ -79,42 +81,52 @@ class ProductOwnerController extends BaseController
   void onTapped(ProductOwn stock) {
     if (stock.quantity <= 0) {
       final subtitleStyle =
-          Get.context!.textSize14.copyWith(color: const Color(0xFF5C5C5C));
+          Get.context!.textSize12.copyWith(color: const Color(0xFF5C5C5C));
       showAlertDialog(CustomAlertDialog(
-          title: "Hiện chưa thể bán mã này",
-          descWidget: Column(children: [
-            "sell_stock_validation".pngImage(mWidth: 112,mHeight: 90),
-            RichText(
-              textAlign: TextAlign.center,
-              maxLines: 4,
-              text: TextSpan(
-                text: "Sau",
-                style: subtitleStyle,
-                children: <TextSpan>[
-                  TextSpan(
-                      text: " 2 ngày ",
-                      style: subtitleStyle.copyWith(color: Colors.green,fontWeight: FontWeight.bold)),
-                  TextSpan(
-                      text:
-                      "thực hiện giao dịch mua thành công, CP về tại tài khoản ",
-                      style:
-                      subtitleStyle.copyWith(color: const Color(0xFF5C5C5C))),
-                  TextSpan(
-                      text: "\"CP có thể bán\" ",
-                      style:
-                      subtitleStyle.copyWith(color: const Color(0xFF5C5C5C),fontWeight: FontWeight.bold)),
-                  TextSpan(
-                      text: "mới giao dịch bán được.\n",
-                      style:
-                      subtitleStyle.copyWith(color: const Color(0xFF5C5C5C))),
-                  TextSpan(
-                      text: "(Không kể thứ bảy, chủ nhật và ngày lễ)",
-                      style:
-                      subtitleStyle.copyWith(color: const Color(0xFF5C5C5C))),
-                ],
-              ),
-            )
-          ],),
+          descWidget: Column(
+            children: [
+              "sell_stock_validation".pngImage(mWidth: 132, mHeight: 100),
+               Text("Hiện chưa thể bán mã này",
+                  textAlign: TextAlign.center,
+                  style: Get.context!.textSize16.copyWith(
+                      fontFamily: 'iCielHelveticaNowText',
+                      color: const Color(0xFF333333),
+                      fontWeight: FontWeight.w700),),
+              SIZED_BOX_H06,
+              RichText(
+                textAlign: TextAlign.center,
+                maxLines: 4,
+                text: TextSpan(
+                  text: "Sau",
+                  style: subtitleStyle,
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: " 2 ngày ",
+                        style: subtitleStyle.copyWith(
+                            color: Colors.green, fontWeight: FontWeight.bold)),
+                    TextSpan(
+                        text:
+                            "thực hiện giao dịch mua thành công, CP về tại tài khoản ",
+                        style: subtitleStyle.copyWith(
+                            color: const Color(0xFF5C5C5C))),
+                    TextSpan(
+                        text: "\"CP có thể bán\" ",
+                        style: subtitleStyle.copyWith(
+                            color: const Color(0xFF5C5C5C),
+                            fontWeight: FontWeight.bold)),
+                    TextSpan(
+                        text: "mới giao dịch bán được.\n",
+                        style: subtitleStyle.copyWith(
+                            color: const Color(0xFF5C5C5C))),
+                    TextSpan(
+                        text: "(Không kể thứ bảy, chủ nhật và ngày lễ)",
+                        style: subtitleStyle.copyWith(
+                            color: const Color(0xFF5C5C5C))),
+                  ],
+                ),
+              )
+            ],
+          ),
           actions: [
             AlertAction(
                 text: "Tôi đã hiểu",
