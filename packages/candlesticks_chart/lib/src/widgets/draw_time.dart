@@ -1,7 +1,5 @@
-import 'dart:math';
 
 import 'package:candlesticks/src/models/candle.dart';
-import 'package:candlesticks/src/widgets/draw_time.dart';
 import 'package:flutter/material.dart';
 import '../models/candle.dart';
 
@@ -53,6 +51,8 @@ class CandleStickRenderObject extends RenderBox {
   late double _candleWidth;
   late double _close;
   final double bottomHeight = 30;
+
+
   CandleStickRenderObject(
       List<Candle> candles,
       int index,
@@ -62,6 +62,27 @@ class CandleStickRenderObject extends RenderBox {
 
     _index = index;
     _candleWidth = candleWidth;
+
+  }
+
+  Path getPath(double height, double x) {
+    final dashLinePath = Path();
+    const int dashWidth = 7;
+    const int dashSpace = 5;
+
+    double startY = height;
+
+
+      while (startY >0 + dashWidth ) {
+
+        dashLinePath.moveTo(x, startY);
+        dashLinePath.lineTo(x, startY - dashWidth);
+
+        startY -= dashWidth + dashSpace;
+      }
+
+      return dashLinePath;
+
   }
 
   /// set size as large as possible
@@ -74,20 +95,22 @@ class CandleStickRenderObject extends RenderBox {
   void paintCandle(PaintingContext context, Offset offset, int index, Candle candle, int indexData) {
 
     Paint line = Paint()
-      ..color = Color(0x59848E9C)
+      ..color = Color(0x6600B14F)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.7;
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 1;
 
     double x = size.width + offset.dx - (index + 0.5) * _candleWidth;
 
     late double date_height = size.height - 20;
     if(indexData >= 0) {
-
       final dateText = TextSpan(
         text: _candles[indexData].date.day.toString() + "/" +_candles[indexData].date.month.toString(),
         style:  TextStyle(
-          color: Colors.black,
-          fontSize: 12,
+          color: Color(0xFF9AA0A5),
+          fontWeight: FontWeight.w400,
+          fontSize: 14,
+          height: 16/14
         ),
       );
       final dateTextPainter = TextPainter(
@@ -102,7 +125,7 @@ class CandleStickRenderObject extends RenderBox {
       final montText = TextSpan(
         text: "Tháng " +_candles[indexData].date.month.toString(),
         style:  TextStyle(
-          color: Colors.black,
+          color: Color(0xFF9AA0A5),
           fontSize: 12,
         ),
       );
@@ -117,28 +140,29 @@ class CandleStickRenderObject extends RenderBox {
 
       var endLine = size.height - bottomHeight ;
       final int current_month = _candles[0].date.month;
+      var path = getPath(endLine, x);
 
       if(indexData < _candles.length - 1){
         if(_candleWidth <= 40 && _candleWidth > 30  && indexData % 2 ==0){
-          context.canvas.drawLine(Offset(x, 0), Offset(x,endLine), line);
+          context.canvas.drawPath(path, line);
           dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , date_height));
         }
-        else if(_candleWidth <= 30 && _candleWidth >= 8  && indexData % 5 ==0){
-          context.canvas.drawLine(Offset(x, 0), Offset(x,endLine), line);
+        else if(_candleWidth <= 30 && _candleWidth >= 12  && indexData % 5 ==0){
+          context.canvas.drawPath(path, line);
           dateTextPainter.paint(context.canvas, Offset(x - dateTextPainter.width/2 , date_height));
         }
         else if(_candles[indexData].date.month != _candles[indexData +1].date.month) {
-          if(_candleWidth < 8 && _candleWidth >= 4) {
-            context.canvas.drawLine(Offset(x, 0), Offset(x, endLine), line);
+          if(_candleWidth < 12 && _candleWidth >= 4) {
+            context.canvas.drawPath(path, line);
             monthTextPainter.paint(
                 context.canvas, Offset(x - monthTextPainter.width / 2, date_height));
           }
           else if(_candleWidth < 4 && _candleWidth > 1 && (_candles[indexData].date.month-current_month)%2 == 0){
-            context.canvas.drawLine(Offset(x, 0), Offset(x,endLine), line);
+            context.canvas.drawPath(path, line);
             monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width/2 , date_height));
           }
           else if(_candleWidth == 1 && (_candles[indexData].date.month-current_month)%3 == 0){
-            context.canvas.drawLine(Offset(x, 0), Offset(x,endLine), line);
+            context.canvas.drawPath(path, line);
             monthTextPainter.paint(context.canvas, Offset(x - monthTextPainter.width/2 , date_height));
           }
         }

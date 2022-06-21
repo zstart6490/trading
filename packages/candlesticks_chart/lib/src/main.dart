@@ -5,9 +5,7 @@ import 'package:candlesticks/src/theme/theme_data.dart';
 import 'package:candlesticks/src/widgets/draw_time.dart';
 import 'package:candlesticks/src/widgets/toolbar_action.dart';
 import 'package:candlesticks/src/widgets/mobile_chart.dart';
-import 'package:candlesticks/src/widgets/desktop_chart.dart';
 import 'package:candlesticks/src/widgets/toolbar.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'constant/view_constants.dart';
 import 'models/candle.dart';
@@ -85,7 +83,7 @@ class _CandlesticksState extends State<Candlesticks> {
     widget.controller?.addListener(() {
       setState(() {
         index= widget.controller?.index?? 0;
-        candleWidth = (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 8 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1;
+        candleWidth = (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1;
 
       });
     });
@@ -109,7 +107,7 @@ class _CandlesticksState extends State<Candlesticks> {
               candleWidth -= 2;
               candleWidth = max(
                   candleWidth,
-                  (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 8 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1
+                  (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1
               );
             });
           },
@@ -142,7 +140,7 @@ class _CandlesticksState extends State<Candlesticks> {
                         candleWidth = min(candleWidth, 40);
                         candleWidth = max(
                             candleWidth,
-                            (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 8 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1
+                            (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1
                         );
                       });
                     },

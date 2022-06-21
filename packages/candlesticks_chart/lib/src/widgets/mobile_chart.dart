@@ -6,11 +6,10 @@ import 'package:candlesticks/src/utils/helper_functions.dart';
 import 'package:candlesticks/src/widgets/candle_info_text.dart';
 import 'package:candlesticks/src/widgets/candle_stick_widget.dart';
 import 'package:candlesticks/src/widgets/draw_time.dart';
+import 'package:candlesticks/src/widgets/new_dash_line.dart';
 import 'package:candlesticks/src/widgets/price_column.dart';
-import 'package:candlesticks/src/widgets/time_row.dart';
 import 'package:flutter/material.dart';
 import '../models/candle.dart';
-import 'dash_line.dart';
 
 /// This widget manages gestures
 /// Calculates the highest and lowest price of visible candles.
@@ -272,11 +271,11 @@ class _MobileChartState extends State<MobileChart> {
                               top: longPressY! - 10,
                               child: Row(
                                 children: [
-                                  DashLine(
-                                    length: maxWidth,
-                                    color: Theme.of(context).grayColor,
+                                  NewDashLine(
                                     direction: Axis.horizontal,
-                                    thickness: 0.5,
+                                    color: Color(0xFF333333),
+                                    dashWidth: 5,
+                                    dashSpace: 3,
                                   ),
                                   Container(
                                     padding:EdgeInsets.symmetric(vertical: 2),
@@ -309,11 +308,13 @@ class _MobileChartState extends State<MobileChart> {
                                 height: maxHeight-20,
                                 // color: Theme.of(context).gold.withOpacity(0.2),
                                 alignment: Alignment.center,
-                                child: DashLine(
-                                  length: maxHeight-20,
-                                  thickness: 0.5,
-                                  color: Theme.of(context).grayColor,
-                                  direction: Axis.vertical,),
+                                child: NewDashLine(
+                                  direction: Axis.vertical,
+                                  color: Color(0xFF333333),
+                                  dashWidth: 5,
+                                  dashSpace: 3,
+                                ),
+
                               ),
                               right: (maxWidth - longPressX!) ~/ widget.candleWidth * widget.candleWidth + PRICE_BAR_WIDTH,
                             )
@@ -323,11 +324,11 @@ class _MobileChartState extends State<MobileChart> {
                             top: longPressY! - 10,
                             child: Row(
                               children: [
-                                DashLine(
-                                  length: maxWidth,
-                                  color: Theme.of(context).grayColor,
+                                NewDashLine(
                                   direction: Axis.horizontal,
-                                  thickness: 0.5,
+                                  color: Color(0xFF333333),
+                                  dashWidth: 5,
+                                  dashSpace: 3,
                                 ),
                                 Container(
                                   padding:EdgeInsets.symmetric(vertical: 2),
@@ -360,11 +361,13 @@ class _MobileChartState extends State<MobileChart> {
                               height: maxHeight-20,
                               // color: Theme.of(context).gold.withOpacity(0.2),
                               alignment: Alignment.center,
-                              child: DashLine(
-                                length: maxHeight-20,
-                                thickness: 0.5,
-                                color: Theme.of(context).grayColor,
-                                direction: Axis.vertical,),
+                              child: NewDashLine(
+                                  direction: Axis.vertical,
+                                  color: Color(0xFF333333),
+                                  dashWidth: 5,
+                                  dashSpace: 3,
+                              ),
+
                             ),
                             right: (maxWidth - longPressX!) ~/ widget.candleWidth * widget.candleWidth + PRICE_BAR_WIDTH,
                           )
@@ -412,12 +415,12 @@ class _MobileChartState extends State<MobileChart> {
                               longPressY = details.localPosition.dy;
                             });
                           },
-                          // onTapDown: (details){
-                          //   setState(() {
-                          //     longPressX = details.localPosition.dx;
-                          //     longPressY = details.localPosition.dy;
-                          //   });
-                          // },
+                          onTapDown: (details){
+                            setState(() {
+                              longPressX = details.localPosition.dx;
+                              longPressY = details.localPosition.dy;
+                            });
+                          },
                           // onTap: (){
                           //   setState(() {
                           //
