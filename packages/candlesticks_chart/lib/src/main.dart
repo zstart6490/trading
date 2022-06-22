@@ -79,12 +79,11 @@ class _CandlesticksState extends State<Candlesticks> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    candleWidth = (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1;
     widget.controller?.addListener(() {
       setState(() {
-        index= widget.controller?.index?? 0;
         candleWidth = (widget.candles.length <=7) ? 40 : (widget.candles.length <=30) ? 12 : (widget.candles.length <= 90) ? 4 : (widget.candles.length <=180) ? 2 : 1;
-
+        index= widget.controller?.index?? 0;
       });
     });
   }

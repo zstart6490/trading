@@ -421,6 +421,12 @@ class _MobileChartState extends State<MobileChart> {
                               longPressY = details.localPosition.dy;
                             });
                           },
+                          onDoubleTap: (){
+                            setState(() {
+                              longPressX = null;
+                              longPressY = null;
+                            });
+                          },
                           // onTap: (){
                           //   setState(() {
                           //
