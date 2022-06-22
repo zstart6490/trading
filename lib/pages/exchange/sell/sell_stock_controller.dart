@@ -158,7 +158,7 @@ class SellStockController extends ExchangeStockController {
                     ),
                     TextSpan(
                       text:
-                          " chưa bao gồm ${stockOrderInfo?.fee.toCurrency() ?? 0} phí bán và ${stockOrderInfo?.feePartner.toCurrency() ?? 0} phí giao dịch.",
+                          " chưa bao gồm ${feePartner.value.toCurrency()} phí bán và ${feeTransaction.value.toCurrency()} phí giao dịch.",
                     ),
                   ]),
             ),

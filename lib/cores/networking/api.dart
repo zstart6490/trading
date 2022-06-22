@@ -59,7 +59,7 @@ class Api extends GetConnect {
   }
 
   int countReLogin = 0;
-
+  String endPointLogin ="on-boarding/v1/login";
   /// FOR NETWORKING WITH THE [Method.GET]
   /// RETURN DATA WITH [Result] MODEL
   Future<Result> getData({
@@ -87,11 +87,15 @@ class Api extends GetConnect {
       final handlerResponse = await handlerResult(rs, endPoint: endPoint);
       if (handlerResponse.code == 401 &&
           !(handlerResponse.tikopException ?? false)) {
-        if (countReLogin < 1) {
-          countReLogin++;
-          return getData(endPoint: endPoint, params: params, timeOut: timeOut);
+        if (!endPoint.contains(endPointLogin)) {
+          //logic reload token and reload data
+          if (countReLogin < 1) {
+            countReLogin++;
+            return getData(
+                endPoint: endPoint, params: params, timeOut: timeOut);
+          }
+          countReLogin = 0;
         }
-        countReLogin = 0;
         await onSessionTimeout(rs);
         return rs;
       } else if (handlerResponse.code == 401 &&
@@ -158,11 +162,15 @@ class Api extends GetConnect {
       final handlerResponse = await handlerResult(rs, endPoint: endPoint);
       if (handlerResponse.code == 401 &&
           !(handlerResponse.tikopException ?? false)) {
-        if (countReLogin < 1) {
-          countReLogin++;
-          return postData(endPoint: endPoint, params: params, timeOut: timeOut);
+        //logic reload token and reload data
+        if (!endPoint.contains(endPointLogin)) {
+          if (countReLogin < 1) {
+            countReLogin++;
+            return postData(
+                endPoint: endPoint, params: params, timeOut: timeOut);
+          }
+          countReLogin = 0;
         }
-        countReLogin = 0;
         await onSessionTimeout(rs);
         return rs;
       } else if (handlerResponse.code == 401 &&
@@ -223,13 +231,17 @@ class Api extends GetConnect {
         );
       }
       final rs = Result.fromJson(res.bodyString!);
+
       final handlerResponse = await handlerResult(rs, endPoint: endPoint);
       if (handlerResponse.code == 401 &&
           !(handlerResponse.tikopException ?? false)) {
-        if (countReLogin < 1) {
-          countReLogin++;
-          return deleteData(
-              endPoint: endPoint, params: params, timeOut: timeOut);
+        //logic reload token and reload data
+        if (!endPoint.contains(endPointLogin)) {
+          if (countReLogin < 1) {
+            countReLogin++;
+            return deleteData(
+                endPoint: endPoint, params: params, timeOut: timeOut);
+          }
         }
         await onSessionTimeout(rs);
         countReLogin = 0;
@@ -303,8 +315,10 @@ class Api extends GetConnect {
       if (result.code == 401) {
         // onSessionTimeout(result);
         if (!(result.tikopException ?? false)) {
-          await Get.find<MainController>()
-              .refreshToken(() => refreshTokenSuccess());
+          if (!(endPoint ?? "").contains(endPointLogin)) {
+            await Get.find<MainController>()
+                .refreshToken(() => refreshTokenSuccess());
+          }
         }
         return Result(code: 401, tikopException: result.tikopException);
       } else if (result.code == SESSION_TIMEOUT_CODE) {

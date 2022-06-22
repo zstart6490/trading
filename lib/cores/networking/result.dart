@@ -18,7 +18,7 @@ class Result {
   final int? code;
   final dynamic data;
   final String? msg;
-  final bool? tikopException;
+  bool? tikopException;
 
   bool get hasError => !success && code != null;
 
