@@ -95,7 +95,7 @@ class StockSellTransactionDetailInfo extends StatelessWidget {
         ),
         CustomTableCell(
           title: "Khối lượng đặt",
-          detail: transaction.quantity.toString(),
+          detail: transaction.quantity.toStockQuantity(),
         ),
         CustomTableCell(
           title: "Giá đặt",

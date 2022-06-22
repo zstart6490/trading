@@ -9,6 +9,7 @@ class Result {
   Result({
     this.success = false,
     this.code,
+    this.tikopException,
     this.msg,
     this.data,
   });
@@ -17,6 +18,7 @@ class Result {
   final int? code;
   final dynamic data;
   final String? msg;
+  bool? tikopException;
 
   bool get hasError => !success && code != null;
 
