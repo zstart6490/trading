@@ -37,7 +37,6 @@ class ChartController extends BaseController
   }
 
   void onTabChange(int index) {
-    candlestickController.setIndex(-10);
     print("onTabChange:  $index");
     final time = timeRange[index];
     getHistoryStockPrice(time);
@@ -46,6 +45,7 @@ class ChartController extends BaseController
   Future<void> getHistoryStockPrice(String time) async {
     //showProgressingDialog();
     final time1 = new DateTime.now();
+    // change(null, status: RxStatus.loading());
     print("start time $timee: ${time1}");
     final result = await _stockMarketUseCase.getHistoryStockPrice(
         symbol: stock.symbol, type: time);
@@ -72,6 +72,7 @@ class ChartController extends BaseController
 
       if (candles.length > 1) {
         //DUR_400.delay().then((_) => change(candles, status: RxStatus.success()));
+        candlestickController.setIndex(-2);
         change(candles, status: RxStatus.success());
       } else {
         change(null, status: RxStatus.empty());
