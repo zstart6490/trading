@@ -41,7 +41,7 @@ class DrawDashLine extends CustomPainter {
         canvas.drawLine(
             Offset(startX, y), Offset(startX - dashWidth, y), paint);
 
-        startX -= dashWidth + dashSpace;
+        startX -= dashWidth + dashSpace +2;
       }
     }
     else {
@@ -49,7 +49,7 @@ class DrawDashLine extends CustomPainter {
         canvas.drawLine(
             Offset(x, startY), Offset(x, startY - dashWidth), paint);
 
-        startY -= dashWidth + dashSpace;
+        startY -= dashWidth + dashSpace +2;
       }
     }
   }

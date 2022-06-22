@@ -274,8 +274,8 @@ class _MobileChartState extends State<MobileChart> {
                                   NewDashLine(
                                     direction: Axis.horizontal,
                                     color: Color(0xFF333333),
-                                    dashWidth: 5,
-                                    dashSpace: 3,
+                                    dashWidth: 4,
+                                    dashSpace: 2,
                                   ),
                                   Container(
                                     padding:EdgeInsets.symmetric(vertical: 2),
@@ -311,8 +311,8 @@ class _MobileChartState extends State<MobileChart> {
                                 child: NewDashLine(
                                   direction: Axis.vertical,
                                   color: Color(0xFF333333),
-                                  dashWidth: 5,
-                                  dashSpace: 3,
+                                  dashWidth: 4,
+                                  dashSpace: 2,
                                 ),
 
                               ),
@@ -327,8 +327,8 @@ class _MobileChartState extends State<MobileChart> {
                                 NewDashLine(
                                   direction: Axis.horizontal,
                                   color: Color(0xFF333333),
-                                  dashWidth: 5,
-                                  dashSpace: 3,
+                                  dashWidth: 4,
+                                  dashSpace: 2,
                                 ),
                                 Container(
                                   padding:EdgeInsets.symmetric(vertical: 2),
@@ -364,8 +364,8 @@ class _MobileChartState extends State<MobileChart> {
                               child: NewDashLine(
                                   direction: Axis.vertical,
                                   color: Color(0xFF333333),
-                                  dashWidth: 5,
-                                  dashSpace: 3,
+                                  dashWidth: 4,
+                                  dashSpace: 2,
                               ),
 
                             ),

@@ -38,7 +38,7 @@ class ChartController extends BaseController
   void onTabChange(int index) {
     print("onTabChange:  $index");
     final time = timeRange[index];
-    change(null, status: RxStatus.loading());
+    // change(null, status: RxStatus.loading());
     getHistoryStockPrice(time);
 
   }
