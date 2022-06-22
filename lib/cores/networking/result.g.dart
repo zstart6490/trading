@@ -9,6 +9,7 @@ part of 'result.dart';
 Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       success: json['success'] as bool? ?? false,
       code: json['code'] as int?,
+      tikopException: json['tikopException'] as bool?,
       msg: json['msg'] as String?,
       data: json['data'],
     );
