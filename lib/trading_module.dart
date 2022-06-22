@@ -20,6 +20,7 @@ import 'package:trading_module/routes/app_routes.dart';
 import 'package:trading_module/theme/app_theme.dart';
 import 'package:trading_module/utils/enums.dart';
 
+
 enum CallbackType {
   resultEKYC,
   resultActiveSmartOTP,

@@ -83,16 +83,22 @@ class Api extends GetConnect {
           bodyString: res.bodyString,
         );
       }
-      final handlerResponse = await handlerResult(
-          Result.fromJson(res.bodyString!),
-          endPoint: endPoint);
-      if (handlerResponse.code == 401) {
-        if (countReLogin < 3) {
+      final rs = Result.fromJson(res.bodyString!);
+      final handlerResponse = await handlerResult(rs, endPoint: endPoint);
+      if (handlerResponse.code == 401 &&
+          !(handlerResponse.tikopException ?? false)) {
+        if (countReLogin < 1) {
           countReLogin++;
           return getData(endPoint: endPoint, params: params, timeOut: timeOut);
         }
         countReLogin = 0;
-        return handlerResponse;
+        await onSessionTimeout(rs);
+        return rs;
+      } else if (handlerResponse.code == 401 &&
+          (handlerResponse.tikopException ?? false)) {
+        countReLogin = 0;
+        await onSessionTimeout(rs);
+        return rs;
       }
       countReLogin = 0;
       return handlerResponse;
@@ -148,16 +154,22 @@ class Api extends GetConnect {
           bodyString: res.bodyString,
         );
       }
-      final handlerResponse = await handlerResult(
-          Result.fromJson(res.bodyString!),
-          endPoint: endPoint);
-      if (handlerResponse.code == 401) {
-        if (countReLogin < 3) {
+      final rs = Result.fromJson(res.bodyString!);
+      final handlerResponse = await handlerResult(rs, endPoint: endPoint);
+      if (handlerResponse.code == 401 &&
+          !(handlerResponse.tikopException ?? false)) {
+        if (countReLogin < 1) {
           countReLogin++;
           return postData(endPoint: endPoint, params: params, timeOut: timeOut);
         }
         countReLogin = 0;
-        return handlerResponse;
+        await onSessionTimeout(rs);
+        return rs;
+      } else if (handlerResponse.code == 401 &&
+          (handlerResponse.tikopException ?? false)) {
+        await onSessionTimeout(rs);
+        countReLogin = 0;
+        return rs;
       }
       countReLogin = 0;
       return handlerResponse;
@@ -210,16 +222,23 @@ class Api extends GetConnect {
           bodyString: res.bodyString,
         );
       }
-      final handlerResponse = await handlerResult(
-          Result.fromJson(res.bodyString!),
-          endPoint: endPoint);
-      if (handlerResponse.code == 401) {
-        if (countReLogin < 3) {
+      final rs = Result.fromJson(res.bodyString!);
+      final handlerResponse = await handlerResult(rs, endPoint: endPoint);
+      if (handlerResponse.code == 401 &&
+          !(handlerResponse.tikopException ?? false)) {
+        if (countReLogin < 1) {
           countReLogin++;
-          return deleteData(endPoint: endPoint, params: params, timeOut: timeOut);
+          return deleteData(
+              endPoint: endPoint, params: params, timeOut: timeOut);
         }
+        await onSessionTimeout(rs);
         countReLogin = 0;
-        return handlerResponse;
+        return rs;
+      } else if (handlerResponse.code == 401 &&
+          (handlerResponse.tikopException ?? false)) {
+        countReLogin = 0;
+        await onSessionTimeout(rs);
+        return rs;
       }
       countReLogin = 0;
       return handlerResponse;
@@ -283,13 +302,16 @@ class Api extends GetConnect {
     if (!result.success) {
       if (result.code == 401) {
         // onSessionTimeout(result);
-        await Get.find<MainController>()
-            .refreshToken(() => refreshTokenSuccess());
-        return Result(code: 401);
+        if (!(result.tikopException ?? false)) {
+          await Get.find<MainController>()
+              .refreshToken(() => refreshTokenSuccess());
+        }
+        return Result(code: 401, tikopException: result.tikopException);
       } else if (result.code == SESSION_TIMEOUT_CODE) {
         //UNAUTHORIZED
-        Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
-        return Result(code: 401);
+        // Get.find<MainController>().refreshToken(() => refreshTokenSuccess());
+        // return Result(code: 402);
+        return Result(code: 401, tikopException: result.tikopException);
       } else if (result.code == BLOCK_OTP_1_CODE ||
           result.code == BLOCK_OTP_2_CODE) {
         onBlockOTP(result, endPoint: endPoint);
@@ -334,22 +356,19 @@ class Api extends GetConnect {
   }
 
   Future onSessionTimeout(Result result) async {
-    // final dialog = CustomAlertDialog(
-    //   desc: result.error?.message,
-    //   actions: [
-    //     AlertAction(
-    //         text: "Đã hiểu",
-    //         isDefaultAction: true,
-    //         onPressed: () {
-    //           Get.back();
-    //           TradingModule.clearCache();
-    //           Get.find<MainTradingProvider>().callToSignIn?.call();
-    //         })
-    //   ],
-    // );
-    // _showMessageDialog(dialog, name: "SessionTimeout", canDissmiss: false);
+    final dialog = CustomAlertDialog(
+      desc: "Phiên đăng nhập đã hết hạn.\n Vui lòng đăng nhập lại",
+      actions: [
+        AlertAction.ok(() {
+          Get.back();
+          TradingModule.clearCache();
+          Get.find<MainTradingProvider>().callToSignIn?.call();
+        })
+      ],
+    );
+    _showMessageDialog(dialog, name: "SessionTimeout", canDissmiss: false);
     TradingModule.clearCache();
-    await Get.find<MainController>().getDataLogin();
+    // await Get.find<MainController>().getDataLogin();
   }
 
   void _showMessageDialog(Widget dialog,

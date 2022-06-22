@@ -31,7 +31,7 @@ class MainController extends BaseController {
       if (kDebugMode) {
         print("TradingToken=$accessToken");
       }
-      Get.toNamed(AppRoutes.mainView,preventDuplicates: false);
+      Get.toNamed(AppRoutes.mainView, preventDuplicates: false);
     } else {
       //print("clearCache accessToken22");
       mainProvider.imageCacheManager.emptyCache();
@@ -50,7 +50,8 @@ class MainController extends BaseController {
             }
           ]);
         } else if (dataLogin?.nextScreen == "CONFIRM") {
-          mainProvider.callToActiveOTP?.call(TradingSmartOTPType.registerTrading);
+          mainProvider.callToActiveOTP
+              ?.call(TradingSmartOTPType.registerTrading);
         } else if (dataLogin?.nextScreen == "HOME") {
           //To Home
           mainProvider.accessToken = dataLogin?.token;
@@ -59,7 +60,9 @@ class MainController extends BaseController {
           Get.toNamed(AppRoutes.mainView);
         }
       }
-      if (respData.error != null) {
+      if (respData.error != null &&
+          respData.error?.code != 401 &&
+          respData.error?.code != 402) {
         handleErrorResponse(respData.error);
       }
     }
