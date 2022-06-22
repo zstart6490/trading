@@ -5,12 +5,14 @@ class DrawDashLine extends CustomPainter {
   final Color color;
   final double dashWidth;
   final double dashSpace;
+  final double width;
 
   const DrawDashLine({
     required this.direction,
     required this.color,
     required this.dashWidth,
     required this.dashSpace,
+    required this.width
   });
 
   @override
@@ -18,7 +20,7 @@ class DrawDashLine extends CustomPainter {
     final Paint paint = Paint()
     ..color = color
     ..strokeCap = StrokeCap.round
-    ..strokeWidth = 1;
+    ..strokeWidth = width;
 
     _drawDashedLine(canvas, size, paint);
   }

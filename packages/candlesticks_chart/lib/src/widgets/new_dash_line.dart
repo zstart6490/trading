@@ -6,11 +6,13 @@ class NewDashLine extends StatelessWidget {
   final Color color;
   final double dashWidth;
   final double dashSpace;
+  final double? width;
   const NewDashLine({
     required this.direction,
     required this.color,
     required this.dashWidth,
     required this.dashSpace,
+    this.width,
   });
 
   @override
@@ -23,7 +25,9 @@ class NewDashLine extends StatelessWidget {
             direction: direction,
             color: color,
             dashWidth: dashWidth,
-            dashSpace: dashSpace
+            dashSpace: dashSpace,
+            width: width??1,
+
         ),
       ),
     );

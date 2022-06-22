@@ -98,7 +98,7 @@ class CandleStickRenderObject extends RenderBox {
       ..color = Color(0x6600B14F)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 1;
+      ..strokeWidth = 0.7;
 
     double x = size.width + offset.dx - (index + 0.5) * _candleWidth;
 

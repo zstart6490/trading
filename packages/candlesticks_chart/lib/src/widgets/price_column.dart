@@ -82,6 +82,7 @@ class _PriceColumnState extends State<PriceColumn> {
                               color: Color(0x6600B14F),
                               dashWidth: 7,
                               dashSpace: 5,
+                              width: 0.7,
                             ),
                             Expanded(
                               child: Text(
